@@ -3,6 +3,14 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["src/lib/*"],
+      "@ui/*": ["src/components/ui/*"]
+    },
     "jsx": "react-jsx",
     "rootDir": "./src",
     "declaration": true,

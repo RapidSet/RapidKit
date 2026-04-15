@@ -39,6 +39,8 @@
 - Treat public prop signatures as stable contracts.
 - Avoid unplanned breaking API changes.
 - Design props to be domain-neutral and reusable across applications.
+- Components are wrappers over shadcn library components
+- Prefer neutral authorization naming in public props (for example, `accessRequirements` and `resolveAccess`) instead of policy-specific names.
 
 ## TypeScript Rules
 
@@ -60,11 +62,19 @@
 - Prefer lightweight utility dependencies.
 - Use headless primitive libraries only when they improve accessibility and maintenance.
 
+## Shadcn Workflow Rules
+
+- Use the local shadcn CLI workflow for UI primitives: `pnpm ui:add <component> --yes`.
+- Keep generated shadcn primitives in `src/components/ui` and compose package components from those primitives.
+- Keep `components.json`, `tailwind.config.ts`, `postcss.config.js`, and `src/styles.css` aligned with shadcn setup.
+- Favor workspace-relative imports for internal modules unless path aliases are explicitly configured in TypeScript and bundler config.
+
 ## Interaction And State Rules
 
 - Keep async fetching and business workflows outside core primitives.
 - For permission, policy, or feature-flag behavior, use injectable props/callbacks rather than direct app integrations.
 - Avoid hidden global state access inside component internals.
+- Keep access checks injectable and optional so components remain usable in apps with different access-control systems.
 
 ## Accessibility Rules
 
@@ -79,6 +89,8 @@
 - Use interaction tests for keyboard and focus flows.
 - Prefer explicit assertions over snapshots.
 - Mock external adapters/dependencies at boundaries to keep unit tests deterministic.
+- Standardize tests on Vitest with `happy-dom` and Testing Library.
+- Avoid matcher assumptions that require additional setup unless that setup is committed (for example, prefer plain assertions when `jest-dom` is not configured).
 
 ## Packaging Rules
 
@@ -86,6 +98,14 @@
 - Maintain a clear exports map and intentional `sideEffects` metadata.
 - Ensure consumers can use the package without repository-specific path aliases.
 - Validate package quality with lint, type-check, tests, and build before release.
+
+## Release Checklist Commands
+
+- Run `pnpm lint` before merging package changes.
+- Run `pnpm tsc --noEmit` to validate public and internal TypeScript contracts.
+- Run `pnpm test` for behavior verification.
+- Run `pnpm build` before publishing to verify distributable output.
+- If any command fails, treat the change as incomplete until the failure is resolved or explicitly documented.
 
 ## Release Rules
 
