@@ -1,16 +1,13 @@
-import { defineConfig } from "vitest/config";
-import path from "node:path";
+import { defineConfig } from 'vitest/config';
+import { createWorkspaceAliases } from './config/aliases';
 
 export default defineConfig({
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@components": path.resolve(__dirname, "src/components"),
-      "@lib": path.resolve(__dirname, "src/lib"),
-      "@ui": path.resolve(__dirname, "src/components/ui"),
-    },
+    alias: createWorkspaceAliases(__dirname),
   },
   test: {
-    environment: "happy-dom",
+    environment: 'happy-dom',
+    include: ['src/**/*.test.{ts,tsx}'],
+    exclude: ['tests/ct/**', 'playwright/**'],
   },
 });
