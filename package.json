@@ -11,20 +11,25 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/style.css"
+    "./styles.css": "./dist/index.css",
+    "./themes/*": "./dist/themes/*"
   },
   "files": [
     "dist",
     "ai",
     "docs/CONTRIBUTING.md",
     "docs/ARCHITECTURE.md",
+    "docs/THEMING.md",
     ".github/copilot-instructions.md",
     "README.md"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/copy-theme-assets.mjs",
     "validate:contracts": "node scripts/validate-contracts.mjs",
+    "theme:list": "node scripts/theme-list.mjs",
+    "theme:apply": "node scripts/theme-apply.mjs",
+    "theme:create": "node scripts/theme-create.mjs",
     "lint": "eslint src --max-warnings 0",
     "lint:fix": "eslint src --fix",
     "test": "vitest run",

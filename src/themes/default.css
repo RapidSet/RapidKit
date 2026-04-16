@@ -1,0 +1,44 @@
+:root {
+  --mz-background: 0 0% 100%;
+  --mz-foreground: 222.2 84% 4.9%;
+  --mz-card: 0 0% 100%;
+  --mz-card-foreground: 222.2 84% 4.9%;
+  --mz-popover: 0 0% 100%;
+  --mz-popover-foreground: 222.2 84% 4.9%;
+  --mz-primary: 221.2 83.2% 53.3%;
+  --mz-primary-foreground: 210 40% 98%;
+  --mz-secondary: 210 40% 96.1%;
+  --mz-secondary-foreground: 222.2 47.4% 11.2%;
+  --mz-muted: 210 40% 96.1%;
+  --mz-muted-foreground: 215.4 16.3% 46.9%;
+  --mz-accent: 210 40% 96.1%;
+  --mz-accent-foreground: 222.2 47.4% 11.2%;
+  --mz-destructive: 0 84.2% 60.2%;
+  --mz-destructive-foreground: 210 40% 98%;
+  --mz-border: 214.3 31.8% 91.4%;
+  --mz-input: 214.3 31.8% 91.4%;
+  --mz-ring: 221.2 83.2% 53.3%;
+  --mz-radius: 0.5rem;
+}
+
+.dark {
+  --mz-background: 222.2 84% 4.9%;
+  --mz-foreground: 210 40% 98%;
+  --mz-card: 222.2 84% 4.9%;
+  --mz-card-foreground: 210 40% 98%;
+  --mz-popover: 222.2 84% 4.9%;
+  --mz-popover-foreground: 210 40% 98%;
+  --mz-primary: 217.2 91.2% 59.8%;
+  --mz-primary-foreground: 222.2 47.4% 11.2%;
+  --mz-secondary: 217.2 32.6% 17.5%;
+  --mz-secondary-foreground: 210 40% 98%;
+  --mz-muted: 217.2 32.6% 17.5%;
+  --mz-muted-foreground: 215 20.2% 65.1%;
+  --mz-accent: 217.2 32.6% 17.5%;
+  --mz-accent-foreground: 210 40% 98%;
+  --mz-destructive: 0 62.8% 30.6%;
+  --mz-destructive-foreground: 210 40% 98%;
+  --mz-border: 217.2 32.6% 17.5%;
+  --mz-input: 217.2 32.6% 17.5%;
+  --mz-ring: 224.3 76.3% 48%;
+}

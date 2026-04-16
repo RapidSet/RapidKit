@@ -193,4 +193,14 @@ describe('Input', () => {
     fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
     expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
+
+  it('keeps semantic token utility classes for theme compatibility', () => {
+    renderInput({ name: 'themeField' });
+
+    const className = screen.getByRole('textbox').className;
+    expect(className).toContain('bg-background');
+    expect(className).toContain('border-input');
+    expect(className).toContain('ring-offset-background');
+    expect(className).toContain('focus-visible:ring-ring');
+  });
 });

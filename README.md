@@ -58,6 +58,7 @@ This package expects the following peer dependencies in consumer applications:
 ```tsx
 import { Input } from '@tarikukebede/mezmer';
 import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/default.css';
 
 function Example() {
   return (
@@ -97,9 +98,33 @@ Common optional props:
 
 ## Styling
 
-- Global package styles are shipped via styles.css.
-- Import styles once in the consuming application entrypoint.
-- Components are composed with local shadcn primitives and utility-based class composition.
+- Global package styles are shipped via `styles.css`.
+- Pre-built themes are shipped via `themes/default.css` and `themes/slate.css`.
+- Import base styles once, then import exactly one built-in theme (or your custom theme) after it.
+- Components remain semantic-token driven so host apps can override tokens without changing component code.
+
+### Theme Commands (AI-Friendly)
+
+List available themes in machine-readable JSON:
+
+```bash
+pnpm theme:list
+```
+
+Switch the active theme used by the library workspace:
+
+```bash
+pnpm theme:apply --theme default
+pnpm theme:apply --theme slate --mode dark
+```
+
+Scaffold a new custom theme from an existing base theme:
+
+```bash
+pnpm theme:create --id brand-x --from default
+```
+
+Theme metadata and active selection are stored in `ai/contracts/themes/*` and `ai/theme.active.json` for deterministic AI workflows.
 
 ## Access Control Model
 
