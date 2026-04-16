@@ -12,6 +12,7 @@
       "@ui/*": ["src/components/ui/*"]
     },
     "jsx": "react-jsx",
+    "types": ["node"],
     "rootDir": "./src",
     "declaration": true,
     "declarationMap": true,
