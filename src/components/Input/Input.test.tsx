@@ -1,195 +1,196 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Input } from "./Input";
+import type * as React from 'react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { Input } from './Input';
 
-let canView = true;
-let canEdit = true;
+let allowsRead = true;
+let allowsWrite = true;
 
-const resolveAccess = vi.fn((_: string, mode: "view" | "edit") =>
-  mode === "view" ? canView : canEdit,
+const resolveAccess = vi.fn((_: string, mode: 'view' | 'edit') =>
+  mode === 'view' ? allowsRead : allowsWrite,
 );
 
-describe("Input", () => {
+const renderInput = (
+  overrides: Partial<React.ComponentProps<typeof Input>> = {},
+) => {
+  const onChange = vi.fn();
+
+  render(<Input name="field" value="" onChange={onChange} {...overrides} />);
+
+  return { onChange };
+};
+
+describe('Input', () => {
   afterEach(() => {
     cleanup();
   });
 
   beforeEach(() => {
-    canView = true;
-    canEdit = true;
+    allowsRead = true;
+    allowsWrite = true;
     resolveAccess.mockClear();
   });
 
-  it("renders label, required marker, and value", () => {
-    render(
-      <Input
-        name="fullName"
-        label="Full Name"
-        required
-        value="John Doe"
-        onChange={vi.fn()}
-      />,
-    );
+  it('renders label, required marker, and value', () => {
+    renderInput({
+      name: 'fullName',
+      label: 'Full Name',
+      required: true,
+      value: 'John Doe',
+    });
 
-    expect(screen.getByText("Full Name")).toBeTruthy();
-    expect(screen.getByText("*")).toBeTruthy();
+    expect(screen.getByText('Full Name')).toBeTruthy();
+    expect(screen.getByText('*')).toBeTruthy();
     expect(
-      (screen.getByRole("textbox", { name: /full name/i }) as HTMLInputElement)
+      (screen.getByRole('textbox', { name: /full name/i }) as HTMLInputElement)
         .value,
-    ).toBe("John Doe");
+    ).toBe('John Doe');
   });
 
-  it("calls onChange when user types", () => {
-    const onChange = vi.fn();
+  it('calls onChange when user types', () => {
+    const { onChange } = renderInput({ name: 'email' });
 
-    render(<Input name="email" value="" onChange={onChange} />);
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "a@example.com" },
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'a@example.com' },
     });
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange.mock.calls[0][0].type).toBe("change");
+    expect(onChange.mock.calls[0][0].type).toBe('change');
   });
 
-  it("renders helper text when provided and no error", () => {
-    render(
-      <Input
-        name="phone"
-        value=""
-        helperText="Include country code"
-        onChange={vi.fn()}
-      />,
-    );
+  it('renders helper text when provided and no error', () => {
+    renderInput({ name: 'phone', helperText: 'Assistive note' });
 
-    expect(screen.getByText("Include country code")).toBeTruthy();
+    expect(screen.getByText('Assistive note')).toBeTruthy();
   });
 
-  it("renders helper text and error text together when both are provided", () => {
-    render(
-      <Input
-        name="username"
-        value=""
-        helperText="Use your company handle"
-        error="Username is required"
-        onChange={vi.fn()}
-      />,
-    );
+  it('renders helper text and error text together when both are provided', () => {
+    renderInput({
+      name: 'username',
+      helperText: 'Assistive note',
+      error: 'This field is required',
+    });
 
-    expect(screen.getByText("Use your company handle")).toBeTruthy();
-    expect(screen.getByText("Username is required")).toBeTruthy();
+    expect(screen.getByText('Assistive note')).toBeTruthy();
+    expect(screen.getByText('This field is required')).toBeTruthy();
   });
 
-  it("renders error text and error class", () => {
-    render(
-      <Input
-        name="employeeId"
-        value=""
-        error="Employee ID is required"
-        onChange={vi.fn()}
-      />,
-    );
+  it('renders error text and error class', () => {
+    renderInput({ name: 'fieldWithError', error: 'Invalid value' });
 
-    expect(screen.getByText("Employee ID is required")).toBeTruthy();
-    expect(screen.getByRole("textbox").className).toContain(
-      "border-destructive",
+    expect(screen.getByText('Invalid value')).toBeTruthy();
+    expect(screen.getByRole('textbox').className).toContain(
+      'border-destructive',
     );
-    expect(screen.getByRole("textbox").getAttribute("aria-invalid")).toBe(
-      "true",
+    expect(screen.getByRole('textbox').getAttribute('aria-invalid')).toBe(
+      'true',
     );
   });
 
-  it("renders normally when access requirements are omitted", () => {
-    render(<Input name="nickname" value="mez" onChange={vi.fn()} />);
+  it('keeps input enabled when access checks are omitted', () => {
+    renderInput({ name: 'nickname', value: 'mez' });
 
-    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(
+    expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
       false,
     );
-    expect((screen.getByDisplayValue("mez") as HTMLInputElement).value).toBe(
-      "mez",
+    expect((screen.getByDisplayValue('mez') as HTMLInputElement).value).toBe(
+      'mez',
     );
   });
 
-  it("renders normally when access requirements are empty", () => {
-    canView = false;
-    canEdit = false;
+  it('keeps input enabled when access checks are empty', () => {
+    allowsRead = false;
+    allowsWrite = false;
 
-    render(
-      <Input
-        name="alias"
-        value="mez"
-        accessRequirements={[]}
-        resolveAccess={resolveAccess}
-        onChange={vi.fn()}
-      />,
-    );
+    renderInput({
+      name: 'alias',
+      value: 'mez',
+      accessRequirements: [],
+      resolveAccess,
+    });
 
-    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(
+    expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
       false,
     );
     expect(resolveAccess).not.toHaveBeenCalled();
   });
 
-  it("does not render when user has no view permission", () => {
-    canView = false;
+  it('hides input when read access is denied', () => {
+    allowsRead = false;
 
     const { container } = render(
       <Input
-        name="secureField"
-        value="secret"
-        accessRequirements={["resource:view"]}
+        name="hiddenField"
+        value="value"
+        accessRequirements={['control.read']}
         resolveAccess={resolveAccess}
         onChange={vi.fn()}
       />,
     );
 
     expect(container.firstChild).toBeNull();
-    expect(resolveAccess).toHaveBeenCalledWith("resource:view", "view");
-    expect(resolveAccess).not.toHaveBeenCalledWith("resource:view", "edit");
+    expect(resolveAccess).toHaveBeenCalledWith('control.read', 'view');
+    expect(resolveAccess).not.toHaveBeenCalledWith('control.read', 'edit');
   });
 
-  it("renders read-only (disabled) when user can view but cannot edit", () => {
-    canView = true;
-    canEdit = false;
+  it('keeps input enabled when requirements exist but resolver is missing', () => {
+    renderInput({
+      name: 'fallbackField',
+      value: 'open',
+      accessRequirements: ['control.read'],
+    });
 
-    render(
-      <Input
-        name="readonlyField"
-        value="locked"
-        accessRequirements={["resource:update"]}
-        resolveAccess={resolveAccess}
-        onChange={vi.fn()}
-      />,
+    expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
+      false,
     );
+  });
 
-    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(
+  it('disables input when read is allowed but write is denied', () => {
+    allowsRead = true;
+    allowsWrite = false;
+
+    renderInput({
+      name: 'readonlyField',
+      value: 'locked',
+      accessRequirements: ['control.write'],
+      resolveAccess,
+    });
+
+    expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
       true,
     );
-    expect(resolveAccess).toHaveBeenCalledWith("resource:update", "view");
-    expect(resolveAccess).toHaveBeenCalledWith("resource:update", "edit");
+    expect(resolveAccess).not.toHaveBeenCalledWith('control.write', 'view');
+    expect(resolveAccess).toHaveBeenCalledWith('control.write', 'edit');
   });
 
-  it("keeps the input disabled when disabled is passed explicitly", () => {
-    canView = true;
-    canEdit = true;
+  it('keeps the input disabled when disabled is passed explicitly', () => {
+    allowsRead = true;
+    allowsWrite = true;
 
-    render(
-      <Input name="disabledField" value="locked" disabled onChange={vi.fn()} />,
-    );
+    renderInput({ name: 'disabledField', value: 'locked', disabled: true });
 
-    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(
+    expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
       true,
     );
   });
 
-  it("stops keydown propagation on the input element", () => {
+  it('stops keydown propagation on the input element', () => {
     const onKeyDown = vi.fn();
-    document.body.addEventListener("keydown", onKeyDown);
+    document.body.addEventListener('keydown', onKeyDown);
 
-    render(<Input name="search" value="" onChange={vi.fn()} />);
-    fireEvent.keyDown(screen.getByRole("textbox"), { key: "Enter" });
+    renderInput({ name: 'search' });
+    fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
 
     expect(onKeyDown).not.toHaveBeenCalled();
-    document.body.removeEventListener("keydown", onKeyDown);
+    document.body.removeEventListener('keydown', onKeyDown);
+  });
+
+  it('still calls consumer onKeyDown after stopping propagation', () => {
+    const onKeyDown = vi.fn();
+
+    renderInput({ name: 'searchWithHandler', onKeyDown });
+
+    fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 });
