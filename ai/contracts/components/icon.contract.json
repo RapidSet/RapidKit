@@ -1,0 +1,32 @@
+{
+  "component": "Icon",
+  "version": "1.0.0",
+  "source": "src/components/Icon",
+  "description": "Thin wrapper around Lucide icon components with typed prop forwarding.",
+  "capabilities": {
+    "iconRendering": true,
+    "propForwarding": true,
+    "classNameStyling": true
+  },
+  "props": {
+    "icon": {
+      "type": "LucideIcon",
+      "required": true
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "states": {
+    "rendersGivenIcon": "true",
+    "forwardsIconProps": "true"
+  },
+  "accessibility": {
+    "consumerAriaPropsForwarded": "true"
+  },
+  "interaction": {
+    "wrapperIsStateless": "true"
+  },
+  "tests": ["src/components/Icon/Icon.test.tsx"]
+}

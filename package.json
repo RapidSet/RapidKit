@@ -19,6 +19,7 @@
     "ai",
     "docs/CONTRIBUTING.md",
     "docs/ARCHITECTURE.md",
+    "docs/COMPONENTS.md",
     "docs/THEMING.md",
     ".github/copilot-instructions.md",
     "README.md"
@@ -26,7 +27,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && node scripts/copy-theme-assets.mjs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "validate:contracts": "node scripts/validate-contracts.mjs",
+    "validate:component-docs": "node scripts/validate-component-docs.mjs",
     "theme:list": "node scripts/theme-list.mjs",
     "theme:apply": "node scripts/theme-apply.mjs",
     "theme:create": "node scripts/theme-create.mjs",
@@ -75,6 +80,7 @@
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
     "tailwind-merge": "^3.3.1"
   },
   "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf",
@@ -85,11 +91,12 @@
     "@playwright/experimental-ct-react": "^1.59.1",
     "@playwright/test": "^1.59.1",
     "@rolldown/binding-darwin-arm64": "1.0.0-rc.15",
+    "@tanstack/react-table": "^8.21.3",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^5.2.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
@@ -107,8 +114,9 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.46.1",
-    "vite": "^8.0.8",
+    "vite": "^7.3.2",
     "vite-plugin-dts": "^4.5.4",
+    "vitepress": "^1.6.4",
     "vitest": "^4.1.4"
   },
   "lint-staged": {

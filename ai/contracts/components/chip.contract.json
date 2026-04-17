@@ -1,0 +1,67 @@
+{
+  "component": "Chip",
+  "version": "1.0.0",
+  "source": "src/components/Chip",
+  "description": "Compact status chip with optional icon, size and style variants, and removable interaction.",
+  "capabilities": {
+    "chipRendering": true,
+    "sizeVariants": true,
+    "iconRendering": true,
+    "removableInteraction": true,
+    "propForwarding": true,
+    "accessControl": true
+  },
+  "props": {
+    "label": {
+      "type": "string",
+      "required": false
+    },
+    "variant": {
+      "type": "\"primary\" | \"secondary\" | \"outline\"",
+      "required": false,
+      "default": "\"primary\""
+    },
+    "size": {
+      "type": "\"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "default": "\"md\""
+    },
+    "icon": {
+      "type": "LucideIcon",
+      "required": false
+    },
+    "pulse": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "onRemove": {
+      "type": "() => void",
+      "required": false
+    },
+    "accessRequirements": {
+      "type": "string[]",
+      "required": false
+    },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "rendersLabelWhenProvided": "true",
+    "rendersIconWhenProvided": "true",
+    "rendersRemoveButtonWhenOnRemoveProvided": "true",
+    "hidesRemoveButtonWhenOnRemoveMissing": "true",
+    "hiddenWhenReadDenied": "true",
+    "removeDisabledWhenEditDenied": "true"
+  },
+  "accessibility": {
+    "removeButtonHasAriaLabel": "true"
+  },
+  "interaction": {
+    "removeStopsPropagation": "true",
+    "removeCallbackInvoked": "true"
+  },
+  "tests": ["src/components/Chip/Chip.test.tsx"]
+}

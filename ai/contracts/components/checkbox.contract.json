@@ -1,0 +1,43 @@
+{
+  "component": "Checkbox",
+  "version": "1.0.0",
+  "source": "src/components/Checkbox",
+  "description": "A theme-aware checkbox input with optional label, helper text, error state, and injectable access control.",
+  "capabilities": {
+    "accessControl": true,
+    "labelAndHelperText": true,
+    "errorState": true,
+    "checkedState": true
+  },
+  "props": {
+    "name": { "type": "string", "required": true },
+    "onCheckChange": {
+      "type": "(checked: boolean, name: string) => void",
+      "required": false
+    },
+    "label": { "type": "string", "required": false },
+    "title": { "type": "string", "required": false },
+    "helperText": { "type": "string", "required": false },
+    "error": { "type": "string", "required": false },
+    "required": { "type": "boolean", "required": false },
+    "accessRequirements": { "type": "string[]", "required": false },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "hiddenWhenViewDenied": "true",
+    "disabledWhenEditDenied": "true",
+    "errorMessageVisibleWhenErrorProvided": "true"
+  },
+  "accessibility": {
+    "inputTypeIsCheckbox": "true",
+    "labelAssociatesWithInputByHtmlFor": "true"
+  },
+  "interaction": {
+    "onCheckChangeReceivesCheckedAndName": "true"
+  },
+  "tests": ["src/components/Checkbox/Checkbox.test.tsx"]
+}

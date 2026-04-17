@@ -1,0 +1,77 @@
+{
+  "component": "BaseTable",
+  "version": "1.0.0",
+  "source": "src/components/BaseTable",
+  "description": "Generic, package-safe data table built on TanStack Table with optional access control, selection, sorting, and pagination callbacks.",
+  "capabilities": {
+    "accessControl": true,
+    "selection": true,
+    "pagination": true,
+    "sorting": true,
+    "placeholder": true,
+    "rowInactive": true
+  },
+  "props": {
+    "data": { "type": "T[]", "required": true },
+    "columns": { "type": "Column<T>[]", "required": false },
+    "customRow": { "type": "Column<T>[]", "required": false },
+    "paginationParams": {
+      "type": "{ page: number; size: number; sortBy?: string; sortOrder?: \"asc\" | \"desc\" }",
+      "required": false
+    },
+    "enableSelection": { "type": "boolean", "required": false },
+    "onSelectionChange": {
+      "type": "(selectedItems: T[]) => void",
+      "required": false
+    },
+    "onPaginationChange": {
+      "type": "(params: BaseTablePaginationParams) => void",
+      "required": false
+    },
+    "onSortChange": {
+      "type": "(sortBy: string, sortOrder: \"asc\" | \"desc\") => void",
+      "required": false
+    },
+    "column.isInactive": {
+      "type": "boolean | ((value: unknown, item: T) => boolean)",
+      "required": false
+    },
+    "column.iconName": {
+      "type": "LucideIconName",
+      "required": false
+    },
+    "column.iconNameMapper": {
+      "type": "(value: unknown) => LucideIconName | undefined",
+      "required": false
+    },
+    "accessRequirements": { "type": "string[]", "required": false },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    },
+    "placeholder": { "type": "string", "required": false }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "hiddenWhenViewDenied": "true",
+    "selectionDisabledWhenEditDenied": "true",
+    "rowSelectionDisabledWhenInactive": "true",
+    "rowClickDisabledWhenInactive": "true",
+    "placeholderVisibleWhenNoRows": "true"
+  },
+  "accessibility": {
+    "headerSelectionCheckboxHasLabel": "true",
+    "rowSelectionCheckboxHasLabel": "true"
+  },
+  "interaction": {
+    "rowClickCallsConsumerHandler": "true",
+    "sortToggleCyclesAscDesc": "true",
+    "paginationCallbacksReceiveNextValues": "true"
+  },
+  "tests": [
+    "src/components/BaseTable/BaseTable.test.tsx",
+    "src/components/BaseTable/components/Pagination/Pagination.test.tsx",
+    "src/components/BaseTable/components/BaseTablePlaceHolder/BaseTablePlaceHolder.test.tsx",
+    "src/components/BaseTable/components/BaseTableRow/components/BaseTableCell/BaseTableCell.test.tsx"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "component": "Image",
+  "version": "1.0.0",
+  "source": "src/components/Image",
+  "description": "A lightweight image component with size variants and fallback icon rendering on missing or failed sources.",
+  "capabilities": {
+    "accessControl": true,
+    "fallbackRendering": true,
+    "sizeVariants": true,
+    "imgPropsForwarding": true
+  },
+  "props": {
+    "src": { "type": "string", "required": false },
+    "alt": { "type": "string", "required": false },
+    "size": { "type": "\"sm\" | \"md\" | \"lg\"", "required": false },
+    "className": { "type": "string", "required": false },
+    "loading": { "type": "\"lazy\" | \"eager\"", "required": false },
+    "srcSet": { "type": "string", "required": false },
+    "accessRequirements": { "type": "string[]", "required": false },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "hidesWhenViewAccessDenied": "true",
+    "rendersFallbackWhenSrcMissing": "true",
+    "rendersFallbackWhenImageErrors": "true"
+  },
+  "accessibility": {
+    "altPropForwardedToImg": "true"
+  },
+  "interaction": {
+    "onErrorTriggersFallback": "true"
+  },
+  "tests": ["src/components/Image/Image.test.tsx"]
+}

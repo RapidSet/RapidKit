@@ -24,6 +24,15 @@ The repository uses a dual-context model:
 3. Keep implementation, public types, and tests aligned with contract states.
 4. Update contract and tests together when behavior changes.
 
+## Component Documentation Workflow
+
+For every new public component:
+
+1. Add a dedicated consumer doc page at `docs/components/<component>.md`.
+2. Add the component link to `docs/components/README.md`.
+3. Ensure the doc includes: purpose, import path, key props, access-control notes (if supported), accessibility notes, and at least one usage example.
+4. Keep docs aligned with the component's public types and AI contract.
+
 ## Input Contract Snapshot
 
 - Access behavior:
@@ -48,3 +57,10 @@ pnpm tsc --noEmit
 pnpm test
 pnpm build
 ```
+
+## Testing Strategy
+
+- Use `pnpm test` as the default verification path for component behavior, public prop handling, access-control branches, and rendering assertions.
+- Use `pnpm test:ct` only for browser-dependent interaction coverage. In this repository, Playwright CT exists to validate cases that benefit from a real browser runtime, not to duplicate Vitest coverage.
+- Avoid adding Playwright tests for simple render checks, prop forwarding, static class assertions, or branches already covered in Vitest unless there is evidence that `happy-dom` is insufficient.
+- When adding new Playwright coverage, prefer interactive primitives and integration-heavy components such as tables, dialogs, menus, popovers, focus-managed widgets, or other surfaces with real browser event or layout sensitivity.

@@ -6,20 +6,24 @@ A reusable, publishable React UI component library focused on enterprise-safe AP
 
 ## Table of Contents
 
-- Overview
-- Installation
-- Peer Dependencies
-- Quick Start
-- Public API
-- Styling
-- Access Control Model
-- AI-First Contract Workflow
-- Project Structure
-- Development
-- Testing
-- Release Checklist
-- Contributing
-- License
+- [Overview](#overview)
+- [Installation](#installation)
+- [Peer Dependencies](#peer-dependencies)
+- [Quick Start](#quick-start)
+- [Public API](#public-api)
+- [Component Docs](https://tarikukebede.github.io/mezmer/components/)
+- [Styling](#styling)
+- [Theming Guide](docs/THEMING.md)
+- [Theme Configuration](docs/THEME-CONFIGURATION.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Access Control Model](#access-control-model)
+- [AI-First Contract Workflow](#ai-first-contract-workflow)
+- [Project Structure](#project-structure)
+- [Development](#development)
+- [Testing](#testing)
+- [Release Checklist](#release-checklist)
+- [Contributing](docs/CONTRIBUTING.md)
+- [License](#license)
 
 ## Overview
 
@@ -78,23 +82,18 @@ function Example() {
 Current root exports:
 
 - Input
-- InputProps
-- InputAccessMode
-- InputAccessResolver
+- Checkbox
+- Icon
+- Image
+- BaseTable
+- Chip
 - version
 
-### Input Props Summary
+Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, and `ChipProps`).
 
-Required:
+For consumer-facing props, examples, and behavior notes for every exported component, see https://tarikukebede.github.io/mezmer/components/.
 
-- name: string
-- onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-
-Common optional props:
-
-- type, label, value, error, helperText, required
-- accessRequirements, resolveAccess
-- all standard input attributes except overridden name/value/onChange/type behavior
+`docs/COMPONENTS.md` remains as a stable compatibility entrypoint that forwards to the scalable per-component docs structure.
 
 ## Styling
 
@@ -125,6 +124,8 @@ pnpm theme:create --id brand-x --from default
 ```
 
 Theme metadata and active selection are stored in `ai/contracts/themes/*` and `ai/theme.active.json` for deterministic AI workflows.
+
+For workspace-level setup, generated files, and runtime mode behavior, see `docs/THEME-CONFIGURATION.md`.
 
 ## Access Control Model
 
@@ -166,6 +167,7 @@ ai/contracts/
 docs/
   CONTRIBUTING.md
   ARCHITECTURE.md
+  THEME-CONFIGURATION.md
 ```
 
 ## Development
@@ -183,6 +185,8 @@ Useful scripts:
 - pnpm test
 - pnpm build
 - pnpm validate:contracts
+- pnpm docs:dev
+- pnpm docs:build
 
 ## Testing
 
@@ -198,6 +202,12 @@ Component tests:
 pnpm playwright:install
 pnpm test:ct
 ```
+
+Playwright is intentionally narrow in this repository. Use it for browser-dependent interaction coverage, not as a second unit-test layer.
+
+- Default to Vitest for component behavior, prop wiring, access-state logic, and rendering assertions.
+- Use Playwright CT for browser-critical behavior such as table interaction, focus management, overlays, portals, and other integration paths that benefit from a real browser runtime.
+- Avoid adding Playwright tests that only repeat simple render checks, class assertions, or prop forwarding already covered by Vitest.
 
 For full cross-browser coverage:
 

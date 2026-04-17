@@ -90,6 +90,9 @@
 - Prefer explicit assertions over snapshots.
 - Mock external adapters/dependencies at boundaries to keep unit tests deterministic.
 - Standardize tests on Vitest with `happy-dom` and Testing Library.
+- Treat Vitest as the default testing layer for component behavior, prop wiring, access-state logic, and rendering assertions.
+- Use Playwright CT only as a targeted browser-confidence layer for interactions that are meaningfully browser-dependent, such as table selection/sorting, focus management, overlays, portals, or layout-sensitive integration.
+- Do not add Playwright CT for simple render checks, prop forwarding, className assertions, or behavior already well-covered by Vitest unless there is a demonstrated browser-only regression risk.
 - Avoid matcher assumptions that require additional setup unless that setup is committed (for example, prefer plain assertions when `jest-dom` is not configured).
 
 ## Packaging Rules
@@ -99,11 +102,21 @@
 - Ensure consumers can use the package without repository-specific path aliases.
 - Validate package quality with lint, type-check, tests, and build before release.
 
+## Documentation Rules
+
+- Treat consumer-facing docs as required deliverables, not optional follow-up.
+- For every new public component, add a dedicated page in `docs/components/<component>.md`.
+- Update `docs/components/README.md` to include the new component link.
+- Keep `docs/COMPONENTS.md` as a stable compatibility entrypoint that points to the scalable docs structure.
+- Ensure examples use package imports (`@tarikukebede/mezmer`) and documented theme imports.
+- Keep component docs aligned with public props, access behavior, accessibility notes, and tested interaction guarantees.
+
 ## Release Checklist Commands
 
 - Run `pnpm lint` before merging package changes.
 - Run `pnpm tsc --noEmit` to validate public and internal TypeScript contracts.
 - Run `pnpm test` for behavior verification.
+- Run `pnpm test:ct` when the change touches browser-critical interactions or existing Playwright-covered surfaces.
 - Run `pnpm build` before publishing to verify distributable output.
 - If any command fails, treat the change as incomplete until the failure is resolved or explicitly documented.
 
@@ -145,9 +158,15 @@ For every new package component, include:
 - `index.ts`
 - `ComponentName.test.tsx`
 - `ai/contracts/components/<component>.contract.json`
+- `docs/components/<component>.md`
 
 Each component contract must define:
 
 - public prop requirements
 - permission and accessibility states
 - interaction guarantees that are validated by tests
+
+For every new package component, documentation updates must also include:
+
+- a link entry in `docs/components/README.md`
+- a consumer-facing usage example in `docs/components/<component>.md`

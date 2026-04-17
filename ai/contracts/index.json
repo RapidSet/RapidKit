@@ -11,6 +11,60 @@
         "controlledValue",
         "keyboardPropagationControl"
       ]
+    },
+    {
+      "name": "BaseTable",
+      "contractPath": "ai/contracts/components/base-table.contract.json",
+      "sourcePath": "src/components/BaseTable",
+      "capabilities": [
+        "accessControl",
+        "selection",
+        "pagination",
+        "sorting",
+        "placeholder",
+        "rowInactive"
+      ]
+    },
+    {
+      "name": "Icon",
+      "contractPath": "ai/contracts/components/icon.contract.json",
+      "sourcePath": "src/components/Icon",
+      "capabilities": ["iconRendering", "propForwarding", "classNameStyling"]
+    },
+    {
+      "name": "Checkbox",
+      "contractPath": "ai/contracts/components/checkbox.contract.json",
+      "sourcePath": "src/components/Checkbox",
+      "capabilities": [
+        "accessControl",
+        "checkedState",
+        "labelAndHelperText",
+        "errorState"
+      ]
+    },
+    {
+      "name": "Image",
+      "contractPath": "ai/contracts/components/image.contract.json",
+      "sourcePath": "src/components/Image",
+      "capabilities": [
+        "accessControl",
+        "fallbackRendering",
+        "sizeVariants",
+        "imgPropsForwarding"
+      ]
+    },
+    {
+      "name": "Chip",
+      "contractPath": "ai/contracts/components/chip.contract.json",
+      "sourcePath": "src/components/Chip",
+      "capabilities": [
+        "chipRendering",
+        "sizeVariants",
+        "iconRendering",
+        "removableInteraction",
+        "propForwarding",
+        "accessControl"
+      ]
     }
   ],
   "themes": [
