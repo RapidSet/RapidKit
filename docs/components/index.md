@@ -2,19 +2,18 @@
 
 Consumer-facing component documentation lives here.
 
-## Available Components
-
 - [Input](./input.md)
+- [BaseTable](./base-table.md)
+- [Button](./button.md)
 - [Checkbox](./checkbox.md)
+- [Chip](./chip.md)
+- [DetailsCard](./details-card.md)
+- [DropDown](./drop-down.md)
 - [Icon](./icon.md)
 - [Image](./image.md)
-- [BaseTable](./base-table.md)
-- [Chip](./chip.md)
-- [Button](./button.md)
+- [Input](./input.md)
 - [Page](./page.md)
 - [Search](./search.md)
-- [DropDown](./drop-down.md)
-- [DetailsCard](./details-card.md)
 
 ## Shared Access-Control Contract
 
