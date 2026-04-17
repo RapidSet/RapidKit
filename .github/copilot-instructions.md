@@ -102,6 +102,15 @@
 - Ensure consumers can use the package without repository-specific path aliases.
 - Validate package quality with lint, type-check, tests, and build before release.
 
+## Documentation Rules
+
+- Treat consumer-facing docs as required deliverables, not optional follow-up.
+- For every new public component, add a dedicated page in `docs/components/<component>.md`.
+- Update `docs/components/README.md` to include the new component link.
+- Keep `docs/COMPONENTS.md` as a stable compatibility entrypoint that points to the scalable docs structure.
+- Ensure examples use package imports (`@tarikukebede/mezmer`) and documented theme imports.
+- Keep component docs aligned with public props, access behavior, accessibility notes, and tested interaction guarantees.
+
 ## Release Checklist Commands
 
 - Run `pnpm lint` before merging package changes.
@@ -149,9 +158,15 @@ For every new package component, include:
 - `index.ts`
 - `ComponentName.test.tsx`
 - `ai/contracts/components/<component>.contract.json`
+- `docs/components/<component>.md`
 
 Each component contract must define:
 
 - public prop requirements
 - permission and accessibility states
 - interaction guarantees that are validated by tests
+
+For every new package component, documentation updates must also include:
+
+- a link entry in `docs/components/README.md`
+- a consumer-facing usage example in `docs/components/<component>.md`
