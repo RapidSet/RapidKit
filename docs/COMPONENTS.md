@@ -14,5 +14,6 @@ Direct links:
 - https://tarikukebede.github.io/mezmer/components/image
 - https://tarikukebede.github.io/mezmer/components/base-table
 - https://tarikukebede.github.io/mezmer/components/chip
+- https://tarikukebede.github.io/mezmer/components/button
 
 This keeps links stable for existing consumers while allowing component docs to grow independently.

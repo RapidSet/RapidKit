@@ -65,6 +65,17 @@
         "propForwarding",
         "accessControl"
       ]
+    },
+    {
+      "name": "Button",
+      "contractPath": "ai/contracts/components/button.contract.json",
+      "sourcePath": "src/components/Button",
+      "capabilities": [
+        "accessControl",
+        "loadingState",
+        "iconRendering",
+        "propForwarding"
+      ]
     }
   ],
   "themes": [
