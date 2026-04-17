@@ -5,6 +5,9 @@ hero:
   name: Mezmer
   text: Reusable React UI Components
   tagline: Publishable, accessible, and contract-driven component library
+  image:
+    src: /mezmer-icon.svg
+    alt: Mezmer icon
   actions:
     - theme: brand
       text: Get Started

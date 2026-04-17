@@ -10,9 +10,11 @@ export default withMermaid(
     description:
       'Reusable React UI component library focused on accessibility and contract-driven APIs.',
     base: docsBase,
+    head: [['link', { rel: 'icon', href: '/mezmer-icon.svg' }]],
     cleanUrls: true,
     lastUpdated: true,
     themeConfig: {
+      logo: '/mezmer-icon.svg',
       nav: [
         { text: 'Guide', link: '/THEMING' },
         { text: 'Components', link: '/components/' },
