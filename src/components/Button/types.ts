@@ -14,7 +14,7 @@ export type ButtonAccessResolver = (
 
 export interface ButtonProps extends Omit<
   ComponentPropsWithoutRef<typeof ButtonPrimitive>,
-  'children'
+  'children' | 'variant'
 > {
   label?: string;
   loading?: boolean;
