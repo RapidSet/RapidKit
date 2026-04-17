@@ -2,7 +2,7 @@
 
 <img src="docs/assets/mezmer-icon.svg" alt="Mezmer icon" width="88" />
 
-A reusable, publishable React UI component library focused on enterprise-safe APIs, accessibility, and AI-first contract-driven development.
+A reusable, publishable React UI library of predefined templates and components, built by combining proven ecosystem libraries to support AI-first, enterprise-grade code generation.
 
 ## Table of Contents
 
@@ -27,7 +27,9 @@ A reusable, publishable React UI component library focused on enterprise-safe AP
 
 ## Overview
 
-Mezmer provides composable UI primitives and higher-level components for React applications.
+Mezmer provides predefined, composable UI templates and higher-level components for React applications.
+
+It is intentionally assembled from multiple mature libraries (including shadcn/ui, TanStack Table, Redux Toolkit, React Hook Form, Zod, and Lucide) so AI systems and developers can produce production-ready code with consistent safeguards.
 
 Core goals:
 

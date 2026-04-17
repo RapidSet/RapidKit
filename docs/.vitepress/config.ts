@@ -3,6 +3,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid';
 
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'mezmer';
 const docsBase = process.env.GITHUB_ACTIONS ? `/${repoName}/` : '/';
+const assetPath = `${docsBase}mezmer-icon.svg`;
 
 export default withMermaid(
   defineConfig({
@@ -10,11 +11,11 @@ export default withMermaid(
     description:
       'Reusable React UI component library focused on accessibility and contract-driven APIs.',
     base: docsBase,
-    head: [['link', { rel: 'icon', href: '/mezmer-icon.svg' }]],
+    head: [['link', { rel: 'icon', href: assetPath }]],
     cleanUrls: true,
     lastUpdated: true,
     themeConfig: {
-      logo: '/mezmer-icon.svg',
+      logo: assetPath,
       nav: [
         { text: 'Guide', link: '/THEMING' },
         { text: 'Components', link: '/components/' },

@@ -22,6 +22,8 @@ hero:
 features:
   - title: AI-Ready By Design
     details: Components, contracts, and docs are structured so AI agents can produce deterministic, high-quality UI code.
+  - title: MCP-Compatible Context
+    details: Machine-readable contracts and deterministic repository conventions are designed for MCP-enabled agent workflows.
   - title: Enterprise Safeguards
     details: Stable APIs, access-control injection, accessibility requirements, and test-enforced behavior reduce risky generation paths.
   - title: Developer Friendly
@@ -32,6 +34,8 @@ features:
 
 Mezmer was primarily designed for AI-assisted software delivery.
 
+It is a predefined template system for enterprise UI delivery, not just a loose collection of isolated components.
+
 The goal is to let AI tools generate production-ready UI code by default using:
 
 - predefined component contracts
@@ -41,6 +45,12 @@ The goal is to let AI tools generate production-ready UI code by default using:
 - test-backed interaction guarantees
 
 Developers can still use Mezmer directly like any modern React component library, but the architecture is intentionally optimized for AI + developer collaboration.
+
+## Template-First Foundation
+
+Mezmer combines proven open-source libraries into a single, contract-driven template layer so generated code is production-oriented from the start.
+
+This reduces ad hoc implementation differences and helps AI agents apply consistent patterns across projects.
 
 ## AI Setup In This Library
 
@@ -57,6 +67,8 @@ AI workflows are anchored by:
 - validation scripts and CI checks that enforce contract + docs consistency
 
 ## MCP Positioning
+
+Mezmer is built to work well in MCP-enabled AI workflows.
 
 Mezmer does not currently ship a standalone MCP server implementation.
 
@@ -95,6 +107,18 @@ export function Example() {
 ## Built On
 
 Mezmer is built on a pragmatic stack that supports AI-first and enterprise-grade delivery:
+
+[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-primitives-111111)](https://ui.shadcn.com)
+[![Radix UI](https://img.shields.io/badge/Radix%20UI-primitives-161618)](https://www.radix-ui.com)
+[![Lucide](https://img.shields.io/badge/Lucide-icons-F56565)](https://lucide.dev)
+[![TanStack Table](https://img.shields.io/badge/TanStack%20Table-8-FF4154)](https://tanstack.com/table)
+[![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-2-764ABC?logo=redux&logoColor=white)](https://redux-toolkit.js.org)
+[![React Redux](https://img.shields.io/badge/React%20Redux-9-764ABC?logo=redux&logoColor=white)](https://react-redux.js.org)
+[![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-7-EC5990)](https://react-hook-form.com)
+[![Zod](https://img.shields.io/badge/Zod-3-3E67B1)](https://zod.dev)
 
 - React 18/19
 - TypeScript

@@ -1,7 +1,7 @@
 {
   "name": "@tarikukebede/mezmer",
   "version": "0.1.0",
-  "description": "Mezmerizingly simple AI-first React components: RTK Query + TanStack Table + shadcn + Zod",
+  "description": "AI-first predefined UI templates for enterprise React apps, built on shadcn, TanStack Table, Redux Toolkit, React Hook Form, Zod, and Lucide",
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
