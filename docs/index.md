@@ -68,13 +68,17 @@ AI workflows are anchored by:
 
 ## MCP Positioning
 
-Mezmer is built to work well in MCP-enabled AI workflows.
+Mezmer is built for MCP-enabled AI workflows and now ships a repository-local MCP server.
 
-Mezmer does not currently ship a standalone MCP server implementation.
+The server exposes:
 
-Instead, it is designed to be MCP-friendly by exposing machine-readable contract files and predictable repository conventions that MCP-enabled agents can consume as structured context.
+- component and theme contracts as structured resources
+- component docs as readable resources
+- contract/docs validation tools for guardrail checks
 
-In practice, this means MCP clients can inspect contract metadata and generate code that stays aligned with required props, states, accessibility expectations, and theming contracts.
+Run it locally with `pnpm mcp:server` from the project root.
+
+The implementation intentionally stays thin and delegates core validation logic to existing scripts so behavior remains consistent with the repository's source-of-truth checks.
 
 ## Enterprise Guardrails
 

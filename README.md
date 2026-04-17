@@ -15,6 +15,7 @@ A reusable, publishable React UI library of predefined templates and components,
 - [Styling](#styling)
 - [Theming Guide](docs/THEMING.md)
 - [Theme Configuration](docs/THEME-CONFIGURATION.md)
+- [MCP Server](#mcp-server)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Access Control Model](#access-control-model)
 - [AI-First Contract Workflow](#ai-first-contract-workflow)
@@ -128,6 +129,30 @@ pnpm theme:create --id brand-x --from default
 Theme metadata and active selection are stored in `ai/contracts/themes/*` and `ai/theme.active.json` for deterministic AI workflows.
 
 For workspace-level setup, generated files, and runtime mode behavior, see `docs/THEME-CONFIGURATION.md`.
+
+## MCP Server
+
+This repository now includes a local MCP server implementation for AI tooling.
+
+Purpose:
+
+- expose component and theme contracts as structured MCP resources
+- expose component docs as readable MCP resources
+- provide validation tools that wrap existing repository validators
+
+Start the stdio MCP server:
+
+```bash
+pnpm mcp:server
+```
+
+Show help text:
+
+```bash
+pnpm mcp:help
+```
+
+The server entrypoint is `scripts/mcp-server.mjs`.
 
 ## Access Control Model
 

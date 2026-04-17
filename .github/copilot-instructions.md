@@ -170,3 +170,20 @@ For every new package component, documentation updates must also include:
 
 - a link entry in `docs/components/README.md`
 - a consumer-facing usage example in `docs/components/<component>.md`
+
+## New Component Completion Checklist
+
+Every time a new public component is added, do not treat the work as complete until all of the following are done:
+
+- create the component folder under `src/components/ComponentName`
+- add the component implementation, public types, component barrel export, and behavior test
+- add the component export to the package entrypoint in `src/index.ts`
+- add the component entry to `ai/contracts/index.json` with the correct `name`, `contractPath`, `sourcePath`, and capability list
+- add `ai/contracts/components/<component>.contract.json` and keep its component name, source path, capabilities, and test file paths aligned with the index entry
+- add `docs/components/<component>.md` and add its link to `docs/components/README.md`
+- ensure the docs include consumer usage, public props, accessibility behavior, and access-control behavior where applicable
+- run `pnpm validate:contracts`
+- run `pnpm validate:component-docs`
+- run `pnpm test` for behavior coverage
+
+If the component changes package exports, public API shape, or publishable output, also run `pnpm tsc --noEmit` and `pnpm build` before considering the task complete.
