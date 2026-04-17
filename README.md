@@ -2,7 +2,18 @@
 
 <img src="docs/assets/mezmer-icon.svg" alt="Mezmer icon" width="88" />
 
-A reusable, publishable React UI library of predefined templates and components, built by combining proven ecosystem libraries to support AI-first, enterprise-grade code generation.
+A full-blown, publishable React UI library built for AI-assisted enterprise delivery.
+
+Mezmer combines proven tools and patterns so AI systems can generate consistent, production-grade code by default.
+
+[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Primitives-111111)](https://ui.shadcn.com)
+[![Zod](https://img.shields.io/badge/Zod-Schema%20Validation-3E67B1?logo=zod&logoColor=white)](https://zod.dev)
+[![TanStack Table](https://img.shields.io/badge/TanStack-Table%20v8-FF4154?logo=tanstack&logoColor=white)](https://tanstack.com/table)
+[![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-State%20Architecture-764ABC?logo=redux&logoColor=white)](https://redux-toolkit.js.org)
+[![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-Form%20State-EC5990?logo=reacthookform&logoColor=white)](https://react-hook-form.com)
+[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
 ## Table of Contents
 

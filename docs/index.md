@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: Mezmer
-  text: AI-First Enterprise UI Component Library
-  tagline: Built for AI agents to generate consistent, enterprise-grade React UI code with predefined patterns, safeguards, and contracts.
+  text: AI-First Enterprise UI Kit
+  tagline: A full-blown solution for AI agents to generate enterprise-grade React UI using proven patterns, contracts, and production safeguards.
   image:
     src: /mezmer-icon.svg
     alt: Mezmer icon
@@ -29,6 +29,40 @@ features:
   - title: Developer Friendly
     details: Human developers get portable components, clear docs, and a predictable architecture that pairs with AI-assisted workflows.
 ---
+
+<div class="tooling-hero">
+  <p class="tooling-eyebrow">Built With Proven Tools</p>
+  <h2>Production stack, made explicit for AI and humans</h2>
+  <p>
+    Mezmer combines battle-tested libraries so generated code starts from enterprise-ready defaults instead of ad hoc implementation choices.
+  </p>
+  <div class="tooling-badges">
+    <a href="https://ui.shadcn.com" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/shadcn%2Fui-Primitives-111111" alt="shadcn/ui" />
+    </a>
+    <a href="https://zod.dev" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Zod-Schema%20Validation-3E67B1?logo=zod&logoColor=white" alt="Zod" />
+    </a>
+    <a href="https://tanstack.com/table" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/TanStack-Table%20v8-FF4154?logo=tanstack&logoColor=white" alt="TanStack Table" />
+    </a>
+    <a href="https://redux-toolkit.js.org" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Redux%20Toolkit-State%20Architecture-764ABC?logo=redux&logoColor=white" alt="Redux Toolkit" />
+    </a>
+    <a href="https://react-hook-form.com" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/React%20Hook%20Form-Form%20State-EC5990?logo=reacthookform&logoColor=white" alt="React Hook Form" />
+    </a>
+    <a href="https://react.dev" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/React-UI%20Runtime-149ECA?logo=react&logoColor=white" alt="React" />
+    </a>
+    <a href="https://www.typescriptlang.org" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/TypeScript-Strict%20Contracts-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+    </a>
+    <a href="https://tailwindcss.com" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Tailwind%20CSS-Tokenized%20Styling-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+    </a>
+  </div>
+</div>
 
 ## Why Mezmer Exists
 
@@ -110,30 +144,51 @@ export function Example() {
 
 ## Built On
 
-Mezmer is built on a pragmatic stack that supports AI-first and enterprise-grade delivery:
+Mezmer is built on a pragmatic stack centered on React, TypeScript, shadcn/ui, Zod, TanStack Table, Redux Toolkit, React Hook Form, and Tailwind CSS.
 
-[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-primitives-111111)](https://ui.shadcn.com)
-[![Radix UI](https://img.shields.io/badge/Radix%20UI-primitives-161618)](https://www.radix-ui.com)
-[![Lucide](https://img.shields.io/badge/Lucide-icons-F56565)](https://lucide.dev)
-[![TanStack Table](https://img.shields.io/badge/TanStack%20Table-8-FF4154)](https://tanstack.com/table)
-[![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-2-764ABC?logo=redux&logoColor=white)](https://redux-toolkit.js.org)
-[![React Redux](https://img.shields.io/badge/React%20Redux-9-764ABC?logo=redux&logoColor=white)](https://react-redux.js.org)
-[![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-7-EC5990)](https://react-hook-form.com)
-[![Zod](https://img.shields.io/badge/Zod-3-3E67B1)](https://zod.dev)
+For the complete toolchain and each library's architectural role, see [Technology Stack](/ARCHITECTURE#technology-stack).
 
-- React 18/19
-- TypeScript
-- shadcn/ui primitives
-- Tailwind CSS
-- Radix UI primitives
-- Lucide icons
-- TanStack Table
-- Redux Toolkit and React Redux
-- React Hook Form
-- Zod
+<style scoped>
+.tooling-hero {
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent) 0%, transparent 48%),
+    linear-gradient(140deg, color-mix(in srgb, var(--vp-c-bg-soft) 92%, var(--vp-c-brand-soft) 8%), var(--vp-c-bg-soft));
+}
+
+.tooling-eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vp-c-text-2);
+  font-weight: 700;
+}
+
+.tooling-hero h2 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.tooling-hero p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+}
+
+.tooling-badges {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.tooling-badges img {
+  display: block;
+}
+</style>
 
 ## Automation And CI
 
