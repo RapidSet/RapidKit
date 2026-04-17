@@ -38,65 +38,57 @@ features:
       Mezmer brings together schema validation, state architecture, table primitives, design-system building blocks, and AI-ready contracts into a single enterprise UI foundation.
     </p>
   </div>
-
   <div class="constellation-stage" aria-label="Mezmer ecosystem diagram">
-    <div class="orbit orbit-top orbit-shadcn">
-      <span class="orbit-line" aria-hidden="true"></span>
-      <div class="orbit-node">
-        <img src="https://cdn.simpleicons.org/shadcnui/111111" alt="shadcn/ui" />
-        <span>shadcn/ui</span>
+  <div class="orbit orbit-top orbit-shadcn">
+    <span class="orbit-line" aria-hidden="true"></span>
+    <div class="orbit-node">
+      <img src="https://cdn.simpleicons.org/shadcnui/111111" alt="shadcn/ui" />
+      <span>shadcn/ui</span>
+    </div>
+  </div>
+  <div class="orbit orbit-right orbit-zod">
+    <span class="orbit-line" aria-hidden="true"></span>
+    <div class="orbit-node">
+      <img src="https://cdn.simpleicons.org/zod/3E67B1" alt="Zod" />
+      <span>Zod</span>
+    </div>
+  </div>
+  <div class="orbit orbit-bottom-right orbit-tanstack">
+    <span class="orbit-line" aria-hidden="true"></span>
+    <div class="orbit-node">
+      <img src="https://cdn.simpleicons.org/tanstack/FF4154" alt="TanStack" />
+      <span>TanStack</span>
+    </div>
+  </div>
+  <div class="orbit orbit-bottom-left orbit-redux">
+    <span class="orbit-line" aria-hidden="true"></span>
+    <div class="orbit-node">
+      <img src="https://cdn.simpleicons.org/redux/764ABC" alt="Redux Toolkit" />
+      <span>Redux Toolkit</span>
+    </div>
+  </div>
+  <div class="orbit orbit-left orbit-rhf">
+    <span class="orbit-line" aria-hidden="true"></span>
+    <div class="orbit-node">
+      <img src="https://cdn.simpleicons.org/reacthookform/EC5990" alt="React Hook Form" />
+      <span>React Hook Form</span>
+    </div>
+  </div>
+  <div class="orbit orbit-top-left orbit-tailwind">
+    <span class="orbit-line" aria-hidden="true"></span>
+    <div class="orbit-node">
+      <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind CSS" />
+      <span>Tailwind CSS</span>
+    </div>
+  </div>
+  <div class="constellation-center">
+    <div class="mezmer-core-ring">
+      <div class="mezmer-core">
+        <img src="/mezmer-icon.svg" alt="Mezmer icon" />
       </div>
     </div>
-
-    <div class="orbit orbit-right orbit-zod">
-      <span class="orbit-line" aria-hidden="true"></span>
-      <div class="orbit-node">
-        <img src="https://cdn.simpleicons.org/zod/3E67B1" alt="Zod" />
-        <span>Zod</span>
-      </div>
-    </div>
-
-    <div class="orbit orbit-bottom-right orbit-tanstack">
-      <span class="orbit-line" aria-hidden="true"></span>
-      <div class="orbit-node">
-        <img src="https://cdn.simpleicons.org/tanstack/FF4154" alt="TanStack" />
-        <span>TanStack</span>
-      </div>
-    </div>
-
-    <div class="orbit orbit-bottom-left orbit-redux">
-      <span class="orbit-line" aria-hidden="true"></span>
-      <div class="orbit-node">
-        <img src="https://cdn.simpleicons.org/redux/764ABC" alt="Redux Toolkit" />
-        <span>Redux Toolkit</span>
-      </div>
-    </div>
-
-    <div class="orbit orbit-left orbit-rhf">
-      <span class="orbit-line" aria-hidden="true"></span>
-      <div class="orbit-node">
-        <img src="https://cdn.simpleicons.org/reacthookform/EC5990" alt="React Hook Form" />
-        <span>React Hook Form</span>
-      </div>
-    </div>
-
-    <div class="orbit orbit-top-left orbit-tailwind">
-      <span class="orbit-line" aria-hidden="true"></span>
-      <div class="orbit-node">
-        <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind CSS" />
-        <span>Tailwind CSS</span>
-      </div>
-    </div>
-
-    <div class="constellation-center">
-      <div class="mezmer-core-ring">
-        <div class="mezmer-core">
-          <img src="/mezmer-icon.svg" alt="Mezmer icon" />
-        </div>
-      </div>
-      <p>Mezmer</p>
-    </div>
-
+    <p>Mezmer</p>
+  </div>
   </div>
 </div>
 
@@ -107,7 +99,7 @@ features:
     AI agents can query contracts, component docs, themes, and validation tools through the built-in MCP server instead of inferring behavior from raw files.
   </p>
   <div class="mcp-actions">
-    <a class="mcp-link" href="/MCP-SERVER">Read MCP server docs</a>
+    <a class="mcp-link" href="MCP-SERVER">Read MCP server docs</a>
     <code>pnpm mcp:server</code>
   </div>
 </div>
