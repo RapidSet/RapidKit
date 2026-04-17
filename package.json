@@ -27,7 +27,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && node scripts/copy-theme-assets.mjs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "validate:contracts": "node scripts/validate-contracts.mjs",
+    "validate:component-docs": "node scripts/validate-component-docs.mjs",
     "theme:list": "node scripts/theme-list.mjs",
     "theme:apply": "node scripts/theme-apply.mjs",
     "theme:create": "node scripts/theme-create.mjs",
@@ -112,6 +116,7 @@
     "typescript-eslint": "^8.46.1",
     "vite": "^7.3.2",
     "vite-plugin-dts": "^4.5.4",
+    "vitepress": "^1.6.4",
     "vitest": "^4.1.4"
   },
   "lint-staged": {

@@ -11,7 +11,7 @@ A reusable, publishable React UI component library focused on enterprise-safe AP
 - [Peer Dependencies](#peer-dependencies)
 - [Quick Start](#quick-start)
 - [Public API](#public-api)
-- [Component Docs](https://github.com/tarikukebede/mezmer/blob/main/docs/components/README.md)
+- [Component Docs](https://tarikukebede.github.io/mezmer/components/)
 - [Styling](#styling)
 - [Theming Guide](docs/THEMING.md)
 - [Theme Configuration](docs/THEME-CONFIGURATION.md)
@@ -91,7 +91,7 @@ Current root exports:
 
 Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, and `ChipProps`).
 
-For consumer-facing props, examples, and behavior notes for every exported component, see https://github.com/tarikukebede/mezmer/blob/main/docs/components/README.md.
+For consumer-facing props, examples, and behavior notes for every exported component, see https://tarikukebede.github.io/mezmer/components/.
 
 `docs/COMPONENTS.md` remains as a stable compatibility entrypoint that forwards to the scalable per-component docs structure.
 
@@ -185,6 +185,8 @@ Useful scripts:
 - pnpm test
 - pnpm build
 - pnpm validate:contracts
+- pnpm docs:dev
+- pnpm docs:build
 
 ## Testing
 

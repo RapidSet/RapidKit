@@ -4,15 +4,15 @@ This file is the stable entrypoint for component docs.
 
 For scalable, per-component documentation, use the docs hub:
 
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/README.md
+- https://tarikukebede.github.io/mezmer/components/
 
 Direct links:
 
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/input.md
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/checkbox.md
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/icon.md
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/image.md
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/base-table.md
-- https://github.com/tarikukebede/mezmer/blob/main/docs/components/chip.md
+- https://tarikukebede.github.io/mezmer/components/input
+- https://tarikukebede.github.io/mezmer/components/checkbox
+- https://tarikukebede.github.io/mezmer/components/icon
+- https://tarikukebede.github.io/mezmer/components/image
+- https://tarikukebede.github.io/mezmer/components/base-table
+- https://tarikukebede.github.io/mezmer/components/chip
 
 This keeps links stable for existing consumers while allowing component docs to grow independently.
