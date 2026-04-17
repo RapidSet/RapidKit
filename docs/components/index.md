@@ -10,6 +10,7 @@ Consumer-facing component documentation lives here.
 - [Image](./image.md)
 - [BaseTable](./base-table.md)
 - [Chip](./chip.md)
+- [Button](./button.md)
 
 ## Shared Access-Control Contract
 

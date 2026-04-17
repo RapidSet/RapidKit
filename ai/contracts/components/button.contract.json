@@ -1,0 +1,67 @@
+{
+  "component": "Button",
+  "version": "1.0.0",
+  "source": "src/components/Button",
+  "description": "A theme-aware button wrapper with optional icon, loading state, and injectable access control.",
+  "capabilities": {
+    "accessControl": true,
+    "loadingState": true,
+    "iconRendering": true,
+    "propForwarding": true
+  },
+  "props": {
+    "label": {
+      "type": "string",
+      "required": false
+    },
+    "leftIcon": {
+      "type": "LucideIcon",
+      "required": false
+    },
+    "rightIcon": {
+      "type": "LucideIcon",
+      "required": false
+    },
+    "loading": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "variant": {
+      "type": "ButtonVariant",
+      "required": false,
+      "default": "ButtonVariant.Default"
+    },
+    "accessRequirements": {
+      "type": "string[]",
+      "required": false
+    },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"action\") => boolean",
+      "required": false
+    },
+    "accessDeniedBehavior": {
+      "type": "\"hide\" | \"disable\"",
+      "required": false,
+      "default": "\"disable\""
+    }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "hiddenWhenActionDeniedAndHideConfigured": "true",
+    "disabledWhenActionDeniedAndDisableConfigured": "true",
+    "disabledWhenLoading": "true",
+    "spinnerVisibleWhenLoading": "true",
+    "rightIconVisibleWhenProvided": "true"
+  },
+  "accessibility": {
+    "nativeButtonElement": "true",
+    "ariaBusyWhenLoading": "true"
+  },
+  "interaction": {
+    "onClickFiresWhenEnabled": "true",
+    "labelOrChildrenVisible": "true",
+    "allActionRequirementsMustPass": "true"
+  },
+  "tests": ["src/components/Button/Button.test.tsx"]
+}

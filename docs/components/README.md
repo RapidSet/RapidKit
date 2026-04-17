@@ -16,6 +16,7 @@ This section contains consumer-facing documentation for each public component ex
 - [Image](./image.md)
 - [BaseTable](./base-table.md)
 - [Chip](./chip.md)
+- [Button](./button.md)
 
 ## Shared Access-Control Pattern
 
