@@ -19,6 +19,7 @@
     "ai",
     "docs/CONTRIBUTING.md",
     "docs/ARCHITECTURE.md",
+    "docs/COMPONENTS.md",
     "docs/THEMING.md",
     ".github/copilot-instructions.md",
     "README.md"
