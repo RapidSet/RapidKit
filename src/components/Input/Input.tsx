@@ -95,7 +95,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         placeholder={rest.placeholder}
         aria-invalid={error ? 'true' : undefined}
       />
-      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
       {helperText && (
         <p className="text-xs text-muted-foreground opacity-60">{helperText}</p>
       )}
