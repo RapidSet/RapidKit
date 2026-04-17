@@ -11,6 +11,8 @@ Use this document for:
 - scaffolding a custom theme
 - validating theme contracts
 
+This guide also covers how theming is validated in CI for AI-first workflows.
+
 For token definitions and consumer import examples, see `docs/THEMING.md`.
 
 ## Configuration Files
@@ -64,6 +66,25 @@ Run contract validation after theme changes:
 ```bash
 pnpm validate:contracts
 ```
+
+Theme-related CI checks in `.github/workflows/ci.yml` include:
+
+- `pnpm theme:list` to ensure registry metadata remains readable
+- `pnpm test:scripts` to verify theme script integration behavior
+- `pnpm validate:contracts` to confirm theme contract/index consistency
+- standard lint/type/test/build quality gates before release
+
+Docs publishing CI in `.github/workflows/docs-deploy.yml` builds VitePress and deploys documentation to GitHub Pages on `main`.
+
+## AI Context And MCP Compatibility
+
+Theme metadata is intentionally machine-readable for AI systems:
+
+- `ai/contracts/index.json` provides the theme registry
+- `ai/contracts/themes/*.contract.json` defines theme contract metadata
+- `ai/theme.active.json` records workspace-selected theme state
+
+Mezmer does not currently include a standalone MCP server. The repository structure is designed so MCP-enabled agents can consume these files directly as structured context.
 
 Recommended release checks:
 
