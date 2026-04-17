@@ -1,0 +1,59 @@
+{
+  "component": "Page",
+  "version": "1.0.0",
+  "source": "src/components/Page",
+  "description": "Layout wrapper for full-page surfaces with optional search and action header composition.",
+  "capabilities": {
+    "headerComposition": true,
+    "searchBehavior": true,
+    "actionRendering": true
+  },
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true
+    },
+    "actions": {
+      "type": "PageAction[]",
+      "required": false
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    },
+    "onSearch": {
+      "type": "(value: string) => void",
+      "required": false
+    },
+    "enableSearch": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "filterSlot": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "states": {
+    "headerVisibleByDefault": "true",
+    "headerHiddenWhenSearchDisabled": "true",
+    "childrenAlwaysRendered": "true"
+  },
+  "accessibility": {
+    "searchInputUsesNativeInput": "true",
+    "actionButtonsUseButtonComponent": "true"
+  },
+  "interaction": {
+    "onSearchReceivesInputValue": "true",
+    "actionsInvokeOnClick": "true"
+  },
+  "tests": [
+    "src/components/Page/Page.test.tsx",
+    "src/components/Page/components/PageHeader/PageHeader.test.tsx"
+  ]
+}

@@ -102,6 +102,8 @@ Current root exports:
 - BaseTable
 - Chip
 - Button
+- Page
+- Search
 - version
 
 Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, `ChipProps`, and `ButtonProps`).

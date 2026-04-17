@@ -11,6 +11,8 @@ Consumer-facing component documentation lives here.
 - [BaseTable](./base-table.md)
 - [Chip](./chip.md)
 - [Button](./button.md)
+- [Page](./page.md)
+- [Search](./search.md)
 
 ## Shared Access-Control Contract
 

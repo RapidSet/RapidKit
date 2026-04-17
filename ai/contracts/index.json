@@ -76,6 +76,22 @@
         "iconRendering",
         "propForwarding"
       ]
+    },
+    {
+      "name": "Page",
+      "contractPath": "ai/contracts/components/page.contract.json",
+      "sourcePath": "src/components/Page",
+      "capabilities": ["actionRendering", "headerComposition", "searchBehavior"]
+    },
+    {
+      "name": "Search",
+      "contractPath": "ai/contracts/components/search.contract.json",
+      "sourcePath": "src/components/Search",
+      "capabilities": [
+        "iconRendering",
+        "inputComposition",
+        "keyboardPropagationControl"
+      ]
     }
   ],
   "themes": [

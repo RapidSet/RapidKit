@@ -1,0 +1,62 @@
+{
+  "component": "Search",
+  "version": "1.0.0",
+  "source": "src/components/Search",
+  "description": "Search input wrapper with leading icon and string-based change callback.",
+  "capabilities": {
+    "iconRendering": true,
+    "inputComposition": true,
+    "keyboardPropagationControl": true
+  },
+  "props": {
+    "placeholder": {
+      "type": "string",
+      "required": false,
+      "default": "\"Search...\""
+    },
+    "value": {
+      "type": "string",
+      "required": false
+    },
+    "onChange": {
+      "type": "(value: string) => void",
+      "required": false
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    },
+    "inputClassName": {
+      "type": "string",
+      "required": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false
+    },
+    "onKeyDown": {
+      "type": "KeyboardEventHandler<HTMLInputElement>",
+      "required": false
+    },
+    "ariaLabel": {
+      "type": "string",
+      "required": false,
+      "default": "\"search-input\""
+    }
+  },
+  "states": {
+    "defaultPlaceholderShown": "true",
+    "disabledStateForwarded": "true",
+    "leadingIconVisible": "true"
+  },
+  "accessibility": {
+    "searchInputUsesNativeInput": "true",
+    "iconIsAriaHidden": "true"
+  },
+  "interaction": {
+    "onChangeReceivesStringValue": "true",
+    "stopsInputKeydownPropagation": "true",
+    "preservesConsumerOnKeyDown": "true"
+  },
+  "tests": ["src/components/Search/Search.test.tsx"]
+}
