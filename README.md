@@ -90,9 +90,10 @@ Current root exports:
 - Image
 - BaseTable
 - Chip
+- Button
 - version
 
-Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, and `ChipProps`).
+Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, `ChipProps`, and `ButtonProps`).
 
 For consumer-facing props, examples, and behavior notes for every exported component, see https://tarikukebede.github.io/mezmer/components/.
 
