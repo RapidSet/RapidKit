@@ -113,7 +113,7 @@ describe('Chip', () => {
     );
 
     const removeButton = screen.getByRole('button', { name: 'Remove locked' });
-    expect(removeButton).toBeDisabled();
+    expect((removeButton as HTMLButtonElement).disabled).toBe(true);
 
     fireEvent.click(removeButton);
     expect(onRemove).not.toHaveBeenCalled();
