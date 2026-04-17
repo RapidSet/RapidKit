@@ -37,6 +37,12 @@ jobs:
             - name: Validate AI contracts
               run: pnpm validate:contracts
 
+            - name: Verify theme registry command
+              run: pnpm theme:list
+
+            - name: Theme script integration tests
+              run: pnpm test:scripts
+
             - name: Lint
               run: pnpm lint
 

@@ -12,5 +12,17 @@
         "keyboardPropagationControl"
       ]
     }
+  ],
+  "themes": [
+    {
+      "id": "default",
+      "contractPath": "ai/contracts/themes/default-theme.contract.json",
+      "cssPath": "src/themes/default.css"
+    },
+    {
+      "id": "slate",
+      "contractPath": "ai/contracts/themes/slate-theme.contract.json",
+      "cssPath": "src/themes/slate.css"
+    }
   ]
 }

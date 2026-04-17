@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mezmer Theme Contract",
+  "type": "object",
+  "required": [
+    "id",
+    "displayName",
+    "version",
+    "cssPath",
+    "modes",
+    "tokenPrefix",
+    "tokenCoverage"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cssPath": {
+      "type": "string",
+      "pattern": "^src/themes/[a-z0-9-]+\\\\.css$"
+    },
+    "modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["light", "dark"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "tokenPrefix": {
+      "type": "string",
+      "const": "--mz-"
+    },
+    "tokenCoverage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 20,
+      "uniqueItems": true
+    },
+    "extendsTheme": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
