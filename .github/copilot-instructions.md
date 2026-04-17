@@ -90,6 +90,9 @@
 - Prefer explicit assertions over snapshots.
 - Mock external adapters/dependencies at boundaries to keep unit tests deterministic.
 - Standardize tests on Vitest with `happy-dom` and Testing Library.
+- Treat Vitest as the default testing layer for component behavior, prop wiring, access-state logic, and rendering assertions.
+- Use Playwright CT only as a targeted browser-confidence layer for interactions that are meaningfully browser-dependent, such as table selection/sorting, focus management, overlays, portals, or layout-sensitive integration.
+- Do not add Playwright CT for simple render checks, prop forwarding, className assertions, or behavior already well-covered by Vitest unless there is a demonstrated browser-only regression risk.
 - Avoid matcher assumptions that require additional setup unless that setup is committed (for example, prefer plain assertions when `jest-dom` is not configured).
 
 ## Packaging Rules
@@ -104,6 +107,7 @@
 - Run `pnpm lint` before merging package changes.
 - Run `pnpm tsc --noEmit` to validate public and internal TypeScript contracts.
 - Run `pnpm test` for behavior verification.
+- Run `pnpm test:ct` when the change touches browser-critical interactions or existing Playwright-covered surfaces.
 - Run `pnpm build` before publishing to verify distributable output.
 - If any command fails, treat the change as incomplete until the failure is resolved or explicitly documented.
 

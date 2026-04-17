@@ -48,3 +48,10 @@ pnpm tsc --noEmit
 pnpm test
 pnpm build
 ```
+
+## Testing Strategy
+
+- Use `pnpm test` as the default verification path for component behavior, public prop handling, access-control branches, and rendering assertions.
+- Use `pnpm test:ct` only for browser-dependent interaction coverage. In this repository, Playwright CT exists to validate cases that benefit from a real browser runtime, not to duplicate Vitest coverage.
+- Avoid adding Playwright tests for simple render checks, prop forwarding, static class assertions, or branches already covered in Vitest unless there is evidence that `happy-dom` is insufficient.
+- When adding new Playwright coverage, prefer interactive primitives and integration-heavy components such as tables, dialogs, menus, popovers, focus-managed widgets, or other surfaces with real browser event or layout sensitivity.

@@ -199,6 +199,12 @@ pnpm playwright:install
 pnpm test:ct
 ```
 
+Playwright is intentionally narrow in this repository. Use it for browser-dependent interaction coverage, not as a second unit-test layer.
+
+- Default to Vitest for component behavior, prop wiring, access-state logic, and rendering assertions.
+- Use Playwright CT for browser-critical behavior such as table interaction, focus management, overlays, portals, and other integration paths that benefit from a real browser runtime.
+- Avoid adding Playwright tests that only repeat simple render checks, class assertions, or prop forwarding already covered by Vitest.
+
 For full cross-browser coverage:
 
 ```bash
