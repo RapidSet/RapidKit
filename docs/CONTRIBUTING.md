@@ -24,6 +24,15 @@ The repository uses a dual-context model:
 3. Keep implementation, public types, and tests aligned with contract states.
 4. Update contract and tests together when behavior changes.
 
+## Component Documentation Workflow
+
+For every new public component:
+
+1. Add a dedicated consumer doc page at `docs/components/<component>.md`.
+2. Add the component link to `docs/components/README.md`.
+3. Ensure the doc includes: purpose, import path, key props, access-control notes (if supported), accessibility notes, and at least one usage example.
+4. Keep docs aligned with the component's public types and AI contract.
+
 ## Input Contract Snapshot
 
 - Access behavior:
