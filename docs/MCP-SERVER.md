@@ -50,6 +50,18 @@ Instead of manually checking multiple files, a tool can ask the MCP server for t
 
 This is especially useful when adding new components, updating themes, or refactoring contract-driven APIs.
 
+## New Component MCP Checklist
+
+When a new public component is added, verify MCP visibility from the contract index rather than hardcoding component names:
+
+1. Add the component entry to `ai/contracts/index.json`.
+2. Add the component contract file under `ai/contracts/components`.
+3. Add the component docs file under `docs/components`.
+4. Run `pnpm validate:contracts` and `pnpm validate:component-docs`.
+5. Run `pnpm mcp:server` and confirm `list_components` includes the new component.
+
+The MCP server reads component resources from `ai/contracts/index.json`, so index accuracy is the source of truth for MCP discoverability.
+
 ## Run Locally
 
 Start the stdio MCP server from the repository root:

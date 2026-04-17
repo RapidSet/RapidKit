@@ -181,9 +181,12 @@ Every time a new public component is added, do not treat the work as complete un
 - add the component entry to `ai/contracts/index.json` with the correct `name`, `contractPath`, `sourcePath`, and capability list
 - add `ai/contracts/components/<component>.contract.json` and keep its component name, source path, capabilities, and test file paths aligned with the index entry
 - add `docs/components/<component>.md` and add its link to `docs/components/README.md`
+- add the component link to `docs/components/index.md` and `docs/COMPONENTS.md`
+- add the component to the root API list in `README.md` when publicly exported
 - ensure the docs include consumer usage, public props, accessibility behavior, and access-control behavior where applicable
 - run `pnpm validate:contracts`
 - run `pnpm validate:component-docs`
 - run `pnpm test` for behavior coverage
+- run `pnpm mcp:server` and verify MCP `list_components` returns the new component (the MCP surface is index-driven)
 
 If the component changes package exports, public API shape, or publishable output, also run `pnpm tsc --noEmit` and `pnpm build` before considering the task complete.

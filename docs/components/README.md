@@ -23,13 +23,14 @@ This section contains consumer-facing documentation for each public component ex
 Where supported, components use:
 
 - `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `resolveAccess?: (requirement: string, mode: ...) => boolean`
 
 Behavior:
 
 - No resolver or no requirements: component remains visible.
-- View denied: component returns `null`.
-- Edit denied: interactive behavior is disabled where applicable.
+- Resolver mode is component-specific (for example, `'view' | 'edit'` for Input/Checkbox and `'action'` for Button).
+- If visibility access is denied for that component, it returns `null`.
+- If interaction access is denied for that component, interactive behavior is disabled where applicable.
 
 ## Theming Expectations
 
