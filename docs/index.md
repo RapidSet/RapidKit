@@ -5,9 +5,6 @@ hero:
   name: Mezmer
   text: AI-First Enterprise UI Kit
   tagline: A full-blown solution for AI agents to generate enterprise-grade React UI using proven patterns, contracts, and production safeguards.
-  image:
-    src: /mezmer-icon.svg
-    alt: Mezmer icon
   actions:
     - theme: brand
       text: AI Workflow
@@ -18,16 +15,6 @@ hero:
     - theme: alt
       text: Theming
       link: /THEMING
-
-features:
-  - title: AI-Ready By Design
-    details: Components, contracts, and docs are structured so AI agents can produce deterministic, high-quality UI code.
-  - title: MCP-Compatible Context
-    details: Machine-readable contracts and deterministic repository conventions are designed for MCP-enabled agent workflows.
-  - title: Enterprise Safeguards
-    details: Stable APIs, access-control injection, accessibility requirements, and test-enforced behavior reduce risky generation paths.
-  - title: Developer Friendly
-    details: Human developers get portable components, clear docs, and a predictable architecture that pairs with AI-assisted workflows.
 ---
 
 <div class="hero-constellation">
@@ -308,7 +295,8 @@ For the complete toolchain and each library's architectural role, see [Technolog
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 9rem;
+  z-index: 2;
+  width: var(--line-length, 11rem);
   height: 2px;
   background: linear-gradient(90deg, color-mix(in srgb, var(--vp-c-text-3) 20%, transparent), color-mix(in srgb, var(--vp-c-brand-1) 55%, transparent));
   transform-origin: left center;
@@ -321,6 +309,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
 }
 
 .orbit-top .orbit-line {
+  --line-length: 13.75rem;
   transform: rotate(90deg);
 }
 
@@ -331,6 +320,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
 }
 
 .orbit-right .orbit-line {
+  --line-length: 13.6rem;
   transform: rotate(180deg);
 }
 
@@ -340,6 +330,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
 }
 
 .orbit-bottom-right .orbit-line {
+  --line-length: 13rem;
   transform: rotate(214deg);
 }
 
@@ -349,6 +340,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
 }
 
 .orbit-bottom-left .orbit-line {
+  --line-length: 13rem;
   transform: rotate(326deg);
 }
 
@@ -359,6 +351,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
 }
 
 .orbit-left .orbit-line {
+  --line-length: 13.6rem;
   transform: rotate(0deg);
 }
 
@@ -368,6 +361,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
 }
 
 .orbit-top-left .orbit-line {
+  --line-length: 12.9rem;
   transform: rotate(33deg);
 }
 
@@ -375,6 +369,7 @@ For the complete toolchain and each library's architectural role, see [Technolog
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 3;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
