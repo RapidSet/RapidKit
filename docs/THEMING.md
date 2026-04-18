@@ -47,6 +47,38 @@ import '@tarikukebede/mezmer/styles.css';
 import '@tarikukebede/mezmer/themes/slate.css';
 ```
 
+Additional built-in options:
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/corporate.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/ocean.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/midnight.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/sand.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/forest.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/sunset.css';
+```
+
 For an interactive docs demo with runtime theme switching, see `docs/THEME-PLAYGROUND.md`.
 
 ## AI-Friendly Commands

@@ -129,14 +129,44 @@
   ],
   "themes": [
     {
+      "id": "corporate",
+      "contractPath": "ai/contracts/themes/corporate-theme.contract.json",
+      "cssPath": "src/themes/corporate.css"
+    },
+    {
       "id": "default",
       "contractPath": "ai/contracts/themes/default-theme.contract.json",
       "cssPath": "src/themes/default.css"
     },
     {
+      "id": "forest",
+      "contractPath": "ai/contracts/themes/forest-theme.contract.json",
+      "cssPath": "src/themes/forest.css"
+    },
+    {
+      "id": "midnight",
+      "contractPath": "ai/contracts/themes/midnight-theme.contract.json",
+      "cssPath": "src/themes/midnight.css"
+    },
+    {
+      "id": "ocean",
+      "contractPath": "ai/contracts/themes/ocean-theme.contract.json",
+      "cssPath": "src/themes/ocean.css"
+    },
+    {
+      "id": "sand",
+      "contractPath": "ai/contracts/themes/sand-theme.contract.json",
+      "cssPath": "src/themes/sand.css"
+    },
+    {
       "id": "slate",
       "contractPath": "ai/contracts/themes/slate-theme.contract.json",
       "cssPath": "src/themes/slate.css"
+    },
+    {
+      "id": "sunset",
+      "contractPath": "ai/contracts/themes/sunset-theme.contract.json",
+      "cssPath": "src/themes/sunset.css"
     }
   ]
 }

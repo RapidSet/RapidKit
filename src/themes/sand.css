@@ -1,0 +1,44 @@
+:root {
+  --mz-background: 42 56% 97%;
+  --mz-foreground: 30 28% 18%;
+  --mz-card: 42 61% 99%;
+  --mz-card-foreground: 30 28% 18%;
+  --mz-popover: 42 61% 99%;
+  --mz-popover-foreground: 30 28% 18%;
+  --mz-primary: 28 74% 46%;
+  --mz-primary-foreground: 42 45% 98%;
+  --mz-secondary: 41 42% 89%;
+  --mz-secondary-foreground: 30 31% 21%;
+  --mz-muted: 41 33% 91%;
+  --mz-muted-foreground: 30 18% 38%;
+  --mz-accent: 16 66% 56%;
+  --mz-accent-foreground: 30 31% 18%;
+  --mz-destructive: 4 70% 51%;
+  --mz-destructive-foreground: 42 45% 98%;
+  --mz-border: 38 30% 80%;
+  --mz-input: 38 30% 80%;
+  --mz-ring: 28 74% 46%;
+  --mz-radius: 0.75rem;
+}
+
+.dark {
+  --mz-background: 30 25% 10%;
+  --mz-foreground: 42 45% 94%;
+  --mz-card: 30 24% 14%;
+  --mz-card-foreground: 42 45% 94%;
+  --mz-popover: 30 24% 14%;
+  --mz-popover-foreground: 42 45% 94%;
+  --mz-primary: 30 82% 63%;
+  --mz-primary-foreground: 30 25% 10%;
+  --mz-secondary: 31 20% 22%;
+  --mz-secondary-foreground: 42 45% 94%;
+  --mz-muted: 31 17% 23%;
+  --mz-muted-foreground: 38 25% 74%;
+  --mz-accent: 16 66% 58%;
+  --mz-accent-foreground: 42 45% 96%;
+  --mz-destructive: 4 62% 44%;
+  --mz-destructive-foreground: 42 45% 98%;
+  --mz-border: 30 15% 27%;
+  --mz-input: 30 15% 27%;
+  --mz-ring: 30 82% 63%;
+}

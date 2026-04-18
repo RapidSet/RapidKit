@@ -1,0 +1,30 @@
+{
+  "id": "sand",
+  "displayName": "Sand",
+  "version": "1.0.0",
+  "cssPath": "src/themes/sand.css",
+  "modes": ["light", "dark"],
+  "tokenPrefix": "--mz-",
+  "tokenCoverage": [
+    "background",
+    "foreground",
+    "card",
+    "card-foreground",
+    "popover",
+    "popover-foreground",
+    "primary",
+    "primary-foreground",
+    "secondary",
+    "secondary-foreground",
+    "muted",
+    "muted-foreground",
+    "accent",
+    "accent-foreground",
+    "destructive",
+    "destructive-foreground",
+    "border",
+    "input",
+    "ring",
+    "radius"
+  ]
+}

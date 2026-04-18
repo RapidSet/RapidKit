@@ -25,6 +25,21 @@ export default withMermaid(
           ),
         },
       },
+      build: {
+        rollupOptions: {
+          onwarn(warning, warn) {
+            const isModuleDirectiveInNodeModules =
+              warning.code === 'MODULE_LEVEL_DIRECTIVE' &&
+              (warning.id?.includes('node_modules') ?? false);
+
+            if (isModuleDirectiveInNodeModules) {
+              return;
+            }
+
+            warn(warning);
+          },
+        },
+      },
     },
     head: [['link', { rel: 'icon', href: assetPath }]],
     cleanUrls: true,
