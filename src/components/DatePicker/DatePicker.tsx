@@ -31,8 +31,8 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
     open: controlledOpen,
     onOpenChange,
     placeholder = 'Select date',
-    fromYear = 2000,
-    toYear = 2050,
+    startMonth = new Date(2000, 0),
+    endMonth = new Date(2050, 11),
   } = props;
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
 
@@ -101,10 +101,10 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
               handleOpenChange(false);
             }}
             disabled={resolvedDisabled}
-            initialFocus
+            autoFocus
             captionLayout="dropdown"
-            fromYear={fromYear}
-            toYear={toYear}
+            startMonth={startMonth}
+            endMonth={endMonth}
           />
         </PopoverContent>
       </Popover>

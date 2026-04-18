@@ -25,8 +25,8 @@ export interface DatePickerProps {
   onOpenChange?: (open: boolean) => void;
   className?: string;
   placeholder?: string;
-  fromYear?: number;
-  toYear?: number;
+  startMonth?: Date;
+  endMonth?: Date;
   accessRequirements?: string[];
   resolveAccess?: DatePickerAccessResolver;
 }

@@ -24,8 +24,8 @@ import { DatePicker } from '@tarikukebede/mezmer';
 - `error?: string`
 - `placeholder?: string`
 - `disabled?: boolean`
-- `fromYear?: number`
-- `toYear?: number`
+- `startMonth?: Date`
+- `endMonth?: Date`
 - `open?: boolean`
 - `onOpenChange?: (open: boolean) => void`
 - `accessRequirements?: string[]`
