@@ -676,593 +676,611 @@ export function ThemePlayground() {
 
   return (
     <section className="rounded-3xl border border-border/70 bg-card p-6 text-card-foreground shadow-sm">
-      <div className="grid gap-6 xl:grid-cols-[21rem_minmax(0,1fr)]">
-        <aside className="xl:sticky xl:top-6 xl:self-start">
-          <div className="space-y-4 rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
-            <div>
-              <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Customizer
-              </p>
-              <h3 className="text-base font-semibold">Theme Selector</h3>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                Choose a theme, switch mode, and reset back to a clean baseline.
-              </p>
-            </div>
-
-            <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1">
-              {BUILT_IN_THEMES.map((builtInTheme) => {
-                const selectorSwatch =
-                  BUILT_IN_THEME_SWATCHES[builtInTheme.id][mode];
-
-                return (
-                  <Button
-                    key={builtInTheme.id}
-                    type="button"
-                    variant={theme === builtInTheme.id ? 'default' : 'outline'}
-                    onClick={() => setTheme(builtInTheme.id)}
-                    className="h-10 w-full justify-between px-3.5 text-sm"
-                  >
-                    <span className="min-w-0 truncate">
-                      {builtInTheme.label}
-                    </span>
-                    <span className="ml-2 flex shrink-0 items-center gap-1.5">
-                      <span
-                        className="h-3 w-3 rounded-full border"
-                        style={{
-                          backgroundColor: selectorSwatch.primary,
-                          borderColor: selectorSwatch.border,
-                        }}
-                      />
-                      <span
-                        className="h-3 w-3 rounded-full border"
-                        style={{
-                          backgroundColor: selectorSwatch.accent,
-                          borderColor: selectorSwatch.border,
-                        }}
-                      />
-                    </span>
-                  </Button>
-                );
-              })}
-              <Button
-                type="button"
-                variant={theme === 'ai-brand' ? 'default' : 'outline'}
-                onClick={() => setTheme('ai-brand')}
-                disabled={!generatedThemeCss}
-                className="h-10 w-full justify-between px-3.5 text-sm"
-              >
-                <span className="min-w-0 truncate">AI Brand</span>
-                <span className="ml-2 flex shrink-0 items-center gap-1.5">
-                  <span className="h-3 w-3 rounded-full border border-border bg-primary" />
-                  <span className="h-3 w-3 rounded-full border border-border bg-accent" />
-                </span>
-              </Button>
-            </div>
-
-            <div className="space-y-3 rounded-xl border border-border/70 bg-muted/35 p-3.5">
-              <div className="grid gap-2 sm:grid-cols-[1fr_auto] xl:grid-cols-1">
-                <div className="inline-grid grid-cols-2 rounded-lg border border-border bg-background p-1 shadow-inner">
-                  <button
-                    type="button"
-                    onClick={() => setMode('light')}
-                    className={`rounded-md px-3 py-2 text-sm font-medium transition ${
-                      mode === 'light'
-                        ? 'bg-card text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                    aria-pressed={mode === 'light'}
-                  >
-                    Light
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setMode('dark')}
-                    className={`rounded-md px-3 py-2 text-sm font-medium transition ${
-                      mode === 'dark'
-                        ? 'bg-card text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                    aria-pressed={mode === 'dark'}
-                  >
-                    Dark
-                  </button>
-                </div>
-                <Button
-                  type="button"
-                  label="Reset"
-                  variant="outline"
-                  onClick={handleResetCustomizer}
-                  className="h-10 px-3.5 text-sm xl:w-full"
-                />
-              </div>
-              <Chip label={`Theme: ${activeThemeLabel}`} />
-            </div>
-
-            <div className="rounded-xl border border-border/70 bg-muted/35 p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Active Theme
-              </p>
-              <div className="mt-3 flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground">
-                    {activeBuiltInTheme?.label ?? 'AI Brand'}
-                  </p>
-                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                    {activeThemeDescription}
-                  </p>
-                </div>
-                {activeBuiltInTheme ? (
-                  <div className="mt-0.5 flex shrink-0 items-center gap-2">
-                    <span
-                      className="h-4 w-4 rounded-full border"
-                      style={{
-                        backgroundColor:
-                          BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
-                            .primary,
-                        borderColor:
-                          BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
-                            .border,
-                      }}
-                    />
-                    <span
-                      className="h-4 w-4 rounded-full border"
-                      style={{
-                        backgroundColor:
-                          BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
-                            .accent,
-                        borderColor:
-                          BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
-                            .border,
-                      }}
-                    />
-                  </div>
-                ) : null}
-              </div>
-            </div>
+      <div className="space-y-6">
+        <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+          <div className="max-w-2xl">
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Customizer
+            </p>
+            <h3 className="text-base font-semibold">Theme Selector</h3>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              Choose a theme, switch mode, and reset back to a clean baseline.
+            </p>
           </div>
-        </aside>
 
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {BUILT_IN_THEMES.map((builtInTheme) => {
+              const selectorSwatch =
+                BUILT_IN_THEME_SWATCHES[builtInTheme.id][mode];
+
+              return (
+                <Button
+                  key={builtInTheme.id}
+                  type="button"
+                  variant={theme === builtInTheme.id ? 'default' : 'outline'}
+                  onClick={() => setTheme(builtInTheme.id)}
+                  className="h-11 w-full justify-between px-4 text-sm"
+                >
+                  <span className="min-w-0 truncate">{builtInTheme.label}</span>
+                  <span className="ml-3 flex shrink-0 items-center gap-1.5">
+                    <span
+                      className="h-3 w-3 rounded-full border"
+                      style={{
+                        backgroundColor: selectorSwatch.primary,
+                        borderColor: selectorSwatch.border,
+                      }}
+                    />
+                    <span
+                      className="h-3 w-3 rounded-full border"
+                      style={{
+                        backgroundColor: selectorSwatch.accent,
+                        borderColor: selectorSwatch.border,
+                      }}
+                    />
+                  </span>
+                </Button>
+              );
+            })}
+            <Button
+              type="button"
+              variant={theme === 'ai-brand' ? 'default' : 'outline'}
+              onClick={() => setTheme('ai-brand')}
+              disabled={!generatedThemeCss}
+              className="h-11 w-full justify-between px-4 text-sm"
+            >
+              <span className="min-w-0 truncate">AI Brand</span>
+              <span className="ml-3 flex shrink-0 items-center gap-1.5">
+                <span className="h-3 w-3 rounded-full border border-border bg-primary" />
+                <span className="h-3 w-3 rounded-full border border-border bg-accent" />
+              </span>
+            </Button>
+          </div>
+        </div>
+
+        <div className="grid gap-6 xl:grid-cols-[18rem_minmax(0,1fr)]">
+          <aside className="xl:sticky xl:top-6 xl:self-start">
+            <div className="space-y-4 rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+              <div>
                 <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Browse
+                  Status
                 </p>
-                <h3 className="text-base font-semibold">Theme Gallery</h3>
+                <h3 className="text-base font-semibold">Active Theme</h3>
                 <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                  Compare built-in palettes at a glance, then apply one to the
-                  live preview.
+                  Switch modes, review the current palette, or reset the
+                  preview.
                 </p>
               </div>
-              <div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto lg:items-center">
-                <input
-                  type="search"
-                  value={galleryFilter}
-                  onChange={(event) => setGalleryFilter(event.target.value)}
-                  placeholder="Filter themes"
-                  aria-label="Filter themes"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm sm:min-w-56"
-                />
-                <p className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                  {filteredBuiltInThemes.length} theme
-                  {filteredBuiltInThemes.length === 1 ? '' : 's'}
-                </p>
-              </div>
-            </div>
 
-            <div className="mt-4 grid gap-2 rounded-xl border border-border bg-muted/35 p-2 sm:grid-cols-3">
-              <button
-                type="button"
-                onClick={() => setGalleryMode('follow')}
-                className={`rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                  galleryMode === 'follow'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                aria-pressed={galleryMode === 'follow'}
-              >
-                Follow Active Mode
-              </button>
-              <button
-                type="button"
-                onClick={() => setGalleryMode('light')}
-                className={`rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                  galleryMode === 'light'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                aria-pressed={galleryMode === 'light'}
-              >
-                Light Swatches
-              </button>
-              <button
-                type="button"
-                onClick={() => setGalleryMode('dark')}
-                className={`rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                  galleryMode === 'dark'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                aria-pressed={galleryMode === 'dark'}
-              >
-                Dark Swatches
-              </button>
-            </div>
-
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {filteredBuiltInThemes.map((builtInTheme) => {
-                const swatch =
-                  BUILT_IN_THEME_SWATCHES[builtInTheme.id][
-                    effectiveGalleryMode
-                  ];
-
-                return (
-                  <button
-                    key={`gallery-${builtInTheme.id}`}
+              <div className="space-y-3 rounded-xl border border-border/70 bg-muted/35 p-3.5">
+                <div className="grid gap-2 sm:grid-cols-[1fr_auto] xl:grid-cols-1">
+                  <div className="inline-grid grid-cols-2 rounded-lg border border-border bg-background p-1 shadow-inner">
+                    <button
+                      type="button"
+                      onClick={() => setMode('light')}
+                      className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+                        mode === 'light'
+                          ? 'bg-card text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      aria-pressed={mode === 'light'}
+                    >
+                      Light
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMode('dark')}
+                      className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+                        mode === 'dark'
+                          ? 'bg-card text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      aria-pressed={mode === 'dark'}
+                    >
+                      Dark
+                    </button>
+                  </div>
+                  <Button
                     type="button"
-                    onClick={() => setTheme(builtInTheme.id)}
-                    className={`group min-h-32 rounded-xl border p-4 text-left transition duration-150 ${
-                      theme === builtInTheme.id
-                        ? 'border-primary shadow-sm ring-1 ring-primary'
-                        : 'border-border hover:border-primary/50 hover:shadow-sm'
-                    }`}
-                    style={{ backgroundColor: swatch.surface }}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <p
-                        className="text-sm font-semibold"
+                    label="Reset"
+                    variant="outline"
+                    onClick={handleResetCustomizer}
+                    className="h-10 px-3.5 text-sm xl:w-full"
+                  />
+                </div>
+                <Chip label={`Theme: ${activeThemeLabel}`} />
+              </div>
+
+              <div className="rounded-xl border border-border/70 bg-muted/35 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Active Theme
+                </p>
+                <div className="mt-3 flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-foreground">
+                      {activeBuiltInTheme?.label ?? 'AI Brand'}
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                      {activeThemeDescription}
+                    </p>
+                  </div>
+                  {activeBuiltInTheme ? (
+                    <div className="mt-0.5 flex shrink-0 items-center gap-2">
+                      <span
+                        className="h-4 w-4 rounded-full border"
                         style={{
-                          color:
-                            effectiveGalleryMode === 'light'
-                              ? '#111827'
-                              : '#e5e7eb',
+                          backgroundColor:
+                            BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
+                              .primary,
+                          borderColor:
+                            BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
+                              .border,
                         }}
-                      >
-                        {builtInTheme.label}
-                      </p>
-                      {theme === builtInTheme.id ? (
-                        <span
-                          className="rounded-full border px-2 py-0.5 text-[10px] font-medium"
+                      />
+                      <span
+                        className="h-4 w-4 rounded-full border"
+                        style={{
+                          backgroundColor:
+                            BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
+                              .accent,
+                          borderColor:
+                            BUILT_IN_THEME_SWATCHES[activeBuiltInTheme.id][mode]
+                              .border,
+                        }}
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-2xl">
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                    Browse
+                  </p>
+                  <h3 className="text-base font-semibold">Theme Gallery</h3>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                    Compare built-in palettes at a glance, then apply one to the
+                    live preview.
+                  </p>
+                </div>
+                <div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto lg:items-center">
+                  <input
+                    type="search"
+                    value={galleryFilter}
+                    onChange={(event) => setGalleryFilter(event.target.value)}
+                    placeholder="Filter themes"
+                    aria-label="Filter themes"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm sm:min-w-56"
+                  />
+                  <p className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                    {filteredBuiltInThemes.length} theme
+                    {filteredBuiltInThemes.length === 1 ? '' : 's'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-2 rounded-xl border border-border bg-muted/35 p-2 sm:grid-cols-3">
+                <button
+                  type="button"
+                  onClick={() => setGalleryMode('follow')}
+                  className={`rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                    galleryMode === 'follow'
+                      ? 'bg-background text-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  aria-pressed={galleryMode === 'follow'}
+                >
+                  Follow Active Mode
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGalleryMode('light')}
+                  className={`rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                    galleryMode === 'light'
+                      ? 'bg-background text-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  aria-pressed={galleryMode === 'light'}
+                >
+                  Light Swatches
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGalleryMode('dark')}
+                  className={`rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                    galleryMode === 'dark'
+                      ? 'bg-background text-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  aria-pressed={galleryMode === 'dark'}
+                >
+                  Dark Swatches
+                </button>
+              </div>
+
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                {filteredBuiltInThemes.map((builtInTheme) => {
+                  const swatch =
+                    BUILT_IN_THEME_SWATCHES[builtInTheme.id][
+                      effectiveGalleryMode
+                    ];
+
+                  return (
+                    <button
+                      key={`gallery-${builtInTheme.id}`}
+                      type="button"
+                      onClick={() => setTheme(builtInTheme.id)}
+                      className={`group min-h-32 rounded-xl border p-4 text-left transition duration-150 ${
+                        theme === builtInTheme.id
+                          ? 'border-primary shadow-sm ring-1 ring-primary'
+                          : 'border-border hover:border-primary/50 hover:shadow-sm'
+                      }`}
+                      style={{ backgroundColor: swatch.surface }}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <p
+                          className="text-sm font-semibold"
                           style={{
                             color:
                               effectiveGalleryMode === 'light'
                                 ? '#111827'
                                 : '#e5e7eb',
-                            borderColor: swatch.border,
                           }}
                         >
-                          Active
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="my-3 flex items-center gap-2">
-                      <span
-                        className="h-4 w-4 rounded-full border"
+                          {builtInTheme.label}
+                        </p>
+                        {theme === builtInTheme.id ? (
+                          <span
+                            className="rounded-full border px-2 py-0.5 text-[10px] font-medium"
+                            style={{
+                              color:
+                                effectiveGalleryMode === 'light'
+                                  ? '#111827'
+                                  : '#e5e7eb',
+                              borderColor: swatch.border,
+                            }}
+                          >
+                            Active
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className="my-3 flex items-center gap-2">
+                        <span
+                          className="h-4 w-4 rounded-full border"
+                          style={{
+                            backgroundColor: swatch.primary,
+                            borderColor: swatch.border,
+                          }}
+                        />
+                        <span
+                          className="h-4 w-4 rounded-full border"
+                          style={{
+                            backgroundColor: swatch.accent,
+                            borderColor: swatch.border,
+                          }}
+                        />
+                        <span
+                          className="h-4 w-4 rounded-full border"
+                          style={{
+                            backgroundColor: swatch.surface,
+                            borderColor: swatch.border,
+                          }}
+                        />
+                      </div>
+                      <p
+                        className="text-sm leading-6"
                         style={{
-                          backgroundColor: swatch.primary,
-                          borderColor: swatch.border,
+                          color:
+                            effectiveGalleryMode === 'light'
+                              ? '#4b5563'
+                              : '#9ca3af',
                         }}
-                      />
-                      <span
-                        className="h-4 w-4 rounded-full border"
-                        style={{
-                          backgroundColor: swatch.accent,
-                          borderColor: swatch.border,
-                        }}
-                      />
-                      <span
-                        className="h-4 w-4 rounded-full border"
-                        style={{
-                          backgroundColor: swatch.surface,
-                          borderColor: swatch.border,
-                        }}
-                      />
-                    </div>
-                    <p
-                      className="text-sm leading-6"
-                      style={{
-                        color:
-                          effectiveGalleryMode === 'light'
-                            ? '#4b5563'
-                            : '#9ca3af',
-                      }}
-                    >
-                      {BUILT_IN_THEME_SWATCHES[builtInTheme.id].note}
-                    </p>
-                  </button>
-                );
-              })}
-              {filteredBuiltInThemes.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-border bg-muted/20 p-5 text-sm text-muted-foreground sm:col-span-2 xl:col-span-4">
-                  No themes match that filter.
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-            <div className="space-y-4 rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
-              <div>
-                <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Preview
-                </p>
-                <h3 className="text-base font-semibold">Core Components</h3>
+                      >
+                        {BUILT_IN_THEME_SWATCHES[builtInTheme.id].note}
+                      </p>
+                    </button>
+                  );
+                })}
+                {filteredBuiltInThemes.length === 0 ? (
+                  <div className="rounded-xl border border-dashed border-border bg-muted/20 p-5 text-sm text-muted-foreground sm:col-span-2 xl:col-span-4">
+                    No themes match that filter.
+                  </div>
+                ) : null}
               </div>
-              <Input
-                name="email"
-                label="Email"
-                placeholder="name@company.com"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-              <DatePicker
-                name="startDate"
-                label="Start date"
-                value={selectedDate}
-                onChange={handleDateChange}
-              />
-              <Search
-                placeholder="Search components"
-                value={searchValue}
-                onChange={setSearchValue}
-              />
             </div>
 
-            <div className="space-y-4 rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
-              <div>
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+              <div className="space-y-4 rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+                <div>
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                    Preview
+                  </p>
+                  <h3 className="text-base font-semibold">Core Components</h3>
+                </div>
+                <Input
+                  name="email"
+                  label="Email"
+                  placeholder="name@company.com"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+                <DatePicker
+                  name="startDate"
+                  label="Start date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                />
+                <Search
+                  placeholder="Search components"
+                  value={searchValue}
+                  onChange={setSearchValue}
+                />
+              </div>
+
+              <div className="space-y-4 rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+                <div>
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                    Compose
+                  </p>
+                  <h3 className="text-base font-semibold">
+                    Building Block Example
+                  </h3>
+                </div>
+                <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-sm">
+                  <p className="text-base font-medium">Team Access Review</p>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                    This card uses the same semantic tokens as primitive
+                    components.
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Chip label="Design" />
+                    <Chip label="Platform" />
+                    <Chip label="In Review" />
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Button type="button" label="Approve" />
+                    <Button
+                      type="button"
+                      label="Request changes"
+                      variant="outline"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+              <div className="max-w-2xl">
                 <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Compose
+                  Generate
                 </p>
                 <h3 className="text-base font-semibold">
-                  Building Block Example
+                  AI Theme Generator Demo
                 </h3>
-              </div>
-              <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-sm">
-                <p className="text-base font-medium">Team Access Review</p>
                 <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                  This card uses the same semantic tokens as primitive
-                  components.
+                  Provide brand inputs, generate a token-complete Mezmer theme,
+                  and preview it immediately.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Chip label="Design" />
-                  <Chip label="Platform" />
-                  <Chip label="In Review" />
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Button type="button" label="Approve" />
-                  <Button
-                    type="button"
-                    label="Request changes"
-                    variant="outline"
+              </div>
+
+              <div className="mt-5 grid gap-4 lg:grid-cols-2">
+                <div>
+                  <label
+                    htmlFor="brand-name"
+                    className="mb-1.5 block text-sm font-medium"
+                  >
+                    Brand Name
+                  </label>
+                  <input
+                    id="brand-name"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
+                    value={brandName}
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      setBrandName(value);
+                      handleThemeIdFromName(value);
+                    }}
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
-            <div className="max-w-2xl">
-              <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Generate
-              </p>
-              <h3 className="text-base font-semibold">
-                AI Theme Generator Demo
-              </h3>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                Provide brand inputs, generate a token-complete Mezmer theme,
-                and preview it immediately.
-              </p>
-            </div>
-
-            <div className="mt-5 grid gap-4 lg:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="brand-name"
-                  className="mb-1.5 block text-sm font-medium"
-                >
-                  Brand Name
-                </label>
-                <input
-                  id="brand-name"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
-                  value={brandName}
-                  onChange={(event) => {
-                    const value = event.target.value;
-                    setBrandName(value);
-                    handleThemeIdFromName(value);
-                  }}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="theme-id"
-                  className="mb-1.5 block text-sm font-medium"
-                >
-                  Theme Id
-                </label>
-                <input
-                  id="theme-id"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
-                  value={themeId}
-                  onChange={(event) => setThemeId(event.target.value)}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="primary-color"
-                  className="mb-1.5 block text-sm font-medium"
-                >
-                  Primary Color (Hex)
-                </label>
-                <input
-                  id="primary-color"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
-                  value={primaryHex}
-                  onChange={(event) => setPrimaryHex(event.target.value)}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="accent-color"
-                  className="mb-1.5 block text-sm font-medium"
-                >
-                  Accent Color (Hex)
-                </label>
-                <input
-                  id="accent-color"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
-                  value={accentHex}
-                  onChange={(event) => setAccentHex(event.target.value)}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="tone"
-                  className="mb-1.5 block text-sm font-medium"
-                >
-                  Tone
-                </label>
-                <select
-                  id="tone"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
-                  value={tone}
-                  onChange={(event) => setTone(event.target.value as BrandTone)}
-                >
-                  <option value="balanced">Balanced</option>
-                  <option value="vibrant">Vibrant</option>
-                  <option value="executive">Executive</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  htmlFor="radius"
-                  className="mb-1.5 block text-sm font-medium"
-                >
-                  Radius
-                </label>
-                <select
-                  id="radius"
-                  className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
-                  value={radius}
-                  onChange={(event) => setRadius(event.target.value)}
-                >
-                  <option value="0.5rem">0.5rem</option>
-                  <option value="0.625rem">0.625rem</option>
-                  <option value="0.75rem">0.75rem</option>
-                  <option value="1rem">1rem</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
-              <Button
-                type="button"
-                label="Generate AI Theme"
-                onClick={handleGenerateAiTheme}
-                className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
-              />
-              <Button
-                type="button"
-                label="Apply Generated Theme"
-                variant="outline"
-                onClick={() => setTheme('ai-brand')}
-                disabled={!generatedThemeCss}
-                className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
-              />
-              <Button
-                type="button"
-                label="Export CSS"
-                variant="outline"
-                onClick={handleExportThemeCss}
-                disabled={!generatedThemeCss}
-                className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
-              />
-              <Button
-                type="button"
-                label="Export Contract"
-                variant="outline"
-                onClick={handleExportThemeContract}
-                className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
-              />
-              <Button
-                type="button"
-                label="Export Theme Package"
-                variant="outline"
-                onClick={handleExportThemePackage}
-                disabled={!generatedThemeCss}
-                className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
-              />
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
-            <div className="grid gap-4 lg:grid-cols-2">
-              <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-semibold">CLI Command</p>
-                  <Button
-                    type="button"
-                    label={copiedSection === 'command' ? 'Copied' : 'Copy'}
-                    variant="outline"
-                    onClick={() =>
-                      handleCopyText(generatedThemeCommand, 'command')
+                <div>
+                  <label
+                    htmlFor="theme-id"
+                    className="mb-1.5 block text-sm font-medium"
+                  >
+                    Theme Id
+                  </label>
+                  <input
+                    id="theme-id"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
+                    value={themeId}
+                    onChange={(event) => setThemeId(event.target.value)}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="primary-color"
+                    className="mb-1.5 block text-sm font-medium"
+                  >
+                    Primary Color (Hex)
+                  </label>
+                  <input
+                    id="primary-color"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
+                    value={primaryHex}
+                    onChange={(event) => setPrimaryHex(event.target.value)}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="accent-color"
+                    className="mb-1.5 block text-sm font-medium"
+                  >
+                    Accent Color (Hex)
+                  </label>
+                  <input
+                    id="accent-color"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
+                    value={accentHex}
+                    onChange={(event) => setAccentHex(event.target.value)}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="tone"
+                    className="mb-1.5 block text-sm font-medium"
+                  >
+                    Tone
+                  </label>
+                  <select
+                    id="tone"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
+                    value={tone}
+                    onChange={(event) =>
+                      setTone(event.target.value as BrandTone)
                     }
-                    className="h-8 px-3 text-xs"
-                  />
+                  >
+                    <option value="balanced">Balanced</option>
+                    <option value="vibrant">Vibrant</option>
+                    <option value="executive">Executive</option>
+                  </select>
                 </div>
-                <pre className="overflow-x-auto rounded-lg bg-muted/35 p-3 text-sm text-muted-foreground">
-                  {generatedThemeCommand}
-                </pre>
-              </div>
-              <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-semibold">Contract Snippet</p>
-                  <Button
-                    type="button"
-                    label={copiedSection === 'contract' ? 'Copied' : 'Copy'}
-                    variant="outline"
-                    onClick={() =>
-                      handleCopyText(generatedThemeContractSnippet, 'contract')
-                    }
-                    className="h-8 px-3 text-xs"
-                  />
+                <div>
+                  <label
+                    htmlFor="radius"
+                    className="mb-1.5 block text-sm font-medium"
+                  >
+                    Radius
+                  </label>
+                  <select
+                    id="radius"
+                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm"
+                    value={radius}
+                    onChange={(event) => setRadius(event.target.value)}
+                  >
+                    <option value="0.5rem">0.5rem</option>
+                    <option value="0.625rem">0.625rem</option>
+                    <option value="0.75rem">0.75rem</option>
+                    <option value="1rem">1rem</option>
+                  </select>
                 </div>
-                <pre className="max-h-48 overflow-auto rounded-lg bg-muted/35 p-3 text-sm text-muted-foreground">
-                  {generatedThemeContractSnippet}
-                </pre>
               </div>
-            </div>
 
-            <div className="mt-4 rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-semibold">Generated Theme CSS</p>
+              <div className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
                 <Button
                   type="button"
-                  label={copiedSection === 'css' ? 'Copied' : 'Copy'}
+                  label="Generate AI Theme"
+                  onClick={handleGenerateAiTheme}
+                  className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
+                />
+                <Button
+                  type="button"
+                  label="Apply Generated Theme"
                   variant="outline"
-                  onClick={() =>
-                    handleCopyText(
-                      generatedThemeCss ??
-                        'Generate a theme to see the token output.',
-                      'css',
-                    )
-                  }
-                  className="h-8 px-3 text-xs"
+                  onClick={() => setTheme('ai-brand')}
+                  disabled={!generatedThemeCss}
+                  className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
+                />
+                <Button
+                  type="button"
+                  label="Export CSS"
+                  variant="outline"
+                  onClick={handleExportThemeCss}
+                  disabled={!generatedThemeCss}
+                  className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
+                />
+                <Button
+                  type="button"
+                  label="Export Contract"
+                  variant="outline"
+                  onClick={handleExportThemeContract}
+                  className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
+                />
+                <Button
+                  type="button"
+                  label="Export Theme Package"
+                  variant="outline"
+                  onClick={handleExportThemePackage}
+                  disabled={!generatedThemeCss}
+                  className="h-auto w-full whitespace-normal px-3.5 py-2.5 text-sm"
                 />
               </div>
-              <pre className="max-h-64 overflow-auto rounded-lg bg-muted/35 p-3 text-sm text-muted-foreground">
-                {generatedThemeCss ??
-                  'Generate a theme to see the token output.'}
-              </pre>
             </div>
 
-            {generatedAt ? (
-              <p className="mt-3 text-sm text-muted-foreground">
-                Generated at {generatedAt}. The preview now uses your generated
-                token set.
-              </p>
-            ) : null}
+            <div className="rounded-2xl border border-border/70 bg-background p-5 shadow-sm">
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-sm font-semibold">CLI Command</p>
+                    <Button
+                      type="button"
+                      label={copiedSection === 'command' ? 'Copied' : 'Copy'}
+                      variant="outline"
+                      onClick={() =>
+                        handleCopyText(generatedThemeCommand, 'command')
+                      }
+                      className="h-8 px-3 text-xs"
+                    />
+                  </div>
+                  <pre className="overflow-x-auto rounded-lg bg-muted/35 p-3 text-sm text-muted-foreground">
+                    {generatedThemeCommand}
+                  </pre>
+                </div>
+                <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-sm font-semibold">Contract Snippet</p>
+                    <Button
+                      type="button"
+                      label={copiedSection === 'contract' ? 'Copied' : 'Copy'}
+                      variant="outline"
+                      onClick={() =>
+                        handleCopyText(
+                          generatedThemeContractSnippet,
+                          'contract',
+                        )
+                      }
+                      className="h-8 px-3 text-xs"
+                    />
+                  </div>
+                  <pre className="max-h-48 overflow-auto rounded-lg bg-muted/35 p-3 text-sm text-muted-foreground">
+                    {generatedThemeContractSnippet}
+                  </pre>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-semibold">Generated Theme CSS</p>
+                  <Button
+                    type="button"
+                    label={copiedSection === 'css' ? 'Copied' : 'Copy'}
+                    variant="outline"
+                    onClick={() =>
+                      handleCopyText(
+                        generatedThemeCss ??
+                          'Generate a theme to see the token output.',
+                        'css',
+                      )
+                    }
+                    className="h-8 px-3 text-xs"
+                  />
+                </div>
+                <pre className="max-h-64 overflow-auto rounded-lg bg-muted/35 p-3 text-sm text-muted-foreground">
+                  {generatedThemeCss ??
+                    'Generate a theme to see the token output.'}
+                </pre>
+              </div>
+
+              {generatedAt ? (
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Generated at {generatedAt}. The preview now uses your
+                  generated token set.
+                </p>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
