@@ -80,3 +80,7 @@ type User = {
   )}
 />;
 ```
+
+## RTK Query Integration
+
+For a full Redux Toolkit Query setup and adapter pattern using `searchOptions` and `getOptionById`, see [RTK Query Integration](../RTK-QUERY.md).

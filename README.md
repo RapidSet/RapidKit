@@ -23,6 +23,7 @@ Mezmer combines proven tools and patterns so AI systems can generate consistent,
 - [Quick Start](#quick-start)
 - [Public API](#public-api)
 - [Component Docs](https://tarikukebede.github.io/mezmer/components/)
+- [RTK Query Guide](docs/RTK-QUERY.md)
 - [Styling](#styling)
 - [Theming Guide](docs/THEMING.md)
 - [Theme Configuration](docs/THEME-CONFIGURATION.md)

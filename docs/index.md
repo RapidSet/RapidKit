@@ -13,6 +13,9 @@ hero:
       text: AI Workflow
       link: /ARCHITECTURE
     - theme: alt
+      text: RTK Query Guide
+      link: /RTK-QUERY
+    - theme: alt
       text: Installation Guide
       link: /INSTALLATION
     - theme: alt
