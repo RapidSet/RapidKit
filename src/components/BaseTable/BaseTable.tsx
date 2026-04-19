@@ -58,9 +58,11 @@ export const BaseTable = <T extends object>({
   totalItems,
   totalPages,
   onSelectionChange,
-  onPaginationChange,
+  onQueryParamsChange,
   onSortChange,
-  paginationParams,
+  queryParams,
+  sortBy,
+  sortOrder,
   onRowClicked,
   customRow,
   enableSelection,
@@ -133,8 +135,8 @@ export const BaseTable = <T extends object>({
       columnVisibility,
       rowSelection,
       pagination: {
-        pageIndex: Math.max((paginationParams?.page ?? 1) - 1, 0),
-        pageSize: paginationParams?.size ?? 20,
+        pageIndex: Math.max((queryParams?.page ?? 1) - 1, 0),
+        pageSize: queryParams?.size ?? 20,
       },
     },
   });
@@ -163,19 +165,21 @@ export const BaseTable = <T extends object>({
   const handlePageChange = (newPage: number) => {
     const boundedPage = Math.max(newPage, 1);
     table.setPageIndex(boundedPage - 1);
-    onPaginationChange?.({
-      ...paginationParams,
+    onQueryParamsChange?.({
+      ...queryParams,
+      query: queryParams?.query ?? '',
       page: boundedPage,
-      size: paginationParams?.size ?? 20,
+      size: queryParams?.size ?? 20,
     });
   };
 
-  const handlePageSizeChange = (newSize: number) => {
+  const handleSizeChange = (newSize: number) => {
     const boundedSize = Math.max(newSize, 1);
     table.setPageSize(boundedSize);
     table.setPageIndex(0);
-    onPaginationChange?.({
-      ...paginationParams,
+    onQueryParamsChange?.({
+      ...queryParams,
+      query: queryParams?.query ?? '',
       size: boundedSize,
       page: 1,
     });
@@ -236,8 +240,8 @@ export const BaseTable = <T extends object>({
   }, [activeItem, data, getRowId]);
 
   useEffect(() => {
-    const currentPageIndex = Math.max((paginationParams?.page ?? 1) - 1, 0);
-    const currentPageSize = paginationParams?.size ?? 20;
+    const currentPageIndex = Math.max((queryParams?.page ?? 1) - 1, 0);
+    const currentPageSize = queryParams?.size ?? 20;
 
     if (table.getState().pagination.pageIndex !== currentPageIndex) {
       table.setPageIndex(currentPageIndex);
@@ -245,7 +249,7 @@ export const BaseTable = <T extends object>({
     if (table.getState().pagination.pageSize !== currentPageSize) {
       table.setPageSize(currentPageSize);
     }
-  }, [paginationParams, table]);
+  }, [queryParams, table]);
 
   useEffect(() => {
     if (!onSelectionChange || isSyncingFromProp.current) {
@@ -298,12 +302,10 @@ export const BaseTable = <T extends object>({
                   (item) => item.id === header.id,
                 );
                 const isSortable = Boolean(column?.sortable && onSortChange);
-                const currentSortBy = paginationParams?.sortBy;
-                const currentSortOrder = paginationParams?.sortOrder;
-                const isSorted = currentSortBy === header.id;
+                const isSorted = sortBy === header.id;
                 let sortIndicator = '↕';
                 if (isSorted) {
-                  sortIndicator = currentSortOrder === 'asc' ? '↑' : '↓';
+                  sortIndicator = sortOrder === 'asc' ? '↑' : '↓';
                 }
 
                 return (
@@ -321,7 +323,7 @@ export const BaseTable = <T extends object>({
 
                       const nextSortOrder = getNextSortOrder(
                         isSorted,
-                        currentSortOrder,
+                        sortOrder,
                       );
                       onSortChange(header.id, nextSortOrder);
                     }}
@@ -421,8 +423,8 @@ export const BaseTable = <T extends object>({
           rowCount={rows.length}
           totalPages={totalPages}
           totalItems={totalItems}
-          paginationParams={paginationParams}
-          onPageSizeChange={handlePageSizeChange}
+          queryParams={queryParams}
+          onSizeChange={handleSizeChange}
           onPageChange={handlePageChange}
           showDescriptor={showDescriptor}
           columnCount={compactPagination ? 2 : table.getAllColumns().length}

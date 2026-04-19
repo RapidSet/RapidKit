@@ -9,7 +9,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { BaseTable } from './BaseTable';
 import { CellType } from './components/BaseTableRow/components/BaseTableCell';
 import type { Column } from './components/BaseTableRow';
-import type { BaseTablePaginationParams } from './types';
+import type { BaseTableQueryParams } from './types';
 
 interface TestRow {
   id: number;
@@ -32,7 +32,8 @@ const rows: TestRow[] = [
   { id: 2, name: 'Beta' },
 ];
 
-const paginationParams: BaseTablePaginationParams = {
+const queryParams: BaseTableQueryParams = {
+  query: '',
   page: 1,
   size: 10,
 };
@@ -49,7 +50,7 @@ describe('BaseTable', () => {
         columns={columns}
         totalItems={2}
         totalPages={1}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
       />,
     );
 
@@ -72,7 +73,7 @@ describe('BaseTable', () => {
       <BaseTable<TestRow>
         data={clickableRows}
         columns={columns}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
         onRowClicked={onRowClicked}
       />,
     );
@@ -99,7 +100,7 @@ describe('BaseTable', () => {
       <BaseTable<TestRow>
         data={rows}
         columns={columnsWithInactive}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
         onRowClicked={onRowClicked}
       />,
     );
@@ -118,7 +119,7 @@ describe('BaseTable', () => {
       <BaseTable<TestRow>
         data={rows}
         columns={columns}
-        paginationParams={{ ...paginationParams }}
+        queryParams={{ ...queryParams }}
         onSortChange={onSortChange}
       />,
     );
@@ -130,11 +131,9 @@ describe('BaseTable', () => {
       <BaseTable<TestRow>
         data={rows}
         columns={columns}
-        paginationParams={{
-          ...paginationParams,
-          sortBy: 'name',
-          sortOrder: 'asc',
-        }}
+        queryParams={{ ...queryParams }}
+        sortBy="name"
+        sortOrder="asc"
         onSortChange={onSortChange}
       />,
     );
@@ -161,7 +160,7 @@ describe('BaseTable', () => {
         columns={columnsWithInactive}
         enableSelection
         onSelectionChange={onSelectionChange}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
       />,
     );
 
@@ -186,7 +185,7 @@ describe('BaseTable', () => {
         data={[]}
         columns={columns}
         placeholder="Nothing to show"
-        paginationParams={paginationParams}
+        queryParams={queryParams}
       />,
     );
 
@@ -198,7 +197,7 @@ describe('BaseTable', () => {
       <BaseTable<TestRow>
         data={rows}
         columns={columns}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
         accessRequirements={['table.read']}
         resolveAccess={() => false}
       />,

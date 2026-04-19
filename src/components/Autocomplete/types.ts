@@ -12,7 +12,6 @@ export interface AutocompleteSearchParams extends PaginationParams {
   query: string;
   page: number;
   size: number;
-  pageSize?: number;
 }
 
 export interface AutocompleteSearchResult<T> {
@@ -47,7 +46,7 @@ export interface AutocompleteProps<T extends AutocompleteOptionBase> {
   renderOption?: (item: T) => ReactNode;
   getOptionLabel?: (item: T) => string;
   emptyMessage?: string;
-  pageSize?: number;
+  size?: number;
   accessRequirements?: string[];
   resolveAccess?: AutocompleteAccessResolver;
 }

@@ -24,7 +24,7 @@
       "required": true
     },
     "searchOptions": {
-      "type": "(params: { query: string; page: number; size: number; pageSize?: number }) => Promise<{ items: T[]; currentPage: number; totalPages: number; totalItems: number }>",
+      "type": "(params: { query: string; page: number; size: number }) => Promise<{ items: T[]; currentPage: number; totalPages: number; totalItems: number }>",
       "required": true
     },
     "getOptionById": {
@@ -40,10 +40,10 @@
       "required": false,
       "default": "\"Search...\""
     },
-    "pageSize": {
+    "size": {
       "type": "number",
       "required": false,
-      "default": "10"
+      "default": "20"
     },
     "renderOption": {
       "type": "(item: T) => ReactNode",

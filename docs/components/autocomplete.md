@@ -15,11 +15,11 @@ import { Autocomplete } from '@tarikukebede/mezmer';
 - `name: string`
 - `value: T['id'] | null`
 - `onSelectOption: (item: T | null) => void`
-- `searchOptions: (params: { query: string; page: number; size: number; pageSize?: number }) => Promise<{ items: T[]; currentPage: number; totalPages: number; totalItems: number }>`
+- `searchOptions: (params: { query: string; page: number; size: number }) => Promise<{ items: T[]; currentPage: number; totalPages: number; totalItems: number }>`
 - `getOptionById?: (id: T['id']) => Promise<T | null>`
 - `label?: string`
 - `placeholder?: string`
-- `pageSize?: number`
+- `size?: number`
 - `renderOption?: (item: T) => ReactNode`
 - `accessRequirements?: string[]`
 - `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
@@ -39,7 +39,7 @@ import { Autocomplete } from '@tarikukebede/mezmer';
 ## Behavior
 
 - Opens on focus or typing.
-- Calls `searchOptions` with `{ query, page, size }` and includes `pageSize` for backward compatibility.
+- Calls `searchOptions` with `{ query, page, size }`.
 - Supports incremental pagination when scrolled near the bottom.
 - Calls `onSelectOption(item)` when an option is selected.
 - Calls `onSelectOption(null)` when the input is cleared.
@@ -101,9 +101,7 @@ export function AssigneeField() {
     null,
   );
   const [searchQuery, setSearchQuery] = useState('');
-  const [paginationParams, setPaginationParams] = useState(
-    DEFAULT_PAGINATION_PARAMS,
-  );
+  const [queryParams, setQueryParams] = useState(DEFAULT_PAGINATION_PARAMS);
 
   const [triggerSearchUsers] = useLazySearchUsersQuery();
   const [triggerGetUserById] = useLazyGetUserByIdQuery();
@@ -119,7 +117,7 @@ export function AssigneeField() {
       size: number;
     }) => {
       setSearchQuery(query);
-      setPaginationParams({ page, size });
+      setQueryParams({ page, size });
 
       const result = await triggerSearchUsers(
         { query, page, size },
@@ -160,8 +158,8 @@ export function AssigneeField() {
       />
 
       <p className="text-xs text-muted-foreground">
-        Last request: query="{searchQuery}", page={paginationParams.page}, size=
-        {paginationParams.size}
+        Last request: query="{searchQuery}", page={queryParams.page}, size=
+        {queryParams.size}
       </p>
     </div>
   );

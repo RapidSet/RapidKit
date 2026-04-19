@@ -19,8 +19,10 @@ import { BaseTable } from '@tarikukebede/mezmer';
 - `columns?: Column<T>[]`
 - `customRow?: Column<T>[]`
 - `placeholder?: string`
-- `paginationParams?: { page: number; size: number; sortBy?: string; sortOrder?: 'asc' | 'desc' }`
-- `onPaginationChange?: (params) => void`
+- `queryParams?: { query: string; page: number; size: number }`
+- `onQueryParamsChange?: (params) => void`
+- `sortBy?: string`
+- `sortOrder?: 'asc' | 'desc'`
 - `onSortChange?: (sortBy: string, sortOrder: 'asc' | 'desc') => void`
 - `enableSelection?: boolean`
 - `onSelectionChange?: (selectedItems: T[]) => void`
@@ -53,7 +55,7 @@ const rows: Row[] = [
 
 ## RTK Query Integration
 
-For server-side pagination and sorting, keep a single `paginationParams` state and trigger an RTK Query endpoint from it.
+For server-side pagination and sorting, keep `queryParams` for `{ query, page, size }` and track sort state separately.
 
 ```tsx
 import { useMemo, useState } from 'react';
@@ -62,24 +64,28 @@ import { useListServicesQuery } from './servicesApi';
 
 type Row = { id: number; name: string; status: string };
 
-type PaginationParams = {
+type QueryParams = {
+  query: string;
   page: number;
   size: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
 };
 
-const DEFAULT_PAGINATION_PARAMS: PaginationParams = {
+const DEFAULT_QUERY_PARAMS: QueryParams = {
+  query: '',
   page: 1,
   size: 10,
 };
 
 export function ServicesTable() {
-  const [paginationParams, setPaginationParams] = useState(
-    DEFAULT_PAGINATION_PARAMS,
-  );
+  const [queryParams, setQueryParams] = useState(DEFAULT_QUERY_PARAMS);
+  const [sortBy, setSortBy] = useState<string | undefined>();
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>();
 
-  const { data, isFetching } = useListServicesQuery(paginationParams);
+  const { data, isFetching } = useListServicesQuery({
+    ...queryParams,
+    sortBy,
+    sortOrder,
+  });
 
   const rows = data?.items ?? [];
   const totalPages = data?.totalPages ?? 1;
@@ -100,16 +106,15 @@ export function ServicesTable() {
       isLoading={isFetching}
       totalPages={totalPages}
       totalItems={totalItems}
-      paginationParams={paginationParams}
-      onPaginationChange={setPaginationParams}
-      onSortChange={(sortBy, sortOrder) =>
-        setPaginationParams((previous) => ({
-          ...previous,
-          page: 1,
-          sortBy,
-          sortOrder,
-        }))
-      }
+      queryParams={queryParams}
+      onQueryParamsChange={setQueryParams}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSortChange={(nextSortBy, nextSortOrder) => {
+        setSortBy(nextSortBy);
+        setSortOrder(nextSortOrder);
+        setQueryParams((previous) => ({ ...previous, page: 1 }));
+      }}
     />
   );
 }

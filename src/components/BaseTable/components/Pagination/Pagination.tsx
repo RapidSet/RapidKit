@@ -4,17 +4,17 @@ export function DataTablePagination({
   enableSelection = false,
   selectedCount = 0,
   rowCount = 0,
-  onPageSizeChange,
+  onSizeChange,
   onPageChange,
-  paginationParams,
+  queryParams,
   totalItems,
   totalPages,
   showDescriptor = true,
   columnCount = 3,
 }: Readonly<DataTablePaginationProps>) {
-  const pageSizeOptions = [10, 20, 30, 40, 50];
-  const currentPage = Math.max(paginationParams?.page ?? 1, 1);
-  const currentSize = Math.max(paginationParams?.size ?? 10, 1);
+  const sizeOptions = [10, 20, 30, 40, 50];
+  const currentPage = Math.max(queryParams?.page ?? 1, 1);
+  const currentSize = Math.max(queryParams?.size ?? 10, 1);
   const availablePages = Math.max(totalPages ?? 1, 1);
   const isCompact = columnCount <= 3;
 
@@ -77,11 +77,11 @@ export function DataTablePagination({
             id="base-table-page-size"
             className="h-8 rounded border px-2 text-xs"
             value={String(currentSize)}
-            onChange={(event) => onPageSizeChange(Number(event.target.value))}
+            onChange={(event) => onSizeChange(Number(event.target.value))}
           >
-            {pageSizeOptions.map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                {pageSize}
+            {sizeOptions.map((size) => (
+              <option key={size} value={size}>
+                {size}
               </option>
             ))}
           </select>

@@ -5,6 +5,7 @@
 - This workspace builds a standalone, reusable, publishable UI component kit.
 - Treat all work as package engineering for external consumers.
 - Assume a brand-new project baseline unless requirements explicitly state otherwise.
+- This project currently has no production users; do not prioritize backward compatibility when making improvements.
 
 ## Scope Guardrails
 
@@ -36,8 +37,7 @@
 ## API Design Rules
 
 - Prefer named exports for components, hooks, types, and utilities.
-- Treat public prop signatures as stable contracts.
-- Avoid unplanned breaking API changes.
+- Favor clear, correct API design over backward compatibility constraints during this early project phase.
 - Design props to be domain-neutral and reusable across applications.
 - Components are wrappers over shadcn library components
 - Prefer neutral authorization naming in public props (for example, `accessRequirements` and `resolveAccess`) instead of policy-specific names.

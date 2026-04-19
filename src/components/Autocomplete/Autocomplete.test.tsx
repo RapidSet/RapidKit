@@ -15,7 +15,7 @@ interface TestItem {
   name: string;
 }
 
-const expectedPageSize = DEFAULT_PAGINATION_PARAM.size ?? 10;
+const expectedSize = DEFAULT_PAGINATION_PARAM.size ?? 10;
 
 const makeSearchResult = (items: TestItem[]) => ({
   items,
@@ -107,8 +107,7 @@ describe('Autocomplete', () => {
       expect(searchOptions).toHaveBeenCalledWith({
         query: 'al',
         page: 1,
-        size: expectedPageSize,
-        pageSize: expectedPageSize,
+        size: expectedSize,
       });
     });
 
@@ -173,8 +172,7 @@ describe('Autocomplete', () => {
       expect(searchOptions).toHaveBeenNthCalledWith(1, {
         query: 'al',
         page: 1,
-        size: expectedPageSize,
-        pageSize: expectedPageSize,
+        size: expectedSize,
       });
     });
 
@@ -201,8 +199,7 @@ describe('Autocomplete', () => {
       expect(searchOptions).toHaveBeenNthCalledWith(2, {
         query: 'al',
         page: 2,
-        size: expectedPageSize,
-        pageSize: expectedPageSize,
+        size: expectedSize,
       });
     });
   });

@@ -33,7 +33,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
     renderOption,
     getOptionLabel,
     emptyMessage = 'No results found',
-    pageSize = DEFAULT_PAGINATION_PARAM.size ?? AUTOCOMPLETE_FALLBACK_PAGE_SIZE,
+    size = DEFAULT_PAGINATION_PARAM.size ?? AUTOCOMPLETE_FALLBACK_PAGE_SIZE,
     accessRequirements,
     resolveAccess,
   } = props;
@@ -74,8 +74,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
         const result = await searchOptions({
           query: searchValue,
           page: nextPage,
-          size: pageSize,
-          pageSize,
+          size,
         });
 
         if (activeRequestId !== requestIdRef.current) {
@@ -105,7 +104,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
         }
       }
     },
-    [pageSize, searchOptions, searchValue],
+    [searchOptions, searchValue, size],
   );
 
   useEffect(() => {

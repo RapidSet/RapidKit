@@ -1,4 +1,4 @@
-import { BaseTablePaginationParams } from '@components/BaseTable/types';
+import { BaseTableQueryParams } from '@components/BaseTable/types';
 
 export interface DataTablePaginationProps {
   enableSelection?: boolean;
@@ -6,9 +6,9 @@ export interface DataTablePaginationProps {
   rowCount?: number;
   totalPages?: number;
   totalItems?: number;
-  paginationParams?: BaseTablePaginationParams;
+  queryParams?: BaseTableQueryParams;
   onPageChange: (page: number) => void;
-  onPageSizeChange: (pageSize: number) => void;
+  onSizeChange: (size: number) => void;
   showDescriptor?: boolean;
   columnCount?: number;
 }

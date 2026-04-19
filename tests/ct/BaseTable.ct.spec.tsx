@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/experimental-ct-react';
 import { BaseTable } from '../../src/components/BaseTable';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
-import type { BaseTablePaginationParams } from '../../src/components/BaseTable/types';
+import type { BaseTableQueryParams } from '../../src/components/BaseTable/types';
 
 type TableRowModel = {
   id: number;
@@ -31,7 +31,8 @@ const rows: TableRowModel[] = [
   { id: 2, name: 'Beta', createdAt: '2026-01-02' },
 ];
 
-const paginationParams: BaseTablePaginationParams = {
+const queryParams: BaseTableQueryParams = {
+  query: '',
   page: 1,
   size: 10,
 };
@@ -48,7 +49,7 @@ test.describe('BaseTable (Component Test)', () => {
         columns={columns}
         totalItems={2}
         totalPages={1}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
         onSortChange={(sortBy, sortOrder) => {
           latestSort = { sortBy, sortOrder };
         }}
@@ -70,7 +71,7 @@ test.describe('BaseTable (Component Test)', () => {
         columns={columns}
         totalItems={2}
         totalPages={1}
-        paginationParams={paginationParams}
+        queryParams={queryParams}
         enableSelection
         onSelectionChange={(items) => {
           selectedItems = items;

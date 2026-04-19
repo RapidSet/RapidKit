@@ -9,11 +9,10 @@ export type BaseTableAccessResolver = (
   mode: BaseTableAccessMode,
 ) => boolean;
 
-export interface BaseTablePaginationParams {
+export interface BaseTableQueryParams {
+  query: string;
   page: number;
   size: number;
-  sortBy?: string;
-  sortOrder?: BaseTableSortOrder;
 }
 
 export interface TableProps<T extends object> {
@@ -25,13 +24,15 @@ export interface TableProps<T extends object> {
   isLoading?: boolean;
   className?: string;
   placeholder?: string;
-  paginationParams?: BaseTablePaginationParams;
+  queryParams?: BaseTableQueryParams;
+  sortBy?: string;
+  sortOrder?: BaseTableSortOrder;
   enableSelection?: boolean;
   accessRequirements?: string[];
   resolveAccess?: BaseTableAccessResolver;
   onRowClicked?: (item: T) => void;
   onSelectionChange?: (selectedItems: T[]) => void;
-  onPaginationChange?: (params: BaseTablePaginationParams) => void;
+  onQueryParamsChange?: (params: BaseTableQueryParams) => void;
   onSortChange?: (sortBy: string, sortOrder: BaseTableSortOrder) => void;
   showDescriptor?: boolean;
   activeItem?: T | null;

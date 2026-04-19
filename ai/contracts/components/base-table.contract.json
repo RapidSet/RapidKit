@@ -15,17 +15,19 @@
     "data": { "type": "T[]", "required": true },
     "columns": { "type": "Column<T>[]", "required": false },
     "customRow": { "type": "Column<T>[]", "required": false },
-    "paginationParams": {
-      "type": "{ page: number; size: number; sortBy?: string; sortOrder?: \"asc\" | \"desc\" }",
+    "queryParams": {
+      "type": "{ query: string; page: number; size: number }",
       "required": false
     },
+    "sortBy": { "type": "string", "required": false },
+    "sortOrder": { "type": "\"asc\" | \"desc\"", "required": false },
     "enableSelection": { "type": "boolean", "required": false },
     "onSelectionChange": {
       "type": "(selectedItems: T[]) => void",
       "required": false
     },
-    "onPaginationChange": {
-      "type": "(params: BaseTablePaginationParams) => void",
+    "onQueryParamsChange": {
+      "type": "(params: BaseTableQueryParams) => void",
       "required": false
     },
     "onSortChange": {

@@ -10,9 +10,9 @@ const createProps = (): DataTablePaginationProps => {
     rowCount: 4,
     totalItems: 45,
     totalPages: 5,
-    paginationParams: { page: 2, size: 10 },
+    queryParams: { query: '', page: 2, size: 10 },
     onPageChange: vi.fn(),
-    onPageSizeChange: vi.fn(),
+    onSizeChange: vi.fn(),
     showDescriptor: true,
     columnCount: 5,
   };
@@ -46,7 +46,7 @@ describe('DataTablePagination', () => {
     expect(Boolean(screen.getByText('Showing 11 - 20 of 45 items'))).toBe(true);
   });
 
-  it('calls onPageSizeChange when page size is selected', () => {
+  it('calls onSizeChange when size is selected', () => {
     const props = createProps();
 
     render(<DataTablePagination {...props} />);
@@ -55,6 +55,6 @@ describe('DataTablePagination', () => {
       target: { value: '30' },
     });
 
-    expect(props.onPageSizeChange).toHaveBeenCalledWith(30);
+    expect(props.onSizeChange).toHaveBeenCalledWith(30);
   });
 });
