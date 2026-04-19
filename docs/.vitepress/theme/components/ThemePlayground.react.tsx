@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   Button,
+  ButtonVariant,
   Checkbox,
   Chip,
   DatePicker,
@@ -22,8 +23,6 @@ type BuiltInThemeId =
   | 'sand'
   | 'slate'
   | 'sunset';
-
-type Mode = 'light' | 'dark';
 
 type ThemeOption = {
   id: BuiltInThemeId;
@@ -165,8 +164,9 @@ const THEME_OPTIONS: ThemeOption[] = [
 ];
 
 const THEME_STORAGE_KEY = 'mezmer-docs-theme';
-const MODE_STORAGE_KEY = 'mezmer-docs-mode';
-const THEME_STYLESHEET_ID = 'mezmer-docs-theme-stylesheet';
+const THEME_STYLE_ID = 'mezmer-docs-theme-style-scoped';
+const LEGACY_GLOBAL_THEME_LINK_ID = 'mezmer-docs-theme-stylesheet';
+const THEME_SCOPE_SELECTOR = '.mz-theme-playground';
 const LEGACY_PREVIEW_THEME_STYLESHEET_ID =
   'mezmer-docs-component-preview-theme';
 
@@ -177,22 +177,28 @@ function getThemeStylesheetHref(theme: BuiltInThemeId): string {
   return `${basePath}themes/${theme}.css`;
 }
 
-function ensureThemeStylesheet(theme: BuiltInThemeId): void {
+async function ensureThemeStylesheet(theme: BuiltInThemeId): Promise<void> {
   const href = getThemeStylesheetHref(theme);
-  let link = document.getElementById(
-    THEME_STYLESHEET_ID,
-  ) as HTMLLinkElement | null;
-
-  if (!link) {
-    link = document.createElement('link');
-    link.id = THEME_STYLESHEET_ID;
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
+  const response = await fetch(href);
+  if (!response.ok) {
+    return;
   }
 
-  if (link.href !== href) {
-    link.href = href;
+  const cssText = await response.text();
+  const scopedCss = cssText
+    .replaceAll(/(^|\})\s*:root\s*\{/g, `$1\n${THEME_SCOPE_SELECTOR} {`)
+    .replaceAll(/(^|\})\s*\.dark\s*\{/g, `$1\n.dark ${THEME_SCOPE_SELECTOR} {`);
+
+  let styleTag = document.getElementById(
+    THEME_STYLE_ID,
+  ) as HTMLStyleElement | null;
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.id = THEME_STYLE_ID;
+    document.head.appendChild(styleTag);
   }
+
+  styleTag.textContent = scopedCss;
 }
 
 function resolveInitialTheme(): BuiltInThemeId {
@@ -204,15 +210,6 @@ function resolveInitialTheme(): BuiltInThemeId {
   }
 
   return 'default';
-}
-
-function resolveInitialMode(): Mode {
-  const stored = globalThis.localStorage.getItem(MODE_STORAGE_KEY);
-  if (stored === 'light' || stored === 'dark') {
-    return stored;
-  }
-
-  return 'light';
 }
 
 const TOKEN_SWATCHES: Array<{ label: string; token: string }> = [
@@ -227,7 +224,6 @@ const TOKEN_SWATCHES: Array<{ label: string; token: string }> = [
 ];
 
 type PreviewCardProps = Readonly<{
-  mode: Mode;
   email: string;
   searchValue: string;
   startDate: string;
@@ -242,7 +238,6 @@ type PreviewCardProps = Readonly<{
 
 function PreviewCard(props: PreviewCardProps) {
   const {
-    mode,
     email,
     searchValue,
     startDate,
@@ -255,14 +250,12 @@ function PreviewCard(props: PreviewCardProps) {
     onAcceptedTermsChange,
   } = props;
 
-  const title = mode === 'light' ? 'Light Surface' : 'Dark Surface';
-
   return (
-    <article className={`mz-preview-card${mode === 'dark' ? ' dark' : ''}`}>
+    <article className="mz-preview-card">
       <div className="mz-preview-card__surface">
         <div className="mz-preview-card__head">
           <div>
-            <h4 className="mz-preview-card__title">{title}</h4>
+            <h4 className="mz-preview-card__title">Preview Surface</h4>
           </div>
         </div>
 
@@ -274,7 +267,7 @@ function PreviewCard(props: PreviewCardProps) {
             <div className="mz-preview-card__component-grid">
               <div className="mz-preview-card__component-item">
                 <Input
-                  name={`theme-preview-email-${mode}`}
+                  name="theme-preview-email"
                   label="Email"
                   placeholder="name@company.com"
                   value={email}
@@ -292,7 +285,7 @@ function PreviewCard(props: PreviewCardProps) {
 
               <div className="mz-preview-card__component-item">
                 <DatePicker
-                  name={`theme-preview-date-${mode}`}
+                  name="theme-preview-date"
                   label="Start Date"
                   value={startDate}
                   onChange={(change) =>
@@ -324,7 +317,7 @@ function PreviewCard(props: PreviewCardProps) {
 
             <div className="mz-preview-card__component-row">
               <Checkbox
-                name={`theme-preview-terms-${mode}`}
+                name="theme-preview-terms"
                 label="Terms"
                 title="I agree to the terms"
                 checked={acceptedTerms}
@@ -333,9 +326,21 @@ function PreviewCard(props: PreviewCardProps) {
             </div>
 
             <div className="mz-preview-card__actions">
-              <Button label="Primary" />
-              <Button label="Secondary" variant="outline" />
-              <Button label="Ghost" variant="ghost" />
+              <Button
+                label="Primary"
+                variant={ButtonVariant.Primary}
+                className="w-full"
+              />
+              <Button
+                label="Secondary"
+                variant={ButtonVariant.Outlined}
+                className="w-full"
+              />
+              <Button
+                label="Tertiary"
+                variant={ButtonVariant.Dashed}
+                className="w-full"
+              />
             </div>
 
             <div className="mz-preview-card__chips">
@@ -361,7 +366,7 @@ function PreviewCard(props: PreviewCardProps) {
               aria-label="Token swatches"
             >
               {TOKEN_SWATCHES.map((swatch) => (
-                <span key={`${mode}-${swatch.token}`} className="mz-token-item">
+                <span key={swatch.token} className="mz-token-item">
                   <span
                     className="mz-token-item__dot"
                     style={{ backgroundColor: `hsl(var(${swatch.token}))` }}
@@ -380,7 +385,6 @@ function PreviewCard(props: PreviewCardProps) {
 
 export function ThemePlayground() {
   const [theme, setTheme] = useState<BuiltInThemeId>('default');
-  const [mode, setMode] = useState<Mode>('light');
   const [email, setEmail] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [startDate, setStartDate] = useState('2026-04-19');
@@ -389,7 +393,6 @@ export function ThemePlayground() {
 
   useEffect(() => {
     setTheme(resolveInitialTheme());
-    setMode(resolveInitialMode());
 
     const legacyPreviewStylesheet = document.getElementById(
       LEGACY_PREVIEW_THEME_STYLESHEET_ID,
@@ -398,16 +401,20 @@ export function ThemePlayground() {
     if (legacyPreviewStylesheet) {
       legacyPreviewStylesheet.remove();
     }
+
+    const legacyGlobalThemeLink = document.getElementById(
+      LEGACY_GLOBAL_THEME_LINK_ID,
+    );
+
+    if (legacyGlobalThemeLink) {
+      legacyGlobalThemeLink.remove();
+    }
   }, []);
 
   useEffect(() => {
-    ensureThemeStylesheet(theme);
+    void ensureThemeStylesheet(theme);
     globalThis.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
-
-  useEffect(() => {
-    globalThis.localStorage.setItem(MODE_STORAGE_KEY, mode);
-  }, [mode]);
 
   return (
     <section className="mz-theme-playground" aria-label="Theme playground">
@@ -432,31 +439,10 @@ export function ThemePlayground() {
             ))}
           </select>
         </div>
-
-        <fieldset className="mz-theme-playground__mode-toggle-group">
-          <legend className="mz-theme-playground__sr-only">Preview mode</legend>
-          <button
-            type="button"
-            className={mode === 'light' ? 'is-active' : undefined}
-            onClick={() => setMode('light')}
-            aria-pressed={mode === 'light'}
-          >
-            Light
-          </button>
-          <button
-            type="button"
-            className={mode === 'dark' ? 'is-active' : undefined}
-            onClick={() => setMode('dark')}
-            aria-pressed={mode === 'dark'}
-          >
-            Dark
-          </button>
-        </fieldset>
       </header>
 
       <div className="mz-theme-playground__preview-grid">
         <PreviewCard
-          mode={mode}
           email={email}
           searchValue={searchValue}
           startDate={startDate}
