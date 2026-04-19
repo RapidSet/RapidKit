@@ -2,14 +2,16 @@
   --vp-layout-max-width: 1680px;
 }
 
-/* Expand the docs content column to better fit rich component demos. */
-.VPDoc.has-aside .content-container {
-  max-width: 1120px;
-}
-
+/* Remove VitePress inner width clamps so docs can use the wider center column. */
+.VPDoc .container,
+.VPDoc .content,
+.VPDoc .content-container,
+.VPDoc.has-aside .content-container,
+.VPDoc:not(.has-sidebar) .container,
 .VPDoc:not(.has-sidebar) .content,
 .VPDoc:not(.has-sidebar) .content-container {
-  max-width: 1240px;
+  max-width: none;
+  width: 100%;
 }
 
 /* Keep examples usable when content still exceeds viewport width. */
