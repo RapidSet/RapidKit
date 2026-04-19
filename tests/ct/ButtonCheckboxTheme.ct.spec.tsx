@@ -71,4 +71,62 @@ test.describe('Theme Styling (Component Test)', () => {
     expect(destructiveClasses).toContain('bg-destructive');
     expect(dashedBorderStyle).toBe('dashed');
   });
+
+  test('unchecked checkbox outline remains visible on light and dark surfaces', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div className="flex gap-6">
+        <div
+          style={
+            {
+              '--mz-background': '0 0% 100%',
+              '--mz-input': '220 15% 70%',
+              '--mz-foreground': '220 20% 12%',
+            } as CSSProperties
+          }
+        >
+          <Checkbox name="checkbox-light" title="Light" />
+        </div>
+        <div
+          className="dark"
+          style={
+            {
+              '--mz-background': '222 30% 10%',
+              '--mz-input': '222 20% 35%',
+              '--mz-foreground': '210 25% 96%',
+            } as CSSProperties
+          }
+        >
+          <Checkbox name="checkbox-dark" title="Dark" />
+        </div>
+      </div>,
+    );
+
+    const lightCheckbox = component.locator('input[name="checkbox-light"]');
+    const lightStyle = await lightCheckbox.evaluate((node) => {
+      const computed = getComputedStyle(node as HTMLInputElement);
+      return {
+        borderColor: computed.borderColor,
+        backgroundColor: computed.backgroundColor,
+        borderWidth: computed.borderWidth,
+      };
+    });
+
+    expect(lightStyle.borderWidth).toBe('2px');
+    expect(lightStyle.borderColor).not.toBe(lightStyle.backgroundColor);
+
+    const darkCheckbox = component.locator('input[name="checkbox-dark"]');
+    const darkStyle = await darkCheckbox.evaluate((node) => {
+      const computed = getComputedStyle(node as HTMLInputElement);
+      return {
+        borderColor: computed.borderColor,
+        backgroundColor: computed.backgroundColor,
+        borderWidth: computed.borderWidth,
+      };
+    });
+
+    expect(darkStyle.borderWidth).toBe('2px');
+    expect(darkStyle.borderColor).not.toBe(darkStyle.backgroundColor);
+  });
 });

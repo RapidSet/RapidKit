@@ -13,7 +13,7 @@ export const canAccess = (
 };
 
 export const checkboxBaseClassName =
-  'h-[var(--mz-checkbox-size)] w-[var(--mz-checkbox-size)] shrink-0 appearance-none rounded-full border-2 border-input bg-background shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200 checked:border-primary checked:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:shadow-[var(--mz-control-shadow-focus)] disabled:cursor-not-allowed disabled:opacity-50';
+  'h-[var(--mz-checkbox-size)] w-[var(--mz-checkbox-size)] shrink-0 appearance-none rounded-full border-2 border-input bg-background shadow-[inset_0_0_0_1px_hsl(var(--mz-foreground)/0.35),var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200 checked:border-primary checked:bg-primary checked:shadow-[var(--mz-control-shadow)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:shadow-[var(--mz-control-shadow-focus)] disabled:cursor-not-allowed disabled:opacity-50';
 
 export const resolveCheckboxAccessState = (
   requirements: string[] | undefined,
