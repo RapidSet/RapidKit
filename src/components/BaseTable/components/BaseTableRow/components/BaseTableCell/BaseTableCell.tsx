@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreVertical } from 'lucide-react';
 import { cn } from '@lib/utils';
 import { Image } from '@components/Image';
+import { Checkbox } from '@components/Checkbox';
 import { Column } from '@components/BaseTable/components/BaseTableRow/types';
 import {
   DropdownMenu,
@@ -319,10 +320,17 @@ export const BooleanCell = <T extends object>(
     enableHiding: Boolean(column.filterable),
     cell: ({ row }) => {
       const rawValue = getRawValue(row, column);
+
       return (
-        <span className="text-xs text-muted-foreground">
-          {rawValue ? 'Yes' : 'No'}
-        </span>
+        <div className="flex h-full items-center">
+          <Checkbox
+            name={`${column.id}-${row.id}-boolean`}
+            checked={Boolean(rawValue)}
+            disabled
+            aria-label={`${column.header}: ${rawValue ? 'checked' : 'unchecked'}`}
+            className="h-4 w-4"
+          />
+        </div>
       );
     },
   };

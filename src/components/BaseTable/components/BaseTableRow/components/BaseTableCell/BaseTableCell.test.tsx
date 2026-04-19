@@ -107,7 +107,7 @@ describe('BaseTableCell', () => {
     expect(Boolean(screen.getByText('Jan 02, 2024'))).toBe(true);
   });
 
-  it('BooleanCell maps boolean state to yes/no', () => {
+  it('BooleanCell maps boolean state to disabled checkbox', () => {
     const column: Column<TestModel> = {
       id: 'active',
       header: 'Active',
@@ -126,7 +126,9 @@ describe('BaseTableCell', () => {
       getValue: () => true,
     });
 
-    expect(Boolean(screen.getByText('Yes'))).toBe(true);
+    const activeCheckbox = screen.getByRole('checkbox') as HTMLInputElement;
+    expect(activeCheckbox.checked).toBe(true);
+    expect(activeCheckbox.disabled).toBe(true);
 
     activeView.unmount();
 
@@ -141,7 +143,9 @@ describe('BaseTableCell', () => {
       getValue: () => false,
     });
 
-    expect(Boolean(screen.getByText('No'))).toBe(true);
+    const inactiveCheckbox = screen.getByRole('checkbox') as HTMLInputElement;
+    expect(inactiveCheckbox.checked).toBe(false);
+    expect(inactiveCheckbox.disabled).toBe(true);
   });
 
   it('ActionCell opens a menu and triggers action handler', () => {
