@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
   border: 1px solid
     color-mix(in srgb, var(--vp-c-brand-1) 14%, var(--vp-c-divider));
   border-radius: 14px;
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--vp-c-brand-soft) 22%, var(--vp-c-bg-soft)) 0%,
@@ -117,6 +117,7 @@ onBeforeUnmount(() => {
 .component-example-tabs__panel {
   padding: 0.95rem;
   background: var(--vp-c-bg);
+  overflow: visible;
 }
 
 .component-example-tabs__preview {
@@ -124,6 +125,7 @@ onBeforeUnmount(() => {
     color-mix(in srgb, var(--vp-c-brand-1) 24%, var(--vp-c-divider));
   border-radius: 12px;
   padding: 1.1rem;
+  overflow: visible;
   background:
     radial-gradient(
       circle at 100% 0,
@@ -196,7 +198,7 @@ onBeforeUnmount(() => {
   list-style-position: outside;
   margin-left: 3.25rem;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   line-height: 1.55;
   color: var(--vp-c-text-1);
 }
@@ -261,7 +263,7 @@ onBeforeUnmount(() => {
 
   .component-example-tabs__code-lines {
     margin-left: 2.65rem;
-    font-size: 0.76rem;
+    font-size: 0.86rem;
   }
 
   .component-example-tabs__code-lines li {
