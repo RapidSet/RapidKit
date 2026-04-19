@@ -3,7 +3,7 @@ layout: home
 
 hero:
   text: AI-First React UI For Product Teams
-  tagline: Designed for AI-assisted delivery with strict contracts, proven patterns, and production-grade code standards.
+  tagline: Designed for AI-assisted delivery by combining proven technologies into enterprise-grade generation workflows, reusable patterns, and production code standards.
   actions:
     - theme: brand
       text: Get Started
@@ -13,13 +13,22 @@ hero:
       link: /components/
 ---
 
+<section class="home-tech" aria-label="Component technologies">
+  <span class="home-tech__item"><span class="home-tech__dot" aria-hidden="true"></span>Radix UI</span>
+  <span class="home-tech__item"><span class="home-tech__dot" aria-hidden="true"></span>shadcn/ui</span>
+  <span class="home-tech__item"><span class="home-tech__dot" aria-hidden="true"></span>Zod</span>
+  <span class="home-tech__item"><span class="home-tech__dot" aria-hidden="true"></span>RTK Query</span>
+  <span class="home-tech__item"><span class="home-tech__dot" aria-hidden="true"></span>TanStack</span>
+  <span class="home-tech__item"><span class="home-tech__dot" aria-hidden="true"></span>Tailwind CSS</span>
+</section>
+
 <section class="home-center">
   <p class="home-center__kicker">AI-first by design</p>
   <p class="home-center__message">
-    Build faster with proven component patterns and predictable APIs.
+    Build faster with proven technologies, predictable APIs, and enterprise-ready implementation patterns.
   </p>
   <p class="home-center__sub">
-    Mezmer is engineered for agent-assisted implementation from day one, using established React, TypeScript, and shadcn foundations with contract-aligned docs, tests, and quality gates.
+    Mezmer is engineered for production-grade, agent-assisted code generation from day one, blending established React, TypeScript, and shadcn foundations with contract-aligned docs, tests, and quality gates.
   </p>
   <div class="home-center__links">
     <a href="/ARCHITECTURE">Architecture</a>
@@ -83,6 +92,37 @@ hero:
 :global(.VPHero .action .VPButton) {
   border-radius: 999px;
   min-height: 2.5rem;
+}
+
+.home-tech {
+  margin: 0.3rem auto 0;
+  max-width: 940px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.home-tech__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.26rem 0.56rem;
+  border-radius: 999px;
+  border: 1px solid var(--vp-c-divider);
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 80%, transparent);
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+  color: var(--vp-c-text-2);
+}
+
+.home-tech__dot {
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--vp-c-brand-1) 16%, transparent);
 }
 
 .home-center {
@@ -165,6 +205,10 @@ hero:
 
   .home-center {
     padding: 1.15rem 0.9rem;
+  }
+
+  .home-tech {
+    gap: 0.55rem;
   }
 }
 </style>
