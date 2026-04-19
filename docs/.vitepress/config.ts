@@ -26,6 +26,7 @@ export default withMermaid(
         },
       },
       build: {
+        chunkSizeWarningLimit: 2000,
         rollupOptions: {
           onwarn(warning, warn) {
             const isModuleDirectiveInNodeModules =
@@ -48,8 +49,14 @@ export default withMermaid(
       logo: assetPath,
       nav: [
         { text: 'Installation', link: '/INSTALLATION' },
-        { text: 'Guide', link: '/THEMING' },
-        { text: 'Theme Playground', link: '/THEME-PLAYGROUND' },
+        {
+          text: 'Theme',
+          items: [
+            { text: 'Overview', link: '/THEMING' },
+            { text: 'Theme', link: '/THEME-PLAYGROUND' },
+            { text: 'Theme Config', link: '/THEME-CONFIGURATION' },
+          ],
+        },
         { text: 'MCP', link: '/MCP-SERVER' },
         { text: 'Components', link: '/components/' },
         {
@@ -63,11 +70,16 @@ export default withMermaid(
           items: [
             { text: 'Home', link: '/' },
             { text: 'Installation', link: '/INSTALLATION' },
-            { text: 'Theming', link: '/THEMING' },
-            { text: 'Theme Playground', link: '/THEME-PLAYGROUND' },
-            { text: 'Theme Configuration', link: '/THEME-CONFIGURATION' },
             { text: 'MCP Server', link: '/MCP-SERVER' },
             { text: 'Architecture', link: '/ARCHITECTURE' },
+          ],
+        },
+        {
+          text: 'Theme',
+          items: [
+            { text: 'Overview', link: '/THEMING' },
+            { text: 'Theme', link: '/THEME-PLAYGROUND' },
+            { text: 'Theme Config', link: '/THEME-CONFIGURATION' },
           ],
         },
         {
