@@ -68,8 +68,8 @@
 
 .mz-preview-card__surface {
   border: 0;
-  border-radius: calc(var(--mz-radius) + 6px);
-  background: color-mix(in srgb, var(--vp-c-bg-soft) 84%, transparent);
+  border-radius: 0;
+  background: transparent;
   color: hsl(var(--mz-card-foreground));
   padding: 0.75rem 0;
 }
