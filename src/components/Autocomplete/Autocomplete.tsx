@@ -164,9 +164,6 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
         }
 
         setSelectedItem(item);
-        if (item && !isOpen) {
-          setSearchValue(getLabel(item));
-        }
       })
       .catch(() => {
         if (!active) {
@@ -207,12 +204,18 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
       return;
     }
 
-    setIsOpen(!isOpen);
+    setIsOpen((previous) => {
+      const next = !previous;
+      if (next) {
+        setSearchValue(AUTOCOMPLETE_EMPTY_QUERY);
+      }
+      return next;
+    });
   };
 
   const handleItemClick = (item: T) => {
     setSelectedItem(item);
-    setSearchValue(getLabel(item));
+    setSearchValue(AUTOCOMPLETE_EMPTY_QUERY);
     onSelectOption(item);
     setIsOpen(false);
   };
@@ -265,6 +268,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
           }
           onFocus={() => {
             if (!resolvedDisabled) {
+              setSearchValue(AUTOCOMPLETE_EMPTY_QUERY);
               setIsOpen(true);
             }
           }}
