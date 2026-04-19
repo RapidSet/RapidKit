@@ -101,6 +101,7 @@ Current root exports:
 - Icon
 - Image
 - BaseTable
+- BaseModal
 - Chip
 - Button
 - DatePicker

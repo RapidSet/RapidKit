@@ -1,0 +1,128 @@
+{
+  "component": "BaseModal",
+  "version": "1.0.0",
+  "source": "src/components/BaseModal",
+  "description": "Composable modal shell with optional save/cancel actions, configurable footer actions, and access-aware visibility.",
+  "capabilities": {
+    "accessControl": true,
+    "footerActions": true,
+    "outsideDismissControl": true
+  },
+  "props": {
+    "isOpen": {
+      "type": "boolean",
+      "required": true
+    },
+    "onClose": {
+      "type": "() => void",
+      "required": true
+    },
+    "children": {
+      "type": "ReactNode",
+      "required": true
+    },
+    "onSave": {
+      "type": "() => void",
+      "required": false
+    },
+    "onCancel": {
+      "type": "() => void",
+      "required": false
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    },
+    "saveLabel": {
+      "type": "string",
+      "required": false,
+      "default": "\"Save\""
+    },
+    "cancelLabel": {
+      "type": "string",
+      "required": false,
+      "default": "\"Cancel\""
+    },
+    "showSave": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showCancel": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "saveVariant": {
+      "type": "ButtonVariant",
+      "required": false,
+      "default": "ButtonVariant.Primary"
+    },
+    "cancelVariant": {
+      "type": "ButtonVariant",
+      "required": false,
+      "default": "ButtonVariant.Outlined"
+    },
+    "saveDisabled": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "isLoading": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "maxWidth": {
+      "type": "string",
+      "required": false,
+      "default": "\"max-w-lg\""
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    },
+    "preventOutsideClose": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "customButtons": {
+      "type": "CustomButtonProps[]",
+      "required": false,
+      "default": "[]"
+    },
+    "accessRequirements": {
+      "type": "string[]",
+      "required": false
+    },
+    "saveAccessRequirements": {
+      "type": "string[]",
+      "required": false
+    },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"action\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "hiddenWhenViewAccessDenied": "true",
+    "footerHiddenWhenAllActionsDisabled": "true",
+    "saveDisabledWhenMissingOnSave": "true"
+  },
+  "accessibility": {
+    "titleDescriptionUseDialogPrimitives": "true",
+    "focusAndDismissManagedByDialog": "true"
+  },
+  "interaction": {
+    "cancelFallsBackToOnClose": "true",
+    "saveActionOptional": "true",
+    "outsideDismissBlockedWhenConfigured": "true"
+  },
+  "tests": ["src/components/BaseModal/BaseModal.test.tsx"]
+}

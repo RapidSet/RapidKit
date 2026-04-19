@@ -3,6 +3,7 @@ import './styles.css';
 export * from './components/Autocomplete';
 export * from './components/Input';
 export * from './components/BaseTable';
+export * from './components/BaseModal';
 export * from './components/Icon';
 export * from './components/Checkbox';
 export * from './components/Image';

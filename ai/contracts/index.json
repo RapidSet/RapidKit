@@ -38,6 +38,16 @@
       ]
     },
     {
+      "name": "BaseModal",
+      "contractPath": "ai/contracts/components/base-modal.contract.json",
+      "sourcePath": "src/components/BaseModal",
+      "capabilities": [
+        "accessControl",
+        "footerActions",
+        "outsideDismissControl"
+      ]
+    },
+    {
       "name": "Icon",
       "contractPath": "ai/contracts/components/icon.contract.json",
       "sourcePath": "src/components/Icon",

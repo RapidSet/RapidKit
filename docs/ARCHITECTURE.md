@@ -55,7 +55,7 @@ flowchart TD
 - Token names should be namespaced to reduce collisions in host applications.
 - Theme changes should be possible without changing component APIs.
 
-## API Design Model
+## API Design
 
 - Use explicit TypeScript props for all public components.
 - Favor additive, composable props over tightly coupled configuration objects.
@@ -68,25 +68,8 @@ flowchart TD
 - Keep implementation, tests, and docs aligned with contract states.
 - Treat contracts as executable architecture rules for behavior, accessibility, and interaction guarantees.
 
-## Accessibility Architecture
+## Accessibility
 
 - Interactive components must provide keyboard support and visible focus behavior.
 - Inputs and form controls must preserve correct labeling and aria state.
 - Overlay and popover-like interactions must provide predictable focus management and dismissal behavior.
-
-## Packaging Architecture
-
-- Publish ESM output with declaration files for consumer type safety.
-- Keep exports intentional so consumers can import stable entrypoints.
-- Ensure package styles and optional themes can be consumed independently.
-
-## What Is Out Of Scope Here
-
-This architecture document intentionally excludes:
-
-- repository-specific folder enforcement rules
-- CI workflow definitions and pipeline commands
-- release checklist steps and team process policies
-- local tooling and script orchestration details
-
-Those concerns belong in contribution and operations documentation.
