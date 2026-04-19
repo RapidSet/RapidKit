@@ -53,7 +53,7 @@ function DropdownMenuItem({
       data-slot="dropdown-menu-item"
       data-inset={inset}
       className={cn(
-        'relative flex w-full cursor-default select-none items-center gap-2 rounded-none px-0 py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex w-full cursor-default select-none items-center gap-2 rounded-none px-[var(--mz-control-padding-x)] py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         optionItemBaseClassName,
         inset && 'pl-8',
         className,
@@ -73,13 +73,13 @@ function DropdownMenuCheckboxItem({
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
-        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-8 pr-2 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-[calc(var(--mz-control-padding-x)+1.5rem)] pr-[var(--mz-control-padding-x)] text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       )}
       checked={checked}
       {...props}
     >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <Check className="h-4 w-4" />
         </DropdownMenuPrimitive.ItemIndicator>
@@ -109,12 +109,12 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-8 pr-2 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-[calc(var(--mz-control-padding-x)+1.5rem)] pr-[var(--mz-control-padding-x)] text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       )}
       {...props}
     >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <Circle className="h-2 w-2 fill-current" />
         </DropdownMenuPrimitive.ItemIndicator>

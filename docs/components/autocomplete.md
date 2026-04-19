@@ -46,6 +46,57 @@ import { Autocomplete } from '@tarikukebede/mezmer';
 - Calls `onSelectOption(item)` when an option is selected.
 - Calls `onSelectOption(null)` when the input is cleared.
 
+## Rich Option Layout
+
+Use `renderOption` to render a custom option row with icon, metadata, and compact typography.
+
+```tsx
+import { Receipt } from 'lucide-react';
+import { Autocomplete } from '@tarikukebede/mezmer';
+
+type PricePlan = {
+  id: string;
+  name: string;
+  amount: number;
+  currency: string;
+  billingInterval: 'day' | 'week' | 'month' | 'year';
+};
+
+const RenderOption = (item: PricePlan) => {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
+        <Receipt className="h-4 w-4 text-muted-foreground/50" />
+      </div>
+      <div className="flex-grow">
+        <div className="text-xs font-normal text-muted-foreground/70">
+          {item.name} - {item.amount} {item.currency.toUpperCase()} /
+          {item.billingInterval}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+function PricePlanAutocomplete() {
+  return (
+    <Autocomplete<PricePlan>
+      name="pricePlan"
+      value={null}
+      onSelectOption={() => undefined}
+      searchOptions={async () => ({
+        items: [],
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+      })}
+      renderOption={RenderOption}
+      placeholder="Select a price plan"
+    />
+  );
+}
+```
+
 ## RTK Query Integration
 
 Use RTK Query lazy hooks to implement `searchOptions` and `getOptionById` without coupling `Autocomplete` to your API layer.

@@ -99,8 +99,8 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
                   key={option.value}
                   value={option.value}
                   className={cn(
-                    'relative cursor-pointer rounded-none px-[var(--mz-control-padding-x)] py-0 transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[state=checked]:bg-muted data-[state=checked]:text-foreground [&>span:first-child]:hidden',
                     optionItemBaseClassName,
+                    'relative cursor-pointer rounded-none px-[var(--mz-control-padding-x)] py-0 transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[state=checked]:bg-muted data-[state=checked]:text-foreground [&>span:first-child]:hidden',
                   )}
                 >
                   <span className="block w-full truncate">

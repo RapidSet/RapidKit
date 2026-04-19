@@ -284,7 +284,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             className="max-h-[240px]"
             onScroll={handleScroll}
           >
-            <ul className="m-0 list-none bg-background p-0">
+            <ul className="m-0 list-none border-t border-border bg-background p-0">
               {items.map((item) => {
                 const isSelected = selectedItem?.id === item.id;
 
@@ -302,12 +302,20 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
-                      className="flex h-full w-full items-center px-0 py-0 text-left"
+                      className="flex h-full w-full items-center px-[var(--mz-control-padding-x)] py-0 text-left"
                       aria-pressed={isSelected}
                     >
-                      <span className="min-w-0 flex-1 truncate">
-                        {renderOption ? renderOption(item) : getLabel(item)}
-                      </span>
+                      {renderOption ? (
+                        <div className="min-w-0 flex-1">
+                          {renderOption(item)}
+                        </div>
+                      ) : (
+                        <div className="flex min-w-0 flex-1 items-center gap-3">
+                          <span className="min-w-0 flex-1 truncate text-xs font-normal text-muted-foreground/70">
+                            {getLabel(item)}
+                          </span>
+                        </div>
+                      )}
                     </button>
                   </li>
                 );
