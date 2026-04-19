@@ -25,13 +25,14 @@
     --mz-border: var(--border, 214.3 31.8% 91.4%);
     --mz-input: var(--input, 214.3 31.8% 91.4%);
     --mz-ring: var(--ring, 221.2 83.2% 53.3%);
-    --mz-radius: var(--radius, 0.5rem);
+    --mz-radius: var(--radius, 0.1875rem);
     --mz-font-sans: var(
       --font-sans,
-      'Inter',
+      'Avenir Next',
+      'Nunito Sans',
+      'Segoe UI Variable',
       'Segoe UI',
-      Roboto,
-      Helvetica,
+      'Helvetica Neue',
       Arial,
       sans-serif
     );
@@ -61,7 +62,7 @@
     --mz-control-shadow: 0 1px 2px hsl(var(--mz-foreground) / 0.06);
     --mz-control-shadow-focus: 0 0 0 3px hsl(var(--mz-ring) / 0.22);
     --mz-checkbox-size: 1rem;
-    --mz-checkbox-radius: 0.25rem;
+    --mz-checkbox-radius: 0.1875rem;
   }
 
   .dark {

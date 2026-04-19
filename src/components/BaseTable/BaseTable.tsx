@@ -325,7 +325,7 @@ export const BaseTable = <T extends object>({
                   <TableHead
                     key={header.id}
                     className={cn(
-                      'h-12 px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground',
+                      'h-12 px-4 py-3 text-left text-xs font-semibold text-muted-foreground',
                       isActionColumn && 'w-14 px-4 text-right',
                       isSortable &&
                         'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',

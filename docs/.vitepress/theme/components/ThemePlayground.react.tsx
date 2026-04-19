@@ -280,6 +280,37 @@ const PREVIEW_TABLE_COLUMNS: Column<PreviewServiceRow>[] = [
     accessorKey: 'region',
     type: CellType.CHIP,
   },
+  {
+    id: 'actions',
+    header: 'Actions',
+    type: CellType.ACTIONS,
+    actions: [
+      {
+        label: 'Open',
+        iconName: 'Search',
+        variant: 'primary',
+        onClick: () => {},
+      },
+      {
+        label: 'Approve',
+        iconName: 'ShieldCheck',
+        variant: 'success',
+        onClick: () => {},
+      },
+      {
+        label: 'Review',
+        iconName: 'TriangleAlert',
+        variant: 'warning',
+        onClick: () => {},
+      },
+      {
+        label: 'Archive',
+        iconName: 'Trash2',
+        variant: 'danger',
+        onClick: () => {},
+      },
+    ],
+  },
 ];
 
 const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
@@ -323,7 +354,7 @@ const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
 const PREVIEW_TABLE_DEFAULT_QUERY: BaseTableQueryParams = {
   query: '',
   page: 1,
-  size: 3,
+  size: 2,
 };
 
 const PREVIEW_DETAILS_TABS = [
@@ -647,7 +678,7 @@ function PreviewCard(props: PreviewCardProps) {
                 sortBy={tableSortBy}
                 sortOrder={tableSortOrder}
                 onSortChange={onTableSortChange}
-                compactPagination
+                enableSelection
                 className="mz-preview-card__table"
               />
             </div>
