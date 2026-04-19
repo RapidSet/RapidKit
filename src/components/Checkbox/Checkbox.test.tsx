@@ -19,7 +19,7 @@ const installThemeProbeStyles = () => {
       border-style: solid !important;
       border-width: 2px !important;
     }
-    .border-foreground\\/45 {
+    .border-foreground/45 {
       border-color: rgb(65, 43, 21) !important;
     }
   `;
