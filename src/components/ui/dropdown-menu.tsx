@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
+import { optionItemBaseClassName } from '@lib/optionItemStyles';
 import { cn } from '@lib/utils';
 
 function DropdownMenu({
@@ -52,7 +53,8 @@ function DropdownMenuItem({
       data-slot="dropdown-menu-item"
       data-inset={inset}
       className={cn(
-        'relative flex h-9 w-full cursor-default select-none items-center gap-2 rounded-none px-2 py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex w-full cursor-default select-none items-center gap-2 rounded-none px-0 py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        optionItemBaseClassName,
         inset && 'pl-8',
         className,
       )}

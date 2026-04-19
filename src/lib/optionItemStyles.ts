@@ -4,7 +4,7 @@ export const optionItemBaseClassName =
 export const optionItemSelectedClassName = 'bg-muted text-foreground';
 
 export const optionItemDefaultClassName =
-  'bg-background text-foreground hover:bg-background';
+  'bg-background text-foreground hover:bg-muted focus-within:bg-muted';
 
 export const optionListEmptyStateClassName =
   'flex h-9 items-center justify-center px-0 py-0 text-[length:var(--mz-control-font-size)] text-muted-foreground';

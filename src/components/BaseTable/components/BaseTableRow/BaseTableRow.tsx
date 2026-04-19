@@ -8,7 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu';
 import { RowProps } from './types';
@@ -190,26 +189,22 @@ export const BaseTableRow = <T extends object>({
                 );
 
                 return (
-                  <React.Fragment key={`${column.id}-${action.label}`}>
-                    <DropdownMenuItem
-                      className="text-xs"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        if (rowInactive) {
-                          return;
-                        }
-                        action.onClick(item);
-                      }}
-                    >
-                      {Icon ? (
-                        <Icon className={cn('h-3.5 w-3.5', toneClass)} />
-                      ) : null}
-                      <span className={toneClass}>{action.label}</span>
-                    </DropdownMenuItem>
-                    {index < actions.length - 1 ? (
-                      <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    key={`${column.id}-${action.label}-${index}`}
+                    className="text-xs"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      if (rowInactive) {
+                        return;
+                      }
+                      action.onClick(item);
+                    }}
+                  >
+                    {Icon ? (
+                      <Icon className={cn('h-3.5 w-3.5', toneClass)} />
                     ) : null}
-                  </React.Fragment>
+                    <span className={toneClass}>{action.label}</span>
+                  </DropdownMenuItem>
                 );
               })}
             </DropdownMenuContent>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
@@ -302,20 +302,10 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
-                      className="flex h-full w-full items-center gap-0 px-0 py-0 text-left"
+                      className="flex h-full w-full items-center px-0 py-0 text-left"
                       aria-pressed={isSelected}
                     >
-                      <span className="inline-flex h-full w-9 shrink-0 items-center justify-center">
-                        <Check
-                          className={cn(
-                            'h-4 w-4 transition-opacity',
-                            isSelected
-                              ? 'text-primary opacity-100'
-                              : 'text-primary opacity-0',
-                          )}
-                        />
-                      </span>
-                      <span className="min-w-0 flex-1 truncate pr-2">
+                      <span className="min-w-0 flex-1 truncate">
                         {renderOption ? renderOption(item) : getLabel(item)}
                       </span>
                     </button>
