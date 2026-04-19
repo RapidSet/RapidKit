@@ -4,6 +4,12 @@ import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
 import { cn } from '@lib/utils';
+import {
+  optionItemBaseClassName,
+  optionItemDefaultClassName,
+  optionItemSelectedClassName,
+  optionListEmptyStateClassName,
+} from '@lib/optionItemStyles';
 import { DEFAULT_PAGINATION_PARAM } from '@lib/pagination';
 import {
   AUTOCOMPLETE_EMPTY_QUERY,
@@ -285,38 +291,51 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                 return (
                   <li
                     key={item.id}
-                    className="m-0 list-none border-b border-border last:border-b-0"
+                    className={cn('m-0 list-none', optionItemBaseClassName)}
                   >
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
                       className={cn(
-                        'flex w-full items-center justify-between gap-2 px-2.5 py-2 text-left transition-colors',
+                        'flex w-full items-center gap-2 px-0 py-0 text-left transition-colors',
                         isSelected
-                          ? 'bg-muted text-foreground'
-                          : 'bg-background text-foreground hover:bg-background',
+                          ? optionItemSelectedClassName
+                          : optionItemDefaultClassName,
                       )}
                       aria-pressed={isSelected}
                       aria-selected={isSelected}
                     >
+                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center">
+                        <Check
+                          className={cn(
+                            'h-4 w-4 transition-opacity',
+                            isSelected
+                              ? 'text-primary opacity-100'
+                              : 'text-primary opacity-0',
+                          )}
+                        />
+                      </span>
                       <span className="min-w-0 flex-1">
                         {renderOption ? renderOption(item) : getLabel(item)}
                       </span>
-                      {isSelected ? (
-                        <Check className="h-4 w-4 shrink-0 text-primary" />
-                      ) : null}
                     </button>
                   </li>
                 );
               })}
               {isLoading && (
-                <li className="list-none space-y-2 border-b border-border px-2.5 py-2 last:border-b-0">
+                <li className="list-none space-y-2 border-b border-border px-0 py-0 last:border-b-0">
                   <Skeleton className="h-8 w-full" />
                   <Skeleton className="h-8 w-full" />
                 </li>
               )}
               {showEmptyState && (
-                <li className="list-none border-b border-border px-2.5 py-2 text-center text-muted-foreground last:border-b-0">
+                <li
+                  className={cn(
+                    'list-none text-center',
+                    optionItemBaseClassName,
+                    optionListEmptyStateClassName,
+                  )}
+                >
                   {emptyMessage}
                 </li>
               )}

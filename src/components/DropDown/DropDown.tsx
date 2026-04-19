@@ -10,6 +10,10 @@ import {
   formErrorTextClassName,
   formHelperTextClassName,
 } from '@lib/feedbackText';
+import {
+  optionItemBaseClassName,
+  optionListEmptyStateClassName,
+} from '@lib/optionItemStyles';
 import { Label } from '@ui/label';
 import { cn } from '@lib/utils';
 import type { DropDownProps } from './types';
@@ -78,27 +82,26 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
             )}
           </SelectValue>
         </SelectTrigger>
-        <SelectContent>
-          <div className="max-h-[200px] overflow-y-auto border-t border-border pt-1">
+        <SelectContent className="[&_[data-slot=select-viewport]]:p-0">
+          <div className="max-h-[200px] overflow-y-auto border-t border-border pt-0">
             {options.length === 0 ? (
-              <div className="px-2 py-6 text-center text-[length:var(--mz-control-font-size)] text-muted-foreground">
+              <div className={optionListEmptyStateClassName}>
                 No options found
               </div>
             ) : (
-              options.map((option, index) => (
-                <div key={option.value}>
-                  <SelectItem
-                    value={option.value}
-                    className="cursor-pointer py-2 text-[length:var(--mz-control-font-size)] transition-colors hover:bg-accent focus:bg-accent"
-                  >
-                    <span className="truncate text-[length:var(--mz-control-font-size)]">
-                      {renderOption ? renderOption(option) : option.label}
-                    </span>
-                  </SelectItem>
-                  {index < options.length - 1 && (
-                    <div className="mx-2 border-b border-border" />
+              options.map((option) => (
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  className={cn(
+                    'relative cursor-pointer pl-0 pr-0 transition-colors focus:bg-muted focus:text-foreground data-[state=checked]:bg-muted data-[state=checked]:text-foreground [&>span:first-child]:hidden',
+                    optionItemBaseClassName,
                   )}
-                </div>
+                >
+                  <span className="truncate">
+                    {renderOption ? renderOption(option) : option.label}
+                  </span>
+                </SelectItem>
               ))
             )}
           </div>
