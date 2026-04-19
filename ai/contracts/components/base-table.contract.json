@@ -13,7 +13,7 @@
   },
   "props": {
     "data": { "type": "T[]", "required": true },
-    "columns": { "type": "Column<T>[]", "required": false },
+    "columns": { "type": "Column<T>[]", "required": true },
     "customRow": { "type": "Column<T>[]", "required": false },
     "queryParams": {
       "type": "{ query: string; page: number; size: number }",

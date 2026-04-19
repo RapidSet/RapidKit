@@ -15,10 +15,10 @@ import { BaseTable } from '@tarikukebede/mezmer';
 ## Required Props
 
 - `data: T[]`
+- `columns: Column<T>[]`
 
 ## Common Optional Props
 
-- `columns?: Column<T>[]`
 - `customRow?: Column<T>[]`
 - `placeholder?: string`
 - `queryParams?: { query: string; page: number; size: number }`
