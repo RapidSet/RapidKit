@@ -1,131 +1,92 @@
-# Library Architecture
+# Component Library Architecture
 
 ## Purpose
 
-Mezmer is a reusable React UI package focused on composable components, strict contracts, and publishable library ergonomics.
+This document describes the developer-facing architecture of a reusable React component library. It focuses on runtime design, module boundaries, and public API behavior, not repository workflows or release process details.
 
-## Design Principles
+## Architectural Principles
 
-- Presentational core components only.
-- Dependency injection through props and callbacks.
-- Stable, typed public APIs.
-- Contract-driven behavior and tests.
-- Tree-shake friendly module exports.
+- Keep components presentational and domain-neutral.
+- Push product behavior to integration layers through props and callbacks.
+- Expose stable, typed public APIs.
+- Prefer composition over inheritance.
+- Keep modules side-effect free by default for better tree-shaking.
 
-## Technology Stack
-
-Mezmer is intentionally composed from proven libraries so AI-generated output stays aligned with enterprise implementation patterns.
-
-[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Primitives-111111)](https://ui.shadcn.com)
-[![Zod](https://img.shields.io/badge/Zod-Schema%20Validation-3E67B1?logo=zod&logoColor=white)](https://zod.dev)
-[![TanStack Table](https://img.shields.io/badge/TanStack-Table%20v8-FF4154?logo=tanstack&logoColor=white)](https://tanstack.com/table)
-[![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-State%20Architecture-764ABC?logo=redux&logoColor=white)](https://redux-toolkit.js.org)
-[![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-Form%20State-EC5990?logo=reacthookform&logoColor=white)](https://react-hook-form.com)
-[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-
-- React and TypeScript define the runtime and typed public contracts.
-- shadcn/ui and Radix primitives provide accessible composition foundations.
-- TanStack Table powers high-capability data grid behavior.
-- Redux Toolkit and React Redux support scalable state architecture patterns.
-- React Hook Form and Zod provide deterministic form state and validation contracts.
-- Tailwind CSS drives tokenized and themeable styling with predictable overrides.
-
-## AI And MCP Context Model
-
-Mezmer uses a dual-context architecture for AI-assisted implementation:
-
-- Human context: `README.md`, `docs/CONTRIBUTING.md`, `docs/ARCHITECTURE.md`, and workspace instructions.
-- Structured context: machine-readable contracts in `ai/contracts`.
-
-MCP note:
-
-- Mezmer exposes structured repository artifacts through a repository-local MCP server.
-- The MCP server reuses `ai/contracts/index.json`, component/theme contracts, docs, and validation scripts as its source of truth.
-- MCP-enabled agents can query that server instead of inferring behavior from raw repository traversal.
-- The server implementation lives in `scripts/mcp-server.mjs`.
-
-## High-Level Structure
+## Layered Model
 
 ```mermaid
 flowchart TD
-  A[Consumer Application] --> B[src/index.ts]
-  B --> C[Global Styles]
-  B --> D[Public Components]
-  D --> E[src/components/Input/Input.tsx]
-  E --> F[src/components/ui/input.tsx]
-  E --> G[src/components/ui/label.tsx]
-  E --> H[src/components/Input/types.ts]
+  A[Consumer Application] --> B[Package Entrypoint]
+  B --> C[Public Components]
+  C --> D[Local Primitives]
+  C --> E[Shared Utilities]
+  B --> F[Library Styles And Tokens]
 
-  I[AI Contract Index] --> J[Component Contract Files]
-  J --> K[Implementation And Tests]
-
-  L[Vite Library Build] --> M[dist/index.js]
-  L --> N[dist/index.d.ts]
-  L --> O[dist/style.css]
+  G[Component Contracts] --> C
+  G --> H[Component Tests]
+  G --> I[Consumer Docs]
 ```
 
-## Source Layout
+## Runtime Boundaries
 
-- `src/index.ts`: package entrypoint, exports components, imports global styles.
-- `src/components/*`: component modules with implementation, public types, tests, and barrel exports.
-- `src/components/ui/*`: local shadcn primitives used as composition building blocks.
-- `src/lib/*`: lightweight shared utilities.
-- `src/styles.css`: package-owned styling surface shipped to consumers.
-- `src/themes/*.css`: built-in pre-styled themes (default, slate, and active selector).
-- `ai/contracts/*`: machine-readable behavior contracts and states.
+### Public Surface
 
-## Theming Architecture
+- The package entrypoint exports intentionally supported components, types, and utilities.
+- Consumers interact only with documented exports and props.
 
-- Semantic Tailwind classes resolve from namespaced tokens (`--mz-*`) to avoid host collisions.
-- `src/styles.css` contains shared base styles and token bridge defaults.
-- `src/themes/default.css` and `src/themes/slate.css` are shipped pre-built themes.
-- `src/themes/active.css` is generated by `pnpm theme:apply` and imports the selected built-in theme.
-- Consumers can provide shadcn-compatible host tokens or custom `--mz-*` overrides without changing component APIs.
+### Component Modules
 
-## CI Enforcement Model
+- Each component owns its rendering logic, public prop types, and interaction behavior.
+- Components should not import host application state, routing, auth, or business services.
 
-Core CI workflow (`.github/workflows/ci.yml`) enforces:
+### Primitive Composition Layer
 
-- contract integrity (`pnpm validate:contracts`)
-- component docs coverage (`pnpm validate:component-docs`)
-- theme registry availability (`pnpm theme:list`)
-- theme script integration checks (`pnpm test:scripts`)
-- lint, type-check, tests, and build
+- Components are built from accessible, low-level UI primitives.
+- Primitive wrappers remain implementation details unless explicitly exported.
 
-Docs workflow (`.github/workflows/docs-deploy.yml`) builds VitePress and deploys to GitHub Pages.
+### Utility Layer
 
-## AI-First Theme Workflow
+- Shared helpers stay pure and framework-agnostic where possible.
+- Utilities should support component behavior without becoming domain service layers.
 
-1. Discover available themes with `pnpm theme:list`.
-2. Switch the active theme with `pnpm theme:apply --theme <id>`.
-3. Scaffold custom themes with `pnpm theme:create --id <id> --from <base-id>`.
-4. Validate theme and component contracts with `pnpm validate:contracts`.
+### Style And Token Layer
 
-Theme contracts live in `ai/contracts/themes`, theme selection state in `ai/theme.active.json`, and all assets are validated in CI.
+- Styles rely on semantic tokens and predictable class composition.
+- Token names should be namespaced to reduce collisions in host applications.
+- Theme changes should be possible without changing component APIs.
 
-## How It Works
+## API Design Model
 
-1. Consumer imports from the package root export.
-2. Entrypoint exports component modules and ships package styles.
-3. Components compose shadcn primitives and accept domain-neutral props.
-4. Access behavior is resolved through injected callbacks rather than host integration.
-5. Build pipeline emits ESM output and declaration files for package consumers.
+- Use explicit TypeScript props for all public components.
+- Favor additive, composable props over tightly coupled configuration objects.
+- Model access and policy behavior through injectable contracts (for example, required capabilities plus resolver callbacks).
+- Keep uncontrolled and controlled usage patterns clear when both are supported.
 
-## Contract-To-Code Lifecycle
+## Contract-Driven Development Model
 
-1. Read component contract.
-2. Implement or update component behavior.
-3. Keep tests aligned with contract states.
-4. Update consumer docs under `docs/components`.
-5. Validate with contracts, docs coverage checks, lint, type-check, tests, and build.
+- Define component behavior in machine-readable contracts.
+- Keep implementation, tests, and docs aligned with contract states.
+- Treat contracts as executable architecture rules for behavior, accessibility, and interaction guarantees.
 
-## Release Validation
+## Accessibility Architecture
 
-```bash
-pnpm lint
-pnpm tsc --noEmit
-pnpm test
-pnpm build
-```
+- Interactive components must provide keyboard support and visible focus behavior.
+- Inputs and form controls must preserve correct labeling and aria state.
+- Overlay and popover-like interactions must provide predictable focus management and dismissal behavior.
+
+## Packaging Architecture
+
+- Publish ESM output with declaration files for consumer type safety.
+- Keep exports intentional so consumers can import stable entrypoints.
+- Ensure package styles and optional themes can be consumed independently.
+
+## What Is Out Of Scope Here
+
+This architecture document intentionally excludes:
+
+- repository-specific folder enforcement rules
+- CI workflow definitions and pipeline commands
+- release checklist steps and team process policies
+- local tooling and script orchestration details
+
+Those concerns belong in contribution and operations documentation.
