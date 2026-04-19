@@ -106,8 +106,14 @@ body {
   color: hsl(var(--mz-foreground, 222.2 84% 4.9%));
 }
 
-.VPSidebarItem .indicator,
 .VPDocAside .outline-marker {
+  background-color: hsl(var(--mz-primary, 221.2 83.2% 53.3%));
+}
+
+.VPSidebarItem.level-2.is-active > .item > .indicator,
+.VPSidebarItem.level-3.is-active > .item > .indicator,
+.VPSidebarItem.level-4.is-active > .item > .indicator,
+.VPSidebarItem.level-5.is-active > .item > .indicator {
   background-color: hsl(var(--mz-primary, 221.2 83.2% 53.3%));
 }
 
