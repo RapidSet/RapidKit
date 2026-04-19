@@ -1,4 +1,4 @@
-import { useMemo, useState, type JSX } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 import {
   Autocomplete,
   BaseModal,
@@ -17,6 +17,7 @@ import {
   Search,
 } from '../../../../src';
 import { CellType } from '../../../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
+import type { Column } from '../../../../src/components/BaseTable/components/BaseTableRow';
 import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
 
 export type ComponentExampleId =
@@ -45,6 +46,17 @@ type TokenKind = 'keyword' | 'string' | 'comment' | 'number' | 'plain';
 type Token = {
   value: string;
   kind: TokenKind;
+};
+
+type ExampleTabsProps = Readonly<{
+  component: ComponentExampleId;
+}>;
+
+type ServiceSearchCandidate = {
+  name: string;
+  owner: string;
+  region: string;
+  tags: string[];
 };
 
 const TSX_KEYWORDS = new Set([
@@ -86,53 +98,205 @@ const TSX_KEYWORDS = new Set([
   'as',
 ]);
 
-function highlightTsxLine(line: string): Token[] {
-  const tokenMatcher =
-    /(\/\/.*|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|\b\d+(?:\.\d+)?\b|\b[A-Za-z_][A-Za-z0-9_]*\b)/g;
-
-  const tokens: Token[] = [];
-  let cursor = 0;
-  let match = tokenMatcher.exec(line);
-
-  while (match) {
-    const matched = match[0];
-    const start = match.index;
-
-    if (start > cursor) {
-      tokens.push({
-        value: line.slice(cursor, start),
-        kind: 'plain',
-      });
-    }
-
-    if (matched.startsWith('//')) {
-      tokens.push({ value: matched, kind: 'comment' });
-    } else if (
-      matched.startsWith('"') ||
-      matched.startsWith("'") ||
-      matched.startsWith('`')
-    ) {
-      tokens.push({ value: matched, kind: 'string' });
-    } else if (/^\d/.test(matched)) {
-      tokens.push({ value: matched, kind: 'number' });
-    } else if (TSX_KEYWORDS.has(matched)) {
-      tokens.push({ value: matched, kind: 'keyword' });
-    } else {
-      tokens.push({ value: matched, kind: 'plain' });
-    }
-
-    cursor = start + matched.length;
-    match = tokenMatcher.exec(line);
+function classifyToken(token: string): TokenKind {
+  if (token.startsWith('//')) {
+    return 'comment';
   }
+  if (token.startsWith('"') || token.startsWith("'") || token.startsWith('`')) {
+    return 'string';
+  }
+  if (/^\d/.test(token)) {
+    return 'number';
+  }
+  if (TSX_KEYWORDS.has(token)) {
+    return 'keyword';
+  }
+  return 'plain';
+}
 
-  if (cursor < line.length) {
-    tokens.push({
-      value: line.slice(cursor),
-      kind: 'plain',
-    });
+function isDigit(character: string): boolean {
+  if (character.length === 0) {
+    return false;
+  }
+  const code = character.codePointAt(0) ?? -1;
+  return code >= 48 && code <= 57;
+}
+
+function isWordStart(character: string): boolean {
+  if (character.length === 0) {
+    return false;
+  }
+  const code = character.codePointAt(0) ?? -1;
+  const isUppercase = code >= 65 && code <= 90;
+  const isLowercase = code >= 97 && code <= 122;
+  return isUppercase || isLowercase || character === '_';
+}
+
+function isWordPart(character: string): boolean {
+  return isWordStart(character) || isDigit(character);
+}
+
+function isWhitespace(character: string): boolean {
+  return (
+    character === ' ' ||
+    character === '\t' ||
+    character === '\n' ||
+    character === '\r'
+  );
+}
+
+function consumeQuoted(line: string, start: number, quote: string): number {
+  let end = start + 1;
+  while (end < line.length) {
+    const current = line[end];
+    if (current === '\\') {
+      end += 2;
+      continue;
+    }
+    if (current === quote) {
+      return end + 1;
+    }
+    end += 1;
+  }
+  return line.length;
+}
+
+function consumeNumber(line: string, start: number): number {
+  let end = start + 1;
+  while (end < line.length && (isDigit(line[end]) || line[end] === '.')) {
+    end += 1;
+  }
+  return end;
+}
+
+function consumeWord(line: string, start: number): number {
+  let end = start + 1;
+  while (end < line.length && isWordPart(line[end])) {
+    end += 1;
+  }
+  return end;
+}
+
+function consumeWhitespace(line: string, start: number): number {
+  let end = start + 1;
+  while (end < line.length && isWhitespace(line[end])) {
+    end += 1;
+  }
+  return end;
+}
+
+function highlightTsxLine(line: string): Token[] {
+  const tokens: Token[] = [];
+  let index = 0;
+
+  while (index < line.length) {
+    const character = line[index];
+    const nextCharacter = line[index + 1];
+    let end = index + 1;
+
+    if (character === '/' && nextCharacter === '/') {
+      const commentToken = line.slice(index);
+      tokens.push({ value: commentToken, kind: 'comment' });
+      break;
+    }
+
+    if (character === '"' || character === "'" || character === '`') {
+      end = consumeQuoted(line, index, character);
+      tokens.push({ value: line.slice(index, end), kind: 'string' });
+      index = end;
+      continue;
+    }
+
+    if (isDigit(character)) {
+      end = consumeNumber(line, index);
+      tokens.push({ value: line.slice(index, end), kind: 'number' });
+      index = end;
+      continue;
+    }
+
+    if (isWordStart(character)) {
+      end = consumeWord(line, index);
+      const word = line.slice(index, end);
+      tokens.push({ value: word, kind: classifyToken(word) });
+      index = end;
+      continue;
+    }
+
+    if (isWhitespace(character)) {
+      end = consumeWhitespace(line, index);
+    }
+
+    tokens.push({ value: line.slice(index, end), kind: 'plain' });
+    index = end;
   }
 
   return tokens;
+}
+
+function matchesServiceSearch(
+  item: ServiceSearchCandidate,
+  searchQuery: string,
+): boolean {
+  if (!searchQuery) {
+    return true;
+  }
+
+  const nameMatches = item.name.toLowerCase().includes(searchQuery);
+  const ownerMatches = item.owner.toLowerCase().includes(searchQuery);
+  const regionMatches = item.region.toLowerCase().includes(searchQuery);
+  const tagsNormalized = item.tags.join(' ').toLowerCase();
+  const tagMatches = tagsNormalized.includes(searchQuery);
+
+  return nameMatches || ownerMatches || regionMatches || tagMatches;
+}
+
+function getNoisyAlertCount(baseAlertsCount: number, rowIndex: number): number {
+  if (rowIndex % 4 === 0) {
+    return baseAlertsCount + 7;
+  }
+  if (rowIndex % 3 === 0) {
+    return baseAlertsCount + 3;
+  }
+  return baseAlertsCount;
+}
+
+function getNoisyStatus(
+  currentStatus: 'active' | 'inactive' | 'degraded',
+  rowIndex: number,
+): 'active' | 'inactive' | 'degraded' {
+  if (rowIndex % 4 === 0) {
+    return 'degraded';
+  }
+  if (rowIndex % 3 === 0) {
+    return 'inactive';
+  }
+  return currentStatus;
+}
+
+function toComparableString(value: unknown): string {
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return String(value);
+  }
+  if (Array.isArray(value)) {
+    return value
+      .map((entry) => (typeof entry === 'string' ? entry : ''))
+      .join(' ')
+      .trim();
+  }
+  return '';
+}
+
+function getCopyLabel(copyState: 'idle' | 'done' | 'error'): string {
+  if (copyState === 'done') {
+    return 'Copied';
+  }
+  if (copyState === 'error') {
+    return 'Failed';
+  }
+  return 'Copy';
 }
 
 type UserOption = {
@@ -236,33 +400,541 @@ function BaseModalPreview(): JSX.Element {
 }
 
 function BaseTablePreview(): JSX.Element {
-  type Row = { id: number; name: string; status: string };
+  type ServiceRow = {
+    id: number;
+    name: string;
+    owner: string;
+    status: 'active' | 'inactive' | 'degraded';
+    tags: string[];
+    region: string;
+    uptime: string;
+    errorRate: string;
+    healthScore: string;
+    monthlyCost: string;
+    alertsCount: number;
+    hasDrift: boolean;
+    createdAt: string;
+    logoUrl: string;
+  };
 
-  const rows: Row[] = [
-    { id: 1, name: 'Payment Service', status: 'active' },
-    { id: 2, name: 'Audit Service', status: 'inactive' },
-  ];
+  type QueryParams = {
+    query: string;
+    page: number;
+    size: number;
+  };
+
+  type MockScenario = 'normal' | 'slow' | 'empty' | 'error' | 'noisy';
+
+  const DEFAULT_QUERY_PARAMS: QueryParams = {
+    query: '',
+    page: 1,
+    size: 5,
+  };
+
+  const DEFAULT_SORT_BY = 'name';
+  const DEFAULT_SORT_ORDER: 'asc' | 'desc' = 'asc';
+
+  const allRows: ServiceRow[] = useMemo(
+    () => [
+      {
+        id: 1,
+        name: 'Payments API',
+        owner: 'Alex Rivera',
+        status: 'active',
+        tags: ['pci', 'critical'],
+        region: 'us-east',
+        uptime: '99.97%',
+        errorRate: '0.03%',
+        healthScore: 'A',
+        monthlyCost: '$18.4k',
+        alertsCount: 1,
+        hasDrift: false,
+        createdAt: '2025-02-18',
+        logoUrl: '/tech-icons/tanstack.svg',
+      },
+      {
+        id: 2,
+        name: 'Audit Event Bus',
+        owner: 'Jordan Kim',
+        status: 'degraded',
+        tags: ['sox', 'stream'],
+        region: 'us-west',
+        uptime: '98.20%',
+        errorRate: '0.42%',
+        healthScore: 'C',
+        monthlyCost: '$9.2k',
+        alertsCount: 6,
+        hasDrift: true,
+        createdAt: '2024-11-10',
+        logoUrl: '/tech-icons/redux.svg',
+      },
+      {
+        id: 3,
+        name: 'Identity Gateway',
+        owner: 'Sam Lee',
+        status: 'active',
+        tags: ['auth', 'critical'],
+        region: 'eu-central',
+        uptime: '99.91%',
+        errorRate: '0.05%',
+        healthScore: 'A',
+        monthlyCost: '$12.7k',
+        alertsCount: 0,
+        hasDrift: false,
+        createdAt: '2024-09-03',
+        logoUrl: '/tech-icons/zod.svg',
+      },
+      {
+        id: 4,
+        name: 'Catalog Sync',
+        owner: 'Taylor Morgan',
+        status: 'inactive',
+        tags: ['batch', 'internal'],
+        region: 'ap-southeast',
+        uptime: '95.10%',
+        errorRate: '0.96%',
+        healthScore: 'D',
+        monthlyCost: '$4.1k',
+        alertsCount: 4,
+        hasDrift: true,
+        createdAt: '2023-12-01',
+        logoUrl: '/tech-icons/tailwindcss.svg',
+      },
+      {
+        id: 5,
+        name: 'Notification Hub',
+        owner: 'Casey Patel',
+        status: 'active',
+        tags: ['messaging', 'customer'],
+        region: 'us-east',
+        uptime: '99.84%',
+        errorRate: '0.11%',
+        healthScore: 'B',
+        monthlyCost: '$7.8k',
+        alertsCount: 2,
+        hasDrift: false,
+        createdAt: '2024-04-22',
+        logoUrl: '/tech-icons/reacthookform.svg',
+      },
+      {
+        id: 6,
+        name: 'Settlement Worker',
+        owner: 'Riley Chen',
+        status: 'degraded',
+        tags: ['finance', 'batch'],
+        region: 'eu-west',
+        uptime: '97.48%',
+        errorRate: '0.61%',
+        healthScore: 'C',
+        monthlyCost: '$10.9k',
+        alertsCount: 7,
+        hasDrift: true,
+        createdAt: '2025-01-11',
+        logoUrl: '/tech-icons/shadcnui.svg',
+      },
+      {
+        id: 7,
+        name: 'Fraud Rules Engine',
+        owner: 'Drew Santos',
+        status: 'active',
+        tags: ['ml', 'critical'],
+        region: 'us-central',
+        uptime: '99.75%',
+        errorRate: '0.16%',
+        healthScore: 'B',
+        monthlyCost: '$15.6k',
+        alertsCount: 3,
+        hasDrift: false,
+        createdAt: '2024-10-28',
+        logoUrl: '/tech-icons/redux.svg',
+      },
+      {
+        id: 8,
+        name: 'Search Aggregator',
+        owner: 'Morgan Blake',
+        status: 'inactive',
+        tags: ['search', 'platform'],
+        region: 'eu-north',
+        uptime: '96.33%',
+        errorRate: '0.80%',
+        healthScore: 'D',
+        monthlyCost: '$5.7k',
+        alertsCount: 5,
+        hasDrift: true,
+        createdAt: '2023-06-14',
+        logoUrl: '/tech-icons/tanstack.svg',
+      },
+      {
+        id: 9,
+        name: 'Billing Ledger',
+        owner: 'Jamie Wright',
+        status: 'active',
+        tags: ['finance', 'critical'],
+        region: 'us-east',
+        uptime: '99.88%',
+        errorRate: '0.09%',
+        healthScore: 'A',
+        monthlyCost: '$19.1k',
+        alertsCount: 1,
+        hasDrift: false,
+        createdAt: '2024-02-05',
+        logoUrl: '/tech-icons/zod.svg',
+      },
+      {
+        id: 10,
+        name: 'Webhook Relay',
+        owner: 'Avery Cole',
+        status: 'degraded',
+        tags: ['integration', 'external'],
+        region: 'us-west',
+        uptime: '97.02%',
+        errorRate: '0.55%',
+        healthScore: 'C',
+        monthlyCost: '$6.4k',
+        alertsCount: 8,
+        hasDrift: true,
+        createdAt: '2024-07-30',
+        logoUrl: '/tech-icons/reacthookform.svg',
+      },
+      {
+        id: 11,
+        name: 'Role Directory',
+        owner: 'Parker Reed',
+        status: 'active',
+        tags: ['rbac', 'internal'],
+        region: 'eu-central',
+        uptime: '99.69%',
+        errorRate: '0.20%',
+        healthScore: 'B',
+        monthlyCost: '$3.3k',
+        alertsCount: 2,
+        hasDrift: false,
+        createdAt: '2023-10-09',
+        logoUrl: '/tech-icons/shadcnui.svg',
+      },
+      {
+        id: 12,
+        name: 'Inventory Cache',
+        owner: 'Quinn Harper',
+        status: 'inactive',
+        tags: ['cache', 'platform'],
+        region: 'ap-southeast',
+        uptime: '95.88%',
+        errorRate: '0.91%',
+        healthScore: 'D',
+        monthlyCost: '$2.8k',
+        alertsCount: 4,
+        hasDrift: true,
+        createdAt: '2022-12-19',
+        logoUrl: '/tech-icons/tailwindcss.svg',
+      },
+    ],
+    [],
+  );
+
+  const [queryParams, setQueryParams] =
+    useState<QueryParams>(DEFAULT_QUERY_PARAMS);
+  const [scenario, setScenario] = useState<MockScenario>('normal');
+  const [sortBy, setSortBy] = useState<string | undefined>(DEFAULT_SORT_BY);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>(
+    DEFAULT_SORT_ORDER,
+  );
+  const [rows, setRows] = useState<ServiceRow[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorText, setErrorText] = useState<string | null>(null);
+  const [selectedRows, setSelectedRows] = useState<ServiceRow[]>([]);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function load() {
+      setIsLoading(true);
+      setErrorText(null);
+      await wait(scenario === 'slow' ? 900 : 240);
+
+      if (scenario === 'error') {
+        if (!isCancelled) {
+          setRows([]);
+          setTotalItems(0);
+          setTotalPages(1);
+          setIsLoading(false);
+          setErrorText(
+            'Mock API error: unable to fetch services. Try switching scenario back to normal.',
+          );
+        }
+        return;
+      }
+
+      const searchQuery = queryParams.query.toLowerCase().trim();
+
+      const sourceRows =
+        scenario === 'noisy'
+          ? allRows.map((item, index) => ({
+              ...item,
+              alertsCount: getNoisyAlertCount(item.alertsCount, index),
+              hasDrift: index % 2 === 0,
+              status: getNoisyStatus(item.status, index),
+            }))
+          : allRows;
+
+      const filtered = sourceRows.filter((item) =>
+        matchesServiceSearch(item, searchQuery),
+      );
+
+      const effectiveRows = scenario === 'empty' ? [] : filtered;
+
+      const sorted = [...effectiveRows].sort((left, right) => {
+        if (!sortBy) {
+          return 0;
+        }
+
+        const leftValue = toComparableString(
+          (left as Record<string, unknown>)[sortBy],
+        );
+        const rightValue = toComparableString(
+          (right as Record<string, unknown>)[sortBy],
+        );
+        const result = leftValue.localeCompare(rightValue, undefined, {
+          numeric: true,
+          sensitivity: 'base',
+        });
+
+        return sortOrder === 'desc' ? -result : result;
+      });
+
+      const calculatedTotalPages = Math.max(
+        1,
+        Math.ceil(sorted.length / queryParams.size),
+      );
+      const safePage = Math.min(queryParams.page, calculatedTotalPages);
+      const start = (safePage - 1) * queryParams.size;
+      const pagedRows = sorted.slice(start, start + queryParams.size);
+
+      if (!isCancelled) {
+        setRows(pagedRows);
+        setTotalItems(sorted.length);
+        setTotalPages(calculatedTotalPages);
+        setIsLoading(false);
+
+        if (safePage !== queryParams.page) {
+          setQueryParams((previous) => ({
+            ...previous,
+            page: safePage,
+          }));
+        }
+      }
+    }
+
+    load();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [allRows, queryParams, scenario, sortBy, sortOrder]);
+
+  const columns = useMemo<Column<ServiceRow>[]>(
+    () => [
+      {
+        id: 'logo',
+        header: 'Logo',
+        accessorKey: 'logoUrl' as const,
+        type: CellType.IMAGE,
+      },
+      {
+        id: 'name',
+        header: 'Service',
+        accessorKey: 'name' as const,
+        type: CellType.TEXT,
+        sortable: true,
+      },
+      {
+        id: 'owner',
+        header: 'Owner',
+        accessorKey: 'owner' as const,
+        type: CellType.AVATAR,
+      },
+      {
+        id: 'status',
+        header: 'Status',
+        accessorKey: 'status' as const,
+        type: CellType.STATUS,
+        sortable: true,
+        styler: (value: unknown) => {
+          if (value === 'active') {
+            return 'bg-green-100 text-green-700';
+          }
+          if (value === 'degraded') {
+            return 'bg-amber-100 text-amber-700';
+          }
+          return 'bg-slate-100 text-slate-700';
+        },
+      },
+      {
+        id: 'tags',
+        header: 'Tags',
+        accessorKey: 'tags' as const,
+        type: CellType.MULTI_STATUS,
+      },
+      {
+        id: 'region',
+        header: 'Region',
+        accessorKey: 'region' as const,
+        type: CellType.CHIP,
+      },
+      {
+        id: 'uptime',
+        header: 'Uptime',
+        accessorKey: 'uptime' as const,
+        type: CellType.DIMENSION,
+        sortable: true,
+      },
+      {
+        id: 'monthlyCost',
+        header: 'Cost',
+        accessorKey: 'monthlyCost' as const,
+        type: CellType.DIMENSION,
+      },
+      {
+        id: 'drift',
+        header: 'Drift',
+        accessorKey: 'hasDrift' as const,
+        type: CellType.BOOLEAN,
+      },
+      {
+        id: 'createdAt',
+        header: 'Created',
+        accessorKey: 'createdAt' as const,
+        type: CellType.DATE,
+        sortable: true,
+      },
+      {
+        id: 'alertsIcon',
+        header: 'Alerts',
+        accessorKey: 'alertsCount' as const,
+        type: CellType.ICON,
+        iconNameMapper: (value: unknown) => {
+          if (typeof value === 'number' && value > 5) {
+            return 'AlertTriangle';
+          }
+          if (typeof value === 'number' && value > 0) {
+            return 'TriangleAlert';
+          }
+          return 'ShieldCheck';
+        },
+      },
+      {
+        id: 'actions',
+        header: 'Actions',
+        type: CellType.ACTIONS,
+        actions: [
+          {
+            label: 'Inspect',
+            iconName: 'Search' as const,
+            onClick: () => undefined,
+          },
+          {
+            label: 'Restart',
+            iconName: 'RotateCcw' as const,
+            onClick: () => undefined,
+          },
+        ],
+      },
+    ],
+    [],
+  );
+
+  function resetDemoState() {
+    setScenario('normal');
+    setQueryParams(DEFAULT_QUERY_PARAMS);
+    setSortBy(DEFAULT_SORT_BY);
+    setSortOrder(DEFAULT_SORT_ORDER);
+    setSelectedRows([]);
+    setErrorText(null);
+  }
 
   return (
-    <BaseTable<Row>
-      data={rows}
-      columns={[
-        {
-          id: 'name',
-          header: 'Name',
-          accessorKey: 'name',
-          type: CellType.TEXT,
-        },
-        {
-          id: 'status',
-          header: 'Status',
-          accessorKey: 'status',
-          type: CellType.STATUS,
-          sortable: true,
-        },
-      ]}
-      onSortChange={() => undefined}
-    />
+    <div className="space-y-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs text-muted-foreground">
+          Mock server data with pagination, sorting, selection, and multi-type
+          columns.
+        </p>
+        <div className="flex flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          <label className="text-xs text-muted-foreground">
+            <span>Scenario</span>
+            <select
+              className="ml-2 rounded-md border bg-background px-2 py-1 text-xs"
+              value={scenario}
+              onChange={(event) => {
+                setScenario(event.target.value as MockScenario);
+                setQueryParams((previous) => ({ ...previous, page: 1 }));
+              }}
+            >
+              <option value="normal">normal</option>
+              <option value="slow">slow response</option>
+              <option value="empty">empty result</option>
+              <option value="error">error response</option>
+              <option value="noisy">high alerts/noisy data</option>
+            </select>
+          </label>
+          <Input
+            name="serviceFilter"
+            value={queryParams.query}
+            onChange={(event) => {
+              const nextQuery = event.target.value;
+              setQueryParams((previous) => ({
+                ...previous,
+                query: nextQuery,
+                page: 1,
+              }));
+            }}
+            placeholder="Filter by service, owner, region, or tag"
+            className="max-w-[340px]"
+          />
+          <button
+            type="button"
+            className="rounded-md border px-2.5 py-1 text-xs text-muted-foreground hover:bg-muted"
+            onClick={resetDemoState}
+          >
+            Reset demo
+          </button>
+        </div>
+      </div>
+
+      {errorText ? (
+        <div className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700">
+          {errorText}
+        </div>
+      ) : null}
+
+      <BaseTable<ServiceRow>
+        data={rows}
+        columns={columns}
+        isLoading={isLoading}
+        totalItems={totalItems}
+        totalPages={totalPages}
+        queryParams={queryParams}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        enableSelection
+        onSelectionChange={setSelectedRows}
+        onQueryParamsChange={setQueryParams}
+        onSortChange={(nextSortBy, nextSortOrder) => {
+          setSortBy(nextSortBy);
+          setSortOrder(nextSortOrder);
+          setQueryParams((previous) => ({
+            ...previous,
+            page: 1,
+          }));
+        }}
+      />
+
+      <p className="text-xs text-muted-foreground">
+        Scenario: {scenario} | Selected rows: {selectedRows.length}
+      </p>
+    </div>
   );
 }
 
@@ -527,34 +1199,146 @@ type User = {
   },
   'base-table': {
     render: BaseTablePreview,
-    code: `import { BaseTable } from '@tarikukebede/mezmer';
+    code: `import { useMemo, useState } from 'react';
+import { BaseTable } from '@tarikukebede/mezmer';
+import { CellType } from '@tarikukebede/mezmer/base-table';
+import { useListServicesQuery } from './servicesApi';
 
-type Row = { id: number; name: string; status: string };
+type ServiceRow = {
+  id: number;
+  name: string;
+  owner: string;
+  status: 'active' | 'inactive' | 'degraded';
+  tags: string[];
+  region: string;
+  uptime: string;
+  errorRate: string;
+  healthScore: string;
+  monthlyCost: string;
+  alertsCount: number;
+  hasDrift: boolean;
+  createdAt: string;
+  logoUrl: string;
+};
 
-const rows: Row[] = [
-  { id: 1, name: 'Payment Service', status: 'active' },
-  { id: 2, name: 'Audit Service', status: 'inactive' },
-];
+type QueryParams = {
+  query: string;
+  page: number;
+  size: number;
+};
 
-<BaseTable<Row>
-  data={rows}
-  columns={[
-    {
-      id: 'name',
-      header: 'Name',
-      accessorKey: 'name',
-      type: CellType.TEXT,
-    },
-    {
-      id: 'status',
-      header: 'Status',
-      accessorKey: 'status',
-      type: CellType.STATUS,
-      sortable: true,
-    },
-  ]}
-  onSortChange={(sortBy, sortOrder) => console.log(sortBy, sortOrder)}
-/>;`,
+const DEFAULT_QUERY_PARAMS: QueryParams = {
+  query: '',
+  page: 1,
+  size: 10,
+};
+const DEFAULT_SORT_BY = 'name';
+const DEFAULT_SORT_ORDER: 'asc' | 'desc' = 'asc';
+
+export function ServicesTable() {
+  const [queryParams, setQueryParams] = useState(DEFAULT_QUERY_PARAMS);
+  const [sortBy, setSortBy] = useState<string | undefined>(DEFAULT_SORT_BY);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>(DEFAULT_SORT_ORDER);
+
+  const resetDemoState = () => {
+    setQueryParams(DEFAULT_QUERY_PARAMS);
+    setSortBy(DEFAULT_SORT_BY);
+    setSortOrder(DEFAULT_SORT_ORDER);
+  };
+
+  const { data, isFetching } = useListServicesQuery({
+    ...queryParams,
+    sortBy,
+    sortOrder,
+  });
+
+  const rows = data?.items ?? [];
+  const totalPages = data?.totalPages ?? 1;
+  const totalItems = data?.totalItems ?? 0;
+
+  const columns = useMemo(
+    () => [
+      { id: 'logo', header: 'Logo', accessorKey: 'logoUrl', type: CellType.IMAGE },
+      {
+        id: 'name',
+        header: 'Service',
+        accessorKey: 'name',
+        type: CellType.TEXT,
+        sortable: true,
+      },
+      { id: 'owner', header: 'Owner', accessorKey: 'owner', type: CellType.AVATAR },
+      {
+        id: 'status',
+        header: 'Status',
+        accessorKey: 'status',
+        type: CellType.STATUS,
+        sortable: true,
+      },
+      { id: 'tags', header: 'Tags', accessorKey: 'tags', type: CellType.MULTI_STATUS },
+      { id: 'region', header: 'Region', accessorKey: 'region', type: CellType.CHIP },
+      { id: 'uptime', header: 'Uptime', accessorKey: 'uptime', type: CellType.DIMENSION },
+      {
+        id: 'monthlyCost',
+        header: 'Cost',
+        accessorKey: 'monthlyCost',
+        type: CellType.DIMENSION,
+      },
+      { id: 'drift', header: 'Drift', accessorKey: 'hasDrift', type: CellType.BOOLEAN },
+      {
+        id: 'createdAt',
+        header: 'Created',
+        accessorKey: 'createdAt',
+        type: CellType.DATE,
+        sortable: true,
+      },
+      {
+        id: 'alertsIcon',
+        header: 'Alerts',
+        accessorKey: 'alertsCount',
+        type: CellType.ICON,
+        iconNameMapper: (value) =>
+          typeof value === 'number' && value > 5
+            ? 'AlertTriangle'
+            : value
+              ? 'TriangleAlert'
+              : 'ShieldCheck',
+      },
+      {
+        id: 'actions',
+        header: 'Actions',
+        type: CellType.ACTIONS,
+        actions: [
+          { label: 'Inspect', iconName: 'Search', onClick: () => {} },
+          { label: 'Restart', iconName: 'RotateCcw', onClick: () => {} },
+        ],
+      },
+    ],
+    [],
+  );
+
+  return (
+    <>
+      <button type="button" onClick={resetDemoState}>Reset demo</button>
+      <BaseTable<ServiceRow>
+        data={rows}
+        columns={columns}
+        isLoading={isFetching}
+        totalItems={totalItems}
+        totalPages={totalPages}
+        queryParams={queryParams}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        enableSelection
+        onQueryParamsChange={setQueryParams}
+        onSortChange={(nextSortBy, nextSortOrder) => {
+          setSortBy(nextSortBy);
+          setSortOrder(nextSortOrder);
+          setQueryParams((previous) => ({ ...previous, page: 1 }));
+        }}
+      />
+    </>
+  );
+}`,
   },
   button: {
     render: ButtonPreview,
@@ -719,11 +1503,7 @@ import { ButtonVariant, Page, Search } from '@tarikukebede/mezmer';
   },
 };
 
-function ExampleTabsContent({
-  component,
-}: {
-  component: ComponentExampleId;
-}): JSX.Element {
+function ExampleTabsContent({ component }: ExampleTabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview');
   const [copyState, setCopyState] = useState<'idle' | 'done' | 'error'>('idle');
 
@@ -818,11 +1598,7 @@ function ExampleTabsContent({
                 onClick={copyCode}
                 aria-label="Copy code snippet"
               >
-                {copyState === 'idle'
-                  ? 'Copy'
-                  : copyState === 'done'
-                    ? 'Copied'
-                    : 'Failed'}
+                {getCopyLabel(copyState)}
               </button>
             </div>
 
@@ -858,8 +1634,6 @@ function ExampleTabsContent({
 
 export function ComponentExampleTabs({
   component,
-}: {
-  component: ComponentExampleId;
-}): JSX.Element {
+}: ExampleTabsProps): JSX.Element {
   return <ExampleTabsContent component={component} />;
 }

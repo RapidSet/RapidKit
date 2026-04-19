@@ -42,9 +42,21 @@ For server-side pagination and sorting, keep `queryParams` for `{ query, page, s
 ```tsx
 import { useMemo, useState } from 'react';
 import { BaseTable } from '@tarikukebede/mezmer';
+import { CellType } from '@tarikukebede/mezmer/base-table';
 import { useListServicesQuery } from './servicesApi';
 
-type Row = { id: number; name: string; status: string };
+type Row = {
+  id: number;
+  name: string;
+  owner: string;
+  status: 'active' | 'inactive' | 'degraded';
+  tags: string[];
+  region: string;
+  createdAt: string;
+  alertsCount: number;
+  hasDrift: boolean;
+  logoUrl: string;
+};
 
 type QueryParams = {
   query: string;
@@ -75,8 +87,78 @@ export function ServicesTable() {
 
   const columns = useMemo(
     () => [
-      { key: 'name' as const, label: 'Name', sortable: true },
-      { key: 'status' as const, label: 'Status', sortable: true },
+      {
+        id: 'logo',
+        header: 'Logo',
+        accessorKey: 'logoUrl',
+        type: CellType.IMAGE,
+      },
+      {
+        id: 'name',
+        header: 'Service',
+        accessorKey: 'name',
+        type: CellType.TEXT,
+        sortable: true,
+      },
+      {
+        id: 'owner',
+        header: 'Owner',
+        accessorKey: 'owner',
+        type: CellType.AVATAR,
+      },
+      {
+        id: 'status',
+        header: 'Status',
+        accessorKey: 'status',
+        type: CellType.STATUS,
+        sortable: true,
+      },
+      {
+        id: 'tags',
+        header: 'Tags',
+        accessorKey: 'tags',
+        type: CellType.MULTI_STATUS,
+      },
+      {
+        id: 'region',
+        header: 'Region',
+        accessorKey: 'region',
+        type: CellType.CHIP,
+      },
+      {
+        id: 'createdAt',
+        header: 'Created',
+        accessorKey: 'createdAt',
+        type: CellType.DATE,
+        sortable: true,
+      },
+      {
+        id: 'alertsIcon',
+        header: 'Alerts',
+        accessorKey: 'alertsCount',
+        type: CellType.ICON,
+        iconNameMapper: (value) =>
+          typeof value === 'number' && value > 5
+            ? 'AlertTriangle'
+            : value
+              ? 'TriangleAlert'
+              : 'ShieldCheck',
+      },
+      {
+        id: 'drift',
+        header: 'Drift',
+        accessorKey: 'hasDrift',
+        type: CellType.BOOLEAN,
+      },
+      {
+        id: 'actions',
+        header: 'Actions',
+        type: CellType.ACTIONS,
+        actions: [
+          { label: 'Inspect', iconName: 'Search', onClick: () => {} },
+          { label: 'Restart', iconName: 'RotateCcw', onClick: () => {} },
+        ],
+      },
     ],
     [],
   );
@@ -92,6 +174,7 @@ export function ServicesTable() {
       onQueryParamsChange={setQueryParams}
       sortBy={sortBy}
       sortOrder={sortOrder}
+      enableSelection
       onSortChange={(nextSortBy, nextSortOrder) => {
         setSortBy(nextSortBy);
         setSortOrder(nextSortOrder);

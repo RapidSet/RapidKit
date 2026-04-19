@@ -17,7 +17,7 @@ export interface BaseTableQueryParams {
 
 export interface TableProps<T extends object> {
   data: T[];
-  columns?: Column<T>[];
+  columns: Column<T>[];
   customRow?: Column<T>[];
   totalItems?: number;
   totalPages?: number;
