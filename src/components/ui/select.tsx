@@ -30,11 +30,11 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring data-[placeholder]:text-muted-foreground [&_svg]:text-muted-foreground',
+        'border-border placeholder:text-muted-foreground data-[placeholder]:text-muted-foreground [&_svg]:text-muted-foreground',
         'flex h-[var(--mz-control-height)] w-full items-center justify-between rounded-md border bg-background',
         'px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-[length:var(--mz-control-font-size)]',
         'shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',
-        'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:shadow-[var(--mz-control-shadow-focus)]',
+        'focus:outline-none focus:shadow-[var(--mz-control-shadow-focus)]',
         'disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
         className,
       )}

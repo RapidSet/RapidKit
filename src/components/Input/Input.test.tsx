@@ -32,6 +32,7 @@ const installThemeProbeStyles = () => {
   style.textContent = `
     .bg-background { background-color: var(--mz-background-color) !important; }
     .border-input { border-color: var(--mz-border-color) !important; }
+    .border-border { border-color: var(--mz-border-color) !important; }
   `;
   document.head.appendChild(style);
 };
@@ -222,9 +223,7 @@ describe('Input', () => {
 
     const className = screen.getByRole('textbox').className;
     expect(className).toContain('bg-background');
-    expect(className).toContain('border-input');
-    expect(className).toContain('ring-offset-background');
-    expect(className).toContain('focus-visible:ring-ring');
+    expect(className).toContain('border-border');
   });
 
   it('applies overridden theme variable values to computed styles', () => {

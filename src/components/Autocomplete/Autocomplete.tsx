@@ -314,8 +314,8 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
               })}
               {isLoading && (
                 <li className="list-none space-y-2 border-b border-border px-0 py-0 last:border-b-0">
-                  <Skeleton className="h-8 w-full" />
-                  <Skeleton className="h-8 w-full" />
+                  <Skeleton className="h-[var(--mz-control-height)] w-full" />
+                  <Skeleton className="h-[var(--mz-control-height)] w-full" />
                 </li>
               )}
               {showEmptyState && (

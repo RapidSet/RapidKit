@@ -25,7 +25,7 @@ const BUTTON_VARIANT_CLASSES: Record<ButtonPrimitiveVariant, string> = {
 
 const BUTTON_SIZE_CLASSES: Record<ButtonPrimitiveSize, string> = {
   default:
-    'h-[var(--mz-button-height)] px-[var(--mz-button-padding-x)] py-[var(--mz-button-padding-y)] text-[length:var(--mz-button-font-size)] font-[var(--mz-button-font-weight)] tracking-[var(--mz-button-letter-spacing)]',
+    'h-[var(--mz-control-height)] px-[var(--mz-button-padding-x)] py-[var(--mz-button-padding-y)] text-[length:var(--mz-button-font-size)] font-[var(--mz-button-font-weight)] tracking-[var(--mz-button-letter-spacing)]',
   sm: 'h-9 rounded-md px-3',
   lg: 'h-11 rounded-md px-8',
   icon: 'h-10 w-10',
@@ -53,10 +53,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonPrimitiveProps>(
         type={type}
         className={cn(
           'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md',
-          'ring-offset-background shadow-[var(--mz-button-shadow)]',
+          'shadow-[var(--mz-button-shadow)]',
           'transition-[background-color,color,border-color,box-shadow,transform] duration-200',
           'hover:shadow-[var(--mz-button-shadow-hover)] active:translate-y-[1px]',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'focus-visible:outline-none focus-visible:shadow-[var(--mz-button-shadow-hover)]',
           'disabled:pointer-events-none disabled:translate-y-0 disabled:opacity-50 disabled:shadow-none',
           '[&_svg]:pointer-events-none [&_svg]:shrink-0',
           BUTTON_VARIANT_CLASSES[variant],

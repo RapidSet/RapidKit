@@ -73,7 +73,7 @@ function DropdownMenuCheckboxItem({
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
-        'relative flex h-9 w-full cursor-default select-none items-center rounded-none py-0 pl-8 pr-2 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-8 pr-2 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       )}
       checked={checked}
@@ -109,7 +109,7 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        'relative flex h-9 w-full cursor-default select-none items-center rounded-none py-0 pl-8 pr-2 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-8 pr-2 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       )}
       {...props}
@@ -206,7 +206,7 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        'data-[state=open]:bg-muted data-[state=open]:text-foreground flex h-9 w-full cursor-default select-none items-center rounded-none px-2 py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground',
+        'data-[state=open]:bg-muted data-[state=open]:text-foreground flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none px-[var(--mz-control-padding-x)] py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground',
         inset && 'pl-8',
         className,
       )}

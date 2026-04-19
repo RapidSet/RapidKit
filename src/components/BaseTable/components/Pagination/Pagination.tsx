@@ -18,11 +18,11 @@ export function DataTablePagination({
   const availablePages = Math.max(totalPages ?? 1, 1);
   const isCompact = columnCount <= 3;
   const controlClassName =
-    'inline-flex h-8 min-w-8 items-center justify-center rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-45';
+    'inline-flex h-[var(--mz-control-height)] min-w-[var(--mz-control-height)] items-center justify-center rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-45';
   const pageValueClassName =
-    'inline-flex h-8 min-w-[4rem] items-center justify-center rounded-md border border-transparent px-2 text-xs font-medium text-muted-foreground';
+    'inline-flex h-[var(--mz-control-height)] min-w-[4rem] items-center justify-center rounded-md border border-transparent px-2 text-xs font-medium text-muted-foreground';
   const selectClassName =
-    'h-8 rounded-md border border-border bg-background px-2.5 text-xs text-foreground shadow-sm outline-none transition-colors focus:border-ring focus:ring-2 focus:ring-ring/20';
+    'h-[var(--mz-control-height)] rounded-md border border-border bg-background px-2.5 text-xs text-foreground shadow-sm outline-none transition-colors focus:shadow-[var(--mz-control-shadow-focus)]';
 
   if (isCompact) {
     return (

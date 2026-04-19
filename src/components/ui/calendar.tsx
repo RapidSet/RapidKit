@@ -33,7 +33,7 @@ export function Calendar({
         day: cn(
           'h-9 w-9 p-0 font-normal rounded-md',
           'hover:bg-accent hover:text-accent-foreground',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
         ),
         day_selected:
           'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',

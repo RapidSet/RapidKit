@@ -85,7 +85,12 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
         <SelectContent className="[&_[data-slot=select-viewport]]:p-0">
           <div className="max-h-[200px] overflow-y-auto border-t border-border pt-0">
             {options.length === 0 ? (
-              <div className={optionListEmptyStateClassName}>
+              <div
+                className={cn(
+                  optionListEmptyStateClassName,
+                  'px-[var(--mz-control-padding-x)]',
+                )}
+              >
                 No options found
               </div>
             ) : (
@@ -94,7 +99,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
                   key={option.value}
                   value={option.value}
                   className={cn(
-                    'relative cursor-pointer rounded-none pl-0 pr-0 transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[state=checked]:bg-muted data-[state=checked]:text-foreground [&>span:first-child]:hidden',
+                    'relative cursor-pointer rounded-none px-[var(--mz-control-padding-x)] py-0 transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[state=checked]:bg-muted data-[state=checked]:text-foreground [&>span:first-child]:hidden',
                     optionItemBaseClassName,
                   )}
                 >

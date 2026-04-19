@@ -47,7 +47,7 @@
       'Courier New',
       monospace
     );
-    --mz-button-height: 2.625rem;
+    --mz-button-height: var(--mz-control-height);
     --mz-button-padding-x: 1rem;
     --mz-button-padding-y: 0.625rem;
     --mz-button-font-size: 0.875rem;
