@@ -23,6 +23,14 @@ import { transformColumns } from './helper';
 import { isRowInactive } from './components/BaseTableRow/helper';
 import TablePlaceholder from './components/BaseTablePlaceHolder/BaseTablePlaceHolder';
 import { DataTablePagination } from './components/Pagination/Pagination';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@ui/table';
 
 const canAccess = (
   requirements: string[] | undefined,
@@ -278,16 +286,19 @@ export const BaseTable = <T extends object>({
   return (
     <div
       className={cn(
-        'relative flex h-full w-full flex-col overflow-hidden rounded-md border',
+        'relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-background shadow-sm',
         className,
       )}
     >
-      <table className="w-full border-collapse">
-        <thead className="sticky top-0 z-10 bg-muted">
+      <Table className="w-full min-w-full border-collapse text-sm">
+        <TableHeader className="sticky top-0 z-10 bg-muted/60 backdrop-blur supports-[backdrop-filter]:bg-muted/45">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="border-b">
+            <TableRow
+              key={headerGroup.id}
+              className="border-b border-border/80 hover:bg-transparent"
+            >
               {enableSelection ? (
-                <th className="w-10 px-2 py-2 text-left">
+                <TableHead className="w-12 px-3 py-3 text-left">
                   <Checkbox
                     aria-label="Select all rows"
                     checked={allRowsSelected}
@@ -296,7 +307,7 @@ export const BaseTable = <T extends object>({
                     name="select-all-rows"
                     className="h-4 w-4"
                   />
-                </th>
+                </TableHead>
               ) : null}
               {headerGroup.headers.map((header) => {
                 const column = availableColumns.find(
@@ -311,13 +322,13 @@ export const BaseTable = <T extends object>({
                 }
 
                 return (
-                  <th
+                  <TableHead
                     key={header.id}
                     className={cn(
-                      'px-3 py-2 text-left text-xs font-semibold text-muted-foreground',
-                      isActionColumn && 'w-12 px-4',
+                      'h-12 px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground',
+                      isActionColumn && 'w-14 px-4 text-right',
                       isSortable &&
-                        'cursor-pointer select-none hover:bg-muted/70',
+                        'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
                     )}
                     onClick={() => {
                       if (!isSortable || !onSortChange) {
@@ -331,7 +342,12 @@ export const BaseTable = <T extends object>({
                       onSortChange(header.id, nextSortOrder);
                     }}
                   >
-                    <div className="flex items-center gap-2">
+                    <div
+                      className={cn(
+                        'flex items-center gap-2',
+                        isActionColumn && 'justify-end',
+                      )}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -340,32 +356,35 @@ export const BaseTable = <T extends object>({
                           )}
                       {isSortable ? (
                         <span
-                          className={cn('text-xs', !isSorted && 'opacity-40')}
+                          className={cn(
+                            'text-[10px] leading-none',
+                            !isSorted && 'opacity-35',
+                          )}
                         >
                           {sortIndicator}
                         </span>
                       ) : null}
                     </div>
-                  </th>
+                  </TableHead>
                 );
               })}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody className="relative min-h-[220px]">
+        </TableHeader>
+        <TableBody className="relative min-h-[220px] [&_tr:last-child]:border-0">
           {rows.length ? (
             rows.map((row) => {
               const rowInactive = isRowInactive(row.original, availableColumns);
 
               return (
-                <tr
+                <TableRow
                   key={row.id}
                   className={cn(
-                    'border-b transition-colors',
+                    'border-b border-border/70 transition-colors',
                     rowInactive
-                      ? 'cursor-not-allowed opacity-60'
-                      : 'cursor-pointer hover:bg-muted/60',
-                    activeRow === row.id && 'bg-muted/70',
+                      ? 'cursor-not-allowed bg-muted/20 text-muted-foreground opacity-65'
+                      : 'cursor-pointer hover:bg-muted/45',
+                    activeRow === row.id && 'bg-muted/65',
                   )}
                   data-state={row.getIsSelected() ? 'selected' : undefined}
                   aria-disabled={rowInactive}
@@ -377,7 +396,7 @@ export const BaseTable = <T extends object>({
                   }}
                 >
                   {enableSelection ? (
-                    <td className="w-10 px-2 py-2">
+                    <TableCell className="w-12 px-3 py-3 align-middle">
                       <Checkbox
                         aria-label="Select row"
                         checked={Boolean(rowSelection[row.id])}
@@ -389,7 +408,7 @@ export const BaseTable = <T extends object>({
                         name={`${row.id}-select`}
                         className="h-4 w-4"
                       />
-                    </td>
+                    </TableCell>
                   ) : null}
                   {row.getVisibleCells().map((cell) => {
                     const column = availableColumns.find(
@@ -398,13 +417,13 @@ export const BaseTable = <T extends object>({
                     const isActionColumn = column?.type === CellType.ACTIONS;
 
                     return (
-                      <td
+                      <TableCell
                         key={cell.id}
                         className={cn(
-                          'px-3 py-2 text-xs',
+                          'px-4 py-3 text-xs align-middle text-foreground',
                           isActionColumn
-                            ? 'w-12 px-4 text-right'
-                            : 'max-w-[240px] truncate',
+                            ? 'w-14 text-right'
+                            : 'max-w-[240px] truncate text-foreground',
                         )}
                         title={
                           isActionColumn
@@ -416,26 +435,26 @@ export const BaseTable = <T extends object>({
                           cell.column.columnDef.cell,
                           cell.getContext(),
                         )}
-                      </td>
+                      </TableCell>
                     );
                   })}
-                </tr>
+                </TableRow>
               );
             })
           ) : (
-            <tr className="hover:bg-transparent">
-              <td
+            <TableRow className="hover:bg-transparent">
+              <TableCell
                 colSpan={availableColumns.length + (enableSelection ? 1 : 0)}
                 className="h-[220px]"
               />
-            </tr>
+            </TableRow>
           )}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       {rows.length === 0 ? (
         <TablePlaceholder isLoading={isLoading} placeholder={placeholder} />
       ) : null}
-      <div className="border-t bg-muted/70 p-1">
+      <div className="border-t border-border/80 bg-muted/35 px-2 py-1.5">
         <DataTablePagination
           enableSelection={Boolean(enableSelection)}
           selectedCount={Object.values(rowSelection).filter(Boolean).length}

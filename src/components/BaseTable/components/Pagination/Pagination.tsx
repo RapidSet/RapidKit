@@ -17,24 +17,32 @@ export function DataTablePagination({
   const currentSize = Math.max(queryParams?.size ?? 10, 1);
   const availablePages = Math.max(totalPages ?? 1, 1);
   const isCompact = columnCount <= 3;
+  const controlClassName =
+    'inline-flex h-8 min-w-8 items-center justify-center rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-45';
+  const pageValueClassName =
+    'inline-flex h-8 min-w-[4rem] items-center justify-center rounded-md border border-transparent px-2 text-xs font-medium text-muted-foreground';
+  const selectClassName =
+    'h-8 rounded-md border border-border bg-background px-2.5 text-xs text-foreground shadow-sm outline-none transition-colors focus:border-ring focus:ring-2 focus:ring-ring/20';
 
   if (isCompact) {
     return (
-      <div className="flex w-full items-center justify-end gap-2 overflow-auto p-1">
+      <div className="flex w-full items-center justify-end gap-2 overflow-auto px-1 py-0.5">
         <button
           type="button"
           aria-label="Go to previous page"
-          className="h-8 min-w-8 rounded border px-2 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+          className={controlClassName}
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage <= 1}
         >
           {'<'}
         </button>
-        <p className="whitespace-nowrap text-xs">{`${currentPage} / ${availablePages}`}</p>
+        <p
+          className={pageValueClassName}
+        >{`${currentPage} / ${availablePages}`}</p>
         <button
           type="button"
           aria-label="Go to next page"
-          className="h-8 min-w-8 rounded border px-2 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+          className={controlClassName}
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= availablePages}
         >
@@ -45,15 +53,15 @@ export function DataTablePagination({
   }
 
   return (
-    <div className="flex w-full flex-col-reverse items-center justify-end gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
+    <div className="flex w-full flex-col-reverse items-center justify-between gap-3 overflow-auto px-1 py-0.5 sm:flex-row sm:gap-6">
       {enableSelection ? (
         <div className="flex-1 whitespace-nowrap text-sm text-muted-foreground">
           {selectedCount} of {rowCount} row(s) selected.
         </div>
       ) : null}
-      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
+      <div className="flex flex-col-reverse items-center gap-3 sm:flex-row sm:gap-5 lg:gap-6">
         {showDescriptor ? (
-          <div className="text-sm text-muted-foreground">
+          <div className="whitespace-nowrap text-sm text-muted-foreground">
             {totalItems !== undefined && totalItems > 0 ? (
               <>
                 Showing{' '}
@@ -69,13 +77,13 @@ export function DataTablePagination({
         <div className="flex items-center gap-2">
           <label
             htmlFor="base-table-page-size"
-            className="whitespace-nowrap text-sm font-medium"
+            className="whitespace-nowrap text-sm font-medium text-muted-foreground"
           >
             Rows per page
           </label>
           <select
             id="base-table-page-size"
-            className="h-8 rounded border px-2 text-xs"
+            className={selectClassName}
             value={String(currentSize)}
             onChange={(event) => onSizeChange(Number(event.target.value))}
           >
@@ -90,7 +98,7 @@ export function DataTablePagination({
           <button
             type="button"
             aria-label="Go to first page"
-            className="hidden h-8 min-w-8 rounded border px-2 text-xs lg:flex disabled:cursor-not-allowed disabled:opacity-50"
+            className={`hidden lg:inline-flex ${controlClassName}`}
             onClick={() => onPageChange(1)}
             disabled={currentPage <= 1}
           >
@@ -99,17 +107,19 @@ export function DataTablePagination({
           <button
             type="button"
             aria-label="Go to previous page"
-            className="h-8 min-w-8 rounded border px-2 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+            className={controlClassName}
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage <= 1}
           >
             {'<'}
           </button>
-          <p className="whitespace-nowrap text-xs">{`${currentPage} / ${availablePages}`}</p>
+          <p
+            className={pageValueClassName}
+          >{`${currentPage} / ${availablePages}`}</p>
           <button
             type="button"
             aria-label="Go to next page"
-            className="h-8 min-w-8 rounded border px-2 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+            className={controlClassName}
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage >= availablePages}
           >
@@ -118,7 +128,7 @@ export function DataTablePagination({
           <button
             type="button"
             aria-label="Go to last page"
-            className="hidden h-8 min-w-8 rounded border px-2 text-xs lg:flex disabled:cursor-not-allowed disabled:opacity-50"
+            className={`hidden lg:inline-flex ${controlClassName}`}
             onClick={() => onPageChange(availablePages)}
             disabled={currentPage >= availablePages}
           >
