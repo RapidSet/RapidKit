@@ -1,5 +1,5 @@
 :root {
-  --vp-layout-max-width: 1680px;
+  --vp-layout-max-width: 1600px;
 }
 
 /* Remove VitePress inner width clamps so docs can use the wider center column. */
@@ -12,6 +12,13 @@
 .VPDoc:not(.has-sidebar) .content-container {
   max-width: none;
   width: 100%;
+}
+
+/* Keep the docs center wide but not fully stretched, so the sidebar breathes. */
+.VPDoc.has-sidebar .content-container,
+.VPDoc.has-aside .content-container {
+  max-width: 1220px;
+  margin: 0 auto;
 }
 
 /* Keep examples usable when content still exceeds viewport width. */
