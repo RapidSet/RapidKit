@@ -291,14 +291,14 @@ export const BaseTable = <T extends object>({
       )}
     >
       <Table className="w-full min-w-full border-collapse text-sm">
-        <TableHeader className="sticky top-0 z-10 bg-muted/60 backdrop-blur supports-[backdrop-filter]:bg-muted/45">
+        <TableHeader className="sticky top-0 z-10 bg-muted">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow
               key={headerGroup.id}
               className="border-b border-[hsl(var(--mz-control-border))] hover:bg-transparent"
             >
               {enableSelection ? (
-                <TableHead className="w-12 border-r border-[hsl(var(--mz-control-border))] px-3 py-3 text-left last:border-r-0">
+                <TableHead className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 text-left last:border-r-0">
                   <Checkbox
                     aria-label="Select all rows"
                     checked={allRowsSelected}
@@ -325,7 +325,7 @@ export const BaseTable = <T extends object>({
                   <TableHead
                     key={header.id}
                     className={cn(
-                      'h-12 border-r border-[hsl(var(--mz-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
+                      'h-12 border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
                       isActionColumn && 'w-14 px-4 text-right',
                       isSortable &&
                         'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
@@ -396,7 +396,7 @@ export const BaseTable = <T extends object>({
                   }}
                 >
                   {enableSelection ? (
-                    <TableCell className="w-12 border-r border-[hsl(var(--mz-control-border))] px-3 py-3 align-middle last:border-r-0">
+                    <TableCell className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 align-middle last:border-r-0">
                       <Checkbox
                         aria-label="Select row"
                         checked={Boolean(rowSelection[row.id])}
@@ -420,7 +420,7 @@ export const BaseTable = <T extends object>({
                       <TableCell
                         key={cell.id}
                         className={cn(
-                          'border-r border-[hsl(var(--mz-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
+                          'border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
                           isActionColumn
                             ? 'w-14 text-right'
                             : 'max-w-[240px] truncate text-foreground',
