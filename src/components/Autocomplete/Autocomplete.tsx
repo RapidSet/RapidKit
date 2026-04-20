@@ -295,7 +295,6 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     className={cn(
                       optionItemBaseClassName,
                       optionItemMenuCheckableClassName,
-                      'border-b border-[hsl(var(--mz-control-border))] last:border-b-0',
                       'text-left text-foreground',
                       isSelected ? 'bg-muted' : 'bg-background hover:bg-muted',
                       'focus-visible:bg-muted focus-visible:outline-none',

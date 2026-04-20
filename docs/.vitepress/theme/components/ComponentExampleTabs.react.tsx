@@ -18,16 +18,7 @@ import {
 } from '../../../../src';
 import { CellType } from '../../../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../../../src/components/BaseTable/components/BaseTableRow';
-import {
-  Archive,
-  Bell,
-  Circle,
-  Download,
-  FileText,
-  Mail,
-  Plus,
-  UserCircle2,
-} from 'lucide-react';
+import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
 
 export type ComponentExampleId =
   | 'autocomplete'
@@ -370,23 +361,6 @@ async function dummyGetUserById(id: number): Promise<UserOption | null> {
 function AutocompletePreview(): JSX.Element {
   const [selectedId, setSelectedId] = useState<number | null>(2);
 
-  const renderUserOptionContent = (item: UserOption): JSX.Element => {
-    return (
-      <div className="flex items-center gap-2">
-        <UserCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" />
-        <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-medium text-foreground">
-            {item.name}
-          </div>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Mail className="h-3.5 w-3.5" />
-            <span className="truncate">{item.email}</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="space-y-3" style={{ maxWidth: 520 }}>
       <div className="flex flex-wrap items-center gap-2">
@@ -421,7 +395,6 @@ function AutocompletePreview(): JSX.Element {
         searchOptions={dummySearchUsers}
         getOptionById={dummyGetUserById}
         onSelectOption={(item) => setSelectedId(item?.id ?? null)}
-        renderOption={renderUserOptionContent}
       />
     </div>
   );
@@ -1257,12 +1230,6 @@ const [selectedId, setSelectedId] = useState<number | null>(2);
   searchOptions={searchUsers}
   getOptionById={getUserById}
   onSelectOption={(item) => setSelectedId(item?.id ?? null)}
-  renderOption={(item) => (
-    <div className="flex items-center gap-2">
-      <div className="font-medium">{item.name}</div>
-      <div className="text-xs text-muted-foreground">{item.email}</div>
-    </div>
-  )}
 />;`,
   },
   'base-modal': {
