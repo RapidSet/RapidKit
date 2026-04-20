@@ -284,41 +284,47 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             onScroll={handleScroll}
           >
             <div className="bg-background pt-0">
-              {items.map((item) => {
-                const isSelected = selectedItem?.id === item.id;
+              <div className="divide-y divide-border">
+                {items.map((item) => {
+                  const isSelected = selectedItem?.id === item.id;
 
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleItemClick(item)}
-                    className={cn(
-                      optionItemBaseClassName,
-                      optionItemMenuCheckableClassName,
-                      'text-left text-foreground',
-                      isSelected ? 'bg-muted' : 'bg-background hover:bg-muted',
-                      'focus-visible:bg-muted focus-visible:outline-none',
-                    )}
-                    aria-pressed={isSelected}
-                  >
-                    <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
-                      <Check
-                        className={cn(
-                          'h-4 w-4 transition-opacity',
-                          isSelected ? 'opacity-100' : 'opacity-0',
-                        )}
-                      />
-                    </span>
-                    {renderOption ? (
-                      <div className="min-w-0 flex-1">{renderOption(item)}</div>
-                    ) : (
-                      <span className="block w-full truncate leading-normal">
-                        {getLabel(item)}
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => handleItemClick(item)}
+                      className={cn(
+                        optionItemBaseClassName,
+                        optionItemMenuCheckableClassName,
+                        'border-b-0 text-left text-foreground',
+                        isSelected
+                          ? 'bg-muted'
+                          : 'bg-background hover:bg-muted',
+                        'focus-visible:bg-muted focus-visible:outline-none',
+                      )}
+                      aria-pressed={isSelected}
+                    >
+                      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+                        <Check
+                          className={cn(
+                            'h-4 w-4 transition-opacity',
+                            isSelected ? 'opacity-100' : 'opacity-0',
+                          )}
+                        />
                       </span>
-                    )}
-                  </button>
-                );
-              })}
+                      {renderOption ? (
+                        <div className="min-w-0 flex-1">
+                          {renderOption(item)}
+                        </div>
+                      ) : (
+                        <span className="block w-full truncate leading-normal">
+                          {getLabel(item)}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
               {isLoading && (
                 <div className="space-y-2 px-0 py-0">
                   <Skeleton className="h-[var(--mz-control-height)] w-full" />

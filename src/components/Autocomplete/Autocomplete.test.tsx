@@ -113,6 +113,11 @@ describe('Autocomplete', () => {
 
     expect(await within(container).findByText('Alpha')).toBeTruthy();
     expect(await within(container).findByText('Alpine')).toBeTruthy();
+
+    const separatorContainer = container.querySelector(
+      '.divide-y.divide-border',
+    );
+    expect(separatorContainer).toBeTruthy();
   });
 
   it('selects an option and calls onSelectOption', async () => {
