@@ -505,7 +505,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 1,
         hasDrift: false,
         createdAt: '2025-02-18',
-        logoUrl: '/tech-icons/tanstack.svg',
+        logoUrl: 'https://picsum.photos/seed/payments-api/64/64',
       },
       {
         id: 2,
@@ -521,7 +521,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 6,
         hasDrift: true,
         createdAt: '2024-11-10',
-        logoUrl: '/tech-icons/redux.svg',
+        logoUrl: 'https://picsum.photos/seed/audit-event-bus/64/64',
       },
       {
         id: 3,
@@ -537,7 +537,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 0,
         hasDrift: false,
         createdAt: '2024-09-03',
-        logoUrl: '/tech-icons/zod.svg',
+        logoUrl: 'https://picsum.photos/seed/identity-gateway/64/64',
       },
       {
         id: 4,
@@ -553,7 +553,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 4,
         hasDrift: true,
         createdAt: '2023-12-01',
-        logoUrl: '/tech-icons/tailwindcss.svg',
+        logoUrl: '',
       },
       {
         id: 5,
@@ -569,7 +569,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 2,
         hasDrift: false,
         createdAt: '2024-04-22',
-        logoUrl: '/tech-icons/reacthookform.svg',
+        logoUrl: 'https://picsum.photos/seed/notification-hub/64/64',
       },
       {
         id: 6,
@@ -585,7 +585,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 7,
         hasDrift: true,
         createdAt: '2025-01-11',
-        logoUrl: '/tech-icons/shadcnui.svg',
+        logoUrl: '',
       },
       {
         id: 7,
@@ -601,7 +601,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 3,
         hasDrift: false,
         createdAt: '2024-10-28',
-        logoUrl: '/tech-icons/redux.svg',
+        logoUrl: 'https://picsum.photos/seed/fraud-rules-engine/64/64',
       },
       {
         id: 8,
@@ -617,7 +617,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 5,
         hasDrift: true,
         createdAt: '2023-06-14',
-        logoUrl: '/tech-icons/tanstack.svg',
+        logoUrl: 'https://picsum.photos/seed/search-aggregator/64/64',
       },
       {
         id: 9,
@@ -633,7 +633,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 1,
         hasDrift: false,
         createdAt: '2024-02-05',
-        logoUrl: '/tech-icons/zod.svg',
+        logoUrl: 'https://picsum.photos/seed/billing-ledger/64/64',
       },
       {
         id: 10,
@@ -649,7 +649,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 8,
         hasDrift: true,
         createdAt: '2024-07-30',
-        logoUrl: '/tech-icons/reacthookform.svg',
+        logoUrl: 'https://picsum.photos/seed/webhook-relay/64/64',
       },
       {
         id: 11,
@@ -665,7 +665,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 2,
         hasDrift: false,
         createdAt: '2023-10-09',
-        logoUrl: '/tech-icons/shadcnui.svg',
+        logoUrl: 'https://picsum.photos/seed/role-directory/64/64',
       },
       {
         id: 12,
@@ -681,7 +681,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 4,
         hasDrift: true,
         createdAt: '2022-12-19',
-        logoUrl: '/tech-icons/tailwindcss.svg',
+        logoUrl: '',
       },
     ],
     [],
@@ -887,11 +887,19 @@ function BaseTablePreview(): JSX.Element {
           {
             label: 'Inspect',
             iconName: 'Search' as const,
+            variant: 'primary',
             onClick: () => undefined,
           },
           {
             label: 'Restart',
             iconName: 'RotateCcw' as const,
+            variant: 'warning',
+            onClick: () => undefined,
+          },
+          {
+            label: 'Disable',
+            iconName: 'ShieldOff' as const,
+            variant: 'danger',
             onClick: () => undefined,
           },
         ],
