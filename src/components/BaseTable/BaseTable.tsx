@@ -290,7 +290,7 @@ export const BaseTable = <T extends object>({
         className,
       )}
     >
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 border border-[hsl(var(--mz-control-border))] border-b-0">
         <Table className="w-full min-w-full border-collapse text-sm">
           <TableHeader className="sticky top-0 z-10 bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -374,7 +374,7 @@ export const BaseTable = <T extends object>({
           </TableHeader>
           <TableBody className="relative [&_tr:last-child]:border-0">
             {rows.length ? (
-              rows.map((row) => {
+              rows.map((row, rowIndex) => {
                 const rowInactive = isRowInactive(
                   row.original,
                   availableColumns,
@@ -385,6 +385,7 @@ export const BaseTable = <T extends object>({
                     key={row.id}
                     className={cn(
                       'border-b border-[hsl(var(--mz-control-border))] bg-background transition-colors',
+                      rowIndex === rows.length - 1 && 'border-b-0',
                       rowInactive
                         ? 'cursor-not-allowed bg-muted/35 text-muted-foreground opacity-65'
                         : 'cursor-pointer hover:bg-muted/45',
@@ -459,7 +460,7 @@ export const BaseTable = <T extends object>({
       {rows.length === 0 ? (
         <TablePlaceholder isLoading={isLoading} placeholder={placeholder} />
       ) : null}
-      <div className="border-t border-[hsl(var(--mz-control-border))] bg-background">
+      <div className="border border-[hsl(var(--mz-control-border))] bg-background">
         <DataTablePagination
           enableSelection={Boolean(enableSelection)}
           selectedCount={Object.values(rowSelection).filter(Boolean).length}
