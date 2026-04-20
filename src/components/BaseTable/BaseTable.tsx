@@ -298,7 +298,7 @@ export const BaseTable = <T extends object>({
               className="border-b border-border/80 hover:bg-transparent"
             >
               {enableSelection ? (
-                <TableHead className="w-12 border-r border-border/70 px-3 py-3 text-left last:border-r-0">
+                <TableHead className="w-12 border-r border-border px-3 py-3 text-left last:border-r-0">
                   <Checkbox
                     aria-label="Select all rows"
                     checked={allRowsSelected}
@@ -325,7 +325,7 @@ export const BaseTable = <T extends object>({
                   <TableHead
                     key={header.id}
                     className={cn(
-                      'h-12 border-r border-border/70 px-4 py-3 text-left text-xs font-semibold text-muted-foreground last:border-r-0',
+                      'h-12 border-r border-border px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
                       isActionColumn && 'w-14 px-4 text-right',
                       isSortable &&
                         'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
