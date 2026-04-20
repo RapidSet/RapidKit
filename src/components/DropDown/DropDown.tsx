@@ -12,6 +12,8 @@ import {
 } from '@lib/feedbackText';
 import {
   optionItemBaseClassName,
+  optionItemDropdownStateClassName,
+  optionItemInteractiveClassName,
   optionListEmptyStateClassName,
 } from '@lib/optionItemStyles';
 import { Label } from '@ui/label';
@@ -100,7 +102,9 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
                   value={option.value}
                   className={cn(
                     optionItemBaseClassName,
-                    'relative cursor-pointer rounded-none px-[var(--mz-control-padding-x)] py-0 transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[state=checked]:bg-muted data-[state=checked]:text-foreground [&>span:first-child]:hidden',
+                    optionItemInteractiveClassName,
+                    optionItemDropdownStateClassName,
+                    '[&>span:first-child]:hidden',
                   )}
                 >
                   <span className="block w-full truncate">

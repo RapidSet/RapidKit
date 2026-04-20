@@ -6,7 +6,9 @@ import { Skeleton } from '@ui/skeleton';
 import { cn } from '@lib/utils';
 import {
   optionItemBaseClassName,
+  optionItemButtonContentClassName,
   optionItemDefaultClassName,
+  optionItemInteractiveClassName,
   optionItemSelectedClassName,
   optionListEmptyStateClassName,
 } from '@lib/optionItemStyles';
@@ -294,6 +296,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     className={cn(
                       'm-0 list-none',
                       optionItemBaseClassName,
+                      optionItemInteractiveClassName,
                       isSelected
                         ? optionItemSelectedClassName
                         : optionItemDefaultClassName,
@@ -302,7 +305,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
-                      className="flex h-full w-full items-center px-[var(--mz-control-padding-x)] py-0 text-left"
+                      className={optionItemButtonContentClassName}
                       aria-pressed={isSelected}
                     >
                       {renderOption ? (
@@ -311,7 +314,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                         </div>
                       ) : (
                         <div className="flex min-w-0 flex-1 items-center gap-3">
-                          <span className="min-w-0 flex-1 truncate text-xs font-normal text-muted-foreground/70">
+                          <span className="min-w-0 flex-1 truncate">
                             {getLabel(item)}
                           </span>
                         </div>
@@ -329,7 +332,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
               {showEmptyState && (
                 <li
                   className={cn(
-                    'list-none text-center',
+                    'list-none px-[var(--mz-control-padding-x)] text-center',
                     optionItemBaseClassName,
                     optionListEmptyStateClassName,
                   )}

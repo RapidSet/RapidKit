@@ -1,7 +1,15 @@
 import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import { optionItemBaseClassName } from '@lib/optionItemStyles';
+import {
+  optionItemBaseClassName,
+  optionItemInteractiveClassName,
+  optionItemMenuCheckableClassName,
+  optionItemMenuClassName,
+  optionItemMenuDisabledClassName,
+  optionItemMenuStateClassName,
+  optionItemMenuSubTriggerClassName,
+} from '@lib/optionItemStyles';
 import { cn } from '@lib/utils';
 
 function DropdownMenu({
@@ -53,8 +61,12 @@ function DropdownMenuItem({
       data-slot="dropdown-menu-item"
       data-inset={inset}
       className={cn(
-        'relative flex w-full cursor-default select-none items-center gap-2 rounded-none px-[var(--mz-control-padding-x)] py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         optionItemBaseClassName,
+        optionItemInteractiveClassName,
+        optionItemMenuClassName,
+        optionItemMenuStateClassName,
+        optionItemMenuDisabledClassName,
+        'gap-2',
         inset && 'pl-8',
         className,
       )}
@@ -73,7 +85,9 @@ function DropdownMenuCheckboxItem({
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
-        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-[calc(var(--mz-control-padding-x)+1.5rem)] pr-[var(--mz-control-padding-x)] text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        optionItemMenuCheckableClassName,
+        optionItemMenuStateClassName,
+        optionItemMenuDisabledClassName,
         className,
       )}
       checked={checked}
@@ -109,7 +123,9 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-[calc(var(--mz-control-padding-x)+1.5rem)] pr-[var(--mz-control-padding-x)] text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        optionItemMenuCheckableClassName,
+        optionItemMenuStateClassName,
+        optionItemMenuDisabledClassName,
         className,
       )}
       {...props}
@@ -206,7 +222,8 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        'data-[state=open]:bg-muted data-[state=open]:text-foreground flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none px-[var(--mz-control-padding-x)] py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground focus:bg-muted focus:text-foreground',
+        optionItemMenuSubTriggerClassName,
+        optionItemMenuStateClassName,
         inset && 'pl-8',
         className,
       )}
