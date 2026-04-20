@@ -4,14 +4,7 @@ import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
 import { cn } from '@lib/utils';
-import {
-  optionItemBaseClassName,
-  optionItemButtonContentClassName,
-  optionItemDefaultClassName,
-  optionItemInteractiveClassName,
-  optionItemSelectedClassName,
-  optionListEmptyStateClassName,
-} from '@lib/optionItemStyles';
+import { optionListEmptyStateClassName } from '@lib/optionItemStyles';
 import { DEFAULT_PAGINATION_PARAM } from '@lib/pagination';
 import {
   AUTOCOMPLETE_EMPTY_QUERY,
@@ -247,7 +240,10 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
           onChange={onQueryChange}
           placeholder={placeholder}
           disabled={resolvedDisabled}
-          className={cn(resolvedDisabled && 'bg-accent')}
+          className={cn(
+            'border border-border',
+            resolvedDisabled && 'bg-accent',
+          )}
           label={label}
           required={required}
           helperText={helperText}
@@ -286,28 +282,24 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             className="max-h-[240px]"
             onScroll={handleScroll}
           >
-            <ul className="m-0 list-none bg-background p-0">
+            <div className="bg-background">
               {items.map((item) => {
                 const isSelected = selectedItem?.id === item.id;
 
                 return (
-                  <li
+                  <div
                     key={item.id}
                     className={cn(
-                      'm-0 list-none',
-                      optionItemBaseClassName,
-                      optionItemInteractiveClassName,
-                      isSelected
-                        ? optionItemSelectedClassName
-                        : optionItemDefaultClassName,
+                      'border-b border-border last:border-b-0',
+                      isSelected ? 'bg-muted' : 'bg-background',
                     )}
                   >
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
                       className={cn(
-                        optionItemButtonContentClassName,
-                        'px-0 focus-visible:outline-none',
+                        'flex h-[var(--mz-control-height)] w-full items-center px-[var(--mz-control-padding-x)] py-0 text-left text-[length:var(--mz-control-font-size)] text-foreground transition-colors',
+                        'hover:bg-muted focus-visible:bg-muted focus-visible:outline-none',
                       )}
                       aria-pressed={isSelected}
                     >
@@ -321,27 +313,26 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                         </span>
                       )}
                     </button>
-                  </li>
+                  </div>
                 );
               })}
               {isLoading && (
-                <li className="list-none space-y-2 border-b border-border px-0 py-0 last:border-b-0">
+                <div className="space-y-2 border-b border-border px-0 py-0 last:border-b-0">
                   <Skeleton className="h-[var(--mz-control-height)] w-full" />
                   <Skeleton className="h-[var(--mz-control-height)] w-full" />
-                </li>
+                </div>
               )}
               {showEmptyState && (
-                <li
+                <div
                   className={cn(
-                    'list-none px-[var(--mz-control-padding-x)] text-center',
-                    optionItemBaseClassName,
+                    'border-b border-border px-[var(--mz-control-padding-x)] text-center last:border-b-0',
                     optionListEmptyStateClassName,
                   )}
                 >
                   {emptyMessage}
-                </li>
+                </div>
               )}
-            </ul>
+            </div>
           </ScrollArea>
         </div>
       )}
