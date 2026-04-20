@@ -286,175 +286,180 @@ export const BaseTable = <T extends object>({
   return (
     <div
       className={cn(
-        'relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-[hsl(var(--mz-control-border))] bg-background shadow-sm',
+        'relative flex h-full w-full min-h-0 flex-col bg-background',
         className,
       )}
     >
-      <Table className="w-full min-w-full border-collapse text-sm">
-        <TableHeader className="sticky top-0 z-10 bg-muted">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow
-              key={headerGroup.id}
-              className="border-b border-[hsl(var(--mz-control-border))] hover:bg-transparent"
-            >
-              {enableSelection ? (
-                <TableHead className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 text-left last:border-r-0">
-                  <Checkbox
-                    aria-label="Select all rows"
-                    checked={allRowsSelected}
-                    onCheckChange={(checked) => handleSelectAll(checked)}
-                    disabled={!hasEditPermission}
-                    name="select-all-rows"
-                    className="h-4 w-4"
-                  />
-                </TableHead>
-              ) : null}
-              {headerGroup.headers.map((header) => {
-                const column = availableColumns.find(
-                  (item) => item.id === header.id,
+      <div className="flex-1 min-h-0">
+        <Table className="w-full min-w-full border-collapse text-sm">
+          <TableHeader className="sticky top-0 z-10 bg-muted">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow
+                key={headerGroup.id}
+                className="border-b border-[hsl(var(--mz-control-border))] hover:bg-transparent"
+              >
+                {enableSelection ? (
+                  <TableHead className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 text-left last:border-r-0">
+                    <Checkbox
+                      aria-label="Select all rows"
+                      checked={allRowsSelected}
+                      onCheckChange={(checked) => handleSelectAll(checked)}
+                      disabled={!hasEditPermission}
+                      name="select-all-rows"
+                      className="h-4 w-4"
+                    />
+                  </TableHead>
+                ) : null}
+                {headerGroup.headers.map((header) => {
+                  const column = availableColumns.find(
+                    (item) => item.id === header.id,
+                  );
+                  const isActionColumn = column?.type === CellType.ACTIONS;
+                  const isSortable = Boolean(column?.sortable && onSortChange);
+                  const isSorted = sortBy === header.id;
+                  let sortIndicator = '↕';
+                  if (isSorted) {
+                    sortIndicator = sortOrder === 'asc' ? '↑' : '↓';
+                  }
+
+                  return (
+                    <TableHead
+                      key={header.id}
+                      className={cn(
+                        'h-12 border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
+                        isActionColumn && 'w-14 px-4 text-right',
+                        isSortable &&
+                          'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
+                      )}
+                      onClick={() => {
+                        if (!isSortable || !onSortChange) {
+                          return;
+                        }
+
+                        const nextSortOrder = getNextSortOrder(
+                          isSorted,
+                          sortOrder,
+                        );
+                        onSortChange(header.id, nextSortOrder);
+                      }}
+                    >
+                      <div
+                        className={cn(
+                          'flex items-center gap-2',
+                          isActionColumn && 'justify-end',
+                        )}
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                        {isSortable ? (
+                          <span
+                            className={cn(
+                              'text-[10px] leading-none',
+                              !isSorted && 'opacity-35',
+                            )}
+                          >
+                            {sortIndicator}
+                          </span>
+                        ) : null}
+                      </div>
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody className="relative [&_tr:last-child]:border-0">
+            {rows.length ? (
+              rows.map((row) => {
+                const rowInactive = isRowInactive(
+                  row.original,
+                  availableColumns,
                 );
-                const isActionColumn = column?.type === CellType.ACTIONS;
-                const isSortable = Boolean(column?.sortable && onSortChange);
-                const isSorted = sortBy === header.id;
-                let sortIndicator = '↕';
-                if (isSorted) {
-                  sortIndicator = sortOrder === 'asc' ? '↑' : '↓';
-                }
 
                 return (
-                  <TableHead
-                    key={header.id}
+                  <TableRow
+                    key={row.id}
                     className={cn(
-                      'h-12 border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
-                      isActionColumn && 'w-14 px-4 text-right',
-                      isSortable &&
-                        'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
+                      'border-b border-[hsl(var(--mz-control-border))] bg-background transition-colors',
+                      rowInactive
+                        ? 'cursor-not-allowed bg-muted/35 text-muted-foreground opacity-65'
+                        : 'cursor-pointer hover:bg-muted/45',
+                      activeRow === row.id && 'bg-muted/65',
                     )}
+                    data-state={row.getIsSelected() ? 'selected' : undefined}
+                    aria-disabled={rowInactive}
                     onClick={() => {
-                      if (!isSortable || !onSortChange) {
+                      if (rowInactive) {
                         return;
                       }
-
-                      const nextSortOrder = getNextSortOrder(
-                        isSorted,
-                        sortOrder,
-                      );
-                      onSortChange(header.id, nextSortOrder);
+                      handleRowClicked(row);
                     }}
                   >
-                    <div
-                      className={cn(
-                        'flex items-center gap-2',
-                        isActionColumn && 'justify-end',
-                      )}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                      {isSortable ? (
-                        <span
-                          className={cn(
-                            'text-[10px] leading-none',
-                            !isSorted && 'opacity-35',
-                          )}
-                        >
-                          {sortIndicator}
-                        </span>
-                      ) : null}
-                    </div>
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody className="relative min-h-[220px] [&_tr:last-child]:border-0">
-          {rows.length ? (
-            rows.map((row) => {
-              const rowInactive = isRowInactive(row.original, availableColumns);
-
-              return (
-                <TableRow
-                  key={row.id}
-                  className={cn(
-                    'border-b border-[hsl(var(--mz-control-border))] bg-background transition-colors',
-                    rowInactive
-                      ? 'cursor-not-allowed bg-muted/35 text-muted-foreground opacity-65'
-                      : 'cursor-pointer hover:bg-muted/45',
-                    activeRow === row.id && 'bg-muted/65',
-                  )}
-                  data-state={row.getIsSelected() ? 'selected' : undefined}
-                  aria-disabled={rowInactive}
-                  onClick={() => {
-                    if (rowInactive) {
-                      return;
-                    }
-                    handleRowClicked(row);
-                  }}
-                >
-                  {enableSelection ? (
-                    <TableCell className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 align-middle last:border-r-0">
-                      <Checkbox
-                        aria-label="Select row"
-                        checked={Boolean(rowSelection[row.id])}
-                        onCheckChange={(checked) =>
-                          handleSelectRow(row.id, checked)
-                        }
-                        onClick={(event) => event.stopPropagation()}
-                        disabled={!hasEditPermission || rowInactive}
-                        name={`${row.id}-select`}
-                        className="h-4 w-4"
-                      />
-                    </TableCell>
-                  ) : null}
-                  {row.getVisibleCells().map((cell) => {
-                    const column = availableColumns.find(
-                      (item) => item.id === cell.column.id,
-                    );
-                    const isActionColumn = column?.type === CellType.ACTIONS;
-
-                    return (
-                      <TableCell
-                        key={cell.id}
-                        className={cn(
-                          'border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
-                          isActionColumn
-                            ? 'w-14 text-right'
-                            : 'max-w-[240px] truncate text-foreground',
-                        )}
-                        title={
-                          isActionColumn
-                            ? undefined
-                            : String(cell.getValue() ?? '')
-                        }
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
+                    {enableSelection ? (
+                      <TableCell className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 align-middle last:border-r-0">
+                        <Checkbox
+                          aria-label="Select row"
+                          checked={Boolean(rowSelection[row.id])}
+                          onCheckChange={(checked) =>
+                            handleSelectRow(row.id, checked)
+                          }
+                          onClick={(event) => event.stopPropagation()}
+                          disabled={!hasEditPermission || rowInactive}
+                          name={`${row.id}-select`}
+                          className="h-4 w-4"
+                        />
                       </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })
-          ) : (
-            <TableRow className="bg-background hover:bg-transparent">
-              <TableCell
-                colSpan={availableColumns.length + (enableSelection ? 1 : 0)}
-                className="h-[220px]"
-              />
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+                    ) : null}
+                    {row.getVisibleCells().map((cell) => {
+                      const column = availableColumns.find(
+                        (item) => item.id === cell.column.id,
+                      );
+                      const isActionColumn = column?.type === CellType.ACTIONS;
+
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          className={cn(
+                            'border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
+                            isActionColumn
+                              ? 'w-14 text-right'
+                              : 'max-w-[240px] truncate text-foreground',
+                          )}
+                          title={
+                            isActionColumn
+                              ? undefined
+                              : String(cell.getValue() ?? '')
+                          }
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })
+            ) : (
+              <TableRow className="bg-background hover:bg-transparent">
+                <TableCell
+                  colSpan={availableColumns.length + (enableSelection ? 1 : 0)}
+                  className="h-[220px]"
+                />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
       {rows.length === 0 ? (
         <TablePlaceholder isLoading={isLoading} placeholder={placeholder} />
       ) : null}
-      <div className="border-t border-[hsl(var(--mz-control-border))] bg-muted/35 px-2 py-1.5">
+      <div className="border-t border-[hsl(var(--mz-control-border))] bg-background">
         <DataTablePagination
           enableSelection={Boolean(enableSelection)}
           selectedCount={Object.values(rowSelection).filter(Boolean).length}
