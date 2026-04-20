@@ -283,7 +283,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             className="max-h-[240px]"
             onScroll={handleScroll}
           >
-            <div className="bg-background">
+            <div className="border-t border-border bg-background pt-0">
               {items.map((item) => {
                 const isSelected = selectedItem?.id === item.id;
 
