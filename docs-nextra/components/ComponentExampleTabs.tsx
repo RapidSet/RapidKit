@@ -1,23 +1,20 @@
 import { useEffect, useMemo, useState, type JSX } from 'react';
-import {
-  Autocomplete,
-  BaseModal,
-  BaseTable,
-  Button,
-  ButtonVariant,
-  Checkbox,
-  Chip,
-  DatePicker,
-  DetailsCard,
-  DropDown,
-  Icon,
-  Image,
-  Input,
-  Page,
-  Search,
-} from '../../../../src';
-import { CellType } from '../../../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
-import type { Column } from '../../../../src/components/BaseTable/components/BaseTableRow';
+import { Autocomplete } from '../../src/components/Autocomplete';
+import { BaseModal } from '../../src/components/BaseModal';
+import { BaseTable } from '../../src/components/BaseTable';
+import { Button, ButtonVariant } from '../../src/components/Button';
+import { Checkbox } from '../../src/components/Checkbox';
+import { Chip } from '../../src/components/Chip';
+import { DatePicker } from '../../src/components/DatePicker';
+import { DetailsCard } from '../../src/components/DetailsCard';
+import { DropDown } from '../../src/components/DropDown';
+import { Icon } from '../../src/components/Icon';
+import { Image } from '../../src/components/Image';
+import { Input } from '../../src/components/Input';
+import { Page } from '../../src/components/Page';
+import { Search } from '../../src/components/Search';
+import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
+import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
 import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
 
 export type ComponentExampleId =

@@ -1,0 +1,68 @@
+:root {
+  --mz-background: 138 18% 97%;
+  --mz-foreground: 146 24% 18%;
+  --mz-card: 138 18% 99%;
+  --mz-card-foreground: 146 24% 18%;
+  --mz-popover: 138 18% 99%;
+  --mz-popover-foreground: 146 24% 18%;
+  --mz-primary: 148 37% 34%;
+  --mz-primary-foreground: 120 20% 98%;
+  --mz-secondary: 144 14% 91%;
+  --mz-secondary-foreground: 146 20% 22%;
+  --mz-muted: 144 12% 93%;
+  --mz-muted-foreground: 146 10% 39%;
+  --mz-accent: 154 26% 44%;
+  --mz-accent-foreground: 0 0% 100%;
+  --mz-destructive: 4 70% 49%;
+  --mz-destructive-foreground: 0 0% 98%;
+  --mz-border: 142 12% 83%;
+  --mz-input: 142 12% 83%;
+  --mz-ring: 148 37% 34%;
+  --mz-radius: 0.1875rem;
+  --mz-font-sans:
+    'Avenir Next', 'Nunito Sans', 'Segoe UI Variable', 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
+  --mz-font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
+  --mz-button-height: 2.625rem;
+  --mz-button-padding-x: 1rem;
+  --mz-button-padding-y: 0.625rem;
+  --mz-button-font-size: 0.875rem;
+  --mz-button-font-weight: 600;
+  --mz-button-letter-spacing: 0.006em;
+  --mz-button-shadow: 0 1px 2px hsl(var(--mz-foreground) / 0.1);
+  --mz-button-shadow-hover: 0 8px 16px hsl(var(--mz-foreground) / 0.16);
+  --mz-control-height: 2.7rem;
+  --mz-control-padding-x: 0.82rem;
+  --mz-control-padding-y: 0.56rem;
+  --mz-control-font-size: 0.9rem;
+  --mz-control-shadow: 0 1px 2px hsl(var(--mz-foreground) / 0.07);
+  --mz-control-shadow-focus: 0 0 0 3px hsl(var(--mz-ring) / 0.24);
+  --mz-checkbox-size: 1.05rem;
+  --mz-checkbox-radius: 0.1875rem;
+}
+
+.dark {
+  --mz-background: 145 20% 11%;
+  --mz-foreground: 142 18% 95%;
+  --mz-card: 145 18% 13%;
+  --mz-card-foreground: 142 18% 95%;
+  --mz-popover: 145 18% 13%;
+  --mz-popover-foreground: 142 18% 95%;
+  --mz-primary: 148 44% 63%;
+  --mz-primary-foreground: 128 30% 10%;
+  --mz-secondary: 145 12% 21%;
+  --mz-secondary-foreground: 142 18% 95%;
+  --mz-muted: 145 12% 21%;
+  --mz-muted-foreground: 142 12% 72%;
+  --mz-accent: 154 26% 58%;
+  --mz-accent-foreground: 145 20% 11%;
+  --mz-destructive: 4 62% 44%;
+  --mz-destructive-foreground: 0 0% 98%;
+  --mz-border: 145 10% 25%;
+  --mz-input: 145 10% 25%;
+  --mz-ring: 148 44% 63%;
+  --mz-button-shadow: 0 1px 2px hsl(0 0% 0% / 0.48);
+  --mz-button-shadow-hover: 0 10px 18px hsl(0 0% 0% / 0.56);
+  --mz-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.34);
+  --mz-control-shadow-focus: 0 0 0 3px hsl(var(--mz-ring) / 0.3);
+}

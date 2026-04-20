@@ -194,7 +194,7 @@ Every time a new public component is added, do not treat the work as complete un
 - add the component link to `docs/components/index.md` and `docs/COMPONENTS.md` in alphabetical A-Z order
 - add the component to the root API list in `README.md` when publicly exported
 - ensure the docs include consumer usage, public props, accessibility behavior, tested interaction guarantees, and access-control behavior where applicable
-- update `docs/.vitepress/config.ts` so the component appears in the docs site sidebar/navigation used by GitHub Pages in alphabetical A-Z order
+- update `pages/components/_meta.ts` so the component appears in the Nextra docs sidebar/navigation used by GitHub Pages in alphabetical A-Z order
 - run `pnpm docs:build` and verify the generated docs site includes the new component page and navigation entry before treating GitHub Pages coverage as complete
 - run `pnpm validate:contracts`
 - run `pnpm validate:component-docs`

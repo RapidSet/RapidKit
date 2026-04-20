@@ -1,0 +1,103 @@
+<svg width="980" height="760" viewBox="0 0 980 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Mezmer system diagram</title>
+  <desc id="desc">A visual map of Mezmer at the center, powered by React and key ecosystem libraries with contracts, themes, and MCP workflow outputs.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="110" y1="80" x2="870" y2="690" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF4FF"/>
+      <stop offset="1" stop-color="#F7FAFF"/>
+    </linearGradient>
+    <linearGradient id="strokeSoft" x1="190" y1="180" x2="780" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#94B5FF" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#A2BAE2" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="980" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#7EA2E0" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect x="44" y="44" width="892" height="672" rx="32" fill="url(#bg)" stroke="#DCE6FA"/>
+
+  <circle cx="490" cy="380" r="252" stroke="url(#strokeSoft)" stroke-width="1.5" stroke-dasharray="6 8"/>
+  <circle cx="490" cy="380" r="196" stroke="url(#strokeSoft)" stroke-width="1.5" stroke-dasharray="4 7"/>
+
+  <g stroke="#AFC7EF" stroke-width="1.5" opacity="0.72">
+    <line x1="490" y1="380" x2="490" y2="153"/>
+    <line x1="490" y1="380" x2="665" y2="227"/>
+    <line x1="490" y1="380" x2="716" y2="380"/>
+    <line x1="490" y1="380" x2="665" y2="533"/>
+    <line x1="490" y1="380" x2="490" y2="607"/>
+    <line x1="490" y1="380" x2="315" y2="533"/>
+    <line x1="490" y1="380" x2="264" y2="380"/>
+    <line x1="490" y1="380" x2="315" y2="227"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="336" y="282" width="308" height="196" rx="24" fill="#FFFFFF" stroke="#D5E3FB"/>
+    <rect x="358" y="308" width="264" height="40" rx="12" fill="#F2F6FF"/>
+    <text x="490" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#153463">Mezmer UI Kit</text>
+
+    <text x="490" y="372" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#516B95">Contract-driven components</text>
+    <text x="490" y="394" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#516B95">Theme tokens and enterprise guardrails</text>
+    <text x="490" y="416" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#516B95">AI-ready docs + MCP tooling</text>
+
+    <rect x="404" y="438" width="172" height="24" rx="12" fill="#E9F1FF"/>
+    <text x="490" y="454" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#2B518A">Predictable delivery layer</text>
+  </g>
+
+  <g>
+    <g transform="translate(438 120)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <image href="tech-icons/shadcnui.svg" x="12" y="14" width="24" height="24"/>
+      <text x="44" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">shadcn/ui</text>
+      <text x="44" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">primitives</text>
+    </g>
+
+    <g transform="translate(624 192)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <image href="tech-icons/tanstack.svg" x="12" y="14" width="24" height="24"/>
+      <text x="44" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">TanStack</text>
+      <text x="44" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">table</text>
+    </g>
+
+    <g transform="translate(676 346)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <image href="tech-icons/redux.svg" x="12" y="14" width="24" height="24"/>
+      <text x="44" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">Redux</text>
+      <text x="44" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">state</text>
+    </g>
+
+    <g transform="translate(624 500)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <image href="tech-icons/reacthookform.svg" x="12" y="14" width="24" height="24"/>
+      <text x="44" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">RHF</text>
+      <text x="44" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">forms</text>
+    </g>
+
+    <g transform="translate(438 572)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <image href="tech-icons/tailwindcss.svg" x="12" y="14" width="24" height="24"/>
+      <text x="44" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">Tailwind</text>
+      <text x="44" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">tokens</text>
+    </g>
+
+    <g transform="translate(252 500)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <image href="tech-icons/zod.svg" x="12" y="14" width="24" height="24"/>
+      <text x="44" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">Zod</text>
+      <text x="44" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">contracts</text>
+    </g>
+
+    <g transform="translate(200 346)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <text x="18" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">AI + MCP</text>
+      <text x="18" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">delivery</text>
+    </g>
+
+    <g transform="translate(252 192)">
+      <rect x="0" y="0" width="104" height="66" rx="12" fill="#FFFFFF" stroke="#D5E3FB"/>
+      <text x="18" y="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#294A7C">React + TS</text>
+      <text x="18" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#6C84AB">runtime</text>
+    </g>
+  </g>
+</svg>

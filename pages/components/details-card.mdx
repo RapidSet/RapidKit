@@ -1,0 +1,54 @@
+import { ComponentExampleTabs } from '../../docs-nextra/components/ComponentExampleTabs';
+
+# DetailsCard
+
+## Purpose
+
+Reusable details surface with a persistent header action area, optional custom content, and tabbed body sections.
+
+## Import
+
+```tsx
+import { DetailsCard } from '@tarikukebede/mezmer';
+```
+
+<ComponentExampleTabs component="details-card" />
+
+## Required Props
+
+- `title: string`
+- `icon: LucideIcon`
+- `isLoading: boolean`
+
+## Common Optional Props
+
+- `data?: T`
+- `tabs?: DetailsCardBodyTab[]`
+- `renderCustomContent?: () => ReactNode`
+- `onSave?: (data: T | null) => void`
+- `onDelete?: (data: T | null) => void`
+- `onClose?: () => void`
+- `saveAccessRequirements?: string[]`
+- `deleteAccessRequirements?: string[]`
+- `customButtons?: CustomButton<T>[]`
+
+`CustomButton<T>` supports:
+
+- `label: string`
+- `onClick: (data: T | null) => void`
+- `icon?: LucideIcon`
+- `variant?: ButtonVariant`
+- `loading?: boolean`
+- `disabled?: boolean`
+- `accessRequirements?: string[]`
+
+## Accessibility
+
+- Uses `role="tablist"`, `role="tab"`, and `role="tabpanel"` for section navigation.
+- Marks loading content with `role="status"` and `aria-live="polite"`.
+
+## Access Behavior
+
+- Header actions are delegated to `Button`, so access behavior matches the shared action-control contract.
+- Save and delete actions can receive dedicated access requirement lists.
+- Custom actions may provide `accessRequirements` for per-action gating.

@@ -239,6 +239,13 @@ Useful scripts:
 - pnpm validate:contracts
 - pnpm docs:dev
 - pnpm docs:build
+- pnpm docs:preview
+
+Documentation now runs on Nextra with static export via Next.js.
+
+- `pnpm docs:dev` starts the local Nextra docs site.
+- `pnpm docs:build` exports the static site to `out/`.
+- `pnpm docs:preview` serves the exported `out/` directory.
 
 ## Testing
 

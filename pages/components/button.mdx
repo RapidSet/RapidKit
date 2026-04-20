@@ -1,0 +1,41 @@
+import { ComponentExampleTabs } from '../../docs-nextra/components/ComponentExampleTabs';
+
+# Button
+
+## Purpose
+
+Theme-aware action button with optional leading icon, loading state, and injectable action access control.
+
+## Import
+
+```tsx
+import { Button, ButtonVariant } from '@tarikukebede/mezmer';
+```
+
+<ComponentExampleTabs component="button" />
+
+## Common Props
+
+- `label?: string`
+- `children?: ReactNode`
+- `leftIcon?: LucideIcon`
+- `rightIcon?: LucideIcon`
+- `loading?: boolean`
+- `variant?: ButtonVariant`
+- `disabled?: boolean`
+- `accessRequirements?: string[]`
+- `resolveAccess?: (requirement: string, mode: 'action') => boolean`
+- `accessDeniedBehavior?: 'hide' | 'disable'`
+
+## Accessibility
+
+- Renders a native `button` element.
+- Sets `aria-busy="true"` while loading.
+- Supports standard button attributes like `aria-label`, `type`, and `disabled`.
+
+## Access Control
+
+- No resolver or no requirements: button remains visible and enabled.
+- All listed action requirements must pass for the action to stay enabled.
+- Action denied with `accessDeniedBehavior="hide"`: component returns `null`.
+- Action denied with `accessDeniedBehavior="disable"`: button remains visible but becomes disabled.

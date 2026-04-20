@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import nextPlugin from '@next/eslint-plugin-next';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintConfigPrettier from 'eslint-config-prettier';
@@ -46,6 +47,21 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+    },
+  },
+  {
+    files: [
+      'pages/**/*.{js,jsx,ts,tsx}',
+      'docs-nextra/**/*.{js,jsx,ts,tsx}',
+      'next.config.{js,mjs,cjs,ts}',
+      'theme.config.{js,mjs,cjs,ts,tsx}',
+    ],
+    plugins: {
+      '@next/next': nextPlugin,
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
     },
   },
   eslintConfigPrettier,

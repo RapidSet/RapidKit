@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react';
+import { Autocomplete } from '../../src/components/Autocomplete';
 import {
-  Autocomplete,
   BaseTable,
   type BaseTableQueryParams,
   type BaseTableSortOrder,
-  Button,
-  ButtonVariant,
-  Checkbox,
   type Column,
-  Chip,
-  DatePicker,
-  DetailsCard,
-  DropDown,
-  Icon,
-  Image,
-  Input,
-  Page,
-  Search,
-} from '../../../../src';
+} from '../../src/components/BaseTable';
+import { Button, ButtonVariant } from '../../src/components/Button';
+import { Checkbox } from '../../src/components/Checkbox';
+import { Chip } from '../../src/components/Chip';
+import { DatePicker } from '../../src/components/DatePicker';
+import { DetailsCard } from '../../src/components/DetailsCard';
+import { DropDown } from '../../src/components/DropDown';
+import { Icon } from '../../src/components/Icon';
+import { Image } from '../../src/components/Image';
+import { Input } from '../../src/components/Input';
+import { Page } from '../../src/components/Page';
+import { Search } from '../../src/components/Search';
 import { Bell, Layers3 } from 'lucide-react';
-import { CellType } from '../../../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell/types';
+import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell/types';
 import {
   THEME_CHANGE_EVENT,
   THEME_OPTIONS,
@@ -27,7 +26,6 @@ import {
   initializeDocsTheme,
   setDocsTheme,
 } from './docsTheme';
-import './ThemePlayground.css';
 
 const TOKEN_SWATCHES: Array<{ label: string; token: string }> = [
   { label: 'Background', token: '--mz-background' },

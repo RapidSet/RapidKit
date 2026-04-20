@@ -191,11 +191,9 @@ function isBuiltInThemeId(value: string | null): value is BuiltInThemeId {
 }
 
 export function getThemeStylesheetHref(theme: BuiltInThemeId): string {
-  const basePath =
-    (import.meta as ImportMeta & { env?: { BASE_URL?: string } }).env
-      ?.BASE_URL || '/';
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
-  return `${basePath}themes/${theme}.css`;
+  return `${basePath}/themes/${theme}.css`;
 }
 
 export function cleanupLegacyThemeArtifacts(): void {

@@ -1,60 +1,3 @@
-<template>
-  <div class="component-example-tabs-host">
-    <div ref="mountNode"></div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import React from 'react';
-import { createRoot, type Root } from 'react-dom/client';
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import {
-  ComponentExampleTabs,
-  type ComponentExampleId,
-} from './ComponentExampleTabs.react';
-
-const props = defineProps<{
-  component: ComponentExampleId;
-}>();
-
-const mountNode = ref<HTMLDivElement | null>(null);
-let root: Root | null = null;
-
-function renderTabs() {
-  if (!root) {
-    return;
-  }
-
-  root.render(
-    React.createElement(ComponentExampleTabs, {
-      component: props.component,
-    }),
-  );
-}
-
-onMounted(() => {
-  if (!mountNode.value) {
-    return;
-  }
-
-  root = createRoot(mountNode.value);
-  renderTabs();
-});
-
-watch(
-  () => props.component,
-  () => {
-    renderTabs();
-  },
-);
-
-onBeforeUnmount(() => {
-  root?.unmount();
-  root = null;
-});
-</script>
-
-<style>
 .component-example-tabs-host {
   margin-top: 1rem;
 }
@@ -197,7 +140,13 @@ onBeforeUnmount(() => {
   list-style: decimal;
   list-style-position: outside;
   margin-left: 3.25rem;
-  font-family: var(--vp-font-family-mono);
+  font-family: var(
+    --mz-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace
+  );
   font-size: 0.92rem;
   line-height: 1.55;
   color: var(--vp-c-text-1);
@@ -248,7 +197,7 @@ onBeforeUnmount(() => {
   color: #ffc166;
 }
 
-.component-example-tabs__preview > :deep(*) {
+.component-example-tabs__preview > * {
   max-width: 100%;
 }
 
@@ -270,4 +219,3 @@ onBeforeUnmount(() => {
     padding-right: 0.7rem;
   }
 }
-</style>

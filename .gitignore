@@ -14,7 +14,8 @@ node_modules
 dist
 dist-ssr
 *.local
-docs/.vitepress/cache
+.next
+out
 
 # IDEs
 .vscode/*

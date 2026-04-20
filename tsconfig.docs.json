@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "noEmit": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "incremental": true,
+    "rootDir": ".",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "include": [
+    "next-env.d.ts",
+    "pages/**/*",
+    "docs-nextra/**/*",
+    "theme.config.tsx"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,32 @@
+# Components
+
+Consumer-facing component documentation lives here.
+
+- [Autocomplete](./autocomplete)
+- [BaseModal](./base-modal)
+- [BaseTable](./base-table)
+- [Button](./button)
+- [Checkbox](./checkbox)
+- [Chip](./chip)
+- [DatePicker](./date-picker)
+- [DetailsCard](./details-card)
+- [DropDown](./drop-down)
+- [Icon](./icon)
+- [Image](./image)
+- [Input](./input)
+- [Page](./page)
+- [Search](./search)
+
+## Shared Access-Control Contract
+
+Where supported, components use:
+
+- `accessRequirements?: string[]`
+- `resolveAccess?: (requirement: string, mode: ...) => boolean`
+
+Behavior:
+
+- No resolver or no requirements: component remains visible.
+- Resolver mode is component-specific (for example, `'view' | 'edit'` for Input/Checkbox and `'action'` for Button).
+- If visibility access is denied for that component, it returns `null`.
+- If interaction access is denied for that component, interactive behavior is disabled where applicable.
