@@ -13,6 +13,7 @@ export default [
       'node_modules/**',
       'coverage/**',
       'src/components/ui/**',
+      'next-env.d.ts',
     ],
   },
   {
