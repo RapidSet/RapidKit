@@ -26,7 +26,7 @@ document.querySelectorAll('.mz-topnav-link[data-section]')
       links.forEach((link) => {
         const isMatch = link.getAttribute('data-section') === id;
         link.classList.toggle('is-active', isMatch);
-        link.setAttribute('aria-current', isMatch ? 'true' : 'false');
+        link.setAttribute('aria-current', isMatch ? 'location' : 'false');
       });
     };
 
