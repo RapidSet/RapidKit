@@ -287,33 +287,25 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                 const isSelected = selectedItem?.id === item.id;
 
                 return (
-                  <div
+                  <button
                     key={item.id}
+                    type="button"
+                    onClick={() => handleItemClick(item)}
                     className={cn(
-                      'border-b border-border last:border-b-0',
-                      isSelected ? 'bg-muted' : 'bg-background',
+                      'flex h-[var(--mz-control-height)] w-full items-center border-b border-border px-[var(--mz-control-padding-x)] py-0 text-left text-[length:var(--mz-control-font-size)] text-foreground transition-colors last:border-b-0',
+                      isSelected ? 'bg-muted' : 'bg-background hover:bg-muted',
+                      'focus-visible:bg-muted focus-visible:outline-none',
                     )}
+                    aria-pressed={isSelected}
                   >
-                    <button
-                      type="button"
-                      onClick={() => handleItemClick(item)}
-                      className={cn(
-                        'flex h-[var(--mz-control-height)] w-full items-center px-[var(--mz-control-padding-x)] py-0 text-left text-[length:var(--mz-control-font-size)] text-foreground transition-colors',
-                        'hover:bg-muted focus-visible:bg-muted focus-visible:outline-none',
-                      )}
-                      aria-pressed={isSelected}
-                    >
-                      {renderOption ? (
-                        <div className="min-w-0 flex-1">
-                          {renderOption(item)}
-                        </div>
-                      ) : (
-                        <span className="block w-full truncate">
-                          {getLabel(item)}
-                        </span>
-                      )}
-                    </button>
-                  </div>
+                    {renderOption ? (
+                      <div className="min-w-0 flex-1">{renderOption(item)}</div>
+                    ) : (
+                      <span className="block w-full truncate">
+                        {getLabel(item)}
+                      </span>
+                    )}
+                  </button>
                 );
               })}
               {isLoading && (
