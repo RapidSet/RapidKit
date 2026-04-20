@@ -286,24 +286,28 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             className="max-h-[240px]"
             onScroll={handleScroll}
           >
-            <ul className="m-0 list-none border-t border-border bg-background p-0">
+            <ul className="m-0 list-none bg-background p-0">
               {items.map((item) => {
                 const isSelected = selectedItem?.id === item.id;
 
                 return (
                   <li
                     key={item.id}
-                    className={cn('m-0 list-none', optionItemBaseClassName)}
+                    className={cn(
+                      'm-0 list-none',
+                      optionItemBaseClassName,
+                      optionItemInteractiveClassName,
+                      isSelected
+                        ? optionItemSelectedClassName
+                        : optionItemDefaultClassName,
+                    )}
                   >
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
                       className={cn(
                         optionItemButtonContentClassName,
-                        optionItemInteractiveClassName,
-                        isSelected
-                          ? optionItemSelectedClassName
-                          : optionItemDefaultClassName,
+                        'px-0 focus-visible:outline-none',
                       )}
                       aria-pressed={isSelected}
                     >
