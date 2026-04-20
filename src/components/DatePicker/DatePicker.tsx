@@ -18,13 +18,19 @@ import {
 } from './helpers';
 
 const DATE_PICKER_CALENDAR_CLASS_NAMES = {
+  month: 'flex w-full flex-col gap-3',
   month_caption:
-    'relative flex items-center justify-center border-b border-[hsl(var(--mz-control-border))] pb-2',
+    'relative flex h-10 w-full items-center justify-center border-b border-[hsl(var(--mz-control-border))] px-10 pb-2',
   caption:
-    'relative flex items-center justify-center border-b border-[hsl(var(--mz-control-border))] pb-2',
+    'relative flex h-10 w-full items-center justify-center border-b border-[hsl(var(--mz-control-border))] px-10 pb-2',
   caption_label:
     'text-[length:var(--mz-control-font-size)] font-semibold tracking-[0.01em] text-foreground',
-  nav: 'space-x-1 flex items-center',
+  nav: 'absolute inset-x-0 top-0 flex h-10 items-center justify-between',
+  dropdowns:
+    'flex h-8 w-full items-center justify-center gap-1.5 text-[length:var(--mz-control-font-size)] font-semibold',
+  dropdown_root:
+    'relative rounded-md border border-[hsl(var(--mz-control-border))] bg-background text-foreground shadow-[var(--mz-control-shadow)]',
+  dropdown: 'absolute inset-0 opacity-0',
   button_previous:
     'absolute left-1 h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
   button_next:
@@ -36,12 +42,12 @@ const DATE_PICKER_CALENDAR_CLASS_NAMES = {
     'w-9 rounded-md text-center text-[0.75rem] font-medium uppercase tracking-[0.04em] text-muted-foreground',
   head_cell:
     'w-9 rounded-md text-center text-[0.75rem] font-medium uppercase tracking-[0.04em] text-muted-foreground',
-  week: 'mt-2 flex w-full',
+  week: 'mt-1.5 flex w-full',
   day: 'relative h-9 w-9 p-0 text-center text-[length:var(--mz-control-font-size)]',
   day_button:
-    'h-9 w-9 rounded-md p-0 font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
+    'h-9 w-9 rounded-md p-0 font-normal hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
   day_selected:
-    'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
+    'bg-primary text-primary-foreground font-medium hover:bg-primary hover:text-primary-foreground',
   day_today: 'bg-accent text-accent-foreground',
   day_outside: 'text-muted-foreground opacity-50',
   day_disabled: 'text-muted-foreground opacity-50',

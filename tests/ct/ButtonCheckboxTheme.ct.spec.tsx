@@ -36,7 +36,7 @@ test.describe('Theme Styling (Component Test)', () => {
     expect(updatedAccent).not.toBe(initialAccent);
   });
 
-  test('checkbox border follows theme control-border token', async ({
+  test('checkbox keeps a visible circular border across themed surfaces', async ({
     mount,
   }) => {
     const component = await mount(
@@ -69,15 +69,33 @@ test.describe('Theme Styling (Component Test)', () => {
       'input[name="theme-border-checkbox-b"]',
     );
 
-    const borderA = await checkboxA.evaluate(
-      (node) => getComputedStyle(node as HTMLInputElement).borderColor,
-    );
+    const borderA = await checkboxA.evaluate((node) => {
+      const computed = getComputedStyle(node as HTMLInputElement);
+      return {
+        borderWidth: computed.borderWidth,
+        borderRadius: computed.borderRadius,
+        borderColor: computed.borderColor,
+        backgroundColor: computed.backgroundColor,
+      };
+    });
 
-    const borderB = await checkboxB.evaluate(
-      (node) => getComputedStyle(node as HTMLInputElement).borderColor,
-    );
+    const borderB = await checkboxB.evaluate((node) => {
+      const computed = getComputedStyle(node as HTMLInputElement);
+      return {
+        borderWidth: computed.borderWidth,
+        borderRadius: computed.borderRadius,
+        borderColor: computed.borderColor,
+        backgroundColor: computed.backgroundColor,
+      };
+    });
 
-    expect(borderA).not.toBe(borderB);
+    expect(borderA.borderWidth).toBe('2px');
+    expect(borderA.borderRadius).not.toBe('0px');
+    expect(borderA.borderColor).not.toBe(borderA.backgroundColor);
+
+    expect(borderB.borderWidth).toBe('2px');
+    expect(borderB.borderRadius).not.toBe('0px');
+    expect(borderB.borderColor).not.toBe(borderB.backgroundColor);
   });
 
   test('button variants apply distinct visual styles', async ({ mount }) => {
