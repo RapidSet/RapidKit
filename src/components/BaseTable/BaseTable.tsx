@@ -298,7 +298,7 @@ export const BaseTable = <T extends object>({
               className="border-b border-[hsl(var(--mz-control-border))] hover:bg-transparent"
             >
               {enableSelection ? (
-                <TableHead className="w-12 px-3 py-3 text-left">
+                <TableHead className="w-12 border-r border-[hsl(var(--mz-control-border))] px-3 py-3 text-left last:border-r-0">
                   <Checkbox
                     aria-label="Select all rows"
                     checked={allRowsSelected}
@@ -325,7 +325,7 @@ export const BaseTable = <T extends object>({
                   <TableHead
                     key={header.id}
                     className={cn(
-                      'h-12 px-4 py-3 text-left text-xs font-medium text-muted-foreground',
+                      'h-12 border-r border-[hsl(var(--mz-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
                       isActionColumn && 'w-14 px-4 text-right',
                       isSortable &&
                         'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
@@ -396,7 +396,7 @@ export const BaseTable = <T extends object>({
                   }}
                 >
                   {enableSelection ? (
-                    <TableCell className="w-12 px-3 py-3 align-middle">
+                    <TableCell className="w-12 border-r border-[hsl(var(--mz-control-border))] px-3 py-3 align-middle last:border-r-0">
                       <Checkbox
                         aria-label="Select row"
                         checked={Boolean(rowSelection[row.id])}
@@ -420,7 +420,7 @@ export const BaseTable = <T extends object>({
                       <TableCell
                         key={cell.id}
                         className={cn(
-                          'px-4 py-3 text-xs align-middle text-foreground',
+                          'border-r border-[hsl(var(--mz-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
                           isActionColumn
                             ? 'w-14 text-right'
                             : 'max-w-[240px] truncate text-foreground',
