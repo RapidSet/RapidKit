@@ -15,12 +15,9 @@ const installThemeProbeStyles = () => {
   const style = document.createElement('style');
   style.id = styleId;
   style.textContent = `
-    .border-2 {
+    .border {
       border-style: solid !important;
-      border-width: 2px !important;
-    }
-    .border-foreground/45 {
-      border-color: rgb(65, 43, 21) !important;
+      border-width: 1px !important;
     }
   `;
   document.head.appendChild(style);
@@ -121,9 +118,11 @@ describe('Checkbox', () => {
     const checkbox = screen.getByRole('checkbox');
     const style = getComputedStyle(checkbox);
 
-    expect(checkbox.className).toContain('border-2');
+    expect(checkbox.className).toContain('border');
     expect(checkbox.className).toContain('border-solid');
-    expect(checkbox.className).toContain('border-foreground');
-    expect(style.borderWidth).toBe('2px');
+    expect(checkbox.className).toContain(
+      'border-[hsl(var(--mz-control-border))]',
+    );
+    expect(style.borderWidth).toBe('1px');
   });
 });

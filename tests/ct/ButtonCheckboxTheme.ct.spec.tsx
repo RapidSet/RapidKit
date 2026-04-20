@@ -89,11 +89,11 @@ test.describe('Theme Styling (Component Test)', () => {
       };
     });
 
-    expect(borderA.borderWidth).toBe('2px');
+    expect(borderA.borderWidth).toBe('1px');
     expect(borderA.borderRadius).not.toBe('0px');
     expect(borderA.borderColor).not.toBe(borderA.backgroundColor);
 
-    expect(borderB.borderWidth).toBe('2px');
+    expect(borderB.borderWidth).toBe('1px');
     expect(borderB.borderRadius).not.toBe('0px');
     expect(borderB.borderColor).not.toBe(borderB.backgroundColor);
   });
@@ -217,7 +217,7 @@ test.describe('Theme Styling (Component Test)', () => {
       };
     });
 
-    expect(lightStyle.borderWidth).toBe('2px');
+    expect(lightStyle.borderWidth).toBe('1px');
     expect(lightStyle.borderColor).not.toBe(lightStyle.backgroundColor);
 
     const darkCheckbox = component.locator('input[name="checkbox-dark"]');
@@ -230,7 +230,7 @@ test.describe('Theme Styling (Component Test)', () => {
       };
     });
 
-    expect(darkStyle.borderWidth).toBe('2px');
+    expect(darkStyle.borderWidth).toBe('1px');
     expect(darkStyle.borderColor).not.toBe(darkStyle.backgroundColor);
   });
 });
