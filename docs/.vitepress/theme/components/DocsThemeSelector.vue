@@ -123,8 +123,7 @@ onBeforeUnmount(() => {
 }
 
 .mz-docs-theme-selector__select:focus {
-  outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 2px;
+  outline: none;
   border-color: var(--vp-c-divider);
   background-color: var(--vp-c-bg-soft);
 }

@@ -36,8 +36,8 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        'border-border placeholder:text-muted-foreground data-[placeholder]:text-muted-foreground [&_svg]:text-muted-foreground',
-        'flex h-[var(--mz-control-height)] w-full items-center justify-between rounded-md border bg-background',
+        'placeholder:text-muted-foreground data-[placeholder]:text-muted-foreground [&_svg]:text-muted-foreground',
+        'flex h-[var(--mz-control-height)] w-full items-center justify-between rounded-md border border-[hsl(var(--mz-control-border))] bg-background',
         'px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-[length:var(--mz-control-font-size)]',
         'shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',
         'focus:outline-none focus:shadow-[var(--mz-control-shadow-focus)]',
@@ -66,7 +66,7 @@ function SelectContent({
         data-slot="select-content"
         className={cn(
           'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-[var(--mz-control-shadow-focus)]',
+          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-[hsl(var(--mz-control-border))] shadow-[var(--mz-control-shadow-focus)]',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,

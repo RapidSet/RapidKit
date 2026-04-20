@@ -10,7 +10,7 @@ export const Input = React.forwardRef<
       ref={ref}
       type={type}
       className={cn(
-        'flex h-[var(--mz-control-height)] w-full rounded-md border border-border bg-background',
+        'flex h-[var(--mz-control-height)] w-full rounded-md border border-[hsl(var(--mz-control-border))] bg-background',
         'px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)]',
         'text-[length:var(--mz-control-font-size)]',
         'shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',

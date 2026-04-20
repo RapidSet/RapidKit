@@ -16,7 +16,7 @@ const BUTTON_VARIANT_CLASSES: Record<ButtonPrimitiveVariant, string> = {
   destructive:
     'bg-destructive text-destructive-foreground hover:bg-destructive/90',
   outline:
-    'border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground',
+    'border border-[hsl(var(--mz-control-border))] bg-background text-foreground hover:bg-accent hover:text-accent-foreground',
   secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/85',
   ghost:
     'bg-transparent text-foreground shadow-none hover:bg-accent hover:text-accent-foreground hover:shadow-none',
