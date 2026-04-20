@@ -148,4 +148,21 @@ describe('Button', () => {
       cleanup();
     }
   });
+
+  it('keeps a visible border for non-text variants at rest', () => {
+    const variantsWithBorder: Array<[ButtonVariant, string]> = [
+      [ButtonVariant.Primary, 'Primary with border'],
+      [ButtonVariant.Default, 'Default with border'],
+      [ButtonVariant.Dashed, 'Dashed with border'],
+      [ButtonVariant.Outlined, 'Outlined with border'],
+      [ButtonVariant.Destructive, 'Destructive with border'],
+    ];
+
+    for (const [variant, label] of variantsWithBorder) {
+      render(<Button label={label} variant={variant} />);
+      const button = screen.getByRole('button', { name: label });
+      expect(button.className).toContain('border');
+      cleanup();
+    }
+  });
 });

@@ -123,7 +123,7 @@ describe('Checkbox', () => {
 
     expect(checkbox.className).toContain('border-2');
     expect(checkbox.className).toContain(
-      'border-[hsl(var(--mz-foreground)/0.4)]',
+      'border-[hsl(var(--mz-control-border))]',
     );
     expect(style.borderWidth).toBe('2px');
   });

@@ -36,6 +36,50 @@ test.describe('Theme Styling (Component Test)', () => {
     expect(updatedAccent).not.toBe(initialAccent);
   });
 
+  test('checkbox border follows theme control-border token', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div className="flex gap-6">
+        <div
+          style={
+            {
+              '--mz-control-border': '210 10% 30% / 0.45',
+            } as CSSProperties
+          }
+        >
+          <Checkbox name="theme-border-checkbox-a" title="Border token A" />
+        </div>
+        <div
+          style={
+            {
+              '--mz-control-border': '24 90% 42% / 0.6',
+            } as CSSProperties
+          }
+        >
+          <Checkbox name="theme-border-checkbox-b" title="Border token B" />
+        </div>
+      </div>,
+    );
+
+    const checkboxA = component.locator(
+      'input[name="theme-border-checkbox-a"]',
+    );
+    const checkboxB = component.locator(
+      'input[name="theme-border-checkbox-b"]',
+    );
+
+    const borderA = await checkboxA.evaluate(
+      (node) => getComputedStyle(node as HTMLInputElement).borderColor,
+    );
+
+    const borderB = await checkboxB.evaluate(
+      (node) => getComputedStyle(node as HTMLInputElement).borderColor,
+    );
+
+    expect(borderA).not.toBe(borderB);
+  });
+
   test('button variants apply distinct visual styles', async ({ mount }) => {
     const component = await mount(
       <div style={THEME_HOST_STYLE}>
@@ -70,6 +114,48 @@ test.describe('Theme Styling (Component Test)', () => {
     expect(outlinedBg).toBe('rgba(0, 0, 0, 0)');
     expect(destructiveClasses).toContain('bg-destructive');
     expect(dashedBorderStyle).toBe('dashed');
+  });
+
+  test('primary and destructive buttons have visible resting borders', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div style={THEME_HOST_STYLE}>
+        <div className="flex gap-2">
+          <Button label="Primary Border" variant={ButtonVariant.Primary} />
+          <Button
+            label="Destructive Border"
+            variant={ButtonVariant.Destructive}
+          />
+        </div>
+      </div>,
+    );
+
+    const primary = component.getByRole('button', { name: 'Primary Border' });
+    const destructive = component.getByRole('button', {
+      name: 'Destructive Border',
+    });
+
+    const primaryBorder = await primary.evaluate((node) => {
+      const computed = getComputedStyle(node);
+      return {
+        borderWidth: computed.borderWidth,
+        borderColor: computed.borderColor,
+      };
+    });
+
+    const destructiveBorder = await destructive.evaluate((node) => {
+      const computed = getComputedStyle(node);
+      return {
+        borderWidth: computed.borderWidth,
+        borderColor: computed.borderColor,
+      };
+    });
+
+    expect(primaryBorder.borderWidth).toBe('1px');
+    expect(primaryBorder.borderColor).not.toBe('rgba(0, 0, 0, 0)');
+    expect(destructiveBorder.borderWidth).toBe('1px');
+    expect(destructiveBorder.borderColor).not.toBe('rgba(0, 0, 0, 0)');
   });
 
   test('unchecked checkbox outline remains visible on light and dark surfaces', async ({

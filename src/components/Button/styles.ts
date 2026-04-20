@@ -11,7 +11,7 @@ export enum ButtonVariant {
 
 export const BUTTON_VARIANT_CLASS_NAMES: Record<ButtonVariant, string> = {
   [ButtonVariant.Primary]:
-    'bg-gradient-to-b from-primary to-primary/90 text-primary-foreground hover:from-primary/95 hover:to-primary/85',
+    'border border-[hsl(var(--mz-control-border))] bg-gradient-to-b from-primary to-primary/90 text-primary-foreground hover:from-primary/95 hover:to-primary/85',
   [ButtonVariant.Default]:
     'border border-[hsl(var(--mz-control-border))] bg-card text-card-foreground hover:bg-muted/90',
   [ButtonVariant.Dashed]:
@@ -21,7 +21,7 @@ export const BUTTON_VARIANT_CLASS_NAMES: Record<ButtonVariant, string> = {
   [ButtonVariant.Text]:
     'h-auto rounded-none px-0 py-0 text-primary shadow-none hover:text-primary/90 hover:shadow-none',
   [ButtonVariant.Destructive]:
-    'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+    'border border-[hsl(var(--mz-control-border))] bg-destructive text-destructive-foreground hover:bg-destructive/90',
 };
 
 export const BUTTON_VARIANT_MAPPING: Record<
