@@ -35,7 +35,7 @@
   --mz-control-padding-x: 0.85rem;
   --mz-control-padding-y: 0.56rem;
   --mz-control-font-size: 0.9rem;
-  --mz-control-border: 16 28% 18% / 0.24;
+  --mz-control-border: 16 28% 18% / 0.34;
   --mz-control-shadow: 0 1px 2px hsl(var(--mz-foreground) / 0.08);
   --mz-control-shadow-focus: 0 0 0 3px hsl(var(--mz-ring) / 0.25);
   --mz-checkbox-size: 1.04rem;
@@ -62,7 +62,7 @@
   --mz-border: 16 10% 25%;
   --mz-input: 16 10% 25%;
   --mz-ring: 18 70% 68%;
-  --mz-control-border: 24 18% 95% / 0.32;
+  --mz-control-border: 24 18% 95% / 0.4;
   --mz-button-shadow: 0 1px 2px hsl(0 0% 0% / 0.48);
   --mz-button-shadow-hover: 0 11px 20px hsl(0 0% 0% / 0.57);
   --mz-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.37);

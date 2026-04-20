@@ -38,6 +38,7 @@ function SelectTrigger({
       className={cn(
         'placeholder:text-muted-foreground data-[placeholder]:text-muted-foreground [&_svg]:text-muted-foreground',
         'flex h-[var(--mz-control-height)] w-full items-center justify-between rounded-md border border-[hsl(var(--mz-control-border))] bg-background',
+        'ring-1 ring-inset ring-[hsl(var(--mz-control-border))]',
         'px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-[length:var(--mz-control-font-size)]',
         'shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',
         'focus:outline-none focus:shadow-[var(--mz-control-shadow-focus)]',
