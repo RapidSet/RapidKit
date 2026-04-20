@@ -85,7 +85,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
           </SelectValue>
         </SelectTrigger>
         <SelectContent className="[&_[data-slot=select-viewport]]:p-0">
-          <div className="max-h-[200px] overflow-y-auto border-t border-border pt-0">
+          <div className="max-h-[200px] overflow-y-auto pt-0">
             {options.length === 0 ? (
               <div
                 className={cn(

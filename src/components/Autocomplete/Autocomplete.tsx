@@ -283,7 +283,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             className="max-h-[240px]"
             onScroll={handleScroll}
           >
-            <div className="border-t border-border bg-background pt-0">
+            <div className="bg-background pt-0">
               {items.map((item) => {
                 const isSelected = selectedItem?.id === item.id;
 
@@ -312,7 +312,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                 );
               })}
               {isLoading && (
-                <div className="space-y-2 border-b border-border px-0 py-0 last:border-b-0">
+                <div className="space-y-2 px-0 py-0">
                   <Skeleton className="h-[var(--mz-control-height)] w-full" />
                   <Skeleton className="h-[var(--mz-control-height)] w-full" />
                 </div>
@@ -320,7 +320,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
               {showEmptyState && (
                 <div
                   className={cn(
-                    'border-b border-border px-[var(--mz-control-padding-x)] text-center last:border-b-0',
+                    'px-[var(--mz-control-padding-x)] text-center',
                     optionListEmptyStateClassName,
                   )}
                 >
