@@ -17,6 +17,39 @@ import {
   toLocalDateValue,
 } from './helpers';
 
+const DATE_PICKER_CALENDAR_CLASS_NAMES = {
+  month_caption:
+    'relative flex items-center justify-center border-b border-[hsl(var(--mz-control-border))] pb-2',
+  caption:
+    'relative flex items-center justify-center border-b border-[hsl(var(--mz-control-border))] pb-2',
+  caption_label:
+    'text-[length:var(--mz-control-font-size)] font-semibold tracking-[0.01em] text-foreground',
+  nav: 'space-x-1 flex items-center',
+  button_previous:
+    'absolute left-1 h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
+  button_next:
+    'absolute right-1 h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
+  nav_button:
+    'h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
+  weekdays: 'flex',
+  weekday:
+    'w-9 rounded-md text-center text-[0.75rem] font-medium uppercase tracking-[0.04em] text-muted-foreground',
+  head_cell:
+    'w-9 rounded-md text-center text-[0.75rem] font-medium uppercase tracking-[0.04em] text-muted-foreground',
+  week: 'mt-2 flex w-full',
+  day: 'relative h-9 w-9 p-0 text-center text-[length:var(--mz-control-font-size)]',
+  day_button:
+    'h-9 w-9 rounded-md p-0 font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
+  day_selected:
+    'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
+  day_today: 'bg-accent text-accent-foreground',
+  day_outside: 'text-muted-foreground opacity-50',
+  day_disabled: 'text-muted-foreground opacity-50',
+  day_range_middle:
+    'aria-selected:bg-accent aria-selected:text-accent-foreground',
+  day_hidden: 'invisible',
+} as const;
+
 export function DatePicker(props: Readonly<DatePickerProps>) {
   const {
     value,
@@ -76,23 +109,30 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
             name={name}
             aria-invalid={error ? 'true' : undefined}
             className={cn(
-              'h-10 w-full justify-start text-left text-xs font-normal text-foreground',
+              'h-[var(--mz-control-height)] w-full justify-start gap-2 rounded-md border-[hsl(var(--mz-control-border))] bg-background px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-left text-[length:var(--mz-control-font-size)] font-medium text-foreground shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200 hover:bg-accent/45 hover:text-accent-foreground focus-visible:shadow-[var(--mz-control-shadow-focus)]',
               !value && 'text-muted-foreground',
+              error &&
+                'border-destructive focus-visible:shadow-[0_0_0_3px_hsl(var(--mz-destructive)/0.2)]',
             )}
             disabled={resolvedDisabled}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
             {value ? (
-              <span>{formatDateLabel(value)}</span>
+              <span className="truncate">{formatDateLabel(value)}</span>
             ) : (
-              <span>{placeholder}</span>
+              <span className="truncate">{placeholder}</span>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent
+          className="w-auto rounded-md border-[hsl(var(--mz-control-border))] bg-popover p-0 text-popover-foreground shadow-[var(--mz-control-shadow)]"
+          align="start"
+        >
           <Calendar
             mode="single"
             selected={selectedDate}
+            className="font-sans text-foreground"
+            classNames={DATE_PICKER_CALENDAR_CLASS_NAMES}
             onSelect={(nextDate) => {
               onChange({
                 target: {

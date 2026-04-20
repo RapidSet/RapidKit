@@ -66,6 +66,9 @@
 
 - Use the local shadcn CLI workflow for UI primitives: `pnpm ui:add <component> --yes`.
 - Keep generated shadcn primitives in `src/components/ui` and compose package components from those primitives.
+- Treat files in `src/components/ui` as generated sources: do not add package-specific styling, behavior, or business rules directly in those files unless the user explicitly asks to modify generated primitives.
+- Apply package customization at the component layer (for example, in `src/components/ComponentName/ComponentName.tsx` via props, `className`, `classNames`, wrappers, and helpers) so future shadcn installs do not erase custom code.
+- If a shadcn add/update command would overwrite local customizations in `src/components/ui`, stop and move those customizations into component-level wrappers before proceeding.
 - Keep `components.json`, `tailwind.config.ts`, `postcss.config.js`, and `src/styles.css` aligned with shadcn setup.
 - Favor workspace-relative imports for internal modules unless path aliases are explicitly configured in TypeScript and bundler config.
 
