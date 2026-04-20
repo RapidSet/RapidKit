@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
 import { cn } from '@lib/utils';
 import {
   optionItemBaseClassName,
-  optionItemInteractiveClassName,
+  optionItemMenuCheckableClassName,
   optionListEmptyStateClassName,
 } from '@lib/optionItemStyles';
 import { DEFAULT_PAGINATION_PARAM } from '@lib/pagination';
@@ -294,17 +294,25 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     onClick={() => handleItemClick(item)}
                     className={cn(
                       optionItemBaseClassName,
-                      optionItemInteractiveClassName,
-                      'flex w-full items-center text-left text-foreground',
+                      optionItemMenuCheckableClassName,
+                      'text-left text-foreground',
                       isSelected ? 'bg-muted' : 'bg-background hover:bg-muted',
                       'focus-visible:bg-muted focus-visible:outline-none',
                     )}
                     aria-pressed={isSelected}
                   >
+                    <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+                      <Check
+                        className={cn(
+                          'h-4 w-4 transition-opacity',
+                          isSelected ? 'opacity-100' : 'opacity-0',
+                        )}
+                      />
+                    </span>
                     {renderOption ? (
                       <div className="min-w-0 flex-1">{renderOption(item)}</div>
                     ) : (
-                      <span className="block w-full truncate">
+                      <span className="block w-full truncate leading-normal">
                         {getLabel(item)}
                       </span>
                     )}

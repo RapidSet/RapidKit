@@ -104,7 +104,6 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
                     optionItemBaseClassName,
                     optionItemInteractiveClassName,
                     optionItemDropdownStateClassName,
-                    '[&>span:first-child]:hidden',
                   )}
                 >
                   <span className="block w-full truncate">
