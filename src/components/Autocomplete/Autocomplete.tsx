@@ -293,19 +293,18 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                 return (
                   <li
                     key={item.id}
-                    className={cn(
-                      'm-0 list-none',
-                      optionItemBaseClassName,
-                      optionItemInteractiveClassName,
-                      isSelected
-                        ? optionItemSelectedClassName
-                        : optionItemDefaultClassName,
-                    )}
+                    className={cn('m-0 list-none', optionItemBaseClassName)}
                   >
                     <button
                       type="button"
                       onClick={() => handleItemClick(item)}
-                      className={optionItemButtonContentClassName}
+                      className={cn(
+                        optionItemButtonContentClassName,
+                        optionItemInteractiveClassName,
+                        isSelected
+                          ? optionItemSelectedClassName
+                          : optionItemDefaultClassName,
+                      )}
                       aria-pressed={isSelected}
                     >
                       {renderOption ? (
@@ -313,11 +312,9 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                           {renderOption(item)}
                         </div>
                       ) : (
-                        <div className="flex min-w-0 flex-1 items-center gap-3">
-                          <span className="min-w-0 flex-1 truncate">
-                            {getLabel(item)}
-                          </span>
-                        </div>
+                        <span className="block w-full truncate">
+                          {getLabel(item)}
+                        </span>
                       )}
                     </button>
                   </li>
