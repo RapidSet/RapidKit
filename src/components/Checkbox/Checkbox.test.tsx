@@ -122,7 +122,8 @@ describe('Checkbox', () => {
     const style = getComputedStyle(checkbox);
 
     expect(checkbox.className).toContain('border-2');
-    expect(checkbox.className).toContain('border-foreground/45');
+    expect(checkbox.className).toContain('border-solid');
+    expect(checkbox.className).toContain('border-foreground');
     expect(style.borderWidth).toBe('2px');
   });
 });
