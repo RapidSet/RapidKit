@@ -1,4 +1,6 @@
-import type { ButtonPrimitiveVariant } from '@ui/button';
+import type { ButtonProps as UIButtonProps } from '@ui/button';
+
+type ButtonPrimitiveVariant = NonNullable<UIButtonProps['variant']>;
 
 export enum ButtonVariant {
   Primary = 'primary',
