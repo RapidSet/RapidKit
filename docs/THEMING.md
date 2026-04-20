@@ -80,12 +80,22 @@ Additional built-in options:
 
 ```tsx
 import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/carbon.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
 import '@tarikukebede/mezmer/themes/corporate.css';
 ```
 
 ```tsx
 import '@tarikukebede/mezmer/styles.css';
 import '@tarikukebede/mezmer/themes/ocean.css';
+```
+
+```tsx
+import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/polaris.css';
 ```
 
 ```tsx
@@ -152,7 +162,7 @@ This section explains how theme selection, theme files, and runtime mode behavio
 - `ai/theme.schema.json`: JSON schema that validates theme contract structure.
 - `ai/theme.active.json`: current workspace-selected theme and preferred mode metadata.
 - `src/themes/active.css`: generated import file that points to the selected theme stylesheet.
-- `src/themes/default.css`, `src/themes/slate.css`: built-in theme token files.
+- `src/themes/*.css`: built-in theme token files.
 
 ### Theme Selection Flow
 

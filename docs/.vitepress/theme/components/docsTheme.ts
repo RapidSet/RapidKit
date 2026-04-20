@@ -1,9 +1,11 @@
 export type BuiltInThemeId =
+  | 'carbon'
   | 'corporate'
   | 'default'
   | 'forest'
   | 'midnight'
   | 'ocean'
+  | 'polaris'
   | 'sand'
   | 'slate'
   | 'sunset';
@@ -25,6 +27,21 @@ export type ThemeOption = {
 };
 
 export const THEME_OPTIONS: ThemeOption[] = [
+  {
+    id: 'carbon',
+    label: 'Carbon',
+    note: 'ibm-style precision',
+    light: {
+      primary: 'hsl(214 100% 40%)',
+      accent: 'hsl(205 92% 36%)',
+      surface: 'hsl(210 20% 98%)',
+    },
+    dark: {
+      primary: 'hsl(214 96% 68%)',
+      accent: 'hsl(201 76% 58%)',
+      surface: 'hsl(215 28% 9%)',
+    },
+  },
   {
     id: 'default',
     label: 'Default',
@@ -98,6 +115,21 @@ export const THEME_OPTIONS: ThemeOption[] = [
       primary: 'hsl(197 88% 60%)',
       accent: 'hsl(173 48% 39%)',
       surface: 'hsl(208 53% 9%)',
+    },
+  },
+  {
+    id: 'polaris',
+    label: 'Polaris',
+    note: 'shopify-inspired clarity',
+    light: {
+      primary: 'hsl(217 72% 47%)',
+      accent: 'hsl(169 46% 40%)',
+      surface: 'hsl(210 24% 99%)',
+    },
+    dark: {
+      primary: 'hsl(214 88% 70%)',
+      accent: 'hsl(169 40% 52%)',
+      surface: 'hsl(222 26% 12%)',
     },
   },
   {

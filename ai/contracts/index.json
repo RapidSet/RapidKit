@@ -151,6 +151,11 @@
   ],
   "themes": [
     {
+      "id": "carbon",
+      "contractPath": "ai/contracts/themes/carbon-theme.contract.json",
+      "cssPath": "src/themes/carbon.css"
+    },
+    {
       "id": "corporate",
       "contractPath": "ai/contracts/themes/corporate-theme.contract.json",
       "cssPath": "src/themes/corporate.css"
@@ -174,6 +179,11 @@
       "id": "ocean",
       "contractPath": "ai/contracts/themes/ocean-theme.contract.json",
       "cssPath": "src/themes/ocean.css"
+    },
+    {
+      "id": "polaris",
+      "contractPath": "ai/contracts/themes/polaris-theme.contract.json",
+      "cssPath": "src/themes/polaris.css"
     },
     {
       "id": "sand",

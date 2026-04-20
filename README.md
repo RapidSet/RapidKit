@@ -126,7 +126,7 @@ For consumer-facing props, examples, and behavior notes for every exported compo
 ## Styling
 
 - Global package styles are shipped via `styles.css`.
-- Pre-built themes are shipped via `themes/default.css` and `themes/slate.css`.
+- Pre-built themes are shipped via `themes/default.css`, `themes/slate.css`, `themes/carbon.css`, `themes/polaris.css`, and additional bundled theme files.
 - Import base styles once, then import exactly one built-in theme (or your custom theme) after it.
 - Components remain semantic-token driven so host apps can override tokens without changing component code.
 

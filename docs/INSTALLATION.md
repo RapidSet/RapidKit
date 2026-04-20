@@ -25,7 +25,7 @@ import '@tarikukebede/mezmer/styles.css';
 import '@tarikukebede/mezmer/themes/default.css';
 ```
 
-You can switch to another built-in theme by importing `@tarikukebede/mezmer/themes/slate.css` instead.
+You can switch to another built-in theme by importing `@tarikukebede/mezmer/themes/slate.css`, `@tarikukebede/mezmer/themes/carbon.css`, or `@tarikukebede/mezmer/themes/polaris.css` instead.
 
 ## 3. Use A Component
 
