@@ -33,6 +33,7 @@ const installThemeProbeStyles = () => {
     .bg-background { background-color: var(--mz-background-color) !important; }
     .border-input { border-color: var(--mz-border-color) !important; }
     .border-border { border-color: var(--mz-border-color) !important; }
+    [class*="border-[hsl(var(--mz-control-border))]"] { border-color: var(--mz-control-border-color) !important; }
   `;
   document.head.appendChild(style);
 };
@@ -223,7 +224,7 @@ describe('Input', () => {
 
     const className = screen.getByRole('textbox').className;
     expect(className).toContain('bg-background');
-    expect(className).toContain('border-border');
+    expect(className).toContain('border-[hsl(var(--mz-control-border))]');
   });
 
   it('applies overridden theme variable values to computed styles', () => {
@@ -233,6 +234,10 @@ describe('Input', () => {
     );
     document.documentElement.style.setProperty(
       '--mz-border-color',
+      'rgb(65, 43, 21)',
+    );
+    document.documentElement.style.setProperty(
+      '--mz-control-border-color',
       'rgb(65, 43, 21)',
     );
 
@@ -249,6 +254,10 @@ describe('Input', () => {
     );
     document.documentElement.style.setProperty(
       '--mz-border-color',
+      'rgb(130, 140, 150)',
+    );
+    document.documentElement.style.setProperty(
+      '--mz-control-border-color',
       'rgb(130, 140, 150)',
     );
 

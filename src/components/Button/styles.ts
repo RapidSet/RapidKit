@@ -13,11 +13,11 @@ export const BUTTON_VARIANT_CLASS_NAMES: Record<ButtonVariant, string> = {
   [ButtonVariant.Primary]:
     'bg-gradient-to-b from-primary to-primary/90 text-primary-foreground hover:from-primary/95 hover:to-primary/85',
   [ButtonVariant.Default]:
-    'border border-border bg-card text-card-foreground hover:bg-muted/90',
+    'border border-[hsl(var(--mz-control-border))] bg-card text-card-foreground hover:bg-muted/90',
   [ButtonVariant.Dashed]:
-    'border-2 border-dashed border-border bg-background text-foreground hover:bg-muted/65',
+    'border-2 border-dashed border-[hsl(var(--mz-control-border))] bg-background text-foreground hover:bg-muted/65',
   [ButtonVariant.Outlined]:
-    'border border-border bg-transparent text-foreground hover:bg-accent/55 hover:text-accent-foreground',
+    'border border-[hsl(var(--mz-control-border))] bg-transparent text-foreground hover:bg-accent/55 hover:text-accent-foreground',
   [ButtonVariant.Text]:
     'h-auto rounded-none px-0 py-0 text-primary shadow-none hover:text-primary/90 hover:shadow-none',
   [ButtonVariant.Destructive]:

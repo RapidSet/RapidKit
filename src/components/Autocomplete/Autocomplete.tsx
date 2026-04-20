@@ -4,7 +4,11 @@ import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
 import { cn } from '@lib/utils';
-import { optionListEmptyStateClassName } from '@lib/optionItemStyles';
+import {
+  optionItemBaseClassName,
+  optionItemInteractiveClassName,
+  optionListEmptyStateClassName,
+} from '@lib/optionItemStyles';
 import { DEFAULT_PAGINATION_PARAM } from '@lib/pagination';
 import {
   AUTOCOMPLETE_EMPTY_QUERY,
@@ -240,10 +244,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
           onChange={onQueryChange}
           placeholder={placeholder}
           disabled={resolvedDisabled}
-          className={cn(
-            'border border-border',
-            resolvedDisabled && 'bg-accent',
-          )}
+          className={cn(resolvedDisabled && 'bg-accent')}
           label={label}
           required={required}
           helperText={helperText}
@@ -292,7 +293,9 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     type="button"
                     onClick={() => handleItemClick(item)}
                     className={cn(
-                      'flex h-[var(--mz-control-height)] w-full items-center border-b border-border px-[var(--mz-control-padding-x)] py-0 text-left text-[length:var(--mz-control-font-size)] text-foreground transition-colors last:border-b-0',
+                      optionItemBaseClassName,
+                      optionItemInteractiveClassName,
+                      'flex w-full items-center text-left text-foreground',
                       isSelected ? 'bg-muted' : 'bg-background hover:bg-muted',
                       'focus-visible:bg-muted focus-visible:outline-none',
                     )}
