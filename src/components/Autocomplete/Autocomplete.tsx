@@ -284,7 +284,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             onScroll={handleScroll}
           >
             <div className="bg-background pt-0">
-              <div className="divide-y divide-border">
+              <div className="divide-y divide-[hsl(var(--mz-control-border))]">
                 {items.map((item) => {
                   const isSelected = selectedItem?.id === item.id;
 

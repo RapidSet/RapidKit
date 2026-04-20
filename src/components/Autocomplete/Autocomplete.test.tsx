@@ -114,9 +114,7 @@ describe('Autocomplete', () => {
     expect(await within(container).findByText('Alpha')).toBeTruthy();
     expect(await within(container).findByText('Alpine')).toBeTruthy();
 
-    const separatorContainer = container.querySelector(
-      '.divide-y.divide-border',
-    );
+    const separatorContainer = container.querySelector('.divide-y');
     expect(separatorContainer).toBeTruthy();
   });
 
