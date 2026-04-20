@@ -191,7 +191,7 @@ export const BaseTableRow = <T extends object>({
                 return (
                   <DropdownMenuItem
                     key={`${column.id}-${action.label}-${index}`}
-                    className="text-xs"
+                    className="px-[var(--mz-control-padding-x)] text-xs"
                     onClick={(event) => {
                       event.stopPropagation();
                       if (rowInactive) {
