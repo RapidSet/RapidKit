@@ -963,18 +963,21 @@ function IconPreview(): JSX.Element {
 }
 
 function ImagePreview(): JSX.Element {
+  const previewImageSrc =
+    'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=512&q=80';
+
   return (
     <div className="flex items-end gap-4">
       <div className="flex flex-col items-center gap-1">
-        <Image src="/rapidkit-icon.svg" alt="RapidKit logo small" size="sm" />
+        <Image src={previewImageSrc} alt="Nature preview small" size="sm" />
         <span className="text-xs text-muted-foreground">sm</span>
       </div>
       <div className="flex flex-col items-center gap-1">
-        <Image src="/rapidkit-icon.svg" alt="RapidKit logo medium" size="md" />
+        <Image src={previewImageSrc} alt="Nature preview medium" size="md" />
         <span className="text-xs text-muted-foreground">md</span>
       </div>
       <div className="flex flex-col items-center gap-1">
-        <Image src="/rapidkit-icon.svg" alt="RapidKit logo large" size="lg" />
+        <Image src={previewImageSrc} alt="Nature preview large" size="lg" />
         <span className="text-xs text-muted-foreground">lg</span>
       </div>
     </div>
@@ -1279,9 +1282,24 @@ interface UserDetails {
   image: {
     render: ImagePreview,
     code: `<div className="flex items-end gap-4">
-  <Image src="/rapidkit-icon.svg" alt="RapidKit logo small" size="sm" loading="lazy" />
-  <Image src="/rapidkit-icon.svg" alt="RapidKit logo medium" size="md" loading="lazy" />
-  <Image src="/rapidkit-icon.svg" alt="RapidKit logo large" size="lg" loading="lazy" />
+  <Image
+    src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=512&q=80"
+    alt="Nature preview small"
+    size="sm"
+    loading="lazy"
+  />
+  <Image
+    src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=512&q=80"
+    alt="Nature preview medium"
+    size="md"
+    loading="lazy"
+  />
+  <Image
+    src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=512&q=80"
+    alt="Nature preview large"
+    size="lg"
+    loading="lazy"
+  />
 </div>`,
   },
   input: {

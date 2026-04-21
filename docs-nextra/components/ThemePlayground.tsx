@@ -408,6 +408,8 @@ function PreviewCard(props: PreviewCardProps) {
     1,
     Math.ceil(sortedTableRows.length / tableQueryParams.size),
   );
+  const previewImageSrc =
+    'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=512&q=80';
 
   return (
     <article className="rk-preview-card">
@@ -419,6 +421,31 @@ function PreviewCard(props: PreviewCardProps) {
         </div>
 
         <div className="rk-preview-card__stack">
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Visual</h5>
+            </div>
+
+            <div className="rk-preview-card__media">
+              <div className="rk-preview-card__media-image">
+                <Image src={previewImageSrc} alt="Nature preview" size="lg" />
+              </div>
+
+              <div className="rk-preview-card__media-content">
+                <div className="rk-preview-card__chips">
+                  <Chip label="UI" />
+                  <Chip label="Theme" />
+                  <Chip label="Preview" />
+                  <Icon
+                    icon={Bell}
+                    className="h-4 w-4 text-muted-foreground"
+                    aria-label="Alerts"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section className="rk-preview-card__section">
             <div className="rk-preview-card__section-head">
               <h5 className="rk-preview-card__section-title">Inputs</h5>
