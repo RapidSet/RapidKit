@@ -796,13 +796,39 @@ function BaseTablePreview(): JSX.Element {
 
 function ButtonPreview(): JSX.Element {
   return (
-    <Button
-      label="Export"
-      leftIcon={Download}
-      rightIcon={Download}
-      variant={ButtonVariant.Outlined}
-      onClick={() => undefined}
-    />
+    <div className="flex flex-wrap items-center gap-2">
+      <Button
+        label="Primary"
+        variant={ButtonVariant.Primary}
+        onClick={() => undefined}
+      />
+      <Button
+        label="Default"
+        variant={ButtonVariant.Default}
+        onClick={() => undefined}
+      />
+      <Button
+        label="Outlined"
+        variant={ButtonVariant.Outlined}
+        onClick={() => undefined}
+      />
+      <Button
+        label="Dashed"
+        variant={ButtonVariant.Dashed}
+        onClick={() => undefined}
+      />
+      <Button
+        label="Export"
+        leftIcon={Download}
+        variant={ButtonVariant.Text}
+        onClick={() => undefined}
+      />
+      <Button
+        label="Delete"
+        variant={ButtonVariant.Destructive}
+        onClick={() => undefined}
+      />
+    </div>
   );
 }
 
@@ -931,7 +957,16 @@ function IconPreview(): JSX.Element {
 }
 
 function ImagePreview(): JSX.Element {
-  return <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" />;
+  return (
+    <div className="flex items-center gap-3">
+      <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" />
+      <Image
+        src="https://picsum.photos/seed/mezmer-image-preview/64"
+        alt="Remote preview"
+        size="md"
+      />
+    </div>
+  );
 }
 
 function InputPreview(): JSX.Element {
@@ -1125,13 +1160,14 @@ export function ServicesTable() {
     code: `import { Download } from 'lucide-react';
 import { Button, ButtonVariant } from '@tarikukebede/mezmer';
 
-<Button
-  label="Export"
-  leftIcon={Download}
-  rightIcon={Download}
-  variant={ButtonVariant.Outlined}
-  onClick={() => console.log('export')}
-/>;`,
+<div className="flex flex-wrap items-center gap-2">
+  <Button label="Primary" variant={ButtonVariant.Primary} onClick={() => console.log('primary')} />
+  <Button label="Default" variant={ButtonVariant.Default} onClick={() => console.log('default')} />
+  <Button label="Outlined" variant={ButtonVariant.Outlined} onClick={() => console.log('outlined')} />
+  <Button label="Dashed" variant={ButtonVariant.Dashed} onClick={() => console.log('dashed')} />
+  <Button label="Export" leftIcon={Download} variant={ButtonVariant.Text} onClick={() => console.log('export')} />
+  <Button label="Delete" variant={ButtonVariant.Destructive} onClick={() => console.log('delete')} />
+</div>;`,
   },
   checkbox: {
     render: CheckboxPreview,
@@ -1229,7 +1265,10 @@ interface UserDetails {
   },
   image: {
     render: ImagePreview,
-    code: `<Image src="/avatar.png" alt="User avatar" size="md" loading="lazy" />`,
+    code: `<div className="flex items-center gap-3">
+  <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" loading="lazy" />
+  <Image src="https://picsum.photos/seed/mezmer-image-preview/64" alt="Remote preview" size="md" loading="lazy" />
+</div>`,
   },
   input: {
     render: InputPreview,
