@@ -329,10 +329,20 @@
   .component-example-tabs__shiki
   span {
   color: var(--shiki-dark, inherit) !important;
-  background-color: var(--shiki-dark-bg, transparent) !important;
   font-style: var(--shiki-dark-font-style, inherit) !important;
   font-weight: var(--shiki-dark-font-weight, inherit) !important;
   text-decoration: var(--shiki-dark-text-decoration, inherit) !important;
+}
+
+:is(html.dark, .dark, [data-theme='dark'], [data-color-mode='dark'])
+  .component-example-tabs__shiki {
+  background-color: var(--shiki-dark-bg, transparent) !important;
+}
+
+:is(html.dark, .dark, [data-theme='dark'], [data-color-mode='dark'])
+  .component-example-tabs__shiki
+  span {
+  background-color: transparent !important;
 }
 
 .component-example-tabs__preview > * {
