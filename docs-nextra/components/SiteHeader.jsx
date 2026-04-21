@@ -38,6 +38,7 @@ const normalizePath = (path) => {
 
 export function SiteHeader({ items = [] }) {
   const router = useRouter();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
   const currentPath = normalizePath(router.asPath ?? router.pathname);
   const navItems = normalizeNavItems(items.length > 0 ? items : SITE_NAV_ITEMS);
 
@@ -46,7 +47,7 @@ export function SiteHeader({ items = [] }) {
       <Link className="rk-logo" href="/">
         <Image
           className="rk-logo-icon"
-          src="/rapidkit-icon.svg"
+          src={`${basePath}/rapidkit-icon.svg`}
           alt=""
           width={20}
           height={20}

@@ -4,13 +4,21 @@ import { MODE_STORAGE_KEY } from './docs-nextra/components/siteTheme';
 
 const config: DocsThemeConfig = {
   darkMode: true,
-  head: () => (
-    <>
-      <title>RapidKit Documentation</title>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-      <link rel="icon" href="/rapidkit-icon.svg" type="image/svg+xml" />
-    </>
-  ),
+  head: () => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+    return (
+      <>
+        <title>RapidKit Documentation</title>
+        <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
+        <link
+          rel="icon"
+          href={`${basePath}/rapidkit-icon.svg`}
+          type="image/svg+xml"
+        />
+      </>
+    );
+  },
   sidebar: {
     autoCollapse: false,
     defaultMenuCollapseLevel: 99,
