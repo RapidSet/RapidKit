@@ -54,9 +54,11 @@ const applyDocumentMode = (mode) => {
 export function SiteHeaderExtras() {
   const [themeId, setThemeId] = useState('default');
   const [fallbackMode, setFallbackMode] = useState('light');
+  const [isMounted, setIsMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
+    setIsMounted(true);
     setThemeId(resolveStoredThemeId());
     setFallbackMode(resolveDocumentMode());
   }, []);
@@ -70,10 +72,9 @@ export function SiteHeaderExtras() {
     applyRuntimeThemeStylesheet(nextThemeId);
   }, []);
 
-  const currentMode =
-    resolvedTheme === 'dark' || resolvedTheme === 'light'
-      ? resolvedTheme
-      : fallbackMode;
+  const hasResolvedMode = resolvedTheme === 'dark' || resolvedTheme === 'light';
+  const hydratedMode = hasResolvedMode ? resolvedTheme : fallbackMode;
+  const currentMode = isMounted ? hydratedMode : 'light';
   const isDarkMode = currentMode === 'dark';
 
   const handleModeToggle = useCallback(() => {
