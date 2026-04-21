@@ -17,6 +17,7 @@ import { Image } from '../../src/components/Image';
 import { Input } from '../../src/components/Input';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
+import { Label } from '../../src/components/ui/label';
 import { Bell, Layers3 } from 'lucide-react';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell/types';
 import {
@@ -422,9 +423,12 @@ function PreviewCard(props: PreviewCardProps) {
               </div>
 
               <div className="mz-preview-card__component-item">
-                <div className="mz-preview-card__field">
-                  <span className="mz-preview-card__field-label">Search</span>
+                <div className="space-y-2">
+                  <Label className="text-xs text-muted-foreground">
+                    Search
+                  </Label>
                   <Search
+                    ariaLabel="theme-preview-search"
                     placeholder="Search components"
                     value={searchValue}
                     onChange={onSearchChange}

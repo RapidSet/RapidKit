@@ -35,7 +35,10 @@ export function Search(props: Readonly<SearchProps>) {
         onKeyDown={handleKeyDown}
         {...(value === undefined ? {} : { value })}
         className={cn(
-          'pl-9 placeholder:text-muted-foreground/60',
+          'rounded-sm border ring-0 appearance-none',
+          '[&::-webkit-search-decoration]:appearance-none [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none',
+          'text-[length:var(--mz-control-font-size)] placeholder:text-[length:var(--mz-control-font-size)] placeholder:text-muted-foreground/60',
+          'pl-9',
           inputClassName,
         )}
         disabled={disabled}
