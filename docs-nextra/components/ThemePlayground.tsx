@@ -18,7 +18,7 @@ import { Input } from '../../src/components/Input';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
 import { Label } from '../../src/components/ui/label';
-import { Bell, Layers3 } from 'lucide-react';
+import { Bell, Layers3, Palette } from 'lucide-react';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell/types';
 import {
   THEME_CHANGE_EVENT,
@@ -733,26 +733,30 @@ export function ThemePlayground() {
     <section className="mz-theme-playground" aria-label="Theme playground">
       <header className="mz-theme-playground__header">
         <div className="mz-theme-playground__selector-row">
-          <label
-            htmlFor="theme-selector"
-            className="mz-theme-playground__selector-label"
-          >
-            Theme
-          </label>
-          <select
-            id="theme-selector"
-            className="mz-theme-playground__selector"
-            value={theme}
-            onChange={(event) =>
-              setDocsTheme(event.target.value as BuiltInThemeId)
-            }
-          >
-            {THEME_OPTIONS.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <div className="mz-theme-control">
+            <DropDown
+              value={theme}
+              onChange={(nextTheme) =>
+                setDocsTheme(nextTheme as BuiltInThemeId)
+              }
+              options={THEME_OPTIONS.map((option) => ({
+                label: option.label,
+                value: option.id,
+              }))}
+              placeholder="Theme"
+              className="mz-theme-dropdown"
+              renderOption={(option) => (
+                <span className="mz-theme-option-label">
+                  <Icon
+                    icon={Palette}
+                    className="mz-theme-option-icon"
+                    aria-hidden="true"
+                  />
+                  {option.label}
+                </span>
+              )}
+            />
+          </div>
         </div>
       </header>
 

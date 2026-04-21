@@ -1,3 +1,11 @@
+import {
+  THEME_CHANGE_EVENT,
+  THEME_LINK_ID,
+  THEME_OPTIONS as DOCS_THEME_OPTIONS,
+  THEME_STORAGE_KEY as DOCS_THEME_STORAGE_KEY,
+  applyDocsTheme,
+} from './docsTheme';
+
 export const THEME_IDS = [
   'default',
   'slate',
@@ -11,17 +19,18 @@ export const THEME_IDS = [
   'sunset',
 ];
 
-export const THEME_OPTIONS = THEME_IDS.map((id) => ({
+export const THEME_OPTIONS = DOCS_THEME_OPTIONS.map(({ id, label }) => ({
   value: id,
-  label: id[0].toUpperCase() + id.slice(1),
+  label,
 }));
 
-export const THEME_STORAGE_KEY = 'mezmer:landing-theme';
+export const THEME_STORAGE_KEY = DOCS_THEME_STORAGE_KEY;
 export const MODE_STORAGE_KEY = 'mezmer:landing-mode';
-export const RUNTIME_THEME_LINK_ID = 'mz-runtime-theme';
+export const RUNTIME_THEME_LINK_ID = THEME_LINK_ID;
+const LEGACY_RUNTIME_THEME_LINK_ID = 'mz-runtime-theme';
 
 export const resolveStoredThemeId = () => {
-  if (typeof globalThis.localStorage === 'undefined') {
+  if (globalThis.localStorage === undefined) {
     return 'default';
   }
 
@@ -31,26 +40,28 @@ export const resolveStoredThemeId = () => {
     : 'default';
 };
 
-export const applyRuntimeThemeStylesheet = (themeId, basePath = '') => {
+export const applyRuntimeThemeStylesheet = (themeId) => {
   if (typeof document === 'undefined') {
     return;
   }
 
-  const resolvedTheme = THEME_IDS.includes(themeId) ? themeId : 'default';
-  const href = `${basePath}/themes/${resolvedTheme}.css`;
-  const existing = document.getElementById(RUNTIME_THEME_LINK_ID);
-
-  if (existing) {
-    existing.setAttribute('href', href);
-  } else {
-    const link = document.createElement('link');
-    link.id = RUNTIME_THEME_LINK_ID;
-    link.rel = 'stylesheet';
-    link.href = href;
-    document.head.appendChild(link);
+  // Clean up old runtime link id from previous implementations.
+  if (LEGACY_RUNTIME_THEME_LINK_ID !== RUNTIME_THEME_LINK_ID) {
+    document.getElementById(LEGACY_RUNTIME_THEME_LINK_ID)?.remove();
   }
 
-  if (typeof globalThis.localStorage !== 'undefined') {
+  const resolvedTheme = THEME_IDS.includes(themeId) ? themeId : 'default';
+  applyDocsTheme(resolvedTheme);
+
+  if (globalThis.localStorage !== undefined) {
     globalThis.localStorage.setItem(THEME_STORAGE_KEY, resolvedTheme);
+  }
+
+  if (globalThis.window !== undefined) {
+    globalThis.dispatchEvent(
+      new CustomEvent(THEME_CHANGE_EVENT, {
+        detail: resolvedTheme,
+      }),
+    );
   }
 };

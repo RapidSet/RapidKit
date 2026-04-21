@@ -12,23 +12,19 @@ import {
 export function SiteHeaderExtras() {
   const [themeId, setThemeId] = useState('default');
   const { resolvedTheme, setTheme } = useTheme();
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
   useEffect(() => {
     setThemeId(resolveStoredThemeId());
   }, []);
 
   useEffect(() => {
-    applyRuntimeThemeStylesheet(themeId, basePath);
-  }, [basePath, themeId]);
+    applyRuntimeThemeStylesheet(themeId);
+  }, [themeId]);
 
-  const handleThemeChange = useCallback(
-    (nextThemeId) => {
-      setThemeId(nextThemeId);
-      applyRuntimeThemeStylesheet(nextThemeId, basePath);
-    },
-    [basePath],
-  );
+  const handleThemeChange = useCallback((nextThemeId) => {
+    setThemeId(nextThemeId);
+    applyRuntimeThemeStylesheet(nextThemeId);
+  }, []);
 
   const isDarkMode = resolvedTheme === 'dark';
 
