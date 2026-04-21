@@ -70,7 +70,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant={BUTTON_VARIANT_MAPPING[variant]}
         disabled={resolvedDisabled}
         aria-busy={loading || undefined}
-        className={cn(BUTTON_VARIANT_CLASS_NAMES[variant], className)}
+        className={cn(
+          'rounded-sm',
+          BUTTON_VARIANT_CLASS_NAMES[variant],
+          className,
+        )}
         {...rest}
       >
         {leadingVisual}

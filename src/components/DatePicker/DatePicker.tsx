@@ -123,11 +123,11 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
           >
             <CalendarIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
             {value ? (
-              <span className="truncate text-[length:var(--mz-control-font-size)] font-normal text-foreground">
+              <span className="truncate !text-[length:var(--mz-control-font-size)] !font-normal leading-normal text-foreground">
                 {formatDateLabel(value)}
               </span>
             ) : (
-              <span className="truncate text-[length:var(--mz-control-font-size)] font-normal text-muted-foreground/60">
+              <span className="truncate !text-[length:var(--mz-control-font-size)] !font-normal leading-normal text-muted-foreground/60">
                 {placeholder}
               </span>
             )}

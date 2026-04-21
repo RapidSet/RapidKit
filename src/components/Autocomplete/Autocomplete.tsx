@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, X } from 'lucide-react';
 import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
@@ -234,6 +234,16 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
   };
 
   const showEmptyState = !isLoading && items.length === 0;
+  const canClear =
+    !resolvedDisabled &&
+    (searchValue.length > 0 || selectedItem !== null || value !== null);
+
+  const handleClearSelection = () => {
+    setSearchValue(AUTOCOMPLETE_EMPTY_QUERY);
+    setSelectedItem(null);
+    onSelectOption(null);
+    setIsOpen(false);
+  };
 
   return (
     <div ref={containerRef} className={cn('relative', className)}>
@@ -250,20 +260,36 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
           helperText={helperText}
           error={error}
           endAdornment={
-            <button
-              type="button"
-              onClick={handleDropdownClick}
-              disabled={resolvedDisabled}
-              aria-label={isOpen ? 'Close options' : 'Open options'}
-              className={cn(
-                'inline-flex h-5 w-5 items-center justify-center text-muted-foreground transition-transform',
-                !resolvedDisabled && 'cursor-pointer',
-                resolvedDisabled && 'cursor-not-allowed opacity-60',
-                isOpen && 'rotate-180',
+            <div className="inline-flex items-center gap-1">
+              {canClear ? (
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleClearSelection();
+                  }}
+                  aria-label="Clear selection"
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleDropdownClick}
+                  disabled={resolvedDisabled}
+                  aria-label={isOpen ? 'Close options' : 'Open options'}
+                  className={cn(
+                    'inline-flex h-5 w-5 items-center justify-center text-muted-foreground transition-transform',
+                    !resolvedDisabled && 'cursor-pointer',
+                    resolvedDisabled && 'cursor-not-allowed opacity-60',
+                    isOpen && 'rotate-180',
+                  )}
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </button>
               )}
-            >
-              <ChevronDown className="h-4 w-4" />
-            </button>
+            </div>
           }
           onFocus={() => {
             if (!resolvedDisabled) {

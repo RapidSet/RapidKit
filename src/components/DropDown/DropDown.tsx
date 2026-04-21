@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@ui/select';
+import { X } from 'lucide-react';
 
 import {
   formErrorTextClassName,
@@ -50,6 +51,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
 
   const selectedOption = options.find((option) => option.value === value);
   const resolvedDisabled = disabled || !canEdit;
+  const canClear = Boolean(value) && !resolvedDisabled;
 
   return (
     <div className={cn('space-y-2', className)}>
@@ -61,61 +63,77 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
           </Label>
         </div>
       )}
-      <Select
-        value={value}
-        onValueChange={onChange}
-        disabled={resolvedDisabled}
-        onOpenChange={onOpenChange}
-      >
-        <SelectTrigger
-          className={cn(
-            'rounded-sm border ring-0',
-            '[&>span]:text-[length:var(--mz-control-font-size)] [&>span]:text-muted-foreground',
-            error && 'border-destructive',
-          )}
-          aria-invalid={error ? 'true' : undefined}
+      <div className="relative">
+        <Select
+          value={value}
+          onValueChange={onChange}
+          disabled={resolvedDisabled}
+          onOpenChange={onOpenChange}
         >
-          <SelectValue placeholder={placeholder}>
-            {selectedOption && (
-              <span className="text-[length:var(--mz-control-font-size)] text-foreground">
-                {renderOption
-                  ? renderOption(selectedOption)
-                  : selectedOption.label}
-              </span>
+          <SelectTrigger
+            className={cn(
+              'rounded-sm border ring-0',
+              canClear && 'pr-10 [&>svg]:hidden',
+              '[&>span]:text-[length:var(--mz-control-font-size)] data-[placeholder]:text-muted-foreground/60',
+              error && 'border-destructive',
             )}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent className="[&_[data-slot=select-viewport]]:p-0">
-          <div className="max-h-[200px] overflow-y-auto pt-0">
-            {options.length === 0 ? (
-              <div
-                className={cn(
-                  optionListEmptyStateClassName,
-                  'px-[var(--mz-control-padding-x)]',
-                )}
-              >
-                No options found
-              </div>
-            ) : (
-              options.map((option) => (
-                <SelectItem
-                  key={option.value}
-                  value={option.value}
+            aria-invalid={error ? 'true' : undefined}
+          >
+            <SelectValue placeholder={placeholder}>
+              {selectedOption && (
+                <span className="text-[length:var(--mz-control-font-size)] text-foreground">
+                  {renderOption
+                    ? renderOption(selectedOption)
+                    : selectedOption.label}
+                </span>
+              )}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent className="[&_[data-slot=select-viewport]]:p-0">
+            <div className="max-h-[200px] overflow-y-auto pt-0">
+              {options.length === 0 ? (
+                <div
                   className={cn(
-                    optionItemBaseClassName,
-                    optionItemInteractiveClassName,
-                    optionItemDropdownStateClassName,
+                    optionListEmptyStateClassName,
+                    'px-[var(--mz-control-padding-x)]',
                   )}
                 >
-                  <span className="block w-full truncate">
-                    {renderOption ? renderOption(option) : option.label}
-                  </span>
-                </SelectItem>
-              ))
-            )}
-          </div>
-        </SelectContent>
-      </Select>
+                  No options found
+                </div>
+              ) : (
+                options.map((option) => (
+                  <SelectItem
+                    key={option.value}
+                    value={option.value}
+                    className={cn(
+                      optionItemBaseClassName,
+                      optionItemInteractiveClassName,
+                      optionItemDropdownStateClassName,
+                    )}
+                  >
+                    <span className="block w-full truncate">
+                      {renderOption ? renderOption(option) : option.label}
+                    </span>
+                  </SelectItem>
+                ))
+              )}
+            </div>
+          </SelectContent>
+        </Select>
+        {canClear && (
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              onChange('');
+            }}
+            aria-label="Clear selection"
+            className="absolute right-3 top-1/2 inline-flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
+      </div>
       {(error || helperText) && (
         <div className="space-y-1">
           {error && <p className={formErrorTextClassName}>{error}</p>}

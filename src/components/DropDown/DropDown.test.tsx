@@ -199,4 +199,34 @@ describe('DropDown', () => {
 
     expect(onOpenChange).toHaveBeenCalledWith(true);
   });
+
+  it('shows clear control when a value is selected and clears selection when clicked', () => {
+    const onChange = vi.fn();
+
+    render(
+      <DropDown
+        value="US"
+        onChange={onChange}
+        options={[{ value: 'US', label: 'United States' }]}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Clear selection' }));
+
+    expect(onChange).toHaveBeenCalledWith('');
+  });
+
+  it('does not show clear control when there is no selected value', () => {
+    render(
+      <DropDown
+        value=""
+        onChange={vi.fn()}
+        options={[{ value: 'US', label: 'United States' }]}
+      />,
+    );
+
+    expect(
+      screen.queryByRole('button', { name: 'Clear selection' }),
+    ).toBeNull();
+  });
 });

@@ -231,4 +231,29 @@ describe('Autocomplete', () => {
       true,
     );
   });
+
+  it('shows clear control for selected value and clears when clicked', async () => {
+    const onSelectOption = vi.fn();
+    const getOptionById = vi.fn().mockResolvedValue({ id: 2, name: 'Beta' });
+
+    const { container } = renderAutocomplete({
+      value: 2,
+      onSelectOption,
+      getOptionById,
+    });
+
+    await waitFor(() => {
+      expect(getOptionById).toHaveBeenCalledWith(2);
+    });
+
+    fireEvent.click(
+      within(container).getByRole('button', { name: 'Clear selection' }),
+    );
+
+    expect(onSelectOption).toHaveBeenCalledWith(null);
+    expect(within(container).getByLabelText('Resource')).toHaveProperty(
+      'value',
+      '',
+    );
+  });
 });

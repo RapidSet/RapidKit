@@ -133,7 +133,7 @@ describe('Button', () => {
 
   it('applies unique class styles for every public button variant', () => {
     const variantExpectations: Array<[ButtonVariant, string, string]> = [
-      [ButtonVariant.Primary, 'Primary', 'bg-gradient-to-b'],
+      [ButtonVariant.Primary, 'Primary', 'bg-primary'],
       [ButtonVariant.Default, 'Default', 'bg-card'],
       [ButtonVariant.Dashed, 'Dashed', 'border-dashed'],
       [ButtonVariant.Outlined, 'Outlined', 'bg-transparent'],
@@ -164,5 +164,65 @@ describe('Button', () => {
       expect(button.className).toContain('border');
       cleanup();
     }
+  });
+
+  it('keeps default, dashed, and outlined variants flat without elevation', () => {
+    const flatVariants: Array<[ButtonVariant, string]> = [
+      [ButtonVariant.Default, 'Default flat'],
+      [ButtonVariant.Dashed, 'Dashed flat'],
+      [ButtonVariant.Outlined, 'Outlined flat'],
+    ];
+
+    for (const [variant, label] of flatVariants) {
+      render(<Button label={label} variant={variant} />);
+      const button = screen.getByRole('button', { name: label });
+      expect(button.className).toContain('shadow-none');
+      expect(button.className).toContain('hover:shadow-none');
+      cleanup();
+    }
+  });
+
+  it('uses theme-safe hover text colors for default, dashed, and outlined variants', () => {
+    const hoverTextExpectations: Array<[ButtonVariant, string, string]> = [
+      [
+        ButtonVariant.Default,
+        'Default hover text',
+        'hover:text-card-foreground',
+      ],
+      [ButtonVariant.Dashed, 'Dashed hover text', 'hover:text-foreground'],
+      [ButtonVariant.Outlined, 'Outlined hover text', 'hover:text-foreground'],
+    ];
+
+    for (const [variant, label, expectedClass] of hoverTextExpectations) {
+      render(<Button label={label} variant={variant} />);
+      const button = screen.getByRole('button', { name: label });
+      expect(button.className).toContain(expectedClass);
+      expect(button.className).not.toContain('hover:text-accent-foreground');
+      cleanup();
+    }
+  });
+
+  it('uses control-like rounded-sm corners for non-text variants', () => {
+    const roundedVariants: Array<[ButtonVariant, string]> = [
+      [ButtonVariant.Primary, 'Primary radius'],
+      [ButtonVariant.Default, 'Default radius'],
+      [ButtonVariant.Dashed, 'Dashed radius'],
+      [ButtonVariant.Outlined, 'Outlined radius'],
+      [ButtonVariant.Destructive, 'Destructive radius'],
+    ];
+
+    for (const [variant, label] of roundedVariants) {
+      render(<Button label={label} variant={variant} />);
+      const button = screen.getByRole('button', { name: label });
+      expect(button.className).toContain('rounded-sm');
+      cleanup();
+    }
+  });
+
+  it('keeps text variant with rounded-none corners', () => {
+    render(<Button label="Text radius" variant={ButtonVariant.Text} />);
+
+    const button = screen.getByRole('button', { name: 'Text radius' });
+    expect(button.className).toContain('rounded-none');
   });
 });

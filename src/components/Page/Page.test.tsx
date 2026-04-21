@@ -70,5 +70,8 @@ describe('Page', () => {
     expect((container.firstChild as HTMLElement).className).toContain(
       'custom-page-class',
     );
+    expect((container.firstChild as HTMLElement).className).toContain(
+      'rounded-sm',
+    );
   });
 });

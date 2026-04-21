@@ -22,7 +22,7 @@ export const DetailsCard = <T,>(props: DetailsCardProps<T>) => {
   const shouldShowTabs = tabs.length > 0;
 
   return (
-    <section className="flex h-full w-full flex-col overflow-y-auto rounded-md border">
+    <section className="flex h-full w-full flex-col overflow-y-auto rounded-sm border">
       <DetailsCardHeader
         icon={icon}
         data={data || null}

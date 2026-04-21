@@ -16,7 +16,7 @@ export function Page(props: Readonly<PageProps>) {
   return (
     <div
       className={cn(
-        'flex flex-col h-full w-full overflow-hidden px-3 py-1',
+        'flex flex-col h-full w-full overflow-hidden rounded-sm px-3 py-1',
         className,
         'max-h-screen',
       )}

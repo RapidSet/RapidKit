@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { cleanup, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { MoreVertical } from 'lucide-react';
 import { DetailsCard } from './DetailsCard';
 
@@ -28,8 +28,12 @@ interface TestData {
 }
 
 describe('DetailsCard', () => {
-  it('always renders header', () => {
-    render(
+  afterEach(() => {
+    cleanup();
+  });
+
+  it('uses rounded-sm card corners to match control surfaces', () => {
+    const { container } = render(
       <DetailsCard<TestData>
         icon={MoreVertical}
         title="Resource"
@@ -38,9 +42,24 @@ describe('DetailsCard', () => {
       />,
     );
 
-    expect(screen.getByTestId('details-card-header').textContent).toContain(
-      'Resource',
+    const card = container.firstElementChild;
+    expect(card).toBeTruthy();
+    expect(card?.className).toContain('rounded-sm');
+  });
+
+  it('always renders header', () => {
+    const { container } = render(
+      <DetailsCard<TestData>
+        icon={MoreVertical}
+        title="Resource"
+        isLoading={false}
+        isPolling={false}
+      />,
     );
+
+    expect(
+      within(container).getByTestId('details-card-header').textContent,
+    ).toContain('Resource');
   });
 
   it('renders custom content section when provided', () => {

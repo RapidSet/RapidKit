@@ -13,17 +13,17 @@ export enum ButtonVariant {
 
 export const BUTTON_VARIANT_CLASS_NAMES: Record<ButtonVariant, string> = {
   [ButtonVariant.Primary]:
-    'border border-[hsl(var(--mz-control-border))] bg-gradient-to-b from-primary to-primary/90 text-primary-foreground hover:from-primary/95 hover:to-primary/85',
+    'border border-border bg-primary text-primary-foreground shadow-none hover:bg-primary/95 hover:text-primary-foreground hover:shadow-none',
   [ButtonVariant.Default]:
-    'border border-[hsl(var(--mz-control-border))] bg-card text-card-foreground hover:bg-muted/90',
+    'border border-border bg-card text-card-foreground shadow-none hover:bg-foreground/5 hover:text-card-foreground hover:shadow-none',
   [ButtonVariant.Dashed]:
-    'border-2 border-dashed border-[hsl(var(--mz-control-border))] bg-background text-foreground hover:bg-muted/65',
+    'border-2 border-dashed border-border bg-background text-foreground shadow-none hover:bg-foreground/5 hover:text-foreground hover:shadow-none',
   [ButtonVariant.Outlined]:
-    'border border-[hsl(var(--mz-control-border))] bg-transparent text-foreground hover:bg-accent/55 hover:text-accent-foreground',
+    'border border-border bg-transparent text-foreground shadow-none hover:bg-foreground/5 hover:text-foreground hover:shadow-none',
   [ButtonVariant.Text]:
-    'h-auto rounded-none px-0 py-0 text-primary shadow-none hover:text-primary/90 hover:shadow-none',
+    'h-auto rounded-none px-0 py-0 text-primary shadow-none hover:text-primary hover:shadow-none',
   [ButtonVariant.Destructive]:
-    'border border-[hsl(var(--mz-control-border))] bg-destructive text-destructive-foreground hover:bg-destructive/90',
+    'border border-border bg-destructive text-destructive-foreground hover:bg-destructive',
 };
 
 export const BUTTON_VARIANT_MAPPING: Record<
