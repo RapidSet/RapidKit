@@ -57,6 +57,12 @@ export default [
       'next.config.{js,mjs,cjs,ts}',
       'theme.config.{js,mjs,cjs,ts,tsx}',
     ],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
     plugins: {
       '@next/next': nextPlugin,
     },

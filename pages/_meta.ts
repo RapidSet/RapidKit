@@ -1,7 +1,4 @@
 export default {
-  index: {
-    title: 'Home',
-  },
   INSTALLATION: {
     title: 'Installation',
   },
