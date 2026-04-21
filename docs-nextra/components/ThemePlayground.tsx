@@ -47,6 +47,7 @@ type PreviewAssignee = {
 
 type PreviewServiceRow = {
   id: number;
+  logoUrl: string;
   name: string;
   owner: string;
   status: 'active' | 'degraded' | 'planned';
@@ -66,6 +67,12 @@ const PREVIEW_ASSIGNEES: PreviewAssignee[] = [
 ];
 
 const PREVIEW_TABLE_COLUMNS: Column<PreviewServiceRow>[] = [
+  {
+    id: 'logo',
+    header: 'Logo',
+    accessorKey: 'logoUrl',
+    type: CellType.IMAGE,
+  },
   {
     id: 'name',
     header: 'Service',
@@ -166,6 +173,7 @@ const PREVIEW_TABLE_COLUMNS: Column<PreviewServiceRow>[] = [
 const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
   {
     id: 1,
+    logoUrl: '/tech-icons/tanstack.svg',
     name: 'Component Registry',
     owner: 'Platform',
     status: 'active',
@@ -177,6 +185,7 @@ const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
   },
   {
     id: 2,
+    logoUrl: '/tech-icons/redux.svg',
     name: 'Theme Tokens API',
     owner: 'Design Ops',
     status: 'active',
@@ -188,6 +197,7 @@ const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
   },
   {
     id: 3,
+    logoUrl: '/tech-icons/shadcnui.svg',
     name: 'Docs Preview Worker',
     owner: 'Frontend',
     status: 'degraded',
@@ -199,6 +209,7 @@ const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
   },
   {
     id: 4,
+    logoUrl: '/tech-icons/tailwindcss.svg',
     name: 'Release Pipelines',
     owner: 'Developer Experience',
     status: 'planned',
@@ -210,6 +221,7 @@ const PREVIEW_TABLE_ROWS: PreviewServiceRow[] = [
   },
   {
     id: 5,
+    logoUrl: '/tech-icons/zod.svg',
     name: 'Package Insights',
     owner: 'Analytics',
     status: 'active',

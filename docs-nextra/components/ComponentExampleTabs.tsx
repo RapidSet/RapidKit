@@ -302,7 +302,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 1,
         hasDrift: false,
         createdAt: '2025-02-18',
-        logoUrl: 'https://picsum.photos/seed/payments-api/64/64',
+        logoUrl: '/tech-icons/tanstack.svg',
       },
       {
         id: 2,
@@ -318,7 +318,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 6,
         hasDrift: true,
         createdAt: '2024-11-10',
-        logoUrl: 'https://picsum.photos/seed/audit-event-bus/64/64',
+        logoUrl: '/tech-icons/redux.svg',
       },
       {
         id: 3,
@@ -334,7 +334,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 0,
         hasDrift: false,
         createdAt: '2024-09-03',
-        logoUrl: 'https://picsum.photos/seed/identity-gateway/64/64',
+        logoUrl: '/tech-icons/shadcnui.svg',
       },
       {
         id: 4,
@@ -366,7 +366,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 2,
         hasDrift: false,
         createdAt: '2024-04-22',
-        logoUrl: 'https://picsum.photos/seed/notification-hub/64/64',
+        logoUrl: '/tech-icons/tailwindcss.svg',
       },
       {
         id: 6,
@@ -398,7 +398,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 3,
         hasDrift: false,
         createdAt: '2024-10-28',
-        logoUrl: 'https://picsum.photos/seed/fraud-rules-engine/64/64',
+        logoUrl: '/tech-icons/zod.svg',
       },
       {
         id: 8,
@@ -414,7 +414,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 5,
         hasDrift: true,
         createdAt: '2023-06-14',
-        logoUrl: 'https://picsum.photos/seed/search-aggregator/64/64',
+        logoUrl: '/tech-icons/reacthookform.svg',
       },
       {
         id: 9,
@@ -430,7 +430,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 1,
         hasDrift: false,
         createdAt: '2024-02-05',
-        logoUrl: 'https://picsum.photos/seed/billing-ledger/64/64',
+        logoUrl: '/tech-icons/tanstack.svg',
       },
       {
         id: 10,
@@ -446,7 +446,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 8,
         hasDrift: true,
         createdAt: '2024-07-30',
-        logoUrl: 'https://picsum.photos/seed/webhook-relay/64/64',
+        logoUrl: '/tech-icons/redux.svg',
       },
       {
         id: 11,
@@ -462,7 +462,7 @@ function BaseTablePreview(): JSX.Element {
         alertsCount: 2,
         hasDrift: false,
         createdAt: '2023-10-09',
-        logoUrl: 'https://picsum.photos/seed/role-directory/64/64',
+        logoUrl: '/tech-icons/shadcnui.svg',
       },
       {
         id: 12,
@@ -964,13 +964,19 @@ function IconPreview(): JSX.Element {
 
 function ImagePreview(): JSX.Element {
   return (
-    <div className="flex items-center gap-3">
-      <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" />
-      <Image
-        src="https://picsum.photos/seed/rapidkit-image-preview/64"
-        alt="Remote preview"
-        size="md"
-      />
+    <div className="flex items-end gap-4">
+      <div className="flex flex-col items-center gap-1">
+        <Image src="/rapidkit-icon.svg" alt="RapidKit logo small" size="sm" />
+        <span className="text-xs text-muted-foreground">sm</span>
+      </div>
+      <div className="flex flex-col items-center gap-1">
+        <Image src="/rapidkit-icon.svg" alt="RapidKit logo medium" size="md" />
+        <span className="text-xs text-muted-foreground">md</span>
+      </div>
+      <div className="flex flex-col items-center gap-1">
+        <Image src="/rapidkit-icon.svg" alt="RapidKit logo large" size="lg" />
+        <span className="text-xs text-muted-foreground">lg</span>
+      </div>
     </div>
   );
 }
@@ -1272,9 +1278,10 @@ interface UserDetails {
   },
   image: {
     render: ImagePreview,
-    code: `<div className="flex items-center gap-3">
-  <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" loading="lazy" />
-  <Image src="https://picsum.photos/seed/rapidkit-image-preview/64" alt="Remote preview" size="md" loading="lazy" />
+    code: `<div className="flex items-end gap-4">
+  <Image src="/rapidkit-icon.svg" alt="RapidKit logo small" size="sm" loading="lazy" />
+  <Image src="/rapidkit-icon.svg" alt="RapidKit logo medium" size="md" loading="lazy" />
+  <Image src="/rapidkit-icon.svg" alt="RapidKit logo large" size="lg" loading="lazy" />
 </div>`,
   },
   input: {
