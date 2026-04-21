@@ -24,19 +24,19 @@ const DATE_PICKER_CALENDAR_CLASS_NAMES = {
   caption:
     'relative flex h-10 w-full items-center justify-center border-b border-[hsl(var(--mz-control-border))] px-10 pb-2',
   caption_label:
-    'text-[length:var(--mz-control-font-size)] font-semibold tracking-[0.01em] text-foreground',
-  nav: 'absolute inset-x-0 top-0 flex h-10 items-center justify-between',
+    'flex items-center gap-1 text-[length:var(--mz-control-font-size)] font-semibold tracking-[0.01em] text-foreground [&>svg]:pointer-events-none [&>svg]:size-3.5 [&>svg]:text-muted-foreground',
+  nav: 'pointer-events-none absolute inset-x-0 top-0 z-20 flex h-10 items-center justify-between',
   dropdowns:
-    'flex h-8 w-full items-center justify-center gap-1.5 text-[length:var(--mz-control-font-size)] font-semibold',
+    'pointer-events-none inline-flex h-8 items-center justify-center gap-1.5 text-[length:var(--mz-control-font-size)] font-semibold',
   dropdown_root:
-    'relative rounded-md border border-[hsl(var(--mz-control-border))] bg-background text-foreground shadow-[var(--mz-control-shadow)]',
-  dropdown: 'absolute inset-0 opacity-0',
+    'pointer-events-auto relative rounded-md bg-transparent text-foreground transition-[color] duration-150 hover:text-accent-foreground has-focus:text-accent-foreground',
+  dropdown: 'absolute inset-0 cursor-pointer opacity-0',
   button_previous:
-    'absolute left-1 h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
+    'pointer-events-auto absolute left-1 z-30 h-7 w-7 cursor-pointer rounded-md border border-transparent bg-transparent p-0 text-muted-foreground opacity-80 shadow-none transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
   button_next:
-    'absolute right-1 h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
+    'pointer-events-auto absolute right-1 z-30 h-7 w-7 cursor-pointer rounded-md border border-transparent bg-transparent p-0 text-muted-foreground opacity-80 shadow-none transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
   nav_button:
-    'h-7 w-7 rounded-md border border-[hsl(var(--mz-control-border))] bg-background p-0 opacity-80 shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100',
+    'h-7 w-7 rounded-md border border-transparent bg-transparent p-0 text-muted-foreground opacity-80 shadow-none transition-[background-color,color,border-color,box-shadow] duration-150 hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]',
   weekdays: 'flex',
   weekday:
     'w-9 rounded-md text-center text-[0.75rem] font-medium uppercase tracking-[0.04em] text-muted-foreground',
@@ -115,8 +115,7 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
             name={name}
             aria-invalid={error ? 'true' : undefined}
             className={cn(
-              'h-[var(--mz-control-height)] w-full justify-start gap-2 rounded-md border-[hsl(var(--mz-control-border))] bg-background px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-left text-[length:var(--mz-control-font-size)] font-medium text-foreground shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200 hover:bg-accent/45 hover:text-accent-foreground focus-visible:shadow-[var(--mz-control-shadow-focus)]',
-              !value && 'text-muted-foreground',
+              'h-[var(--mz-control-height)] w-full justify-start gap-2 rounded-sm border-[hsl(var(--mz-control-border))] bg-background px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-left text-[length:var(--mz-control-font-size)] font-normal text-foreground ring-0 shadow-none transition-[border-color,box-shadow] duration-150 hover:bg-background hover:text-foreground focus-visible:shadow-[var(--mz-control-shadow-focus)]',
               error &&
                 'border-destructive focus-visible:shadow-[0_0_0_3px_hsl(var(--mz-destructive)/0.2)]',
             )}
@@ -124,9 +123,13 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
           >
             <CalendarIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
             {value ? (
-              <span className="truncate">{formatDateLabel(value)}</span>
+              <span className="truncate text-[length:var(--mz-control-font-size)] font-normal text-foreground">
+                {formatDateLabel(value)}
+              </span>
             ) : (
-              <span className="truncate">{placeholder}</span>
+              <span className="truncate text-[length:var(--mz-control-font-size)] font-normal text-muted-foreground/60">
+                {placeholder}
+              </span>
             )}
           </Button>
         </PopoverTrigger>
