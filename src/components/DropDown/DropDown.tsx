@@ -69,6 +69,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
       >
         <SelectTrigger
           className={cn(
+            'rounded-sm border ring-0',
             '[&>span]:text-[length:var(--mz-control-font-size)] [&>span]:text-muted-foreground',
             error && 'border-destructive',
           )}

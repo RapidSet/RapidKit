@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Palette } from 'lucide-react';
 import { ThemeSwitch } from 'nextra-theme-docs';
 import { DropDown } from '../../src/components/DropDown';
@@ -21,16 +21,20 @@ export function SiteHeaderExtras() {
     applyRuntimeThemeStylesheet(themeId, basePath);
   }, [basePath, themeId]);
 
-  const currentOption = useMemo(() => {
-    return THEME_OPTIONS.find((option) => option.value === themeId)?.value;
-  }, [themeId]);
+  const handleThemeChange = useCallback(
+    (nextThemeId) => {
+      setThemeId(nextThemeId);
+      applyRuntimeThemeStylesheet(nextThemeId, basePath);
+    },
+    [basePath],
+  );
 
   return (
     <div className="mz-site-header-tools">
       <div className="mz-theme-control">
         <DropDown
-          value={currentOption}
-          onChange={setThemeId}
+          value={themeId}
+          onChange={handleThemeChange}
           options={THEME_OPTIONS}
           placeholder="Theme"
           className="mz-theme-dropdown"

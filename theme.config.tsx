@@ -22,7 +22,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/tarikukebede/mezmer/tree/main',
   footer: {
-    content: 'RapidKit UI Kit',
+    content: 'RapidKit',
   },
 };
 

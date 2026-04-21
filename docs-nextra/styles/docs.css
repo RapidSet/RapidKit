@@ -132,6 +132,71 @@ body,
   border-radius: 6px;
 }
 
+.nextra-sidebar-container li > :is(a, button) {
+  color: hsl(var(--mz-muted-foreground));
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.nextra-sidebar-container li > :is(a, button):hover {
+  color: hsl(var(--mz-foreground));
+  background: hsl(var(--mz-muted) / 0.42);
+}
+
+.nextra-sidebar-container li > :is(a, button)[aria-current='page'],
+.nextra-sidebar-container li > :is(a, button)[data-active='true'],
+.nextra-sidebar-container li > :is(a, button)[aria-current='true'] {
+  color: hsl(var(--mz-primary));
+  background: transparent;
+  box-shadow: none;
+  font-weight: 700;
+}
+
+.nextra-sidebar-container [class*='_bg-primary-'] {
+  background-color: transparent !important;
+}
+
+.nextra-sidebar-container [class*='_text-primary-'] {
+  color: hsl(var(--mz-primary)) !important;
+}
+
+.nextra-sidebar-container li > :is(a, button):focus-visible {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nextra-sidebar-container
+  li
+  > :is(a, button)[aria-current='page']
+  [class*='_text-primary-'],
+.nextra-sidebar-container
+  li
+  > :is(a, button)[data-active='true']
+  [class*='_text-primary-'],
+.nextra-sidebar-container
+  li
+  > :is(a, button)[aria-current='true']
+  [class*='_text-primary-'] {
+  color: hsl(var(--mz-primary)) !important;
+}
+
+.nextra-sidebar-container
+  li
+  > :is(a, button)[aria-current='page']
+  [class*='_bg-primary-'],
+.nextra-sidebar-container
+  li
+  > :is(a, button)[data-active='true']
+  [class*='_bg-primary-'],
+.nextra-sidebar-container
+  li
+  > :is(a, button)[aria-current='true']
+  [class*='_bg-primary-'] {
+  background-color: transparent !important;
+}
+
 /* Fully disable visual collapsing in the docs left sidebar. */
 .nextra-sidebar-container li > :is(a, button) > svg {
   display: none;
@@ -150,6 +215,22 @@ body,
 .nextra-content {
   background: hsl(var(--mz-background));
   font-family: 'Geist', 'Avenir Next', 'Segoe UI', sans-serif;
+}
+
+.nextra-content [class*='_text-primary-'] {
+  color: hsl(var(--mz-primary)) !important;
+}
+
+.nextra-content [class*='_bg-primary-'] {
+  background-color: hsl(var(--mz-primary) / 0.12) !important;
+}
+
+.nextra-content a {
+  color: hsl(var(--mz-primary));
+}
+
+.nextra-content a:hover {
+  color: hsl(var(--mz-primary) / 0.86);
 }
 
 .nextra-content > main {
@@ -301,7 +382,7 @@ body,
 
 .mz-theme-dropdown [data-slot='select-trigger'] {
   min-height: 2.1rem;
-  border-radius: 0.8rem;
+  border-radius: 0.2rem;
   font-size: 0.78rem;
   font-weight: 500;
 }
@@ -312,7 +393,7 @@ body,
 }
 
 .mz-theme-dropdown [data-slot='select-content'] {
-  border-radius: 0.9rem;
+  border-radius: 0.2rem;
 }
 
 .mz-theme-option-label {
@@ -331,12 +412,14 @@ body,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: auto;
+  height: auto;
   margin-left: 0;
-  border: 1px solid hsl(var(--mz-border));
-  border-radius: 0.8rem;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   background: transparent;
+  box-shadow: none;
   color: hsl(var(--mz-foreground));
   cursor: pointer;
 }
@@ -367,22 +450,28 @@ body,
 }
 
 .mz-mode-toggle:hover {
-  background: hsl(var(--mz-muted) / 0.3);
+  background: transparent;
 }
 
 .mz-btn-primary {
-  color: hsl(var(--mz-background));
-  background: hsl(var(--mz-foreground));
+  color: hsl(var(--mz-primary-foreground));
+  background: hsl(var(--mz-primary));
+  border-color: hsl(var(--mz-primary) / 0.42);
 }
 
 .mz-btn-primary:hover {
-  background: hsl(var(--mz-foreground) / 0.92);
+  background: hsl(var(--mz-primary) / 0.9);
 }
 
 .mz-btn-ghost {
-  color: hsl(var(--mz-foreground));
-  background: transparent;
-  border: 1px solid hsl(var(--mz-border));
+  color: hsl(var(--mz-primary));
+  background: hsl(var(--mz-primary) / 0.08);
+  border: 1px solid hsl(var(--mz-primary) / 0.34);
+}
+
+.mz-btn-ghost:hover {
+  background: hsl(var(--mz-primary) / 0.14);
+  border-color: hsl(var(--mz-primary) / 0.48);
 }
 
 .mz-hero {

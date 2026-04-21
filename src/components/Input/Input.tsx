@@ -115,6 +115,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           type={rest.type ?? 'text'}
           className={cn(
             error && 'border-destructive',
+            'rounded-sm border ring-0',
             'text-[length:var(--mz-control-font-size)] placeholder:text-[length:var(--mz-control-font-size)] placeholder:text-muted-foreground/60',
             endAdornment && 'pr-10',
             className,
