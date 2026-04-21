@@ -20,6 +20,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       variant = ButtonVariant.Default,
+      size,
       className,
       accessRequirements,
       resolveAccess,
@@ -41,6 +42,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const resolvedDisabled = disabled || loading || !canClick;
     const iconClassName =
       variant === ButtonVariant.Text ? 'h-3.5 w-3.5' : 'h-4 w-4';
+    const resolvedSize =
+      size ?? (variant === ButtonVariant.Icon ? 'icon' : undefined);
     let leadingVisual: ReactNode = null;
     let trailingVisual: ReactNode = null;
 
@@ -68,6 +71,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <UIButton
         ref={ref}
         variant={BUTTON_VARIANT_MAPPING[variant]}
+        size={resolvedSize}
         disabled={resolvedDisabled}
         aria-busy={loading || undefined}
         className={cn(

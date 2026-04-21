@@ -138,6 +138,7 @@ describe('Button', () => {
       [ButtonVariant.Dashed, 'Dashed', 'border-dashed'],
       [ButtonVariant.Outlined, 'Outlined', 'bg-transparent'],
       [ButtonVariant.Text, 'Text', 'rounded-none'],
+      [ButtonVariant.Icon, 'Icon', 'w-8'],
       [ButtonVariant.Destructive, 'Destructive', 'bg-destructive'],
     ];
 
@@ -155,6 +156,7 @@ describe('Button', () => {
       [ButtonVariant.Default, 'Default with border'],
       [ButtonVariant.Dashed, 'Dashed with border'],
       [ButtonVariant.Outlined, 'Outlined with border'],
+      [ButtonVariant.Icon, 'Icon with border'],
       [ButtonVariant.Destructive, 'Destructive with border'],
     ];
 
@@ -208,6 +210,7 @@ describe('Button', () => {
       [ButtonVariant.Default, 'Default radius'],
       [ButtonVariant.Dashed, 'Dashed radius'],
       [ButtonVariant.Outlined, 'Outlined radius'],
+      [ButtonVariant.Icon, 'Icon radius'],
       [ButtonVariant.Destructive, 'Destructive radius'],
     ];
 

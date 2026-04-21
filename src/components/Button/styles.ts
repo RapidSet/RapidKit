@@ -8,6 +8,7 @@ export enum ButtonVariant {
   Dashed = 'dashed',
   Outlined = 'outlined',
   Text = 'text',
+  Icon = 'icon',
   Destructive = 'destructive',
 }
 
@@ -22,6 +23,8 @@ export const BUTTON_VARIANT_CLASS_NAMES: Record<ButtonVariant, string> = {
     'border border-border bg-transparent text-foreground shadow-none hover:bg-foreground/5 hover:text-foreground hover:shadow-none',
   [ButtonVariant.Text]:
     'h-auto rounded-none px-0 py-0 text-primary shadow-none hover:text-primary hover:shadow-none',
+  [ButtonVariant.Icon]:
+    'h-8 w-8 border border-border bg-transparent p-0 text-foreground/80 shadow-none hover:bg-muted hover:text-foreground hover:shadow-none',
   [ButtonVariant.Destructive]:
     'border border-border bg-destructive text-destructive-foreground hover:bg-destructive',
 };
@@ -35,5 +38,6 @@ export const BUTTON_VARIANT_MAPPING: Record<
   [ButtonVariant.Dashed]: 'outline',
   [ButtonVariant.Outlined]: 'outline',
   [ButtonVariant.Text]: 'link',
+  [ButtonVariant.Icon]: 'ghost',
   [ButtonVariant.Destructive]: 'destructive',
 };
