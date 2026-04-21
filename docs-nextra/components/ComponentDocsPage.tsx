@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { useState, type JSX } from 'react';
 import {
   ComponentExampleTabs,
   type ComponentExampleId,
@@ -27,6 +27,20 @@ type ComponentDocsPageProps = Readonly<{
 type CodeSnippetProps = Readonly<{
   code: string;
 }>;
+
+type CopyState = 'idle' | 'done' | 'error';
+
+function getCopyLabel(copyState: CopyState): string {
+  if (copyState === 'done') {
+    return 'Copied';
+  }
+
+  if (copyState === 'error') {
+    return 'Failed';
+  }
+
+  return 'Copy';
+}
 
 const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
   autocomplete: {
@@ -656,11 +670,37 @@ function ComponentDocsSections({
 }
 
 function CodeSnippet({ code }: CodeSnippetProps): JSX.Element {
+  const [copyState, setCopyState] = useState<CopyState>('idle');
+
+  async function copyCode(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopyState('done');
+    } catch {
+      setCopyState('error');
+    }
+
+    setTimeout(() => {
+      setCopyState('idle');
+    }, 1500);
+  }
+
   return (
-    <div className="component-doc-code-snippet">
-      <pre className="component-doc-code-block">
-        <code>{code}</code>
-      </pre>
+    <div className="component-doc-code-snippet component-example-tabs__code-viewer">
+      <button
+        type="button"
+        className="component-example-tabs__copy-btn"
+        onClick={copyCode}
+        aria-label="Copy code snippet"
+      >
+        {getCopyLabel(copyState)}
+      </button>
+
+      <div className="component-example-tabs__code-scroll">
+        <pre className="component-doc-code-block">
+          <code>{code}</code>
+        </pre>
+      </div>
     </div>
   );
 }
