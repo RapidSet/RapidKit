@@ -1,21 +1,21 @@
 import type { ChipSize, ChipVariant } from './types';
 
 export const CHIP_SIZE_CLASSES: Record<ChipSize, string> = {
-  sm: 'px-1.5 py-0.5 text-xs',
-  md: 'px-2 py-1 text-sm',
-  lg: 'px-3 py-1.5 text-base',
+  sm: 'px-2 py-1 text-xs',
+  md: 'px-2.5 py-1.5 text-sm',
+  lg: 'px-3.5 py-2 text-base',
 };
 
 export const CHIP_ICON_SIZE_CLASSES: Record<ChipSize, string> = {
-  sm: 'h-3 w-3',
-  md: 'h-4 w-4',
-  lg: 'h-5 w-5',
+  sm: 'h-[1em] w-[1em]',
+  md: 'h-[1em] w-[1em]',
+  lg: 'h-[1em] w-[1em]',
 };
 
 export const CHIP_CLOSE_ICON_SIZE_CLASSES: Record<ChipSize, string> = {
-  sm: 'h-3 w-3',
-  md: 'h-3.5 w-3.5',
-  lg: 'h-4 w-4',
+  sm: 'h-[0.9em] w-[0.9em]',
+  md: 'h-[0.9em] w-[0.9em]',
+  lg: 'h-[0.9em] w-[0.9em]',
 };
 
 export const CHIP_VARIANT_CLASSES: Record<ChipVariant, string> = {

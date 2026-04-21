@@ -40,10 +40,10 @@ export const Chip = (props: ChipProps) => {
   return (
     <div
       className={cn(
-        'inline-flex items-center justify-between gap-1.5',
+        'inline-flex w-fit items-center gap-2',
         'border rounded-full',
+        'font-medium leading-none',
         'capitalize',
-        'overflow-hidden',
         'whitespace-nowrap',
         CHIP_VARIANT_CLASSES[variant],
         CHIP_SIZE_CLASSES[size],
@@ -52,16 +52,14 @@ export const Chip = (props: ChipProps) => {
       {...rest}
     >
       {icon && (
-        <span className={cn(pulse && 'motion-safe:animate-pulse')}>
+        <span className={cn('shrink-0', pulse && 'motion-safe:animate-pulse')}>
           <Icon
             icon={icon}
             className={cn(CHIP_ICON_SIZE_CLASSES[size], iconClassName)}
           />
         </span>
       )}
-      {label && (
-        <span className="block overflow-hidden text-ellipsis">{label}</span>
-      )}
+      {label && <span className="block">{label}</span>}
       {onRemove && (
         <button
           type="button"

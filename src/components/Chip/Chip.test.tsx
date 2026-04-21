@@ -35,10 +35,20 @@ describe('Chip', () => {
     );
 
     const chip = screen.getByTestId('chip-root');
-    expect(chip.className).toContain('px-3');
+    expect(chip.className).toContain('px-3.5');
     expect(chip.className).toContain('text-base');
     expect(chip.className).toContain('bg-background');
     expect(chip.className).toContain('border-border');
+  });
+
+  it('uses roomier default spacing for label-only chips', () => {
+    render(<Chip label="status" data-testid="chip-root" />);
+
+    const chip = screen.getByTestId('chip-root');
+    expect(chip.className).toContain('gap-2');
+    expect(chip.className).toContain('px-2.5');
+    expect(chip.className).toContain('py-1.5');
+    expect(chip.className).toContain('leading-none');
   });
 
   it('renders icon and pulse class when enabled', () => {
@@ -47,8 +57,12 @@ describe('Chip', () => {
     );
 
     const chip = screen.getByTestId('chip-root');
-    expect(chip.querySelector('svg')).toBeTruthy();
-    expect(chip.querySelector('.motion-safe\\:animate-pulse')).toBeTruthy();
+    const icon = chip.querySelector('svg');
+    expect(icon).toBeTruthy();
+    expect(icon?.className.baseVal ?? '').toContain('h-[1em]');
+    expect(
+      chip.querySelector(String.raw`.motion-safe\:animate-pulse`),
+    ).toBeTruthy();
   });
 
   it('renders remove button and calls onRemove', () => {
@@ -66,10 +80,12 @@ describe('Chip', () => {
     const onRemove = vi.fn();
 
     render(
-      <div onClick={onParentClick}>
+      <div data-testid="parent">
         <Chip label="selected" onRemove={onRemove} />
       </div>,
     );
+
+    screen.getByTestId('parent').addEventListener('click', onParentClick);
 
     fireEvent.click(screen.getByRole('button', { name: 'Remove selected' }));
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { ArrowRight, BookOpen, Cpu, LayoutGrid, Palette } from 'lucide-react';
 import { Button, ButtonVariant } from '../src/components/Button';
-import { Icon } from '../src/components/Icon';
+import { Chip } from '../src/components/Chip';
 import { SiteHeader } from '../docs-nextra/components/SiteHeader';
 import { SITE_NAV_ITEMS } from '../docs-nextra/components/siteNavigation';
 
@@ -22,12 +22,13 @@ export default function HomeLandingPage() {
       <section className="mz-hero">
         <article className="mz-hero-copy">
           <a className="mz-announcement" href={toHref('/ARCHITECTURE/')}>
-            <Icon
+            <Chip
+              label="Standalone, reusable, publishable"
               icon={Cpu}
-              className="mz-announcement-icon"
-              aria-hidden="true"
+              variant="outline"
+              size="sm"
+              className="normal-case uppercase tracking-[0.06em] text-[0.58rem] text-muted-foreground transition-colors hover:text-foreground"
             />
-            Standalone, reusable, publishable
           </a>
           <h1>AI-first React UI kit for production-grade delivery.</h1>
           <p className="mz-subtitle">
@@ -39,7 +40,6 @@ export default function HomeLandingPage() {
           <div className="mz-hero-actions">
             <Button
               variant={ButtonVariant.Primary}
-              className="mz-btn mz-btn-primary"
               rightIcon={ArrowRight}
               onClick={() => navigateTo('/components/')}
             >
@@ -47,7 +47,6 @@ export default function HomeLandingPage() {
             </Button>
             <Button
               variant={ButtonVariant.Outlined}
-              className="mz-btn mz-btn-ghost"
               leftIcon={BookOpen}
               onClick={() => navigateTo('/components/')}
             >
@@ -56,28 +55,28 @@ export default function HomeLandingPage() {
           </div>
           <ul className="mz-hero-meta" aria-label="Highlights">
             <li>
-              <Icon
+              <Chip
+                label="AI-first contract workflow"
                 icon={Cpu}
-                className="mz-hero-meta-icon"
-                aria-hidden="true"
+                variant="outline"
+                className="normal-case"
               />
-              AI-first contract workflow
             </li>
             <li>
-              <Icon
+              <Chip
+                label="Domain-neutral APIs"
                 icon={Palette}
-                className="mz-hero-meta-icon"
-                aria-hidden="true"
+                variant="outline"
+                className="normal-case"
               />
-              Domain-neutral APIs
             </li>
             <li>
-              <Icon
+              <Chip
+                label="Composable, accessible primitives"
                 icon={LayoutGrid}
-                className="mz-hero-meta-icon"
-                aria-hidden="true"
+                variant="outline"
+                className="normal-case"
               />
-              Composable, accessible primitives
             </li>
           </ul>
         </article>
