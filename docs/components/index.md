@@ -1,21 +1,31 @@
 # Components
 
-Consumer-facing component documentation lives here.
+This section documents the package's public UI components and their integration contracts.
 
-- [Autocomplete](./autocomplete.md)
-- [BaseModal](./base-modal.md)
-- [BaseTable](./base-table.md)
-- [Button](./button.md)
-- [Checkbox](./checkbox.md)
-- [Chip](./chip.md)
-- [DatePicker](./date-picker.md)
-- [DetailsCard](./details-card.md)
-- [DropDown](./drop-down.md)
-- [Icon](./icon.md)
-- [Image](./image.md)
-- [Input](./input.md)
-- [Page](./page.md)
-- [Search](./search.md)
+Use the left navigation to browse individual components.
+
+## What You Will Find Here
+
+- Installation and import-ready usage examples for package consumers.
+- Public prop contracts and behavior notes for controlled and uncontrolled patterns.
+- Accessibility guarantees, including keyboard and focus behavior where applicable.
+- Test-backed interaction expectations and state handling guidance.
+
+## How To Read Component Docs
+
+- Start with the overview and basic usage example.
+- Review prop definitions to understand optional and required behavior.
+- Check accessibility and interaction notes before integrating into production flows.
+- Use access-control sections only when a component supports gated visibility or actions.
+
+## Design Intent
+
+All components are designed to be:
+
+- Presentational and domain-neutral.
+- Composable through props, callbacks, and wrappers.
+- Safe for reuse across host applications without product coupling.
+- Predictable to style with package-owned tokens and class composition patterns.
 
 ## Shared Access-Control Contract
 
