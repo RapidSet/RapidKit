@@ -369,7 +369,7 @@ body,
 .mz-site-header-tools {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.9rem;
 }
 
 .mz-theme-control {
@@ -383,6 +383,9 @@ body,
 .mz-theme-dropdown [data-slot='select-trigger'] {
   min-height: 2.1rem;
   border-radius: 0.2rem;
+  border: none;
+  box-shadow: none;
+  background: transparent;
   font-size: 0.78rem;
   font-weight: 500;
 }

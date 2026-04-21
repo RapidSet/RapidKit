@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Palette } from 'lucide-react';
-import { ThemeSwitch } from 'nextra-theme-docs';
+import { Moon, Palette, Sun } from 'lucide-react';
+import { useTheme } from 'nextra-theme-docs';
 import { DropDown } from '../../src/components/DropDown';
 import { Icon } from '../../src/components/Icon';
 import {
@@ -11,6 +11,7 @@ import {
 
 export function SiteHeaderExtras() {
   const [themeId, setThemeId] = useState('default');
+  const { resolvedTheme, setTheme } = useTheme();
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
   useEffect(() => {
@@ -28,6 +29,12 @@ export function SiteHeaderExtras() {
     },
     [basePath],
   );
+
+  const isDarkMode = resolvedTheme === 'dark';
+
+  const handleModeToggle = useCallback(() => {
+    setTheme(isDarkMode ? 'light' : 'dark');
+  }, [isDarkMode, setTheme]);
 
   return (
     <div className="mz-site-header-tools">
@@ -50,7 +57,19 @@ export function SiteHeaderExtras() {
           )}
         />
       </div>
-      <ThemeSwitch lite className="mz-mode-toggle" />
+      <button
+        type="button"
+        className="mz-mode-toggle"
+        onClick={handleModeToggle}
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        title={isDarkMode ? 'Light mode' : 'Dark mode'}
+      >
+        <Icon
+          icon={isDarkMode ? Sun : Moon}
+          className="mz-mode-icon"
+          aria-hidden="true"
+        />
+      </button>
     </div>
   );
 }
