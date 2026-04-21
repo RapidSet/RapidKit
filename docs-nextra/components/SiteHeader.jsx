@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SiteHeaderExtras } from './SiteHeaderExtras';
 import { SITE_NAV_ITEMS } from './siteNavigation';
@@ -43,10 +44,12 @@ export function SiteHeader({ items = [] }) {
   return (
     <header className="rk-topbar rk-site-header" aria-label="Site navigation">
       <Link className="rk-logo" href="/">
-        <img
+        <Image
           className="rk-logo-icon"
           src="/rapidkit-icon.svg"
           alt=""
+          width={20}
+          height={20}
           aria-hidden="true"
         />
         <span className="rk-logo-name">RapidKit</span>
