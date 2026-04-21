@@ -204,26 +204,6 @@ body,
   letter-spacing: 0.02em;
 }
 
-.mz-logo-mark {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.02em;
-  font-size: 1.08rem;
-  font-weight: 600;
-  line-height: 1;
-  color: hsl(var(--mz-foreground));
-}
-
-.mz-logo-r {
-  display: inline-block;
-  transform: scaleX(-1);
-  transform-origin: center;
-}
-
-.mz-logo-k {
-  display: inline-block;
-}
-
 .mz-logo-name {
   font-weight: 500;
   letter-spacing: 0.01em;

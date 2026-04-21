@@ -1,13 +1,13 @@
 import type { DocsThemeConfig } from 'nextra-theme-docs';
 
 const config: DocsThemeConfig = {
-  logo: <span>Mezmer</span>,
+  logo: <span>RapidKit</span>,
   project: {
     link: 'https://github.com/tarikukebede/mezmer',
   },
   docsRepositoryBase: 'https://github.com/tarikukebede/mezmer/tree/main',
   footer: {
-    content: 'Mezmer UI Kit',
+    content: 'RapidKit UI Kit',
   },
 };
 

@@ -109,10 +109,6 @@ export default function HomeLandingPage() {
     <div className="mz-home">
       <header className="mz-topbar" aria-label="Landing navigation">
         <a className="mz-logo" href={toHref('/')}>
-          <span className="mz-logo-mark" aria-hidden="true">
-            <span className="mz-logo-r">R</span>
-            <span className="mz-logo-k">K</span>
-          </span>
           <span className="mz-logo-name">RapidKit</span>
         </a>
         <nav className="mz-topnav">
