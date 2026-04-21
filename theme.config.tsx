@@ -1,7 +1,22 @@
 import type { DocsThemeConfig } from 'nextra-theme-docs';
+import { SiteHeader } from './docs-nextra/components/SiteHeader';
+import { MODE_STORAGE_KEY } from './docs-nextra/components/siteTheme';
 
 const config: DocsThemeConfig = {
-  logo: <span>RapidKit</span>,
+  darkMode: false,
+  sidebar: {
+    autoCollapse: false,
+    defaultMenuCollapseLevel: 99,
+    toggleButton: false,
+  },
+  navbar: {
+    component: SiteHeader as NonNullable<
+      DocsThemeConfig['navbar']
+    >['component'],
+  },
+  nextThemes: {
+    storageKey: MODE_STORAGE_KEY,
+  },
   project: {
     link: 'https://github.com/tarikukebede/mezmer',
   },
