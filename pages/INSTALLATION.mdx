@@ -1,3 +1,5 @@
+import { DocsCodePreview } from '../docs-nextra/components/DocsCodePreview';
+
 # Installation Guide
 
 Use this guide to install Mezmer in a consumer React application.
@@ -12,25 +14,26 @@ Use this guide to install Mezmer in a consumer React application.
 
 Install the package and all expected peers in one command:
 
-```bash
-pnpm add @tarikukebede/mezmer @reduxjs/toolkit @tanstack/react-table react react-dom react-hook-form react-redux zod tailwindcss
-```
+<DocsCodePreview
+  language="bash"
+  code={`pnpm add @tarikukebede/mezmer @reduxjs/toolkit @tanstack/react-table react react-dom react-hook-form react-redux zod tailwindcss`}
+/>
 
 ## 2. Import Package Styles
 
 Import the shared base stylesheet and exactly one theme stylesheet.
 
-```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/default.css';
-```
+<DocsCodePreview
+  language="tsx"
+  code={`import '@tarikukebede/mezmer/styles.css';
+import '@tarikukebede/mezmer/themes/default.css';`}
+/>
 
 You can switch to another built-in theme by importing `@tarikukebede/mezmer/themes/slate.css`, `@tarikukebede/mezmer/themes/carbon.css`, or `@tarikukebede/mezmer/themes/polaris.css` instead.
 
 ## 3. Use A Component
 
-```tsx
-import { Input } from '@tarikukebede/mezmer';
+<DocsCodePreview language="tsx" code={`import { Input } from '@tarikukebede/mezmer';
 
 export function ExampleForm() {
   return (
@@ -42,8 +45,7 @@ export function ExampleForm() {
       placeholder="name@company.com"
     />
   );
-}
-```
+}`} />
 
 ## 4. Verify Peer Versions
 

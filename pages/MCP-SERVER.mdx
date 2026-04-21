@@ -1,3 +1,5 @@
+import { DocsCodePreview } from '../docs-nextra/components/DocsCodePreview';
+
 # MCP Server
 
 Mezmer includes a repository-local MCP server for AI-assisted development workflows.
@@ -66,15 +68,11 @@ The MCP server reads component resources from `ai/contracts/index.json`, so inde
 
 Start the stdio MCP server from the repository root:
 
-```bash
-pnpm mcp:server
-```
+<DocsCodePreview language="bash" code={`pnpm mcp:server`} />
 
 Show help:
 
-```bash
-pnpm mcp:help
-```
+<DocsCodePreview language="bash" code={`pnpm mcp:help`} />
 
 ## Connect In MCP Clients
 
@@ -86,13 +84,14 @@ This server uses stdio, so most MCP-capable clients can connect to it with the s
 
 Reusable example:
 
-```json
-{
+<DocsCodePreview
+  language="json"
+  code={`{
   "command": "pnpm",
   "args": ["mcp:server"],
   "cwd": "/absolute/path/to/mezmer"
-}
-```
+}`}
+/>
 
 ### VS Code
 
@@ -107,8 +106,9 @@ Common places to configure it:
 
 Use the repository root as the working directory and point the command to:
 
-```json
-{
+<DocsCodePreview
+  language="json"
+  code={`{
   "servers": {
     "mezmer": {
       "type": "stdio",
@@ -117,8 +117,8 @@ Use the repository root as the working directory and point the command to:
       "cwd": "/Users/you/Code/mezmer"
     }
   }
-}
-```
+}`}
+/>
 
 Once connected, MCP-aware chat or agent workflows can query Mezmer contracts, docs, themes, and validation tools directly.
 
@@ -133,8 +133,9 @@ Verified config locations:
 
 Project-scoped example for this repository:
 
-```json
-{
+<DocsCodePreview
+  language="json"
+  code={`{
   "mcpServers": {
     "mezmer": {
       "command": "pnpm",
@@ -142,20 +143,22 @@ Project-scoped example for this repository:
       "env": {}
     }
   }
-}
-```
+}`}
+/>
 
 From the repository root, you can also register it without editing JSON manually:
 
-```bash
-claude mcp add --transport stdio --scope project mezmer -- pnpm mcp:server
-```
+<DocsCodePreview
+  language="bash"
+  code={`claude mcp add --transport stdio --scope project mezmer -- pnpm mcp:server`}
+/>
 
 If you want the server available across projects instead, use user scope:
 
-```bash
-claude mcp add --transport stdio --scope user mezmer -- pnpm mcp:server
-```
+<DocsCodePreview
+  language="bash"
+  code={`claude mcp add --transport stdio --scope user mezmer -- pnpm mcp:server`}
+/>
 
 After setup, use `/mcp` inside Claude Code to inspect connection state.
 
@@ -168,9 +171,7 @@ Claude Desktop also supports local MCP servers, but the easiest accurate path is
 
 If you already added Mezmer in Claude Code, you can use:
 
-```bash
-claude mcp add-from-claude-desktop
-```
+<DocsCodePreview language="bash" code={`claude mcp add-from-claude-desktop`} />
 
 If your environment does not expose `pnpm` on the PATH for GUI apps, replace `pnpm` with the absolute path to your pnpm executable.
 
@@ -180,13 +181,14 @@ In Cursor, add Mezmer as a local MCP server and configure it as a stdio command 
 
 Use the same stdio values:
 
-```json
-{
+<DocsCodePreview
+  language="json"
+  code={`{
   "command": "pnpm",
   "args": ["mcp:server"],
   "cwd": "/Users/you/Code/mezmer"
-}
-```
+}`}
+/>
 
 Cursor's public docs did not expose a stable macOS config-file path in the reference used for this guide, so prefer the in-app MCP setup flow and paste the values above.
 
@@ -196,13 +198,14 @@ After connection, Cursor can use the Mezmer MCP surface for more accurate compon
 
 For a repository cloned to `/Users/you/Code/mezmer`, common macOS examples look like:
 
-```json
-{
+<DocsCodePreview
+  language="json"
+  code={`{
   "workspaceVscodeConfig": "/Users/you/Code/mezmer/.vscode/mcp.json",
   "claudeProjectConfig": "/Users/you/Code/mezmer/.mcp.json",
   "claudeUserConfig": "/Users/you/.claude.json"
-}
-```
+}`}
+/>
 
 ### Notes
 

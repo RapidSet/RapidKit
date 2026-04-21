@@ -136,8 +136,7 @@ body,
   color: hsl(var(--mz-muted-foreground));
   transition:
     color 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+    background-color 0.2s ease;
 }
 
 .nextra-sidebar-container li > :is(a, button):hover {
@@ -212,6 +211,60 @@ body,
   display: none !important;
 }
 
+.nextra-toc {
+  font-family: 'Geist', 'Avenir Next', 'Segoe UI', sans-serif;
+}
+
+.nextra-toc [class*='_text-xs'] {
+  font-size: 0.75rem !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  color: hsl(var(--mz-muted-foreground)) !important;
+}
+
+.nextra-toc a {
+  display: block;
+  border-radius: 6px;
+  padding: 0.2rem 0.4rem;
+  color: hsl(var(--mz-muted-foreground));
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.35rem;
+  transition: color 0.2s ease;
+}
+
+.nextra-toc a:hover {
+  color: hsl(var(--mz-foreground));
+  background: hsl(var(--mz-muted) / 0.42);
+}
+
+.nextra-toc [class*='_font-semibold'] {
+  font-weight: 400 !important;
+}
+
+.nextra-toc [class*='_font-bold'] {
+  font-weight: 400 !important;
+}
+
+.nextra-toc [class*='_text-primary-'] {
+  color: hsl(var(--mz-primary)) !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+}
+
+.nextra-toc [class*='dark:_text-primary-'] {
+  color: hsl(var(--mz-primary)) !important;
+}
+
+.nextra-toc [class*='hover:_text-gray-900']:hover,
+.nextra-toc [class*='dark:hover:_text-gray-300']:hover {
+  color: hsl(var(--mz-foreground)) !important;
+}
+
+.nextra-toc .nextra-toc-footer {
+  border-top-color: hsl(var(--mz-border)) !important;
+}
+
 .nextra-content {
   background: hsl(var(--mz-background));
   font-family: 'Geist', 'Avenir Next', 'Segoe UI', sans-serif;
@@ -235,6 +288,70 @@ body,
 
 .nextra-content > main {
   max-width: 1240px;
+}
+
+.nextra-content .nx-prose {
+  color: hsl(var(--mz-foreground));
+}
+
+.nextra-content .nx-prose :is(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: hsl(var(--mz-foreground));
+}
+
+.nextra-content .nx-prose :is(p, li, blockquote, td, th, summary) {
+  color: hsl(var(--mz-muted-foreground));
+}
+
+.nextra-content .nx-prose hr {
+  border-color: hsl(var(--mz-border));
+}
+
+.nextra-content .nx-prose :is(ul, ol) {
+  color: hsl(var(--mz-muted-foreground));
+}
+
+.nextra-content .nx-prose pre {
+  border: 1px solid hsl(var(--mz-border));
+  background: hsl(var(--mz-card));
+}
+
+.nextra-content .nx-prose :not(pre) > code {
+  border: 1px solid hsl(var(--mz-border));
+  background: hsl(var(--mz-muted) / 0.62);
+  color: hsl(var(--mz-foreground));
+}
+
+.nextra-content .nx-prose table :is(th, td) {
+  border-color: hsl(var(--mz-border));
+}
+
+.nextra-content .nx-prose table tr {
+  border-color: hsl(var(--mz-border));
+}
+
+.nextra-content .nx-prose blockquote {
+  border-inline-start-color: hsl(var(--mz-border));
+}
+
+.nextra-content .nx-prose details {
+  border-color: hsl(var(--mz-border));
+  background: hsl(var(--mz-muted) / 0.35);
+}
+
+.nextra-content .nx-prose details summary {
+  color: hsl(var(--mz-foreground));
+}
+
+.nextra-content .nx-prose pre:has(code[class*='language-mermaid']) {
+  border: 1px solid hsl(var(--mz-border));
+  border-radius: 0;
+  background: hsl(var(--mz-card));
+  box-shadow: none;
+}
+
+.nextra-content .nx-prose pre:has(code[class*='language-mermaid']) code {
+  background: transparent;
+  color: hsl(var(--mz-foreground));
 }
 
 .nextra-content h1,
@@ -286,8 +403,29 @@ body,
   border-radius: 0;
   padding: 0.85rem 0.2rem;
   background: hsl(var(--mz-background) / 0.88);
-  backdrop-filter: blur(8px);
+  backdrop-filter: none;
   box-shadow: none;
+}
+
+/* Keep docs surfaces fully flat regardless of upstream Nextra utility classes. */
+.nextra-nav-container,
+.nextra-sidebar-container,
+.nextra-content,
+.nextra-toc,
+.nextra-nav-container *,
+.nextra-sidebar-container *,
+.nextra-content *,
+.nextra-toc *,
+.nextra-nav-container *::before,
+.nextra-nav-container *::after,
+.nextra-sidebar-container *::before,
+.nextra-sidebar-container *::after,
+.nextra-content *::before,
+.nextra-content *::after,
+.nextra-toc *::before,
+.nextra-toc *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
 
 .mz-site-header {

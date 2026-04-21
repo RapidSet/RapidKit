@@ -1,3 +1,5 @@
+import { DocsCodePreview } from '../docs-nextra/components/DocsCodePreview';
+
 # Contributing Guide
 
 This package is a publishable, reusable UI component library. Contributions should preserve portability, API stability, and enterprise readiness.
@@ -51,12 +53,13 @@ For every new public component:
 
 Run these before merge or release:
 
-```bash
-pnpm lint
+<DocsCodePreview
+  language="bash"
+  code={`pnpm lint
 pnpm tsc --noEmit
 pnpm test
-pnpm build
-```
+pnpm build`}
+/>
 
 ## Testing Strategy
 
