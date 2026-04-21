@@ -17,7 +17,6 @@ const config: DocsThemeConfig = {
   nextThemes: {
     storageKey: MODE_STORAGE_KEY,
     defaultTheme: 'light',
-    enableSystem: false,
   },
   project: {
     link: 'https://github.com/tarikukebede/mezmer',
