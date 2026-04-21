@@ -150,13 +150,12 @@ describe('Button', () => {
     }
   });
 
-  it('keeps a visible border for non-text variants at rest', () => {
+  it('keeps a visible border for non-text, non-icon variants at rest', () => {
     const variantsWithBorder: Array<[ButtonVariant, string]> = [
       [ButtonVariant.Primary, 'Primary with border'],
       [ButtonVariant.Default, 'Default with border'],
       [ButtonVariant.Dashed, 'Dashed with border'],
       [ButtonVariant.Outlined, 'Outlined with border'],
-      [ButtonVariant.Icon, 'Icon with border'],
       [ButtonVariant.Destructive, 'Destructive with border'],
     ];
 
@@ -166,6 +165,13 @@ describe('Button', () => {
       expect(button.className).toContain('border');
       cleanup();
     }
+  });
+
+  it('keeps icon variant borderless at rest', () => {
+    render(<Button label="Icon borderless" variant={ButtonVariant.Icon} />);
+
+    const button = screen.getByRole('button', { name: 'Icon borderless' });
+    expect(button.className).not.toContain('border');
   });
 
   it('keeps default, dashed, and outlined variants flat without elevation', () => {

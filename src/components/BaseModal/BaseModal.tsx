@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@ui/dialog';
+import { X } from 'lucide-react';
 import { Button } from '@components/Button';
 import { ButtonVariant } from '@components/Button/styles';
 import { cn } from '@lib/utils';
@@ -108,14 +109,23 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
         onEscapeKeyDown={preventDefaultWhenOutsideCloseDisabled}
         className={cn('flex max-h-[90vh] w-full flex-col', maxWidth, className)}
       >
-        {title || description ? (
-          <DialogHeader className="flex-shrink-0">
-            {title && <DialogTitle>{title}</DialogTitle>}
-            {description && (
-              <DialogDescription>{description}</DialogDescription>
-            )}
-          </DialogHeader>
-        ) : null}
+        <DialogHeader className="flex-shrink-0">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              {title && <DialogTitle>{title}</DialogTitle>}
+              {description && (
+                <DialogDescription>{description}</DialogDescription>
+              )}
+            </div>
+            <Button
+              variant={ButtonVariant.Icon}
+              leftIcon={X}
+              onClick={onClose}
+              aria-label="Close modal"
+              className="h-8 w-8"
+            />
+          </div>
+        </DialogHeader>
 
         <div className="flex min-h-0 flex-1 flex-col overflow-hidden py-4">
           {children}

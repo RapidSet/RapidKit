@@ -43,15 +43,23 @@ vi.mock('@ui/dialog', () => ({
 vi.mock('@components/Button', () => ({
   Button: ({
     label,
+    children,
     onClick,
     disabled,
+    ...rest
   }: {
     label?: string;
+    children?: ReactNode;
     onClick?: () => void;
     disabled?: boolean;
   }) => (
-    <button type="button" onClick={onClick} disabled={disabled}>
-      {label}
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      {...(rest as Record<string, unknown>)}
+    >
+      {label ?? children}
     </button>
   ),
 }));
@@ -137,6 +145,20 @@ describe('BaseModal', () => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Mock Close' }));
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onClose when close button is clicked', () => {
+    const onClose = vi.fn();
+
+    render(
+      <BaseModal isOpen onClose={onClose}>
+        <div>Content</div>
+      </BaseModal>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close modal' }));
 
     expect(onClose).toHaveBeenCalledTimes(1);
   });
