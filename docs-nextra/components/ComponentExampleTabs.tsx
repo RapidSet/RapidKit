@@ -818,9 +818,15 @@ function ButtonPreview(): JSX.Element {
         onClick={() => undefined}
       />
       <Button
-        label="Export"
+        label="Left Icon"
         leftIcon={Download}
         variant={ButtonVariant.Text}
+        onClick={() => undefined}
+      />
+      <Button
+        label="Right Icon"
+        rightIcon={Download}
+        variant={ButtonVariant.Outlined}
         onClick={() => undefined}
       />
       <Button
@@ -1165,7 +1171,8 @@ import { Button, ButtonVariant } from '@tarikukebede/mezmer';
   <Button label="Default" variant={ButtonVariant.Default} onClick={() => console.log('default')} />
   <Button label="Outlined" variant={ButtonVariant.Outlined} onClick={() => console.log('outlined')} />
   <Button label="Dashed" variant={ButtonVariant.Dashed} onClick={() => console.log('dashed')} />
-  <Button label="Export" leftIcon={Download} variant={ButtonVariant.Text} onClick={() => console.log('export')} />
+  <Button label="Left Icon" leftIcon={Download} variant={ButtonVariant.Text} onClick={() => console.log('left icon')} />
+  <Button label="Right Icon" rightIcon={Download} variant={ButtonVariant.Outlined} onClick={() => console.log('right icon')} />
   <Button label="Delete" variant={ButtonVariant.Destructive} onClick={() => console.log('delete')} />
 </div>;`,
   },
