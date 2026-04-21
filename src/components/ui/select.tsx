@@ -122,7 +122,7 @@ function SelectItem({
       )}
       {...props}
     >
-      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute right-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
           <Check className="h-4 w-4" />
         </SelectPrimitive.ItemIndicator>

@@ -3,7 +3,7 @@ import { SiteHeader } from './docs-nextra/components/SiteHeader';
 import { MODE_STORAGE_KEY } from './docs-nextra/components/siteTheme';
 
 const config: DocsThemeConfig = {
-  darkMode: false,
+  darkMode: true,
   sidebar: {
     autoCollapse: false,
     defaultMenuCollapseLevel: 99,

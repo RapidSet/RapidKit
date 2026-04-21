@@ -304,7 +304,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                       )}
                       aria-pressed={isSelected}
                     >
-                      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+                      <span className="absolute right-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
                         <Check
                           className={cn(
                             'h-4 w-4 transition-opacity',

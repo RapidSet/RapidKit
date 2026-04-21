@@ -5,16 +5,60 @@ import { DropDown } from '../../src/components/DropDown';
 import { Icon } from '../../src/components/Icon';
 import {
   applyRuntimeThemeStylesheet,
+  MODE_STORAGE_KEY,
   resolveStoredThemeId,
   THEME_OPTIONS,
 } from './siteTheme';
 
+const resolveDocumentMode = () => {
+  if (typeof document === 'undefined') {
+    return 'light';
+  }
+
+  const root = document.documentElement;
+  if (
+    root.classList.contains('dark') ||
+    root.dataset.theme === 'dark' ||
+    root.dataset.colorMode === 'dark'
+  ) {
+    return 'dark';
+  }
+
+  if (globalThis.localStorage !== undefined) {
+    const stored = globalThis.localStorage.getItem(MODE_STORAGE_KEY);
+    if (stored === 'dark' || stored === 'light') {
+      return stored;
+    }
+  }
+
+  return 'light';
+};
+
+const applyDocumentMode = (mode) => {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  const root = document.documentElement;
+  const isDark = mode === 'dark';
+
+  root.classList.toggle('dark', isDark);
+  root.dataset.theme = mode;
+  root.dataset.colorMode = mode;
+
+  if (globalThis.localStorage !== undefined) {
+    globalThis.localStorage.setItem(MODE_STORAGE_KEY, mode);
+  }
+};
+
 export function SiteHeaderExtras() {
   const [themeId, setThemeId] = useState('default');
+  const [fallbackMode, setFallbackMode] = useState('light');
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setThemeId(resolveStoredThemeId());
+    setFallbackMode(resolveDocumentMode());
   }, []);
 
   useEffect(() => {
@@ -26,10 +70,18 @@ export function SiteHeaderExtras() {
     applyRuntimeThemeStylesheet(nextThemeId);
   }, []);
 
-  const isDarkMode = resolvedTheme === 'dark';
+  const currentMode =
+    resolvedTheme === 'dark' || resolvedTheme === 'light'
+      ? resolvedTheme
+      : fallbackMode;
+  const isDarkMode = currentMode === 'dark';
 
   const handleModeToggle = useCallback(() => {
-    setTheme(isDarkMode ? 'light' : 'dark');
+    const nextMode = isDarkMode ? 'light' : 'dark';
+
+    setTheme(nextMode);
+    applyDocumentMode(nextMode);
+    setFallbackMode(nextMode);
   }, [isDarkMode, setTheme]);
 
   return (

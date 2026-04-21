@@ -17,7 +17,7 @@ export const optionItemMenuClassName =
   'relative flex w-full cursor-default select-none items-center rounded-none py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors';
 
 export const optionItemMenuCheckableClassName =
-  'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-[calc(var(--mz-control-padding-x)+1.5rem)] pr-[var(--mz-control-padding-x)] text-[length:var(--mz-control-font-size)] outline-none transition-colors';
+  'relative flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none py-0 pl-[var(--mz-control-padding-x)] pr-[calc(var(--mz-control-padding-x)+1.5rem)] text-[length:var(--mz-control-font-size)] outline-none transition-colors';
 
 export const optionItemMenuSubTriggerClassName =
   'data-[state=open]:bg-muted data-[state=open]:text-foreground flex h-[var(--mz-control-height)] w-full cursor-default select-none items-center rounded-none px-[var(--mz-control-padding-x)] py-0 text-[length:var(--mz-control-font-size)] outline-none transition-colors';
