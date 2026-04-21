@@ -38,13 +38,6 @@ type ExampleConfig = {
   render: () => JSX.Element;
 };
 
-type TokenKind = 'keyword' | 'string' | 'comment' | 'number' | 'plain';
-
-type Token = {
-  value: string;
-  kind: TokenKind;
-};
-
 type ExampleTabsProps = Readonly<{
   component: ComponentExampleId;
 }>;
@@ -55,180 +48,6 @@ type ServiceSearchCandidate = {
   region: string;
   tags: string[];
 };
-
-const TSX_KEYWORDS = new Set([
-  'import',
-  'from',
-  'type',
-  'interface',
-  'const',
-  'let',
-  'var',
-  'return',
-  'async',
-  'await',
-  'if',
-  'else',
-  'for',
-  'while',
-  'switch',
-  'case',
-  'default',
-  'break',
-  'continue',
-  'new',
-  'null',
-  'true',
-  'false',
-  'undefined',
-  'extends',
-  'implements',
-  'function',
-  'class',
-  'export',
-  'try',
-  'catch',
-  'finally',
-  'typeof',
-  'in',
-  'of',
-  'as',
-]);
-
-function classifyToken(token: string): TokenKind {
-  if (token.startsWith('//')) {
-    return 'comment';
-  }
-  if (token.startsWith('"') || token.startsWith("'") || token.startsWith('`')) {
-    return 'string';
-  }
-  if (/^\d/.test(token)) {
-    return 'number';
-  }
-  if (TSX_KEYWORDS.has(token)) {
-    return 'keyword';
-  }
-  return 'plain';
-}
-
-function isDigit(character: string): boolean {
-  if (character.length === 0) {
-    return false;
-  }
-  const code = character.codePointAt(0) ?? -1;
-  return code >= 48 && code <= 57;
-}
-
-function isWordStart(character: string): boolean {
-  if (character.length === 0) {
-    return false;
-  }
-  const code = character.codePointAt(0) ?? -1;
-  const isUppercase = code >= 65 && code <= 90;
-  const isLowercase = code >= 97 && code <= 122;
-  return isUppercase || isLowercase || character === '_';
-}
-
-function isWordPart(character: string): boolean {
-  return isWordStart(character) || isDigit(character);
-}
-
-function isWhitespace(character: string): boolean {
-  return (
-    character === ' ' ||
-    character === '\t' ||
-    character === '\n' ||
-    character === '\r'
-  );
-}
-
-function consumeQuoted(line: string, start: number, quote: string): number {
-  let end = start + 1;
-  while (end < line.length) {
-    const current = line[end];
-    if (current === '\\') {
-      end += 2;
-      continue;
-    }
-    if (current === quote) {
-      return end + 1;
-    }
-    end += 1;
-  }
-  return line.length;
-}
-
-function consumeNumber(line: string, start: number): number {
-  let end = start + 1;
-  while (end < line.length && (isDigit(line[end]) || line[end] === '.')) {
-    end += 1;
-  }
-  return end;
-}
-
-function consumeWord(line: string, start: number): number {
-  let end = start + 1;
-  while (end < line.length && isWordPart(line[end])) {
-    end += 1;
-  }
-  return end;
-}
-
-function consumeWhitespace(line: string, start: number): number {
-  let end = start + 1;
-  while (end < line.length && isWhitespace(line[end])) {
-    end += 1;
-  }
-  return end;
-}
-
-function highlightTsxLine(line: string): Token[] {
-  const tokens: Token[] = [];
-  let index = 0;
-
-  while (index < line.length) {
-    const character = line[index];
-    const nextCharacter = line[index + 1];
-    let end = index + 1;
-
-    if (character === '/' && nextCharacter === '/') {
-      const commentToken = line.slice(index);
-      tokens.push({ value: commentToken, kind: 'comment' });
-      break;
-    }
-
-    if (character === '"' || character === "'" || character === '`') {
-      end = consumeQuoted(line, index, character);
-      tokens.push({ value: line.slice(index, end), kind: 'string' });
-      index = end;
-      continue;
-    }
-
-    if (isDigit(character)) {
-      end = consumeNumber(line, index);
-      tokens.push({ value: line.slice(index, end), kind: 'number' });
-      index = end;
-      continue;
-    }
-
-    if (isWordStart(character)) {
-      end = consumeWord(line, index);
-      const word = line.slice(index, end);
-      tokens.push({ value: word, kind: classifyToken(word) });
-      index = end;
-      continue;
-    }
-
-    if (isWhitespace(character)) {
-      end = consumeWhitespace(line, index);
-    }
-
-    tokens.push({ value: line.slice(index, end), kind: 'plain' });
-    index = end;
-  }
-
-  return tokens;
-}
 
 function matchesServiceSearch(
   item: ServiceSearchCandidate,
@@ -1173,61 +992,29 @@ type User = {
   email: string;
 };
 
-async function searchUsers(params: {
-  query: string;
-  page: number;
-  size: number;
-}) {
-  // Dummy API call (replace with fetch/RTK Query in real apps)
-  await new Promise((resolve) => setTimeout(resolve, 180));
-  const allUsers: User[] = [
-    { id: 1, name: 'Alex Rivera', email: 'alex@company.com' },
-    { id: 2, name: 'Jordan Kim', email: 'jordan@company.com' },
-    { id: 3, name: 'Sam Lee', email: 'sam@company.com' },
-    { id: 4, name: 'Taylor Morgan', email: 'taylor@company.com' },
-  ];
+const searchUsers = async () => ({
+  items: [],
+  currentPage: 1,
+  totalPages: 1,
+  totalItems: 0,
+});
+const getUserById = async (): Promise<User | null> => null;
 
-  const needle = params.query.toLowerCase().trim();
-  const filtered = allUsers.filter((item) => {
-    if (!needle) return true;
-    return (
-      item.name.toLowerCase().includes(needle) ||
-      item.email.toLowerCase().includes(needle)
-    );
-  });
+function AssigneeField() {
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const start = (params.page - 1) * params.size;
-  const items = filtered.slice(start, start + params.size);
-
-  return {
-    items,
-    currentPage: params.page,
-    totalPages: Math.max(1, Math.ceil(filtered.length / params.size)),
-    totalItems: filtered.length,
-  };
-}
-
-async function getUserById(id: number): Promise<User | null> {
-  await new Promise((resolve) => setTimeout(resolve, 80));
-  const allUsers: User[] = [
-    { id: 1, name: 'Alex Rivera', email: 'alex@company.com' },
-    { id: 2, name: 'Jordan Kim', email: 'jordan@company.com' },
-    { id: 3, name: 'Sam Lee', email: 'sam@company.com' },
-    { id: 4, name: 'Taylor Morgan', email: 'taylor@company.com' },
-  ];
-  return allUsers.find((item) => item.id === id) ?? null;
-}
-
-const [selectedId, setSelectedId] = useState<number | null>(2);
-
-<Autocomplete<User>
-  name="assignee"
-  label="Assignee"
-  value={selectedId}
-  searchOptions={searchUsers}
-  getOptionById={getUserById}
-  onSelectOption={(item) => setSelectedId(item?.id ?? null)}
-/>;`,
+  return (
+    <Autocomplete<User>
+      name="assignee"
+      label="Assignee"
+      value={selectedId}
+      searchOptions={searchUsers}
+      getOptionById={getUserById}
+      onSelectOption={(item) => setSelectedId(item?.id ?? null)}
+      placeholder="Search teammates"
+    />
+  );
+}`,
   },
   'base-modal': {
     render: BaseModalPreview,
@@ -1239,85 +1026,39 @@ const [selectedId, setSelectedId] = useState<number | null>(2);
   title="Edit Profile"
   description="Update profile settings"
   onSave={() => console.log('save')}
-  saveAccessRequirements={['profile.update']}
-  resolveAccess={(requirement, mode) => {
-    if (mode === 'view') return requirement !== 'profile.hidden';
-    return requirement === 'profile.update';
-  }}
   customButtons={[
     {
       label: 'Preview',
       onClick: () => console.log('preview'),
       variant: ButtonVariant.Outlined,
-      accessRequirements: ['profile.preview'],
     },
   ]}
 >
-  <div className="text-sm text-foreground">Modal content goes here</div>
+  <div className="text-sm text-foreground">Profile form fields go here.</div>
 </BaseModal>;`,
   },
   'base-table': {
     render: BaseTablePreview,
-    code: `import { useMemo, useState } from 'react';
+    code: `import { useMemo } from 'react';
 import { BaseTable } from '@tarikukebede/mezmer';
 import { CellType } from '@tarikukebede/mezmer/base-table';
-import { useListServicesQuery } from './servicesApi';
 
 type ServiceRow = {
   id: number;
   name: string;
   owner: string;
   status: 'active' | 'inactive' | 'degraded';
-  tags: string[];
-  region: string;
-  uptime: string;
-  errorRate: string;
-  healthScore: string;
-  monthlyCost: string;
-  alertsCount: number;
-  hasDrift: boolean;
-  createdAt: string;
-  logoUrl: string;
+  alerts: number;
 };
-
-type QueryParams = {
-  query: string;
-  page: number;
-  size: number;
-};
-
-const DEFAULT_QUERY_PARAMS: QueryParams = {
-  query: '',
-  page: 1,
-  size: 10,
-};
-const DEFAULT_SORT_BY = 'name';
-const DEFAULT_SORT_ORDER: 'asc' | 'desc' = 'asc';
 
 export function ServicesTable() {
-  const [queryParams, setQueryParams] = useState(DEFAULT_QUERY_PARAMS);
-  const [sortBy, setSortBy] = useState<string | undefined>(DEFAULT_SORT_BY);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>(DEFAULT_SORT_ORDER);
-
-  const resetDemoState = () => {
-    setQueryParams(DEFAULT_QUERY_PARAMS);
-    setSortBy(DEFAULT_SORT_BY);
-    setSortOrder(DEFAULT_SORT_ORDER);
-  };
-
-  const { data, isFetching } = useListServicesQuery({
-    ...queryParams,
-    sortBy,
-    sortOrder,
-  });
-
-  const rows = data?.items ?? [];
-  const totalPages = data?.totalPages ?? 1;
-  const totalItems = data?.totalItems ?? 0;
+  const rows: ServiceRow[] = [
+    { id: 1, name: 'Payments API', owner: 'Alex Rivera', status: 'active', alerts: 1 },
+    { id: 2, name: 'Notification Hub', owner: 'Jordan Kim', status: 'degraded', alerts: 4 },
+  ];
 
   const columns = useMemo(
     () => [
-      { id: 'logo', header: 'Logo', accessorKey: 'logoUrl', type: CellType.IMAGE },
       {
         id: 'name',
         header: 'Service',
@@ -1333,69 +1074,18 @@ export function ServicesTable() {
         type: CellType.STATUS,
         sortable: true,
       },
-      { id: 'tags', header: 'Tags', accessorKey: 'tags', type: CellType.MULTI_STATUS },
-      { id: 'region', header: 'Region', accessorKey: 'region', type: CellType.CHIP },
-      { id: 'uptime', header: 'Uptime', accessorKey: 'uptime', type: CellType.DIMENSION },
       {
-        id: 'monthlyCost',
-        header: 'Cost',
-        accessorKey: 'monthlyCost',
-        type: CellType.DIMENSION,
-      },
-      { id: 'drift', header: 'Drift', accessorKey: 'hasDrift', type: CellType.BOOLEAN },
-      {
-        id: 'createdAt',
-        header: 'Created',
-        accessorKey: 'createdAt',
-        type: CellType.DATE,
-        sortable: true,
-      },
-      {
-        id: 'alertsIcon',
+        id: 'alerts',
         header: 'Alerts',
-        accessorKey: 'alertsCount',
-        type: CellType.ICON,
-        iconNameMapper: (value) =>
-          typeof value === 'number' && value > 5
-            ? 'AlertTriangle'
-            : value
-              ? 'TriangleAlert'
-              : 'ShieldCheck',
-      },
-      {
-        id: 'actions',
-        header: 'Actions',
-        type: CellType.ACTIONS,
-        actions: [
-          { label: 'Inspect', iconName: 'Search', onClick: () => {} },
-          { label: 'Restart', iconName: 'RotateCcw', onClick: () => {} },
-        ],
+        accessorKey: 'alerts',
+        type: CellType.TEXT,
       },
     ],
     [],
   );
 
   return (
-    <>
-      <button type="button" onClick={resetDemoState}>Reset demo</button>
-      <BaseTable<ServiceRow>
-        data={rows}
-        columns={columns}
-        isLoading={isFetching}
-        totalItems={totalItems}
-        totalPages={totalPages}
-        queryParams={queryParams}
-        sortBy={sortBy}
-        sortOrder={sortOrder}
-        enableSelection
-        onQueryParamsChange={setQueryParams}
-        onSortChange={(nextSortBy, nextSortOrder) => {
-          setSortBy(nextSortBy);
-          setSortOrder(nextSortOrder);
-          setQueryParams((previous) => ({ ...previous, page: 1 }));
-        }}
-      />
-    </>
+    <BaseTable<ServiceRow> data={rows} columns={columns} enableSelection />
   );
 }`,
   },
@@ -1440,12 +1130,6 @@ import { Button, ButtonVariant } from '@tarikukebede/mezmer';
   label="Start Date"
   value="2026-04-18"
   helperText="Choose a start date"
-  accessRequirements={['project.startDate.write']}
-  resolveAccess={(requirement, mode) => {
-    if (mode === 'view')
-      return requirement.endsWith('.read') || requirement.endsWith('.write');
-    return requirement.endsWith('.write');
-  }}
   onChange={(change) => {
     console.log(change.target.name, change.target.value);
   }}
@@ -1483,7 +1167,6 @@ interface UserDetails {
       icon: Archive,
       variant: ButtonVariant.Outlined,
       onClick: (data) => console.log('archive', data),
-      accessRequirements: ['users.archive'],
     },
   ]}
 />;`,
@@ -1530,7 +1213,7 @@ interface UserDetails {
   page: {
     render: PagePreview,
     code: `import { Plus } from 'lucide-react';
-import { ButtonVariant, Page, Search } from '@tarikukebede/mezmer';
+import { ButtonVariant, Page } from '@tarikukebede/mezmer';
 
 <Page
   searchPlaceholder="Search users"
@@ -1541,18 +1224,12 @@ import { ButtonVariant, Page, Search } from '@tarikukebede/mezmer';
       onClick: () => console.log('create'),
       icon: Plus,
       variant: ButtonVariant.Default,
-      accessRequirements: ['users.create'],
     },
   ]}
   filterSlot={<div className="text-xs text-muted-foreground">Active only</div>}
 >
   <div className="rounded-md border p-4">Page content</div>
-</Page>;
-
-<Search
-  placeholder="Global search"
-  onChange={(value) => console.log('search term', value)}
-/>;`,
+</Page>;`,
   },
   search: {
     render: SearchPreview,
@@ -1565,18 +1242,47 @@ import { ButtonVariant, Page, Search } from '@tarikukebede/mezmer';
 function ExampleTabsContent({ component }: ExampleTabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview');
   const [copyState, setCopyState] = useState<'idle' | 'done' | 'error'>('idle');
+  const [highlightedCodeHtml, setHighlightedCodeHtml] = useState('');
 
   const example = useMemo(() => EXAMPLES[component], [component]);
   const Preview = example.render;
-  const codeLines = useMemo(() => example.code.split('\n'), [example.code]);
-  const highlightedLines = useMemo(
-    () => codeLines.map((line) => highlightTsxLine(line)),
-    [codeLines],
-  );
   const previewPanelId = `${component}-preview-panel`;
   const codePanelId = `${component}-code-panel`;
   const previewTabId = `${component}-preview-tab`;
   const codeTabId = `${component}-code-tab`;
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function highlightCode(): Promise<void> {
+      try {
+        const { codeToHtml } = await import('shiki');
+        const html = await codeToHtml(example.code, {
+          lang: 'tsx',
+          themes: {
+            light: 'github-light',
+            dark: 'github-dark',
+          },
+        });
+
+        if (!isCancelled) {
+          setHighlightedCodeHtml(html);
+        }
+      } catch {
+        if (!isCancelled) {
+          setHighlightedCodeHtml('');
+        }
+      }
+    }
+
+    if (activeTab === 'code') {
+      void highlightCode();
+    }
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [activeTab, example.code]);
 
   async function copyCode(): Promise<void> {
     try {
@@ -1651,40 +1357,26 @@ function ExampleTabsContent({ component }: ExampleTabsProps): JSX.Element {
       >
         {activeTab === 'code' ? (
           <div className="component-example-tabs__code-viewer">
-            <div className="component-example-tabs__code-toolbar">
-              <span className="component-example-tabs__code-lang">tsx</span>
-              <button
-                type="button"
-                className="component-example-tabs__copy-btn"
-                onClick={copyCode}
-                aria-label="Copy code snippet"
-              >
-                {getCopyLabel(copyState)}
-              </button>
-            </div>
+            <button
+              type="button"
+              className="component-example-tabs__copy-btn"
+              onClick={copyCode}
+              aria-label="Copy code snippet"
+            >
+              {getCopyLabel(copyState)}
+            </button>
 
-            <div className="component-example-tabs__code-scroll">
-              <ol className="component-example-tabs__code-lines">
-                {highlightedLines.map((lineTokens, index) => (
-                  <li key={`${component}-code-line-${index + 1}`}>
-                    <code>
-                      {lineTokens.length === 0 ? ' ' : null}
-                      {lineTokens.map((token, tokenIndex) => (
-                        <span
-                          key={`${component}-code-line-${index + 1}-token-${tokenIndex + 1}`}
-                          className={
-                            token.kind === 'plain'
-                              ? undefined
-                              : `component-example-tabs__token component-example-tabs__token--${token.kind}`
-                          }
-                        >
-                          {token.value}
-                        </span>
-                      ))}
-                    </code>
-                  </li>
-                ))}
-              </ol>
+            <div className="component-example-tabs__code-scroll component-example-tabs__code-block">
+              {highlightedCodeHtml ? (
+                <div
+                  className="component-example-tabs__shiki"
+                  dangerouslySetInnerHTML={{ __html: highlightedCodeHtml }}
+                />
+              ) : (
+                <pre>
+                  <code>{example.code}</code>
+                </pre>
+              )}
             </div>
           </div>
         ) : null}
