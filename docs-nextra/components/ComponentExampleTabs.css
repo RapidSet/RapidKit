@@ -74,6 +74,35 @@
   overflow-x: auto;
 }
 
+.component-doc-code-snippet {
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--vp-code-block-bg);
+}
+
+.component-doc-code-snippet .component-doc-code-block {
+  padding: 0.95rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(
+    --mz-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace
+  );
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.component-doc-code-snippet .component-doc-code-block code {
+  font-family: inherit;
+  white-space: pre;
+}
+
 .component-doc-api-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--vp-c-divider);
@@ -292,6 +321,27 @@
 
 .component-example-tabs__shiki code {
   font-family: inherit;
+}
+
+.component-example-tabs__shiki,
+.component-example-tabs__shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+:is(html.dark, .dark, [data-theme='dark'], [data-color-mode='dark'])
+  .component-example-tabs__shiki,
+:is(html.dark, .dark, [data-theme='dark'], [data-color-mode='dark'])
+  .component-example-tabs__shiki
+  span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
 .component-example-tabs__preview > * {

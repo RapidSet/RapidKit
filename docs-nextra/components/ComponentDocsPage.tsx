@@ -24,6 +24,10 @@ type ComponentDocsPageProps = Readonly<{
   component: ComponentExampleId;
 }>;
 
+type CodeSnippetProps = Readonly<{
+  code: string;
+}>;
+
 const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
   autocomplete: {
     title: 'Autocomplete',
@@ -651,6 +655,16 @@ function ComponentDocsSections({
   );
 }
 
+function CodeSnippet({ code }: CodeSnippetProps): JSX.Element {
+  return (
+    <div className="component-doc-code-snippet">
+      <pre className="component-doc-code-block">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
 export function ComponentDocsPage({
   component,
 }: ComponentDocsPageProps): JSX.Element {
@@ -671,9 +685,7 @@ export function ComponentDocsPage({
           <p>Install the package in your app.</p>
         </div>
 
-        <pre className="component-doc-code-block">
-          <code>{installCode}</code>
-        </pre>
+        <CodeSnippet code={installCode} />
       </section>
 
       <section className="component-doc-section">
@@ -682,9 +694,7 @@ export function ComponentDocsPage({
           <p>Import components from the package entrypoint.</p>
         </div>
 
-        <pre className="component-doc-code-block">
-          <code>{doc.importCode}</code>
-        </pre>
+        <CodeSnippet code={doc.importCode} />
       </section>
 
       <section className="component-doc-section">
