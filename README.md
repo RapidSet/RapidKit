@@ -1,6 +1,6 @@
 # @rapidset/rapidkit
 
-<img src="docs/assets/rapidkit-icon.svg" alt="RapidKit icon" width="88" />
+<img src="public/rapidkit-icon.svg" alt="RapidKit icon" width="88" />
 
 A full-blown, publishable React UI library built for AI-assisted enterprise delivery.
 
