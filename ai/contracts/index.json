@@ -158,6 +158,17 @@
         "controlledValue",
         "keyboardPropagationControl"
       ]
+    },
+    {
+      "name": "Text",
+      "contractPath": "ai/contracts/components/text.contract.json",
+      "sourcePath": "src/components/Text",
+      "capabilities": [
+        "accessControl",
+        "typographyRendering",
+        "propForwarding",
+        "semanticElementSelection"
+      ]
     }
   ],
   "themes": [

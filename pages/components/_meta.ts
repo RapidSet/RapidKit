@@ -44,6 +44,9 @@ export default {
   search: {
     title: 'Search',
   },
+  text: {
+    title: 'Text',
+  },
   'text-area': {
     title: 'TextArea',
   },

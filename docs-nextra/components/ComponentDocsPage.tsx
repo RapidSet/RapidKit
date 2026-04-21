@@ -635,6 +635,48 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     guidance:
       'The component returns a plain string on change so you can connect it quickly to client-side filters or debounced server queries.',
   },
+  text: {
+    title: 'Text',
+    summary:
+      'Text is a lightweight typography primitive for rendering copy with semantic HTML tags, package-owned token colors, and optional access gating.',
+    highlights: [
+      'Semantic tag selection',
+      'Tone and weight controls',
+      'Optional view access rules',
+    ],
+    importCode: "import { Text } from '@tarikukebede/mezmer';",
+    keyProps: [
+      {
+        name: 'children',
+        description:
+          'Provides the copy or inline content to render with consistent typography tokens.',
+      },
+      {
+        name: 'as',
+        description:
+          'Chooses the semantic element such as span, paragraph, strong, or small text.',
+      },
+      {
+        name: 'tone and weight',
+        description:
+          'Applies semantic foreground colors and font emphasis without ad-hoc class names.',
+      },
+      {
+        name: 'truncate',
+        description:
+          'Trims overflowing single-line copy while preserving full text in DOM output.',
+      },
+      {
+        name: 'accessRequirements and resolveAccess',
+        description:
+          'Optionally hides content when view access is denied by your host authorization rules.',
+      },
+    ],
+    accessibility:
+      'Text preserves native semantics through the chosen HTML tag and remains non-interactive by default, which keeps document structure and assistive reading behavior predictable.',
+    accessBehavior:
+      'When access rules are provided, Text renders null if view access is denied; without rules or resolver it remains visible.',
+  },
   'text-area': {
     title: 'TextArea',
     summary:

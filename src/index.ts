@@ -15,5 +15,6 @@ export * from './components/DropDown';
 export * from './components/DetailsCard';
 export * from './components/DatePicker';
 export * from './components/TextArea';
+export * from './components/Text';
 
 export const version = '0.1.0';

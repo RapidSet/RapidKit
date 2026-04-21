@@ -13,6 +13,7 @@ import { Image } from '../../src/components/Image';
 import { Input } from '../../src/components/Input';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
+import { Text } from '../../src/components/Text';
 import { TextArea } from '../../src/components/TextArea';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
@@ -33,6 +34,7 @@ export type ComponentExampleId =
   | 'input'
   | 'page'
   | 'search'
+  | 'text'
   | 'text-area';
 
 type ExampleConfig = {
@@ -999,6 +1001,16 @@ function SearchPreview(): JSX.Element {
   );
 }
 
+function TextPreview(): JSX.Element {
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <Text as="p" tone="muted" weight="medium">
+        Portable component copy that keeps typography consistent across hosts.
+      </Text>
+    </div>
+  );
+}
+
 const EXAMPLES: Record<ComponentExampleId, ExampleConfig> = {
   autocomplete: {
     render: AutocompletePreview,
@@ -1255,6 +1267,12 @@ import { ButtonVariant, Page } from '@tarikukebede/mezmer';
     code: `import { Search } from '@tarikukebede/mezmer';
 
 <Search placeholder="Search users" onChange={(value) => console.log(value)} />;`,
+  },
+  text: {
+    render: TextPreview,
+    code: `<Text as="p" tone="muted" weight="medium">
+  Portable component copy that keeps typography consistent across hosts.
+</Text>`,
   },
   'text-area': {
     render: TextAreaPreview,

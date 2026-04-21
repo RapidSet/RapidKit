@@ -115,6 +115,7 @@ Current root exports:
 - Search
 - DropDown
 - DetailsCard
+- Text
 - TextArea
 - version
 
