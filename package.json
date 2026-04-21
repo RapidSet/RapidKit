@@ -1,5 +1,5 @@
 {
-  "name": "@tarikukebede/mezmer",
+  "name": "@rapidset/rapidkit",
   "version": "0.1.0",
   "description": "AI-first predefined UI templates for enterprise React apps, built on shadcn, TanStack Table, Redux Toolkit, React Hook Form, Zod, and Lucide",
   "type": "module",
@@ -64,7 +64,7 @@
   },
   "keywords": [
     "react",
-    "mezmer",
+    "rapidkit",
     "rtk-query",
     "tanstack-table",
     "shadcn",
@@ -73,6 +73,14 @@
   ],
   "author": "Tariku Lemma Kebede",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RapidSet/RapidKit.git"
+  },
+  "homepage": "https://rapidset.github.io/RapidKit/",
+  "bugs": {
+    "url": "https://github.com/RapidSet/RapidKit/issues"
+  },
   "peerDependencies": {
     "@reduxjs/toolkit": "^2.0.0",
     "@tanstack/react-table": "^8.0.0",

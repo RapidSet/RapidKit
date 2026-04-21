@@ -1,6 +1,6 @@
 # Theming Guide
 
-Preview, configure, and validate Mezmer themes from one page.
+Preview, configure, and validate RapidKit themes from one page.
 
 ## Live Preview
 
@@ -16,106 +16,106 @@ Use the interactive playground below to switch themes at runtime and review comp
 
 ## Token Surface
 
-Mezmer components resolve color and radius from namespaced CSS variables.
+RapidKit components resolve color and radius from namespaced CSS variables.
 
 Required tokens:
 
-- `--mz-background`
-- `--mz-foreground`
-- `--mz-card`
-- `--mz-card-foreground`
-- `--mz-popover`
-- `--mz-popover-foreground`
-- `--mz-primary`
-- `--mz-primary-foreground`
-- `--mz-secondary`
-- `--mz-secondary-foreground`
-- `--mz-muted`
-- `--mz-muted-foreground`
-- `--mz-accent`
-- `--mz-accent-foreground`
-- `--mz-destructive`
-- `--mz-destructive-foreground`
-- `--mz-border`
-- `--mz-input`
-- `--mz-ring`
-- `--mz-radius`
+- `--rk-background`
+- `--rk-foreground`
+- `--rk-card`
+- `--rk-card-foreground`
+- `--rk-popover`
+- `--rk-popover-foreground`
+- `--rk-primary`
+- `--rk-primary-foreground`
+- `--rk-secondary`
+- `--rk-secondary-foreground`
+- `--rk-muted`
+- `--rk-muted-foreground`
+- `--rk-accent`
+- `--rk-accent-foreground`
+- `--rk-destructive`
+- `--rk-destructive-foreground`
+- `--rk-border`
+- `--rk-input`
+- `--rk-ring`
+- `--rk-radius`
 
 Optional style tokens used by core components (recommended):
 
-- `--mz-font-sans`
-- `--mz-font-mono`
-- `--mz-button-height`
-- `--mz-button-padding-x`
-- `--mz-button-padding-y`
-- `--mz-button-font-size`
-- `--mz-button-font-weight`
-- `--mz-button-letter-spacing`
-- `--mz-button-shadow`
-- `--mz-button-shadow-hover`
-- `--mz-control-height`
-- `--mz-control-padding-x`
-- `--mz-control-padding-y`
-- `--mz-control-font-size`
-- `--mz-control-shadow`
-- `--mz-control-shadow-focus`
-- `--mz-checkbox-size`
-- `--mz-checkbox-radius`
+- `--rk-font-sans`
+- `--rk-font-mono`
+- `--rk-button-height`
+- `--rk-button-padding-x`
+- `--rk-button-padding-y`
+- `--rk-button-font-size`
+- `--rk-button-font-weight`
+- `--rk-button-letter-spacing`
+- `--rk-button-shadow`
+- `--rk-button-shadow-hover`
+- `--rk-control-height`
+- `--rk-control-padding-x`
+- `--rk-control-padding-y`
+- `--rk-control-font-size`
+- `--rk-control-shadow`
+- `--rk-control-shadow-focus`
+- `--rk-checkbox-size`
+- `--rk-checkbox-radius`
 
 ## Using Built-In Themes
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/default.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/default.css';
 ```
 
 Swap to slate:
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/slate.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/slate.css';
 ```
 
 Additional built-in options:
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/carbon.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/carbon.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/corporate.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/corporate.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/ocean.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/ocean.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/polaris.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/polaris.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/midnight.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/midnight.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/sand.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/sand.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/forest.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/forest.css';
 ```
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/sunset.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/sunset.css';
 ```
 
 ## AI-Friendly Commands
@@ -147,9 +147,9 @@ This command creates:
 
 ## Extending With shadcn Host Tokens
 
-`src/styles.css` bridges shadcn tokens (`--background`, `--primary`, and others) to Mezmer tokens (`--mz-*`). If your host app already defines shadcn tokens, components can render correctly without rewriting component code.
+`src/styles.css` bridges shadcn tokens (`--background`, `--primary`, and others) to RapidKit tokens (`--rk-*`). If your host app already defines shadcn tokens, components can render correctly without rewriting component code.
 
-For full control, set `--mz-*` tokens directly in your app theme CSS.
+For full control, set `--rk-*` tokens directly in your app theme CSS.
 
 ## Theme Configuration Workflow
 
@@ -183,13 +183,13 @@ It does not automatically apply `.dark` at runtime. Dark mode still depends on y
 
 Themes support styling beyond color. In addition to color and radius tokens, the library consumes optional typography and component-shape tokens, including:
 
-- `--mz-font-sans` and `--mz-font-mono` for typeface control
-- button sizing and rhythm tokens (`--mz-button-height`, `--mz-button-padding-x`, `--mz-button-padding-y`)
-- button typography tokens (`--mz-button-font-size`, `--mz-button-font-weight`, `--mz-button-letter-spacing`)
-- button elevation tokens (`--mz-button-shadow`, `--mz-button-shadow-hover`)
-- control layout tokens (`--mz-control-height`, `--mz-control-padding-x`, `--mz-control-padding-y`, `--mz-control-font-size`)
-- control elevation tokens (`--mz-control-shadow`, `--mz-control-shadow-focus`)
-- checkbox shape tokens (`--mz-checkbox-size`, `--mz-checkbox-radius`)
+- `--rk-font-sans` and `--rk-font-mono` for typeface control
+- button sizing and rhythm tokens (`--rk-button-height`, `--rk-button-padding-x`, `--rk-button-padding-y`)
+- button typography tokens (`--rk-button-font-size`, `--rk-button-font-weight`, `--rk-button-letter-spacing`)
+- button elevation tokens (`--rk-button-shadow`, `--rk-button-shadow-hover`)
+- control layout tokens (`--rk-control-height`, `--rk-control-padding-x`, `--rk-control-padding-y`, `--rk-control-font-size`)
+- control elevation tokens (`--rk-control-shadow`, `--rk-control-shadow-focus`)
+- checkbox shape tokens (`--rk-checkbox-size`, `--rk-checkbox-radius`)
 
 When creating a custom theme with `pnpm theme:create`, copy and tune these tokens in the generated CSS so components remain visually polished out of the box.
 
@@ -218,7 +218,7 @@ Theme metadata is intentionally machine-readable for AI systems:
 - `ai/contracts/themes/*.contract.json` defines theme contract metadata
 - `ai/theme.active.json` records workspace-selected theme state
 
-Mezmer includes a repository-local MCP server.
+RapidKit includes a repository-local MCP server.
 
 For theme workflows, that server can expose active theme state, theme registry metadata, and theme contract details without requiring tools to inspect the repository manually.
 
@@ -244,8 +244,8 @@ pnpm build
 Published consumers usually import a concrete theme directly:
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/default.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/default.css';
 ```
 
 `src/themes/active.css` is primarily a workspace/development convenience for switching themes locally.

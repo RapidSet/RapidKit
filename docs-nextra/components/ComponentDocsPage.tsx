@@ -48,7 +48,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     summary:
       'Autocomplete helps people find the right record quickly with async search, optional pagination, and a controlled selected value.',
     highlights: ['Async search', 'Controlled selection', 'Custom option rows'],
-    importCode: "import { Autocomplete } from '@tarikukebede/mezmer';",
+    importCode: "import { Autocomplete } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'name',
@@ -98,7 +98,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Custom footer buttons',
     ],
     importCode:
-      "import { BaseModal, ButtonVariant } from '@tarikukebede/mezmer';",
+      "import { BaseModal, ButtonVariant } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'isOpen',
@@ -143,7 +143,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Sorting and selection',
       'Server-friendly pagination',
     ],
-    importCode: "import { BaseTable } from '@tarikukebede/mezmer';",
+    importCode: "import { BaseTable } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'data',
@@ -190,7 +190,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Loading feedback',
       'Optional icons',
     ],
-    importCode: "import { Button, ButtonVariant } from '@tarikukebede/mezmer';",
+    importCode: "import { Button, ButtonVariant } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'label or children',
@@ -235,7 +235,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Helper and error text',
       'Controlled or uncontrolled',
     ],
-    importCode: "import { Checkbox } from '@tarikukebede/mezmer';",
+    importCode: "import { Checkbox } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'name',
@@ -272,7 +272,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     summary:
       'Chip is a compact surface for status, filters, and selected values, with optional icons, pulse feedback, and removable behavior.',
     highlights: ['Status labels', 'Filter tokens', 'Optional remove action'],
-    importCode: "import { Chip } from '@tarikukebede/mezmer';",
+    importCode: "import { Chip } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'label',
@@ -316,7 +316,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Controlled value',
       'Optional month bounds',
     ],
-    importCode: "import { DatePicker } from '@tarikukebede/mezmer';",
+    importCode: "import { DatePicker } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'name',
@@ -358,7 +358,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'DetailsCard organizes record-level content into a reusable detail surface with a strong header, tabbed sections, and action slots.',
     highlights: ['Record detail layouts', 'Tabbed content', 'Header actions'],
     importCode:
-      "import { ButtonVariant, DetailsCard } from '@tarikukebede/mezmer';",
+      "import { ButtonVariant, DetailsCard } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'title and icon',
@@ -403,7 +403,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Form labels and errors',
       'Custom option rendering',
     ],
-    importCode: "import { DropDown } from '@tarikukebede/mezmer';",
+    importCode: "import { DropDown } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'options',
@@ -443,7 +443,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     summary:
       'Icon is a thin typed wrapper around Lucide icons so consumers can keep package imports consistent without losing SVG flexibility.',
     highlights: ['Typed icon prop', 'Lucide friendly', 'Forwards SVG props'],
-    importCode: "import { Icon } from '@tarikukebede/mezmer';",
+    importCode: "import { Icon } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'icon',
@@ -477,7 +477,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Graceful fallback',
       'Native image props',
     ],
-    importCode: "import { Image } from '@tarikukebede/mezmer';",
+    importCode: "import { Image } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'src',
@@ -517,7 +517,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Labels and validation',
       'Works with form state',
     ],
-    importCode: "import { Input } from '@tarikukebede/mezmer';",
+    importCode: "import { Input } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'name',
@@ -562,7 +562,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Header actions',
       'Search and filter slot',
     ],
-    importCode: "import { ButtonVariant, Page } from '@tarikukebede/mezmer';",
+    importCode: "import { ButtonVariant, Page } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'children',
@@ -603,7 +603,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'String callback',
       'Decorative icon included',
     ],
-    importCode: "import { Search } from '@tarikukebede/mezmer';",
+    importCode: "import { Search } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'placeholder',
@@ -644,7 +644,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Tone and weight controls',
       'Optional view access rules',
     ],
-    importCode: "import { Text } from '@tarikukebede/mezmer';",
+    importCode: "import { Text } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'children',
@@ -686,7 +686,7 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Helper and error text',
       'Access-aware visibility/editing',
     ],
-    importCode: "import { TextArea } from '@tarikukebede/mezmer';",
+    importCode: "import { TextArea } from '@rapidset/rapidkit';",
     keyProps: [
       {
         name: 'name',
@@ -793,7 +793,7 @@ export function ComponentDocsPage({
   component,
 }: ComponentDocsPageProps): JSX.Element {
   const doc = COMPONENT_DOCS[component];
-  const installCode = 'pnpm add @tarikukebede/mezmer';
+  const installCode = 'pnpm add @rapidset/rapidkit';
 
   return (
     <article className="component-doc-page">
@@ -882,7 +882,7 @@ export function ComponentDocsIndexPage(): JSX.Element {
         <div className="component-doc-section__header">
           <h2>Overview</h2>
           <p>
-            Mezmer is designed as a reusable UI kit for application teams that
+            RapidKit is designed as a reusable UI kit for application teams that
             want consistent building blocks without inheriting product-specific
             workflows or styling constraints.
           </p>

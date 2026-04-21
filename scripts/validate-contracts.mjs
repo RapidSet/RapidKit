@@ -234,8 +234,8 @@ const validateThemeEntry = (
     );
   }
 
-  if (themeContract.tokenPrefix !== '--mz-') {
-    errors.push(`${themeEntry.contractPath} tokenPrefix must be '--mz-'.`);
+  if (themeContract.tokenPrefix !== '--rk-') {
+    errors.push(`${themeEntry.contractPath} tokenPrefix must be '--rk-'.`);
   }
 
   validateThemeTokenCoverage(themeEntry, themeContract);

@@ -7,7 +7,7 @@ Access-aware date picker composed from package shadcn primitives (`Popover` + `C
 ## Import
 
 ```tsx
-import { DatePicker } from '@tarikukebede/mezmer';
+import { DatePicker } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="date-picker" />

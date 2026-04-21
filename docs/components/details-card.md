@@ -7,7 +7,7 @@ Reusable details surface with a persistent header action area, optional custom c
 ## Import
 
 ```tsx
-import { DetailsCard } from '@tarikukebede/mezmer';
+import { DetailsCard } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="details-card" />

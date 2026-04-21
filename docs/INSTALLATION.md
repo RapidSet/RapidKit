@@ -1,6 +1,6 @@
 # Installation Guide
 
-Use this guide to install Mezmer in a consumer React application.
+Use this guide to install RapidKit in a consumer React application.
 
 ## Requirements
 
@@ -8,12 +8,12 @@ Use this guide to install Mezmer in a consumer React application.
 - pnpm 9+
 - React 18 or 19 application
 
-## 1. Install Mezmer And Peer Dependencies
+## 1. Install RapidKit And Peer Dependencies
 
 Install the package and all expected peers in one command:
 
 ```bash
-pnpm add @tarikukebede/mezmer @reduxjs/toolkit @tanstack/react-table react react-dom react-hook-form react-redux zod tailwindcss
+pnpm add @rapidset/rapidkit @reduxjs/toolkit @tanstack/react-table react react-dom react-hook-form react-redux zod tailwindcss
 ```
 
 ## 2. Import Package Styles
@@ -21,16 +21,16 @@ pnpm add @tarikukebede/mezmer @reduxjs/toolkit @tanstack/react-table react react
 Import the shared base stylesheet and exactly one theme stylesheet.
 
 ```tsx
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/default.css';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/default.css';
 ```
 
-You can switch to another built-in theme by importing `@tarikukebede/mezmer/themes/slate.css`, `@tarikukebede/mezmer/themes/carbon.css`, or `@tarikukebede/mezmer/themes/polaris.css` instead.
+You can switch to another built-in theme by importing `@rapidset/rapidkit/themes/slate.css`, `@rapidset/rapidkit/themes/carbon.css`, or `@rapidset/rapidkit/themes/polaris.css` instead.
 
 ## 3. Use A Component
 
 ```tsx
-import { Input } from '@tarikukebede/mezmer';
+import { Input } from '@rapidset/rapidkit';
 
 export function ExampleForm() {
   return (
@@ -47,7 +47,7 @@ export function ExampleForm() {
 
 ## 4. Verify Peer Versions
 
-Mezmer expects these peer ranges in your app:
+RapidKit expects these peer ranges in your app:
 
 - `react`: `^18.0.0 || ^19.0.0`
 - `react-dom`: `^18.0.0 || ^19.0.0`
@@ -65,7 +65,7 @@ Mezmer expects these peer ranges in your app:
 If components render unstyled:
 
 - Confirm `styles.css` is imported once in your app entry.
-- Confirm exactly one Mezmer theme file is imported after `styles.css`.
+- Confirm exactly one RapidKit theme file is imported after `styles.css`.
 
 ### Peer Dependency Warnings
 

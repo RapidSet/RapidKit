@@ -121,7 +121,7 @@ describe('Checkbox', () => {
     expect(checkbox.className).toContain('border');
     expect(checkbox.className).toContain('border-solid');
     expect(checkbox.className).toContain(
-      'border-[hsl(var(--mz-control-border))]',
+      'border-[hsl(var(--rk-control-border))]',
     );
     expect(style.borderWidth).toBe('1px');
   });

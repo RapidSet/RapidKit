@@ -111,7 +111,7 @@
 - For every new public component, add a dedicated page in `docs/components/<component>.md`.
 - Update `docs/components/README.md` to include the new component link.
 - Keep `docs/COMPONENTS.md` as a stable compatibility entrypoint that points to the scalable docs structure.
-- Ensure examples use package imports (`@tarikukebede/mezmer`) and documented theme imports.
+- Ensure examples use package imports (`@rapidset/rapidkit`) and documented theme imports.
 - Keep component docs aligned with public props, access behavior, accessibility notes, and tested interaction guarantees.
 
 ## Release Checklist Commands

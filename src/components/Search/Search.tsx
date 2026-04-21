@@ -37,7 +37,7 @@ export function Search(props: Readonly<SearchProps>) {
         className={cn(
           'rounded-sm border ring-0 appearance-none',
           '[&::-webkit-search-decoration]:appearance-none [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none',
-          'text-[length:var(--mz-control-font-size)] placeholder:text-[length:var(--mz-control-font-size)] placeholder:text-muted-foreground/60',
+          'text-[length:var(--rk-control-font-size)] placeholder:text-[length:var(--rk-control-font-size)] placeholder:text-muted-foreground/60',
           'pl-9',
           inputClassName,
         )}

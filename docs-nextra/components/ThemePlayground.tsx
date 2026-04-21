@@ -29,14 +29,14 @@ import {
 } from './docsTheme';
 
 const TOKEN_SWATCHES: Array<{ label: string; token: string }> = [
-  { label: 'Background', token: '--mz-background' },
-  { label: 'Foreground', token: '--mz-foreground' },
-  { label: 'Primary', token: '--mz-primary' },
-  { label: 'Secondary', token: '--mz-secondary' },
-  { label: 'Muted', token: '--mz-muted' },
-  { label: 'Accent', token: '--mz-accent' },
-  { label: 'Destructive', token: '--mz-destructive' },
-  { label: 'Border', token: '--mz-border' },
+  { label: 'Background', token: '--rk-background' },
+  { label: 'Foreground', token: '--rk-foreground' },
+  { label: 'Primary', token: '--rk-primary' },
+  { label: 'Secondary', token: '--rk-secondary' },
+  { label: 'Muted', token: '--rk-muted' },
+  { label: 'Accent', token: '--rk-accent' },
+  { label: 'Destructive', token: '--rk-destructive' },
+  { label: 'Border', token: '--rk-border' },
 ];
 
 type PreviewAssignee = {
@@ -232,32 +232,32 @@ const PREVIEW_DETAILS_TABS = [
     key: 'overview',
     label: 'Overview',
     component: (
-      <div className="mz-preview-card__details-panel">
-        <div className="mz-preview-card__details-metrics">
-          <div className="mz-preview-card__details-metric">
-            <span className="mz-preview-card__details-metric-label">
+      <div className="rk-preview-card__details-panel">
+        <div className="rk-preview-card__details-metrics">
+          <div className="rk-preview-card__details-metric">
+            <span className="rk-preview-card__details-metric-label">
               Package Health
             </span>
-            <strong className="mz-preview-card__details-metric-value">
+            <strong className="rk-preview-card__details-metric-value">
               98%
             </strong>
           </div>
-          <div className="mz-preview-card__details-metric">
-            <span className="mz-preview-card__details-metric-label">
+          <div className="rk-preview-card__details-metric">
+            <span className="rk-preview-card__details-metric-label">
               Active Themes
             </span>
-            <strong className="mz-preview-card__details-metric-value">8</strong>
+            <strong className="rk-preview-card__details-metric-value">8</strong>
           </div>
-          <div className="mz-preview-card__details-metric">
-            <span className="mz-preview-card__details-metric-label">
+          <div className="rk-preview-card__details-metric">
+            <span className="rk-preview-card__details-metric-label">
               Weekly Publish
             </span>
-            <strong className="mz-preview-card__details-metric-value">
+            <strong className="rk-preview-card__details-metric-value">
               12
             </strong>
           </div>
         </div>
-        <p className="mz-preview-card__details-copy">
+        <p className="rk-preview-card__details-copy">
           Preview richer surfaces like tab framing, separators, button actions,
           and scrollable content under each theme token set.
         </p>
@@ -268,28 +268,28 @@ const PREVIEW_DETAILS_TABS = [
     key: 'activity',
     label: 'Activity',
     component: (
-      <div className="mz-preview-card__details-panel mz-preview-card__details-panel--list">
-        <div className="mz-preview-card__details-list-item">
-          <span className="mz-preview-card__details-list-title">
+      <div className="rk-preview-card__details-panel rk-preview-card__details-panel--list">
+        <div className="rk-preview-card__details-list-item">
+          <span className="rk-preview-card__details-list-title">
             Tokens synced
           </span>
-          <span className="mz-preview-card__details-list-meta">
+          <span className="rk-preview-card__details-list-meta">
             2 minutes ago
           </span>
         </div>
-        <div className="mz-preview-card__details-list-item">
-          <span className="mz-preview-card__details-list-title">
+        <div className="rk-preview-card__details-list-item">
+          <span className="rk-preview-card__details-list-title">
             Docs build passed
           </span>
-          <span className="mz-preview-card__details-list-meta">
+          <span className="rk-preview-card__details-list-meta">
             7 minutes ago
           </span>
         </div>
-        <div className="mz-preview-card__details-list-item">
-          <span className="mz-preview-card__details-list-title">
+        <div className="rk-preview-card__details-list-item">
+          <span className="rk-preview-card__details-list-title">
             Theme updated
           </span>
-          <span className="mz-preview-card__details-list-meta">Today</span>
+          <span className="rk-preview-card__details-list-meta">Today</span>
         </div>
       </div>
     ),
@@ -398,21 +398,21 @@ function PreviewCard(props: PreviewCardProps) {
   );
 
   return (
-    <article className="mz-preview-card">
-      <div className="mz-preview-card__surface">
-        <div className="mz-preview-card__head">
+    <article className="rk-preview-card">
+      <div className="rk-preview-card__surface">
+        <div className="rk-preview-card__head">
           <div>
-            <h4 className="mz-preview-card__title">Preview Surface</h4>
+            <h4 className="rk-preview-card__title">Preview Surface</h4>
           </div>
         </div>
 
-        <div className="mz-preview-card__stack">
-          <section className="mz-preview-card__section">
-            <div className="mz-preview-card__section-head">
-              <h5 className="mz-preview-card__section-title">Inputs</h5>
+        <div className="rk-preview-card__stack">
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Inputs</h5>
             </div>
-            <div className="mz-preview-card__component-grid">
-              <div className="mz-preview-card__component-item">
+            <div className="rk-preview-card__component-grid">
+              <div className="rk-preview-card__component-item">
                 <Input
                   name="theme-preview-email"
                   label="Email"
@@ -422,7 +422,7 @@ function PreviewCard(props: PreviewCardProps) {
                 />
               </div>
 
-              <div className="mz-preview-card__component-item">
+              <div className="rk-preview-card__component-item">
                 <div className="space-y-2">
                   <Label className="text-xs text-muted-foreground">
                     Search
@@ -437,7 +437,7 @@ function PreviewCard(props: PreviewCardProps) {
                 </div>
               </div>
 
-              <div className="mz-preview-card__component-item">
+              <div className="rk-preview-card__component-item">
                 <DatePicker
                   name="theme-preview-date"
                   label="Start Date"
@@ -448,7 +448,7 @@ function PreviewCard(props: PreviewCardProps) {
                 />
               </div>
 
-              <div className="mz-preview-card__component-item">
+              <div className="rk-preview-card__component-item">
                 <DropDown
                   label="Country"
                   value={selectedCountry}
@@ -462,7 +462,7 @@ function PreviewCard(props: PreviewCardProps) {
                 />
               </div>
 
-              <div className="mz-preview-card__component-item mz-preview-card__component-item--full">
+              <div className="rk-preview-card__component-item rk-preview-card__component-item--full">
                 <Autocomplete<PreviewAssignee>
                   name="theme-preview-assignee"
                   label="Assignee"
@@ -475,11 +475,11 @@ function PreviewCard(props: PreviewCardProps) {
                   getOptionById={getPreviewAssigneeById}
                   getOptionLabel={(item) => item.name}
                   renderOption={(item) => (
-                    <span className="mz-preview-card__autocomplete-option">
-                      <span className="mz-preview-card__autocomplete-name">
+                    <span className="rk-preview-card__autocomplete-option">
+                      <span className="rk-preview-card__autocomplete-name">
                         {item.name}
                       </span>
-                      <span className="mz-preview-card__autocomplete-meta">
+                      <span className="rk-preview-card__autocomplete-meta">
                         {item.role}
                       </span>
                     </span>
@@ -489,12 +489,12 @@ function PreviewCard(props: PreviewCardProps) {
             </div>
           </section>
 
-          <section className="mz-preview-card__section">
-            <div className="mz-preview-card__section-head">
-              <h5 className="mz-preview-card__section-title">Actions</h5>
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Actions</h5>
             </div>
 
-            <div className="mz-preview-card__component-row">
+            <div className="rk-preview-card__component-row">
               <Checkbox
                 name="theme-preview-terms"
                 label="Terms"
@@ -504,7 +504,7 @@ function PreviewCard(props: PreviewCardProps) {
               />
             </div>
 
-            <div className="mz-preview-card__actions">
+            <div className="rk-preview-card__actions">
               <Button
                 label="Primary"
                 variant={ButtonVariant.Primary}
@@ -522,7 +522,7 @@ function PreviewCard(props: PreviewCardProps) {
               />
             </div>
 
-            <div className="mz-preview-card__chips">
+            <div className="rk-preview-card__chips">
               <Chip label="UI" />
               <Chip label="Theme" />
               <Chip label="Preview" />
@@ -535,12 +535,12 @@ function PreviewCard(props: PreviewCardProps) {
             </div>
           </section>
 
-          <section className="mz-preview-card__section">
-            <div className="mz-preview-card__section-head">
-              <h5 className="mz-preview-card__section-title">Data</h5>
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Data</h5>
             </div>
 
-            <div className="mz-preview-card__table-wrap">
+            <div className="rk-preview-card__table-wrap">
               <BaseTable<PreviewServiceRow>
                 data={pagedTableRows}
                 columns={PREVIEW_TABLE_COLUMNS}
@@ -552,17 +552,17 @@ function PreviewCard(props: PreviewCardProps) {
                 sortOrder={tableSortOrder}
                 onSortChange={onTableSortChange}
                 enableSelection
-                className="mz-preview-card__table"
+                className="rk-preview-card__table"
               />
             </div>
           </section>
 
-          <section className="mz-preview-card__section">
-            <div className="mz-preview-card__section-head">
-              <h5 className="mz-preview-card__section-title">Surface</h5>
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Surface</h5>
             </div>
 
-            <div className="mz-preview-card__details-wrap">
+            <div className="rk-preview-card__details-wrap">
               <DetailsCard
                 title="Release Summary"
                 icon={Layers3}
@@ -576,11 +576,11 @@ function PreviewCard(props: PreviewCardProps) {
                   },
                 ]}
                 renderCustomContent={() => (
-                  <div className="mz-preview-card__details-banner">
-                    <span className="mz-preview-card__details-banner-label">
+                  <div className="rk-preview-card__details-banner">
+                    <span className="rk-preview-card__details-banner-label">
                       Latest
                     </span>
-                    <span className="mz-preview-card__details-banner-text">
+                    <span className="rk-preview-card__details-banner-text">
                       Theme tokens are in sync across docs, package CSS, and
                       preview.
                     </span>
@@ -590,18 +590,18 @@ function PreviewCard(props: PreviewCardProps) {
             </div>
           </section>
 
-          <section className="mz-preview-card__section">
-            <div className="mz-preview-card__section-head">
-              <h5 className="mz-preview-card__section-title">Layout</h5>
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Layout</h5>
             </div>
 
-            <div className="mz-preview-card__page-wrap">
+            <div className="rk-preview-card__page-wrap">
               <Page
-                className="mz-preview-card__page"
+                className="rk-preview-card__page"
                 onSearch={onPageSearchChange}
                 searchPlaceholder="Search releases"
                 filterSlot={
-                  <span className="mz-preview-card__page-filter">
+                  <span className="rk-preview-card__page-filter">
                     All teams
                   </span>
                 }
@@ -618,48 +618,48 @@ function PreviewCard(props: PreviewCardProps) {
                   },
                 ]}
               >
-                <div className="mz-preview-card__page-body">
-                  <div className="mz-preview-card__page-metrics">
-                    <div className="mz-preview-card__page-panel">
-                      <span className="mz-preview-card__page-panel-label">
+                <div className="rk-preview-card__page-body">
+                  <div className="rk-preview-card__page-metrics">
+                    <div className="rk-preview-card__page-panel">
+                      <span className="rk-preview-card__page-panel-label">
                         Active query
                       </span>
-                      <strong className="mz-preview-card__page-panel-value">
+                      <strong className="rk-preview-card__page-panel-value">
                         {pageSearchValue || 'No search applied'}
                       </strong>
                     </div>
-                    <div className="mz-preview-card__page-panel">
-                      <span className="mz-preview-card__page-panel-label">
+                    <div className="rk-preview-card__page-panel">
+                      <span className="rk-preview-card__page-panel-label">
                         Ready to publish
                       </span>
-                      <strong className="mz-preview-card__page-panel-value">
+                      <strong className="rk-preview-card__page-panel-value">
                         24 components
                       </strong>
                     </div>
                   </div>
 
-                  <div className="mz-preview-card__page-feed">
-                    <div className="mz-preview-card__page-feed-item">
-                      <span className="mz-preview-card__page-feed-title">
+                  <div className="rk-preview-card__page-feed">
+                    <div className="rk-preview-card__page-feed-item">
+                      <span className="rk-preview-card__page-feed-title">
                         Token audit finished
                       </span>
-                      <span className="mz-preview-card__page-feed-meta">
+                      <span className="rk-preview-card__page-feed-meta">
                         8 themes checked
                       </span>
                     </div>
-                    <div className="mz-preview-card__page-feed-item">
-                      <span className="mz-preview-card__page-feed-title">
+                    <div className="rk-preview-card__page-feed-item">
+                      <span className="rk-preview-card__page-feed-title">
                         Preview snapshots updated
                       </span>
-                      <span className="mz-preview-card__page-feed-meta">
+                      <span className="rk-preview-card__page-feed-meta">
                         Build artifacts refreshed
                       </span>
                     </div>
-                    <div className="mz-preview-card__page-feed-item">
-                      <span className="mz-preview-card__page-feed-title">
+                    <div className="rk-preview-card__page-feed-item">
+                      <span className="rk-preview-card__page-feed-title">
                         Release notes drafted
                       </span>
-                      <span className="mz-preview-card__page-feed-meta">
+                      <span className="rk-preview-card__page-feed-meta">
                         Awaiting approval
                       </span>
                     </div>
@@ -669,23 +669,23 @@ function PreviewCard(props: PreviewCardProps) {
             </div>
           </section>
 
-          <section className="mz-preview-card__section">
-            <div className="mz-preview-card__section-head">
-              <h5 className="mz-preview-card__section-title">Tokens</h5>
+          <section className="rk-preview-card__section">
+            <div className="rk-preview-card__section-head">
+              <h5 className="rk-preview-card__section-title">Tokens</h5>
             </div>
 
             <div
-              className="mz-preview-card__token-grid"
+              className="rk-preview-card__token-grid"
               aria-label="Token swatches"
             >
               {TOKEN_SWATCHES.map((swatch) => (
-                <span key={swatch.token} className="mz-token-item">
+                <span key={swatch.token} className="rk-token-item">
                   <span
-                    className="mz-token-item__dot"
+                    className="rk-token-item__dot"
                     style={{ backgroundColor: `hsl(var(${swatch.token}))` }}
                     aria-hidden="true"
                   />
-                  <span className="mz-token-item__label">{swatch.label}</span>
+                  <span className="rk-token-item__label">{swatch.label}</span>
                 </span>
               ))}
             </div>
@@ -730,10 +730,10 @@ export function ThemePlayground() {
   }, []);
 
   return (
-    <section className="mz-theme-playground" aria-label="Theme playground">
-      <header className="mz-theme-playground__header">
-        <div className="mz-theme-playground__selector-row">
-          <div className="mz-theme-control">
+    <section className="rk-theme-playground" aria-label="Theme playground">
+      <header className="rk-theme-playground__header">
+        <div className="rk-theme-playground__selector-row">
+          <div className="rk-theme-control">
             <DropDown
               value={theme}
               onChange={(nextTheme) =>
@@ -744,12 +744,12 @@ export function ThemePlayground() {
                 value: option.id,
               }))}
               placeholder="Theme"
-              className="mz-theme-dropdown"
+              className="rk-theme-dropdown"
               renderOption={(option) => (
-                <span className="mz-theme-option-label">
+                <span className="rk-theme-option-label">
                   <Icon
                     icon={Palette}
-                    className="mz-theme-option-icon"
+                    className="rk-theme-option-icon"
                     aria-hidden="true"
                   />
                   {option.label}
@@ -760,7 +760,7 @@ export function ThemePlayground() {
         </div>
       </header>
 
-      <div className="mz-theme-playground__preview-grid">
+      <div className="rk-theme-playground__preview-grid">
         <PreviewCard
           email={email}
           searchValue={searchValue}

@@ -7,7 +7,7 @@ Composable modal shell for reusable dialogs with optional Save/Cancel actions, c
 ## Import
 
 ```tsx
-import { BaseModal, ButtonVariant } from '@tarikukebede/mezmer';
+import { BaseModal, ButtonVariant } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="base-modal" />

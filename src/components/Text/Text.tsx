@@ -49,7 +49,7 @@ export function Text(props: Readonly<TextProps>) {
     {
       ...rest,
       className: cn(
-        'text-[length:var(--mz-control-font-size)] leading-normal',
+        'text-[length:var(--rk-control-font-size)] leading-normal',
         TEXT_TONE_CLASS_NAMES[tone],
         TEXT_WEIGHT_CLASS_NAMES[weight],
         truncate && 'truncate',

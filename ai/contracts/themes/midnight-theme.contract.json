@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "cssPath": "src/themes/midnight.css",
   "modes": ["light", "dark"],
-  "tokenPrefix": "--mz-",
+  "tokenPrefix": "--rk-",
   "tokenCoverage": [
     "background",
     "foreground",

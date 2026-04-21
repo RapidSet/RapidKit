@@ -171,20 +171,20 @@ const toolTextResult = (payload) => ({
 const createMcpServer = () => {
   const server = new McpServer(
     {
-      name: 'mezmer-contract-server',
+      name: 'rapidkit-contract-server',
       version: '0.1.0',
     },
     {
       instructions:
-        'Use this server as the source of truth for Mezmer contracts, themes, docs, and validation diagnostics.',
+        'Use this server as the source of truth for RapidKit contracts, themes, docs, and validation diagnostics.',
     },
   );
 
   server.registerResource(
     'contracts-index',
-    'mezmer://contracts/index',
+    'rapidkit://contracts/index',
     {
-      title: 'Mezmer Contracts Index',
+      title: 'RapidKit Contracts Index',
       description:
         'Registry of all component and theme contracts declared in ai/contracts/index.json.',
       mimeType: 'application/json',
@@ -192,7 +192,7 @@ const createMcpServer = () => {
     async () => {
       const index = loadContractIndex();
 
-      return jsonTextContent('mezmer://contracts/index', {
+      return jsonTextContent('rapidkit://contracts/index', {
         version: index.version,
         components: index.components,
         themes: index.themes,
@@ -202,9 +202,9 @@ const createMcpServer = () => {
 
   server.registerResource(
     'active-theme',
-    'mezmer://themes/active',
+    'rapidkit://themes/active',
     {
-      title: 'Mezmer Active Theme',
+      title: 'RapidKit Active Theme',
       description:
         'Current workspace active theme pointer from ai/theme.active.json.',
       mimeType: 'application/json',
@@ -212,7 +212,7 @@ const createMcpServer = () => {
     async () => {
       const activeTheme = getActiveTheme();
 
-      return jsonTextContent('mezmer://themes/active', {
+      return jsonTextContent('rapidkit://themes/active', {
         activeTheme,
       });
     },
@@ -220,13 +220,13 @@ const createMcpServer = () => {
 
   server.registerResource(
     'component-contract',
-    new ResourceTemplate('mezmer://contracts/components/{name}', {
+    new ResourceTemplate('rapidkit://contracts/components/{name}', {
       list: async () => {
         const { components } = loadContractIndex();
 
         return {
           resources: components.map((component) => ({
-            uri: `mezmer://contracts/components/${component.name.toLowerCase()}`,
+            uri: `rapidkit://contracts/components/${component.name.toLowerCase()}`,
             name: component.name,
             description: `Contract for ${component.name}`,
             mimeType: 'application/json',
@@ -245,7 +245,7 @@ const createMcpServer = () => {
       },
     }),
     {
-      title: 'Mezmer Component Contract',
+      title: 'RapidKit Component Contract',
       description: 'Read component contracts by name.',
       mimeType: 'application/json',
     },
@@ -258,7 +258,7 @@ const createMcpServer = () => {
       }
 
       const contract = loadComponentContract(component);
-      const resourceUri = `mezmer://contracts/components/${component.name.toLowerCase()}`;
+      const resourceUri = `rapidkit://contracts/components/${component.name.toLowerCase()}`;
 
       return jsonTextContent(resourceUri, {
         name: component.name,
@@ -270,13 +270,13 @@ const createMcpServer = () => {
 
   server.registerResource(
     'component-doc',
-    new ResourceTemplate('mezmer://docs/components/{name}', {
+    new ResourceTemplate('rapidkit://docs/components/{name}', {
       list: async () => {
         const { components } = loadContractIndex();
 
         return {
           resources: components.map((component) => ({
-            uri: `mezmer://docs/components/${component.name.toLowerCase()}`,
+            uri: `rapidkit://docs/components/${component.name.toLowerCase()}`,
             name: `${component.name} docs`,
             description: `Component documentation for ${component.name}`,
             mimeType: 'text/markdown',
@@ -295,7 +295,7 @@ const createMcpServer = () => {
       },
     }),
     {
-      title: 'Mezmer Component Docs',
+      title: 'RapidKit Component Docs',
       description: 'Read docs/components/<component>.md by component name.',
       mimeType: 'text/markdown',
     },
@@ -313,7 +313,7 @@ const createMcpServer = () => {
         throw new Error(`Missing component docs file: ${doc.relativePath}`);
       }
 
-      const resourceUri = `mezmer://docs/components/${component.name.toLowerCase()}`;
+      const resourceUri = `rapidkit://docs/components/${component.name.toLowerCase()}`;
 
       return markdownTextContent(resourceUri, doc.text);
     },
@@ -564,7 +564,7 @@ const createMcpServer = () => {
 
 const showHelp = () => {
   process.stdout.write(
-    `Mezmer MCP server\n\nUsage:\n  node scripts/mcp-server.mjs\n\nThis starts a stdio MCP server exposing read-only contracts, themes, docs, and validation tools.\n`,
+    `RapidKit MCP server\n\nUsage:\n  node scripts/mcp-server.mjs\n\nThis starts a stdio MCP server exposing read-only contracts, themes, docs, and validation tools.\n`,
   );
 };
 
@@ -583,6 +583,6 @@ const main = async () => {
 try {
   await main();
 } catch (error) {
-  process.stderr.write(`Failed to start Mezmer MCP server: ${String(error)}\n`);
+  process.stderr.write(`Failed to start RapidKit MCP server: ${String(error)}\n`);
   process.exit(1);
 }

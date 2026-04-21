@@ -6,27 +6,27 @@
 
 @layer base {
   :root {
-    --mz-background: var(--background, 0 0% 100%);
-    --mz-foreground: var(--foreground, 0 0% 3.9%);
-    --mz-card: var(--card, 0 0% 100%);
-    --mz-card-foreground: var(--card-foreground, 0 0% 3.9%);
-    --mz-popover: var(--popover, 0 0% 100%);
-    --mz-popover-foreground: var(--popover-foreground, 0 0% 3.9%);
-    --mz-primary: var(--primary, 0 0% 9%);
-    --mz-primary-foreground: var(--primary-foreground, 0 0% 98%);
-    --mz-secondary: var(--secondary, 0 0% 96.1%);
-    --mz-secondary-foreground: var(--secondary-foreground, 0 0% 9%);
-    --mz-muted: var(--muted, 0 0% 96.1%);
-    --mz-muted-foreground: var(--muted-foreground, 0 0% 45.1%);
-    --mz-accent: var(--accent, 0 0% 96.1%);
-    --mz-accent-foreground: var(--accent-foreground, 0 0% 9%);
-    --mz-destructive: var(--destructive, 0 84.2% 60.2%);
-    --mz-destructive-foreground: var(--destructive-foreground, 0 0% 98%);
-    --mz-border: var(--border, 0 0% 89.8%);
-    --mz-input: var(--input, 0 0% 89.8%);
-    --mz-ring: var(--ring, 0 0% 3.9%);
-    --mz-radius: var(--radius, 0.4rem);
-    --mz-font-sans: var(
+    --rk-background: var(--background, 0 0% 100%);
+    --rk-foreground: var(--foreground, 0 0% 3.9%);
+    --rk-card: var(--card, 0 0% 100%);
+    --rk-card-foreground: var(--card-foreground, 0 0% 3.9%);
+    --rk-popover: var(--popover, 0 0% 100%);
+    --rk-popover-foreground: var(--popover-foreground, 0 0% 3.9%);
+    --rk-primary: var(--primary, 0 0% 9%);
+    --rk-primary-foreground: var(--primary-foreground, 0 0% 98%);
+    --rk-secondary: var(--secondary, 0 0% 96.1%);
+    --rk-secondary-foreground: var(--secondary-foreground, 0 0% 9%);
+    --rk-muted: var(--muted, 0 0% 96.1%);
+    --rk-muted-foreground: var(--muted-foreground, 0 0% 45.1%);
+    --rk-accent: var(--accent, 0 0% 96.1%);
+    --rk-accent-foreground: var(--accent-foreground, 0 0% 9%);
+    --rk-destructive: var(--destructive, 0 84.2% 60.2%);
+    --rk-destructive-foreground: var(--destructive-foreground, 0 0% 98%);
+    --rk-border: var(--border, 0 0% 89.8%);
+    --rk-input: var(--input, 0 0% 89.8%);
+    --rk-ring: var(--ring, 0 0% 3.9%);
+    --rk-radius: var(--radius, 0.4rem);
+    --rk-font-sans: var(
       --font-sans,
       'Avenir Next',
       'Nunito Sans',
@@ -36,7 +36,7 @@
       Arial,
       sans-serif
     );
-    --mz-font-mono: var(
+    --rk-font-mono: var(
       --font-mono,
       'JetBrains Mono',
       'SFMono-Regular',
@@ -47,50 +47,50 @@
       'Courier New',
       monospace
     );
-    --mz-button-height: var(--mz-control-height);
-    --mz-button-padding-x: 1rem;
-    --mz-button-padding-y: 0.625rem;
-    --mz-button-font-size: 0.875rem;
-    --mz-button-font-weight: 600;
-    --mz-button-letter-spacing: 0.01em;
-    --mz-button-shadow: 0 1px 2px hsl(var(--mz-foreground) / 0.08);
-    --mz-button-shadow-hover: 0 8px 16px hsl(var(--mz-foreground) / 0.14);
-    --mz-control-height: 2.625rem;
-    --mz-control-padding-x: 0.75rem;
-    --mz-control-padding-y: 0.5rem;
-    --mz-control-font-size: 0.875rem;
-    --mz-control-border: var(--control-border, 0 0% 89.8%);
-    --mz-control-shadow: 0 1px 2px hsl(var(--mz-foreground) / 0.06);
-    --mz-control-shadow-focus: 0 0 0 3px hsl(var(--mz-ring) / 0.22);
-    --mz-checkbox-size: 1rem;
-    --mz-checkbox-radius: 0.1875rem;
+    --rk-button-height: var(--rk-control-height);
+    --rk-button-padding-x: 1rem;
+    --rk-button-padding-y: 0.625rem;
+    --rk-button-font-size: 0.875rem;
+    --rk-button-font-weight: 600;
+    --rk-button-letter-spacing: 0.01em;
+    --rk-button-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.08);
+    --rk-button-shadow-hover: 0 8px 16px hsl(var(--rk-foreground) / 0.14);
+    --rk-control-height: 2.625rem;
+    --rk-control-padding-x: 0.75rem;
+    --rk-control-padding-y: 0.5rem;
+    --rk-control-font-size: 0.875rem;
+    --rk-control-border: var(--control-border, 0 0% 89.8%);
+    --rk-control-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.06);
+    --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.22);
+    --rk-checkbox-size: 1rem;
+    --rk-checkbox-radius: 0.1875rem;
   }
 
   .dark {
-    --mz-background: var(--background, 0 0% 3.9%);
-    --mz-foreground: var(--foreground, 0 0% 98%);
-    --mz-card: var(--card, 0 0% 3.9%);
-    --mz-card-foreground: var(--card-foreground, 0 0% 98%);
-    --mz-popover: var(--popover, 0 0% 3.9%);
-    --mz-popover-foreground: var(--popover-foreground, 0 0% 98%);
-    --mz-primary: var(--primary, 0 0% 98%);
-    --mz-primary-foreground: var(--primary-foreground, 0 0% 9%);
-    --mz-secondary: var(--secondary, 0 0% 14.9%);
-    --mz-secondary-foreground: var(--secondary-foreground, 0 0% 98%);
-    --mz-muted: var(--muted, 0 0% 14.9%);
-    --mz-muted-foreground: var(--muted-foreground, 0 0% 63.9%);
-    --mz-accent: var(--accent, 0 0% 14.9%);
-    --mz-accent-foreground: var(--accent-foreground, 0 0% 98%);
-    --mz-destructive: var(--destructive, 0 62.8% 30.6%);
-    --mz-destructive-foreground: var(--destructive-foreground, 0 0% 98%);
-    --mz-border: var(--border, 0 0% 14.9%);
-    --mz-input: var(--input, 0 0% 14.9%);
-    --mz-ring: var(--ring, 0 0% 83.1%);
-    --mz-control-border: var(--control-border, 0 0% 14.9%);
-    --mz-button-shadow: 0 1px 2px hsl(0 0% 0% / 0.45);
-    --mz-button-shadow-hover: 0 10px 18px hsl(0 0% 0% / 0.5);
-    --mz-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.3);
-    --mz-control-shadow-focus: 0 0 0 3px hsl(var(--mz-ring) / 0.3);
+    --rk-background: var(--background, 0 0% 3.9%);
+    --rk-foreground: var(--foreground, 0 0% 98%);
+    --rk-card: var(--card, 0 0% 3.9%);
+    --rk-card-foreground: var(--card-foreground, 0 0% 98%);
+    --rk-popover: var(--popover, 0 0% 3.9%);
+    --rk-popover-foreground: var(--popover-foreground, 0 0% 98%);
+    --rk-primary: var(--primary, 0 0% 98%);
+    --rk-primary-foreground: var(--primary-foreground, 0 0% 9%);
+    --rk-secondary: var(--secondary, 0 0% 14.9%);
+    --rk-secondary-foreground: var(--secondary-foreground, 0 0% 98%);
+    --rk-muted: var(--muted, 0 0% 14.9%);
+    --rk-muted-foreground: var(--muted-foreground, 0 0% 63.9%);
+    --rk-accent: var(--accent, 0 0% 14.9%);
+    --rk-accent-foreground: var(--accent-foreground, 0 0% 98%);
+    --rk-destructive: var(--destructive, 0 62.8% 30.6%);
+    --rk-destructive-foreground: var(--destructive-foreground, 0 0% 98%);
+    --rk-border: var(--border, 0 0% 14.9%);
+    --rk-input: var(--input, 0 0% 14.9%);
+    --rk-ring: var(--ring, 0 0% 83.1%);
+    --rk-control-border: var(--control-border, 0 0% 14.9%);
+    --rk-button-shadow: 0 1px 2px hsl(0 0% 0% / 0.45);
+    --rk-button-shadow-hover: 0 10px 18px hsl(0 0% 0% / 0.5);
+    --rk-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.3);
+    --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.3);
   }
 
   * {
@@ -98,7 +98,7 @@
   }
 
   input[type='checkbox'] {
-    accent-color: hsl(var(--mz-primary));
+    accent-color: hsl(var(--rk-primary));
   }
 
   body {

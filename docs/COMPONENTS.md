@@ -4,25 +4,25 @@ This file is the stable entrypoint for component docs.
 
 For scalable, per-component documentation, use the docs hub:
 
-- https://tarikukebede.github.io/mezmer/components/
+- https://rapidset.github.io/RapidKit/components/
 
 Direct links:
 
-- https://tarikukebede.github.io/mezmer/components/autocomplete
-- https://tarikukebede.github.io/mezmer/components/base-modal
-- https://tarikukebede.github.io/mezmer/components/base-table
-- https://tarikukebede.github.io/mezmer/components/button
-- https://tarikukebede.github.io/mezmer/components/checkbox
-- https://tarikukebede.github.io/mezmer/components/chip
-- https://tarikukebede.github.io/mezmer/components/date-picker
-- https://tarikukebede.github.io/mezmer/components/details-card
-- https://tarikukebede.github.io/mezmer/components/drop-down
-- https://tarikukebede.github.io/mezmer/components/icon
-- https://tarikukebede.github.io/mezmer/components/image
-- https://tarikukebede.github.io/mezmer/components/input
-- https://tarikukebede.github.io/mezmer/components/page
-- https://tarikukebede.github.io/mezmer/components/search
-- https://tarikukebede.github.io/mezmer/components/text
-- https://tarikukebede.github.io/mezmer/components/text-area
+- https://rapidset.github.io/RapidKit/components/autocomplete
+- https://rapidset.github.io/RapidKit/components/base-modal
+- https://rapidset.github.io/RapidKit/components/base-table
+- https://rapidset.github.io/RapidKit/components/button
+- https://rapidset.github.io/RapidKit/components/checkbox
+- https://rapidset.github.io/RapidKit/components/chip
+- https://rapidset.github.io/RapidKit/components/date-picker
+- https://rapidset.github.io/RapidKit/components/details-card
+- https://rapidset.github.io/RapidKit/components/drop-down
+- https://rapidset.github.io/RapidKit/components/icon
+- https://rapidset.github.io/RapidKit/components/image
+- https://rapidset.github.io/RapidKit/components/input
+- https://rapidset.github.io/RapidKit/components/page
+- https://rapidset.github.io/RapidKit/components/search
+- https://rapidset.github.io/RapidKit/components/text
+- https://rapidset.github.io/RapidKit/components/text-area
 
 This keeps links stable for existing consumers while allowing component docs to grow independently.

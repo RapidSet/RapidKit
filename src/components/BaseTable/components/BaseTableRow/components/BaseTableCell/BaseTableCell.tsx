@@ -43,7 +43,7 @@ const ActionMenu = <T extends object>({
       <DropdownMenuTrigger
         aria-label="Open row actions"
         aria-haspopup="menu"
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:shadow-[var(--mz-control-shadow-focus)] disabled:pointer-events-none disabled:opacity-50"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:shadow-[var(--rk-control-shadow-focus)] disabled:pointer-events-none disabled:opacity-50"
         disabled={disabled}
         onClick={(event) => event.stopPropagation()}
       >

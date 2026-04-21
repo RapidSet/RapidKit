@@ -7,7 +7,7 @@ Image component with size variants and fallback icon rendering when source is mi
 ## Import
 
 ```tsx
-import { Image } from '@tarikukebede/mezmer';
+import { Image } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="image" />

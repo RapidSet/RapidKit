@@ -17,11 +17,11 @@ export default function HomeLandingPage() {
   };
 
   return (
-    <div className="mz-home">
+    <div className="rk-home">
       <SiteHeader items={SITE_NAV_ITEMS} />
-      <section className="mz-hero">
-        <article className="mz-hero-copy">
-          <a className="mz-announcement" href={toHref('/ARCHITECTURE/')}>
+      <section className="rk-hero">
+        <article className="rk-hero-copy">
+          <a className="rk-announcement" href={toHref('/ARCHITECTURE/')}>
             <Chip
               label="Standalone, reusable, publishable"
               icon={Cpu}
@@ -31,13 +31,13 @@ export default function HomeLandingPage() {
             />
           </a>
           <h1>AI-first React UI kit for production-grade delivery.</h1>
-          <p className="mz-subtitle">
+          <p className="rk-subtitle">
             RapidKit is a domain-neutral component library for external
             consumers, engineered for AI-assisted implementation with strict
             TypeScript APIs, contract-aligned docs, and tree-shakeable package
             exports.
           </p>
-          <div className="mz-hero-actions">
+          <div className="rk-hero-actions">
             <Button
               variant={ButtonVariant.Primary}
               rightIcon={ArrowRight}
@@ -53,7 +53,7 @@ export default function HomeLandingPage() {
               View Components
             </Button>
           </div>
-          <ul className="mz-hero-meta" aria-label="Highlights">
+          <ul className="rk-hero-meta" aria-label="Highlights">
             <li>
               <Chip
                 label="AI-first contract workflow"

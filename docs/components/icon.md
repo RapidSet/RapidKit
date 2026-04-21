@@ -7,7 +7,7 @@ Thin, typed wrapper around Lucide icons with prop forwarding.
 ## Import
 
 ```tsx
-import { Icon } from '@tarikukebede/mezmer';
+import { Icon } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="icon" />

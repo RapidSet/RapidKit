@@ -3,8 +3,8 @@ import type { CSSProperties } from 'react';
 import { DatePicker } from '../../src/components/DatePicker';
 
 const BASE_THEME_STYLE = {
-  '--mz-control-border': '220 18% 35% / 0.45',
-  '--mz-control-font-size': '0.875rem',
+  '--rk-control-border': '220 18% 35% / 0.45',
+  '--rk-control-font-size': '0.875rem',
 } as CSSProperties;
 
 test.describe('DatePicker Theme Styling (Component Test)', () => {
@@ -51,13 +51,13 @@ test.describe('DatePicker Theme Styling (Component Test)', () => {
       <div className="flex gap-4">
         <div
           style={
-            { '--mz-control-border': '210 10% 30% / 0.45' } as CSSProperties
+            { '--rk-control-border': '210 10% 30% / 0.45' } as CSSProperties
           }
         >
           <DatePicker name="date-a" value="" onChange={() => {}} />
         </div>
         <div
-          style={{ '--mz-control-border': '24 90% 42% / 0.6' } as CSSProperties}
+          style={{ '--rk-control-border': '24 90% 42% / 0.6' } as CSSProperties}
         >
           <DatePicker name="date-b" value="" onChange={() => {}} />
         </div>

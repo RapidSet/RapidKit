@@ -25,9 +25,9 @@ export const THEME_OPTIONS = DOCS_THEME_OPTIONS.map(({ id, label }) => ({
 }));
 
 export const THEME_STORAGE_KEY = DOCS_THEME_STORAGE_KEY;
-export const MODE_STORAGE_KEY = 'mezmer:landing-mode';
+export const MODE_STORAGE_KEY = 'rapidkit:landing-mode';
 export const RUNTIME_THEME_LINK_ID = THEME_LINK_ID;
-const LEGACY_RUNTIME_THEME_LINK_ID = 'mz-runtime-theme';
+const LEGACY_RUNTIME_THEME_LINK_ID = 'rk-runtime-theme';
 
 export const resolveStoredThemeId = () => {
   if (globalThis.localStorage === undefined) {

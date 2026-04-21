@@ -7,7 +7,7 @@ Theme-aware checkbox with optional label/title, helper text, and error state.
 ## Import
 
 ```tsx
-import { Checkbox } from '@tarikukebede/mezmer';
+import { Checkbox } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="checkbox" />

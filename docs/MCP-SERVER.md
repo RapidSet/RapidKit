@@ -1,6 +1,6 @@
 # MCP Server
 
-Mezmer includes a repository-local MCP server for AI-assisted development workflows.
+RapidKit includes a repository-local MCP server for AI-assisted development workflows.
 
 ## Purpose
 
@@ -90,7 +90,7 @@ Reusable example:
 {
   "command": "pnpm",
   "args": ["mcp:server"],
-  "cwd": "/absolute/path/to/mezmer"
+  "cwd": "/absolute/path/to/rapidkit"
 }
 ```
 
@@ -110,17 +110,17 @@ Use the repository root as the working directory and point the command to:
 ```json
 {
   "servers": {
-    "mezmer": {
+    "rapidkit": {
       "type": "stdio",
       "command": "pnpm",
       "args": ["mcp:server"],
-      "cwd": "/Users/you/Code/mezmer"
+      "cwd": "/Users/you/Code/rapidkit"
     }
   }
 }
 ```
 
-Once connected, MCP-aware chat or agent workflows can query Mezmer contracts, docs, themes, and validation tools directly.
+Once connected, MCP-aware chat or agent workflows can query RapidKit contracts, docs, themes, and validation tools directly.
 
 ### Claude Code
 
@@ -136,7 +136,7 @@ Project-scoped example for this repository:
 ```json
 {
   "mcpServers": {
-    "mezmer": {
+    "rapidkit": {
       "command": "pnpm",
       "args": ["mcp:server"],
       "env": {}
@@ -148,13 +148,13 @@ Project-scoped example for this repository:
 From the repository root, you can also register it without editing JSON manually:
 
 ```bash
-claude mcp add --transport stdio --scope project mezmer -- pnpm mcp:server
+claude mcp add --transport stdio --scope project rapidkit -- pnpm mcp:server
 ```
 
 If you want the server available across projects instead, use user scope:
 
 ```bash
-claude mcp add --transport stdio --scope user mezmer -- pnpm mcp:server
+claude mcp add --transport stdio --scope user rapidkit -- pnpm mcp:server
 ```
 
 After setup, use `/mcp` inside Claude Code to inspect connection state.
@@ -166,7 +166,7 @@ Claude Desktop also supports local MCP servers, but the easiest accurate path is
 - configure it through Claude Desktop directly, or
 - import from Claude Code after adding the server there
 
-If you already added Mezmer in Claude Code, you can use:
+If you already added RapidKit in Claude Code, you can use:
 
 ```bash
 claude mcp add-from-claude-desktop
@@ -176,7 +176,7 @@ If your environment does not expose `pnpm` on the PATH for GUI apps, replace `pn
 
 ### Cursor
 
-In Cursor, add Mezmer as a local MCP server and configure it as a stdio command with the repository root as `cwd`.
+In Cursor, add RapidKit as a local MCP server and configure it as a stdio command with the repository root as `cwd`.
 
 Use the same stdio values:
 
@@ -184,22 +184,22 @@ Use the same stdio values:
 {
   "command": "pnpm",
   "args": ["mcp:server"],
-  "cwd": "/Users/you/Code/mezmer"
+  "cwd": "/Users/you/Code/rapidkit"
 }
 ```
 
 Cursor's public docs did not expose a stable macOS config-file path in the reference used for this guide, so prefer the in-app MCP setup flow and paste the values above.
 
-After connection, Cursor can use the Mezmer MCP surface for more accurate component generation and validation-aware edits.
+After connection, Cursor can use the RapidKit MCP surface for more accurate component generation and validation-aware edits.
 
 ### macOS Example Paths
 
-For a repository cloned to `/Users/you/Code/mezmer`, common macOS examples look like:
+For a repository cloned to `/Users/you/Code/rapidkit`, common macOS examples look like:
 
 ```json
 {
-  "workspaceVscodeConfig": "/Users/you/Code/mezmer/.vscode/mcp.json",
-  "claudeProjectConfig": "/Users/you/Code/mezmer/.mcp.json",
+  "workspaceVscodeConfig": "/Users/you/Code/rapidkit/.vscode/mcp.json",
+  "claudeProjectConfig": "/Users/you/Code/rapidkit/.mcp.json",
   "claudeUserConfig": "/Users/you/.claude.json"
 }
 ```

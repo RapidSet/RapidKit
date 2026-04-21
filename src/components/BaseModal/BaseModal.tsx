@@ -139,7 +139,7 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 onClick={handleCancel}
                 disabled={isLoading}
                 label={cancelLabel}
-                className="h-[var(--mz-control-height)] min-w-[80px] py-[var(--mz-button-padding-y)]"
+                className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
               />
             )}
             {customButtons.map((button) => (
@@ -150,7 +150,7 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 disabled={button.disabled || button.loading || isLoading}
                 loading={button.loading}
                 label={button.label}
-                className="h-[var(--mz-control-height)] min-w-[80px] py-[var(--mz-button-padding-y)]"
+                className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
                 accessRequirements={button.accessRequirements}
                 resolveAccess={resolveAccess}
               />
@@ -162,7 +162,7 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 disabled={saveDisabled || !onSave}
                 loading={isLoading}
                 label={saveLabel}
-                className="h-[var(--mz-control-height)] min-w-[80px] py-[var(--mz-button-padding-y)]"
+                className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
                 accessRequirements={saveAccessRequirements}
                 resolveAccess={resolveAccess}
               />

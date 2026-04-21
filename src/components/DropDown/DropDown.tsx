@@ -74,14 +74,14 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
             className={cn(
               'rounded-sm border ring-0',
               canClear && 'pr-10 [&>svg]:hidden',
-              '[&>span]:text-[length:var(--mz-control-font-size)] data-[placeholder]:text-muted-foreground/60',
+              '[&>span]:text-[length:var(--rk-control-font-size)] data-[placeholder]:text-muted-foreground/60',
               error && 'border-destructive',
             )}
             aria-invalid={error ? 'true' : undefined}
           >
             <SelectValue placeholder={placeholder}>
               {selectedOption && (
-                <span className="text-[length:var(--mz-control-font-size)] text-foreground">
+                <span className="text-[length:var(--rk-control-font-size)] text-foreground">
                   {renderOption
                     ? renderOption(selectedOption)
                     : selectedOption.label}
@@ -95,7 +95,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
                 <div
                   className={cn(
                     optionListEmptyStateClassName,
-                    'px-[var(--mz-control-padding-x)]',
+                    'px-[var(--rk-control-padding-x)]',
                   )}
                 >
                   No options found
@@ -128,7 +128,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
               onChange('');
             }}
             aria-label="Clear selection"
-            className="absolute right-3 top-1/2 inline-flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]"
+            className="absolute right-3 top-1/2 inline-flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--rk-control-shadow-focus)]"
           >
             <X className="h-3.5 w-3.5" />
           </button>

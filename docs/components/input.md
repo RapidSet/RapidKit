@@ -7,7 +7,7 @@ Controlled text input wrapper with optional label, helper/error text, and access
 ## Import
 
 ```tsx
-import { Input } from '@tarikukebede/mezmer';
+import { Input } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="input" />

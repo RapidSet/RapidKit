@@ -5,10 +5,10 @@ import { Button } from '../../src/components/Button/Button';
 import { ButtonVariant } from '../../src/components/Button/styles';
 
 const THEME_HOST_STYLE = {
-  '--mz-primary': '214 84% 42%',
-  '--mz-primary-foreground': '0 0% 100%',
-  '--mz-destructive': '0 76% 47%',
-  '--mz-destructive-foreground': '0 0% 100%',
+  '--rk-primary': '214 84% 42%',
+  '--rk-primary-foreground': '0 0% 100%',
+  '--rk-destructive': '0 76% 47%',
+  '--rk-destructive-foreground': '0 0% 100%',
 } as CSSProperties;
 
 test.describe('Theme Styling (Component Test)', () => {
@@ -26,7 +26,7 @@ test.describe('Theme Styling (Component Test)', () => {
     );
 
     await component.evaluate((host) => {
-      (host as HTMLElement).style.setProperty('--mz-primary', '18 90% 42%');
+      (host as HTMLElement).style.setProperty('--rk-primary', '18 90% 42%');
     });
 
     const updatedAccent = await checkbox.evaluate(
@@ -44,7 +44,7 @@ test.describe('Theme Styling (Component Test)', () => {
         <div
           style={
             {
-              '--mz-control-border': '210 10% 30% / 0.45',
+              '--rk-control-border': '210 10% 30% / 0.45',
             } as CSSProperties
           }
         >
@@ -53,7 +53,7 @@ test.describe('Theme Styling (Component Test)', () => {
         <div
           style={
             {
-              '--mz-control-border': '24 90% 42% / 0.6',
+              '--rk-control-border': '24 90% 42% / 0.6',
             } as CSSProperties
           }
         >
@@ -184,9 +184,9 @@ test.describe('Theme Styling (Component Test)', () => {
         <div
           style={
             {
-              '--mz-background': '0 0% 100%',
-              '--mz-input': '220 15% 70%',
-              '--mz-foreground': '220 20% 12%',
+              '--rk-background': '0 0% 100%',
+              '--rk-input': '220 15% 70%',
+              '--rk-foreground': '220 20% 12%',
             } as CSSProperties
           }
         >
@@ -196,9 +196,9 @@ test.describe('Theme Styling (Component Test)', () => {
           className="dark"
           style={
             {
-              '--mz-background': '222 30% 10%',
-              '--mz-input': '222 20% 35%',
-              '--mz-foreground': '210 25% 96%',
+              '--rk-background': '222 30% 10%',
+              '--rk-input': '222 20% 35%',
+              '--rk-foreground': '210 25% 96%',
             } as CSSProperties
           }
         >

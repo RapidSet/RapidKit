@@ -28,7 +28,7 @@ hero:
     Build faster with proven technologies, predictable APIs, and enterprise-ready implementation patterns.
   </p>
   <p class="home-center__sub">
-    Mezmer is engineered for production-grade, agent-assisted code generation from day one, blending established React, TypeScript, and shadcn foundations with contract-aligned docs, tests, and quality gates.
+    RapidKit is engineered for production-grade, agent-assisted code generation from day one, blending established React, TypeScript, and shadcn foundations with contract-aligned docs, tests, and quality gates.
   </p>
   <div class="home-center__links">
     <a href="/ARCHITECTURE">Architecture</a>
@@ -39,7 +39,7 @@ hero:
 
 <section class="home-install">
   <span>Install</span>
-  <code>pnpm add @tarikukebede/mezmer</code>
+  <code>pnpm add @rapidset/rapidkit</code>
 </section>
 
 <style scoped>

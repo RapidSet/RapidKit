@@ -290,16 +290,16 @@ export const BaseTable = <T extends object>({
         className,
       )}
     >
-      <div className="flex-1 min-h-0 border border-[hsl(var(--mz-control-border))] border-b-0">
+      <div className="flex-1 min-h-0 border border-[hsl(var(--rk-control-border))] border-b-0">
         <Table className="w-full min-w-full border-collapse text-sm">
           <TableHeader className="sticky top-0 z-10 bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="border-b border-[hsl(var(--mz-control-border))] hover:bg-transparent"
+                className="border-b border-[hsl(var(--rk-control-border))] hover:bg-transparent"
               >
                 {enableSelection ? (
-                  <TableHead className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 text-left last:border-r-0">
+                  <TableHead className="w-12 border-r !border-[hsl(var(--rk-control-border))] px-3 py-3 text-left last:border-r-0">
                     <Checkbox
                       aria-label="Select all rows"
                       checked={allRowsSelected}
@@ -326,7 +326,7 @@ export const BaseTable = <T extends object>({
                     <TableHead
                       key={header.id}
                       className={cn(
-                        'h-12 border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
+                        'h-12 border-r !border-[hsl(var(--rk-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
                         isActionColumn && 'w-14 px-4 text-right',
                         isSortable &&
                           'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
@@ -384,7 +384,7 @@ export const BaseTable = <T extends object>({
                   <TableRow
                     key={row.id}
                     className={cn(
-                      'border-b border-[hsl(var(--mz-control-border))] bg-background transition-colors',
+                      'border-b border-[hsl(var(--rk-control-border))] bg-background transition-colors',
                       rowIndex === rows.length - 1 && 'border-b-0',
                       rowInactive
                         ? 'cursor-not-allowed bg-muted/35 text-muted-foreground opacity-65'
@@ -401,7 +401,7 @@ export const BaseTable = <T extends object>({
                     }}
                   >
                     {enableSelection ? (
-                      <TableCell className="w-12 border-r !border-[hsl(var(--mz-control-border))] px-3 py-3 align-middle last:border-r-0">
+                      <TableCell className="w-12 border-r !border-[hsl(var(--rk-control-border))] px-3 py-3 align-middle last:border-r-0">
                         <Checkbox
                           aria-label="Select row"
                           checked={Boolean(rowSelection[row.id])}
@@ -425,7 +425,7 @@ export const BaseTable = <T extends object>({
                         <TableCell
                           key={cell.id}
                           className={cn(
-                            'border-r !border-[hsl(var(--mz-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
+                            'border-r !border-[hsl(var(--rk-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
                             isActionColumn
                               ? 'w-14 text-right'
                               : 'max-w-[240px] truncate text-foreground',
@@ -460,7 +460,7 @@ export const BaseTable = <T extends object>({
       {rows.length === 0 ? (
         <TablePlaceholder isLoading={isLoading} placeholder={placeholder} />
       ) : null}
-      <div className="border border-[hsl(var(--mz-control-border))] bg-background">
+      <div className="border border-[hsl(var(--rk-control-border))] bg-background">
         <DataTablePagination
           enableSelection={Boolean(enableSelection)}
           selectedCount={Object.values(rowSelection).filter(Boolean).length}

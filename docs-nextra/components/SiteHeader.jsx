@@ -41,11 +41,11 @@ export function SiteHeader({ items = [] }) {
   const navItems = normalizeNavItems(items.length > 0 ? items : SITE_NAV_ITEMS);
 
   return (
-    <header className="mz-topbar mz-site-header" aria-label="Site navigation">
-      <Link className="mz-logo" href="/">
-        <span className="mz-logo-name">RapidKit</span>
+    <header className="rk-topbar rk-site-header" aria-label="Site navigation">
+      <Link className="rk-logo" href="/">
+        <span className="rk-logo-name">RapidKit</span>
       </Link>
-      <nav className="mz-topnav">
+      <nav className="rk-topnav">
         {navItems.map((item) => {
           const itemPath = normalizePath(item.href);
           const isActive =
@@ -54,7 +54,7 @@ export function SiteHeader({ items = [] }) {
           return (
             <Link
               key={item.href}
-              className={`mz-topnav-link${isActive ? ' is-active' : ''}`}
+              className={`rk-topnav-link${isActive ? ' is-active' : ''}`}
               href={item.href}
             >
               {item.title}
@@ -62,7 +62,7 @@ export function SiteHeader({ items = [] }) {
           );
         })}
       </nav>
-      <div className="mz-topbar-tools">
+      <div className="rk-topbar-tools">
         <SiteHeaderExtras />
       </div>
     </header>

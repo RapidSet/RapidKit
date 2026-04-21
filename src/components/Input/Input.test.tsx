@@ -30,10 +30,10 @@ const installThemeProbeStyles = () => {
   const style = document.createElement('style');
   style.id = styleId;
   style.textContent = `
-    .bg-background { background-color: var(--mz-background-color) !important; }
-    .border-input { border-color: var(--mz-border-color) !important; }
-    .border-border { border-color: var(--mz-border-color) !important; }
-    [class*="border-[hsl(var(--mz-control-border))]"] { border-color: var(--mz-control-border-color) !important; }
+    .bg-background { background-color: var(--rk-background-color) !important; }
+    .border-input { border-color: var(--rk-border-color) !important; }
+    .border-border { border-color: var(--rk-border-color) !important; }
+    [class*="border-[hsl(var(--rk-control-border))]"] { border-color: var(--rk-control-border-color) !important; }
   `;
   document.head.appendChild(style);
 };
@@ -224,20 +224,20 @@ describe('Input', () => {
 
     const className = screen.getByRole('textbox').className;
     expect(className).toContain('bg-background');
-    expect(className).toContain('border-[hsl(var(--mz-control-border))]');
+    expect(className).toContain('border-[hsl(var(--rk-control-border))]');
   });
 
   it('applies overridden theme variable values to computed styles', () => {
     document.documentElement.style.setProperty(
-      '--mz-background-color',
+      '--rk-background-color',
       'rgb(12, 34, 56)',
     );
     document.documentElement.style.setProperty(
-      '--mz-border-color',
+      '--rk-border-color',
       'rgb(65, 43, 21)',
     );
     document.documentElement.style.setProperty(
-      '--mz-control-border-color',
+      '--rk-control-border-color',
       'rgb(65, 43, 21)',
     );
 
@@ -249,15 +249,15 @@ describe('Input', () => {
     expect(initialStyle.borderColor).toBe('rgb(65, 43, 21)');
 
     document.documentElement.style.setProperty(
-      '--mz-background-color',
+      '--rk-background-color',
       'rgb(100, 110, 120)',
     );
     document.documentElement.style.setProperty(
-      '--mz-border-color',
+      '--rk-border-color',
       'rgb(130, 140, 150)',
     );
     document.documentElement.style.setProperty(
-      '--mz-control-border-color',
+      '--rk-control-border-color',
       'rgb(130, 140, 150)',
     );
 

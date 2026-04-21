@@ -7,7 +7,7 @@ Generic table built on TanStack Table with sorting, selection, pagination callba
 ## Import
 
 ```tsx
-import { BaseTable } from '@tarikukebede/mezmer';
+import { BaseTable } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="base-table" />
@@ -59,8 +59,8 @@ For server-side pagination and sorting, keep `queryParams` for `{ query, page, s
 
 ```tsx
 import { useMemo, useState } from 'react';
-import { BaseTable } from '@tarikukebede/mezmer';
-import { CellType } from '@tarikukebede/mezmer/base-table';
+import { BaseTable } from '@rapidset/rapidkit';
+import { CellType } from '@rapidset/rapidkit/base-table';
 import { useListServicesQuery } from './servicesApi';
 
 type Row = {

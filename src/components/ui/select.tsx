@@ -37,11 +37,11 @@ function SelectTrigger({
       data-slot="select-trigger"
       className={cn(
         'placeholder:text-muted-foreground data-[placeholder]:text-muted-foreground [&_svg]:text-muted-foreground',
-        'flex h-[var(--mz-control-height)] w-full items-center justify-between rounded-md border border-[hsl(var(--mz-control-border))] bg-background',
-        'ring-1 ring-inset ring-[hsl(var(--mz-control-border))]',
-        'px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-[length:var(--mz-control-font-size)]',
-        'shadow-[var(--mz-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',
-        'focus:outline-none focus:shadow-[var(--mz-control-shadow-focus)]',
+        'flex h-[var(--rk-control-height)] w-full items-center justify-between rounded-md border border-[hsl(var(--rk-control-border))] bg-background',
+        'ring-1 ring-inset ring-[hsl(var(--rk-control-border))]',
+        'px-[var(--rk-control-padding-x)] py-[var(--rk-control-padding-y)] text-[length:var(--rk-control-font-size)]',
+        'shadow-[var(--rk-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',
+        'focus:outline-none focus:shadow-[var(--rk-control-shadow-focus)]',
         'disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
         className,
       )}
@@ -67,7 +67,7 @@ function SelectContent({
         data-slot="select-content"
         className={cn(
           'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-[hsl(var(--mz-control-border))] shadow-[var(--mz-control-shadow-focus)]',
+          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-[hsl(var(--rk-control-border))] shadow-[var(--rk-control-shadow-focus)]',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,
@@ -122,7 +122,7 @@ function SelectItem({
       )}
       {...props}
     >
-      <span className="absolute right-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute right-[var(--rk-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
           <Check className="h-4 w-4" />
         </SelectPrimitive.ItemIndicator>

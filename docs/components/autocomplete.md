@@ -7,7 +7,7 @@ Reusable async autocomplete input with injectable search and optional pagination
 ## Import
 
 ```tsx
-import { Autocomplete } from '@tarikukebede/mezmer';
+import { Autocomplete } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="autocomplete" />
@@ -52,7 +52,7 @@ Use `renderOption` to render a custom option row with icon, metadata, and compac
 
 ```tsx
 import { Receipt } from 'lucide-react';
-import { Autocomplete } from '@tarikukebede/mezmer';
+import { Autocomplete } from '@rapidset/rapidkit';
 
 type PricePlan = {
   id: string;
@@ -103,7 +103,7 @@ Use RTK Query lazy hooks to implement `searchOptions` and `getOptionById` withou
 
 ```tsx
 import { useCallback, useState } from 'react';
-import { Autocomplete } from '@tarikukebede/mezmer';
+import { Autocomplete } from '@rapidset/rapidkit';
 import {
   useLazyGetUserByIdQuery,
   useLazySearchUsersQuery,

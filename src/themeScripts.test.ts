@@ -38,7 +38,9 @@ type ThemeSeed = {
 };
 
 const createTempWorkspace = () => {
-  const dirPath = fs.mkdtempSync(path.join(os.tmpdir(), 'mezmer-theme-test-'));
+  const dirPath = fs.mkdtempSync(
+    path.join(os.tmpdir(), 'rapidkit-theme-test-'),
+  );
   TEMP_WORKSPACES.push(dirPath);
   return dirPath;
 };
@@ -111,7 +113,7 @@ const seedWorkspace = (
     writeText(
       workspacePath,
       theme.cssPath,
-      `:root { --mz-primary: 0 0% 0%; }\n`,
+      `:root { --rk-primary: 0 0% 0%; }\n`,
     );
 
     writeJson(workspacePath, theme.contractPath, {
@@ -120,7 +122,7 @@ const seedWorkspace = (
       version: '1.0.0',
       cssPath: theme.cssPath,
       modes: ['light', 'dark'],
-      tokenPrefix: '--mz-',
+      tokenPrefix: '--rk-',
       tokenCoverage: theme.tokenCoverage ?? [...REQUIRED_THEME_TOKENS],
     });
   });

@@ -7,7 +7,7 @@ Composable page-level layout wrapper with an optional header area for search, fi
 ## Import
 
 ```tsx
-import { Page } from '@tarikukebede/mezmer';
+import { Page } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="page" />

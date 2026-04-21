@@ -7,7 +7,7 @@ Controlled multi-line text input wrapper with optional label, helper/error text,
 ## Import
 
 ```tsx
-import { TextArea } from '@tarikukebede/mezmer';
+import { TextArea } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="text-area" />

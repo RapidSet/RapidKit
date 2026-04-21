@@ -7,7 +7,7 @@ Theme-aware action button with optional leading icon, loading state, and injecta
 ## Import
 
 ```tsx
-import { Button, ButtonVariant } from '@tarikukebede/mezmer';
+import { Button, ButtonVariant } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="button" />

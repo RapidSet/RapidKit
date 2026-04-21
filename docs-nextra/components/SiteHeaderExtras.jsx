@@ -86,19 +86,19 @@ export function SiteHeaderExtras() {
   }, [isDarkMode, setTheme]);
 
   return (
-    <div className="mz-site-header-tools">
-      <div className="mz-theme-control">
+    <div className="rk-site-header-tools">
+      <div className="rk-theme-control">
         <DropDown
           value={themeId}
           onChange={handleThemeChange}
           options={THEME_OPTIONS}
           placeholder="Theme"
-          className="mz-theme-dropdown"
+          className="rk-theme-dropdown"
           renderOption={(option) => (
-            <span className="mz-theme-option-label">
+            <span className="rk-theme-option-label">
               <Icon
                 icon={Palette}
-                className="mz-theme-option-icon"
+                className="rk-theme-option-icon"
                 aria-hidden="true"
               />
               {option.label}
@@ -108,14 +108,14 @@ export function SiteHeaderExtras() {
       </div>
       <button
         type="button"
-        className="mz-mode-toggle"
+        className="rk-mode-toggle"
         onClick={handleModeToggle}
         aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
         title={isDarkMode ? 'Light mode' : 'Dark mode'}
       >
         <Icon
           icon={isDarkMode ? Sun : Moon}
-          className="mz-mode-icon"
+          className="rk-mode-icon"
           aria-hidden="true"
         />
       </button>

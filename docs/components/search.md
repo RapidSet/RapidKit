@@ -7,7 +7,7 @@ Reusable search input wrapper with a leading icon and string-based change callba
 ## Import
 
 ```tsx
-import { Search } from '@tarikukebede/mezmer';
+import { Search } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="search" />

@@ -179,12 +179,12 @@ export const THEME_OPTIONS: ThemeOption[] = [
   },
 ];
 
-export const THEME_STORAGE_KEY = 'mezmer-docs-theme';
-export const THEME_CHANGE_EVENT = 'mezmer-docs-theme-change';
-export const THEME_LINK_ID = 'mezmer-docs-theme-stylesheet';
-const LEGACY_SCOPED_THEME_STYLE_ID = 'mezmer-docs-theme-style-scoped';
+export const THEME_STORAGE_KEY = 'rapidkit-docs-theme';
+export const THEME_CHANGE_EVENT = 'rapidkit-docs-theme-change';
+export const THEME_LINK_ID = 'rapidkit-docs-theme-stylesheet';
+const LEGACY_SCOPED_THEME_STYLE_ID = 'rapidkit-docs-theme-style-scoped';
 const LEGACY_PREVIEW_THEME_STYLESHEET_ID =
-  'mezmer-docs-component-preview-theme';
+  'rapidkit-docs-component-preview-theme';
 
 function isBuiltInThemeId(value: string | null): value is BuiltInThemeId {
   return THEME_OPTIONS.some((option) => option.id === value);

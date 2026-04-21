@@ -5,7 +5,7 @@ const withNextra = nextra({
   themeConfig: './theme.config.tsx',
 });
 
-const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'mezmer';
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'RapidKit';
 const basePath = process.env.GITHUB_ACTIONS ? `/${repoName}` : '';
 
 export default withNextra({

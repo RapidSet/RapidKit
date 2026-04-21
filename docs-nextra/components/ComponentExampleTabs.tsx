@@ -967,7 +967,7 @@ function ImagePreview(): JSX.Element {
     <div className="flex items-center gap-3">
       <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" />
       <Image
-        src="https://picsum.photos/seed/mezmer-image-preview/64"
+        src="https://picsum.photos/seed/rapidkit-image-preview/64"
         alt="Remote preview"
         size="md"
       />
@@ -1056,7 +1056,7 @@ const EXAMPLES: Record<ComponentExampleId, ExampleConfig> = {
   autocomplete: {
     render: AutocompletePreview,
     code: `import { useState } from 'react';
-import { Autocomplete } from '@tarikukebede/mezmer';
+import { Autocomplete } from '@rapidset/rapidkit';
 
 type User = {
   id: number;
@@ -1090,7 +1090,7 @@ function AssigneeField() {
   },
   'base-modal': {
     render: BaseModalPreview,
-    code: `import { BaseModal, ButtonVariant } from '@tarikukebede/mezmer';
+    code: `import { BaseModal, ButtonVariant } from '@rapidset/rapidkit';
 
 <BaseModal
   isOpen={isOpen}
@@ -1112,8 +1112,8 @@ function AssigneeField() {
   'base-table': {
     render: BaseTablePreview,
     code: `import { useMemo } from 'react';
-import { BaseTable } from '@tarikukebede/mezmer';
-import { CellType } from '@tarikukebede/mezmer/base-table';
+import { BaseTable } from '@rapidset/rapidkit';
+import { CellType } from '@rapidset/rapidkit/base-table';
 
 type ServiceRow = {
   id: number;
@@ -1164,7 +1164,7 @@ export function ServicesTable() {
   button: {
     render: ButtonPreview,
     code: `import { Download } from 'lucide-react';
-import { Button, ButtonVariant } from '@tarikukebede/mezmer';
+import { Button, ButtonVariant } from '@rapidset/rapidkit';
 
 <div className="flex flex-wrap items-center gap-2">
   <Button label="Primary" variant={ButtonVariant.Primary} onClick={() => console.log('primary')} />
@@ -1212,7 +1212,7 @@ import { Button, ButtonVariant } from '@tarikukebede/mezmer';
   'details-card': {
     render: DetailsCardPreview,
     code: `import { FileText, Archive } from 'lucide-react';
-import { ButtonVariant, DetailsCard } from '@tarikukebede/mezmer';
+import { ButtonVariant, DetailsCard } from '@rapidset/rapidkit';
 
 interface UserDetails {
   id: string;
@@ -1247,7 +1247,7 @@ interface UserDetails {
   },
   'drop-down': {
     render: DropDownPreview,
-    code: `import { DropDown } from '@tarikukebede/mezmer';
+    code: `import { DropDown } from '@rapidset/rapidkit';
 
 <DropDown
   label="Country"
@@ -1274,7 +1274,7 @@ interface UserDetails {
     render: ImagePreview,
     code: `<div className="flex items-center gap-3">
   <Image src="/tech-icons/shadcnui.svg" alt="Tech logo" size="md" loading="lazy" />
-  <Image src="https://picsum.photos/seed/mezmer-image-preview/64" alt="Remote preview" size="md" loading="lazy" />
+  <Image src="https://picsum.photos/seed/rapidkit-image-preview/64" alt="Remote preview" size="md" loading="lazy" />
 </div>`,
   },
   input: {
@@ -1290,7 +1290,7 @@ interface UserDetails {
   page: {
     render: PagePreview,
     code: `import { Plus } from 'lucide-react';
-import { ButtonVariant, Page } from '@tarikukebede/mezmer';
+import { ButtonVariant, Page } from '@rapidset/rapidkit';
 
 <Page
   searchPlaceholder="Search users"
@@ -1310,7 +1310,7 @@ import { ButtonVariant, Page } from '@tarikukebede/mezmer';
   },
   search: {
     render: SearchPreview,
-    code: `import { Search } from '@tarikukebede/mezmer';
+    code: `import { Search } from '@rapidset/rapidkit';
 
 <Search placeholder="Search users" onChange={(value) => console.log(value)} />;`,
   },

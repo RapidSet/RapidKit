@@ -19,9 +19,9 @@ const config: DocsThemeConfig = {
     defaultTheme: 'light',
   },
   project: {
-    link: 'https://github.com/tarikukebede/mezmer',
+    link: 'https://github.com/RapidSet/RapidKit',
   },
-  docsRepositoryBase: 'https://github.com/tarikukebede/mezmer/tree/main',
+  docsRepositoryBase: 'https://github.com/RapidSet/RapidKit/tree/main',
   footer: {
     content: 'RapidKit',
   },

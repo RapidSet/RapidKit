@@ -269,7 +269,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                     handleClearSelection();
                   }}
                   aria-label="Clear selection"
-                  className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--mz-control-shadow-focus)]"
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--rk-control-shadow-focus)]"
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
@@ -310,7 +310,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
             onScroll={handleScroll}
           >
             <div className="bg-background pt-0">
-              <div className="divide-y divide-[hsl(var(--mz-control-border))]">
+              <div className="divide-y divide-[hsl(var(--rk-control-border))]">
                 {items.map((item) => {
                   const isSelected = selectedItem?.id === item.id;
 
@@ -330,7 +330,7 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
                       )}
                       aria-pressed={isSelected}
                     >
-                      <span className="absolute right-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+                      <span className="absolute right-[var(--rk-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
                         <Check
                           className={cn(
                             'h-4 w-4 transition-opacity',
@@ -353,14 +353,14 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
               </div>
               {isLoading && (
                 <div className="space-y-2 px-0 py-0">
-                  <Skeleton className="h-[var(--mz-control-height)] w-full" />
-                  <Skeleton className="h-[var(--mz-control-height)] w-full" />
+                  <Skeleton className="h-[var(--rk-control-height)] w-full" />
+                  <Skeleton className="h-[var(--rk-control-height)] w-full" />
                 </div>
               )}
               {showEmptyState && (
                 <div
                   className={cn(
-                    'px-[var(--mz-control-padding-x)] text-center',
+                    'px-[var(--rk-control-padding-x)] text-center',
                     optionListEmptyStateClassName,
                   )}
                 >

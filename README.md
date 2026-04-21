@@ -1,10 +1,10 @@
-# @tarikukebede/mezmer
+# @rapidset/rapidkit
 
-<img src="docs/assets/mezmer-icon.svg" alt="Mezmer icon" width="88" />
+<img src="docs/assets/rapidkit-icon.svg" alt="RapidKit icon" width="88" />
 
 A full-blown, publishable React UI library built for AI-assisted enterprise delivery.
 
-Mezmer combines proven tools and patterns so AI systems can generate consistent, production-grade code by default.
+RapidKit combines proven tools and patterns so AI systems can generate consistent, production-grade code by default.
 
 [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Primitives-111111)](https://ui.shadcn.com)
 [![Zod](https://img.shields.io/badge/Zod-Schema%20Validation-3E67B1?logo=zod&logoColor=white)](https://zod.dev)
@@ -22,7 +22,7 @@ Mezmer combines proven tools and patterns so AI systems can generate consistent,
 - [Peer Dependencies](#peer-dependencies)
 - [Quick Start](#quick-start)
 - [Public API](#public-api)
-- [Component Docs](https://tarikukebede.github.io/mezmer/components/)
+- [Component Docs](https://rapidset.github.io/RapidKit/components/)
 - [Styling](#styling)
 - [Theming Guide](docs/THEMING.md)
 - [Theme Configuration](docs/THEME-CONFIGURATION.md)
@@ -39,15 +39,15 @@ Mezmer combines proven tools and patterns so AI systems can generate consistent,
 
 ## Overview
 
-Mezmer provides predefined, composable UI templates and higher-level components for React applications.
+RapidKit provides predefined, composable UI templates and higher-level components for React applications.
 
 It is intentionally assembled from multiple mature libraries (including shadcn/ui, TanStack Table, Redux Toolkit, React Hook Form, Zod, and Lucide) so AI systems and developers can produce production-ready code with consistent safeguards.
 
-Mezmer does not replace foundational libraries like Radix or shadcn/ui. It builds on top of best-of-breed libraries so each one can do what it does best (for example RTK Query, Redux Toolkit, Radix primitives, and TanStack Table), while Mezmer enforces concrete component structure and proven project patterns.
+RapidKit does not replace foundational libraries like Radix or shadcn/ui. It builds on top of best-of-breed libraries so each one can do what it does best (for example RTK Query, Redux Toolkit, Radix primitives, and TanStack Table), while RapidKit enforces concrete component structure and proven project patterns.
 
 In enterprise delivery, developers usually do not want to rebuild custom components for common workflows in every feature. They want prebuilt components and patterns with behaviors such as access-aware rendering, table pagination and search, predictable contracts, and repeatable structure across teams.
 
-This also improves AI-assisted development: instead of reinventing component patterns for each feature and spending cycles correcting generated output, teams can provide API specifications and let AI wire secure CRUD flows against Mezmer's standardized component, contract, and structure model.
+This also improves AI-assisted development: instead of reinventing component patterns for each feature and spending cycles correcting generated output, teams can provide API specifications and let AI wire secure CRUD flows against RapidKit's standardized component, contract, and structure model.
 
 Core goals:
 
@@ -61,7 +61,7 @@ Core goals:
 Install the package and required peers:
 
 ```bash
-pnpm add @tarikukebede/mezmer @reduxjs/toolkit @tanstack/react-table react react-dom react-hook-form react-redux zod tailwindcss
+pnpm add @rapidset/rapidkit @reduxjs/toolkit @tanstack/react-table react react-dom react-hook-form react-redux zod tailwindcss
 ```
 
 ## Peer Dependencies
@@ -80,9 +80,9 @@ This package expects the following peer dependencies in consumer applications:
 ## Quick Start
 
 ```tsx
-import { Input } from '@tarikukebede/mezmer';
-import '@tarikukebede/mezmer/styles.css';
-import '@tarikukebede/mezmer/themes/default.css';
+import { Input } from '@rapidset/rapidkit';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/default.css';
 
 function Example() {
   return (
@@ -121,7 +121,7 @@ Current root exports:
 
 Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, `ChipProps`, and `ButtonProps`).
 
-For consumer-facing props, examples, and behavior notes for every exported component, see https://tarikukebede.github.io/mezmer/components/.
+For consumer-facing props, examples, and behavior notes for every exported component, see https://rapidset.github.io/RapidKit/components/.
 
 `docs/COMPONENTS.md` remains as a stable compatibility entrypoint that forwards to the scalable per-component docs structure.
 

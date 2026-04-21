@@ -113,8 +113,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           required={required}
           className={cn(
             error && 'border-destructive',
-            'min-h-[calc(var(--mz-control-height)*2)] rounded-sm border ring-0',
-            'text-[length:var(--mz-control-font-size)] placeholder:text-[length:var(--mz-control-font-size)] placeholder:text-muted-foreground/60',
+            'min-h-[calc(var(--rk-control-height)*2)] rounded-sm border ring-0',
+            'text-[length:var(--rk-control-font-size)] placeholder:text-[length:var(--rk-control-font-size)] placeholder:text-muted-foreground/60',
             className,
           )}
           ref={ref}

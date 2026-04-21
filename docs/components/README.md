@@ -1,6 +1,6 @@
 # Components
 
-This section contains consumer-facing documentation for each public component exported from `@tarikukebede/mezmer`.
+This section contains consumer-facing documentation for each public component exported from `@rapidset/rapidkit`.
 
 ## How To Use This Section
 
@@ -47,7 +47,7 @@ All components use semantic utility classes mapped to package tokens.
 
 Import order for consumers:
 
-1. `@tarikukebede/mezmer/styles.css`
-2. One theme file, for example `@tarikukebede/mezmer/themes/default.css`
+1. `@rapidset/rapidkit/styles.css`
+2. One theme file, for example `@rapidset/rapidkit/themes/default.css`
 
 For full theming details, see `docs/THEMING.md`.

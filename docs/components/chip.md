@@ -7,7 +7,7 @@ Compact status/value chip with optional icon, variant and size controls, remove 
 ## Import
 
 ```tsx
-import { Chip } from '@tarikukebede/mezmer';
+import { Chip } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="chip" />

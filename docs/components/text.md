@@ -7,7 +7,7 @@ Presentational text primitive for consistent typography tokens, semantic element
 ## Import
 
 ```tsx
-import { Text } from '@tarikukebede/mezmer';
+import { Text } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="text" />

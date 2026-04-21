@@ -93,7 +93,7 @@ function DropdownMenuCheckboxItem({
       checked={checked}
       {...props}
     >
-      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute left-[var(--rk-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <Check className="h-4 w-4" />
         </DropdownMenuPrimitive.ItemIndicator>
@@ -130,7 +130,7 @@ function DropdownMenuRadioItem({
       )}
       {...props}
     >
-      <span className="absolute left-[var(--mz-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute left-[var(--rk-control-padding-x)] flex h-3.5 w-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <Circle className="h-2 w-2 fill-current" />
         </DropdownMenuPrimitive.ItemIndicator>

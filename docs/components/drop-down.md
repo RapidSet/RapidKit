@@ -7,7 +7,7 @@ Theme-aware select wrapper with optional label, helper/error text, custom option
 ## Import
 
 ```tsx
-import { DropDown } from '@tarikukebede/mezmer';
+import { DropDown } from '@rapidset/rapidkit';
 ```
 
 <ComponentExampleTabs component="drop-down" />

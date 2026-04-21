@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Mezmer Theme Contract",
+  "title": "RapidKit Theme Contract",
   "type": "object",
   "required": [
     "id",
@@ -39,7 +39,7 @@
     },
     "tokenPrefix": {
       "type": "string",
-      "const": "--mz-"
+      "const": "--rk-"
     },
     "tokenCoverage": {
       "type": "array",

@@ -4,10 +4,10 @@ import { Input } from '../../src/components/Input';
 import { DropDown } from '../../src/components/DropDown';
 
 const LIGHT_SURFACE_STYLE = {
-  '--mz-background': '0 0% 99%',
-  '--mz-card': '0 0% 99%',
-  '--mz-foreground': '220 20% 16%',
-  '--mz-control-border': '220 20% 16% / 0.4',
+  '--rk-background': '0 0% 99%',
+  '--rk-card': '0 0% 99%',
+  '--rk-foreground': '220 20% 16%',
+  '--rk-control-border': '220 20% 16% / 0.4',
 } as CSSProperties;
 
 test.describe('Control Border Visibility', () => {
