@@ -43,6 +43,12 @@ export function SiteHeader({ items = [] }) {
   return (
     <header className="rk-topbar rk-site-header" aria-label="Site navigation">
       <Link className="rk-logo" href="/">
+        <img
+          className="rk-logo-icon"
+          src="/rapidkit-icon.svg"
+          alt=""
+          aria-hidden="true"
+        />
         <span className="rk-logo-name">RapidKit</span>
       </Link>
       <nav className="rk-topnav">

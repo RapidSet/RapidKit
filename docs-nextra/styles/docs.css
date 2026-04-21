@@ -63,8 +63,6 @@
   text-decoration: none;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
-
 article.nextra-content:has(.rk-home) {
   justify-content: flex-start;
   width: 100%;
@@ -500,8 +498,9 @@ body,
 }
 
 .rk-logo-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1em;
+  height: 1.1em;
+  flex: 0 0 auto;
 }
 
 .rk-logo-name {

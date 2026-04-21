@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
 @import './themes/active.css';
 
 @tailwind base;
@@ -28,8 +30,9 @@
     --rk-radius: var(--radius, 0.4rem);
     --rk-font-sans: var(
       --font-sans,
-      'Avenir Next',
-      'Nunito Sans',
+      'Geist',
+      'Inter Tight',
+      'IBM Plex Sans',
       'Segoe UI Variable',
       'Segoe UI',
       'Helvetica Neue',

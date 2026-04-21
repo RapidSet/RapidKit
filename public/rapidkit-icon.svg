@@ -1,18 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-  <title id="title">RapidKit Icon</title>
-  <desc id="desc">A simple robot face icon in black, white, and light orange.</desc>
-
-  <rect x="8" y="8" width="112" height="112" rx="24" fill="#111111"/>
-
-  <path d="M48 32V20l8 8 8-8 8 8 8-8v12" fill="none" stroke="#ffcc99" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-
-  <rect x="24" y="34" width="80" height="68" rx="18" fill="#ffffff"/>
-
-  <circle cx="48" cy="60" r="9" fill="#111111"/>
-  <circle cx="80" cy="60" r="9" fill="#111111"/>
-
-  <rect x="40" y="78" width="48" height="10" rx="5" fill="#ffcc99"/>
-
-  <circle cx="16" cy="58" r="5" fill="#ffcc99"/>
-  <circle cx="112" cy="58" r="5" fill="#ffcc99"/>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1183_6)">
+<rect width="512" height="512" fill="white"/>
+<rect width="512" height="512" fill="black"/>
+<path d="M255.231 349.36V194.8H229.751V169.32H150.791V194.8H125.031V273.2H150.791V298.68H163.111V321.36H137.911V349.36H165.911V324.16H191.671V298.68H226.951V349.36H255.231ZM226.951 270.4H153.591V197.6H226.951V270.4Z" fill="white"/>
+<path d="M275.769 349.36V194.8H301.249V169.32H329.249V197.6H304.049V245.48H326.449V220H352.209V194.8H377.409V169.32H405.969V197.6H380.209V222.8H355.009V248H329.249V270.4H355.009V295.88H380.209V321.36H405.969V349.36H377.409V324.16H352.209V298.68H326.449V273.2H304.049V349.36H275.769Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1183_6">
+<rect width="512" height="512" fill="white"/>
+</clipPath>
+</defs>
 </svg>
