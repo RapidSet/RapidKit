@@ -34,6 +34,8 @@ RapidKit combines proven tools and patterns so AI systems can generate consisten
 - [Development](#development)
 - [Testing](#testing)
 - [Release Checklist](#release-checklist)
+- [Publishing to npm](#publishing-to-npm)
+- [Changesets Releases](#changesets-releases)
 - [Contributing](docs/CONTRIBUTING.md)
 - [License](#license)
 
@@ -286,6 +288,53 @@ pnpm tsc --noEmit
 pnpm test
 pnpm build
 ```
+
+## Publishing to npm
+
+RapidKit is configured for public publishing to npm as `@rapidset/rapidkit`.
+
+### Local publish (maintainer)
+
+```bash
+pnpm install
+pnpm prepublishOnly
+npm publish --access public
+```
+
+### GitHub Actions publish
+
+Publishing automation is defined in `.github/workflows/npm-publish.yml`.
+
+It publishes when the workflow is run manually via `workflow_dispatch`.
+
+Required repository secret:
+
+- `NPM_TOKEN`: npm automation token with publish access to `@rapidset/rapidkit`
+
+Recommended use:
+
+1. Use Changesets for normal package releases.
+2. Use this workflow as a manual fallback publish path.
+
+## Changesets Releases
+
+RapidKit now supports Changesets-driven releases.
+
+Maintainer flow for feature/fix PRs:
+
+1. Run `pnpm changeset`.
+2. Select `@rapidset/rapidkit` and bump type (`patch`, `minor`, or `major`).
+3. Commit the generated `.changeset/*.md` file with your PR.
+
+Automation:
+
+- `.github/workflows/changesets-release.yml` runs on `main`.
+- If changesets exist, it opens or updates a release PR with version and changelog updates.
+- When the release PR is merged, the same workflow publishes to npm.
+
+Required repository secret:
+
+- `NPM_TOKEN`: npm automation token with publish access to `@rapidset/rapidkit`.
 
 ## Contributing
 

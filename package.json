@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "AI-first predefined UI templates for enterprise React apps, built on shadcn, TanStack Table, Redux Toolkit, React Hook Form, Zod, and Lucide",
   "type": "module",
-  "main": "./src/index.js",
-  "module": "./src/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -54,6 +57,10 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "preview": "vite preview",
+    "prepublishOnly": "pnpm validate:contracts && pnpm validate:component-docs && pnpm lint && pnpm tsc --noEmit && pnpm test && pnpm build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
     "shadcn": "shadcn",
     "ui:add": "shadcn add",
     "prepare": "husky",
@@ -107,6 +114,7 @@
   },
   "packageManager": "pnpm@9.15.1",
   "devDependencies": {
+    "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.25.1",
