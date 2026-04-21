@@ -59,7 +59,10 @@ describe('Chip', () => {
     const chip = screen.getByTestId('chip-root');
     const icon = chip.querySelector('svg');
     expect(icon).toBeTruthy();
-    expect(icon?.className.baseVal ?? '').toContain('h-[1em]');
+    const iconClassName =
+      icon?.getAttribute('class') ??
+      (typeof icon?.className === 'string' ? icon.className : '');
+    expect(iconClassName).toContain('h-[1em]');
     expect(
       chip.querySelector(String.raw`.motion-safe\:animate-pulse`),
     ).toBeTruthy();
@@ -80,12 +83,10 @@ describe('Chip', () => {
     const onRemove = vi.fn();
 
     render(
-      <div data-testid="parent">
+      <div data-testid="parent" onClick={onParentClick}>
         <Chip label="selected" onRemove={onRemove} />
       </div>,
     );
-
-    screen.getByTestId('parent').addEventListener('click', onParentClick);
 
     fireEvent.click(screen.getByRole('button', { name: 'Remove selected' }));
 

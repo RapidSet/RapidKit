@@ -42,11 +42,12 @@ export const Chip = (props: ChipProps) => {
       className={cn(
         'inline-flex w-fit items-center gap-2',
         'border rounded-full',
-        'font-medium leading-none',
+        'font-medium',
         'capitalize',
         'whitespace-nowrap',
         CHIP_VARIANT_CLASSES[variant],
         CHIP_SIZE_CLASSES[size],
+        'leading-none',
         className,
       )}
       {...rest}
@@ -65,6 +66,7 @@ export const Chip = (props: ChipProps) => {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation?.();
             onRemove();
           }}
           className="rounded-full p-0.5 transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-50"
