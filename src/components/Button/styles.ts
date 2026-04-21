@@ -15,7 +15,7 @@ export const BUTTON_VARIANT_CLASS_NAMES: Record<ButtonVariant, string> = {
   [ButtonVariant.Primary]:
     'border border-border bg-primary text-primary-foreground shadow-none hover:bg-primary/95 hover:text-primary-foreground hover:shadow-none',
   [ButtonVariant.Default]:
-    'border border-border bg-card text-card-foreground shadow-none hover:bg-foreground/5 hover:text-card-foreground hover:shadow-none',
+    'border border-border bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/85 hover:text-secondary-foreground hover:shadow-none',
   [ButtonVariant.Dashed]:
     'border-2 border-dashed border-border bg-background text-foreground shadow-none hover:bg-foreground/5 hover:text-foreground hover:shadow-none',
   [ButtonVariant.Outlined]:

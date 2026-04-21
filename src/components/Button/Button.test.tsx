@@ -134,7 +134,7 @@ describe('Button', () => {
   it('applies unique class styles for every public button variant', () => {
     const variantExpectations: Array<[ButtonVariant, string, string]> = [
       [ButtonVariant.Primary, 'Primary', 'bg-primary'],
-      [ButtonVariant.Default, 'Default', 'bg-card'],
+      [ButtonVariant.Default, 'Default', 'bg-secondary'],
       [ButtonVariant.Dashed, 'Dashed', 'border-dashed'],
       [ButtonVariant.Outlined, 'Outlined', 'bg-transparent'],
       [ButtonVariant.Text, 'Text', 'rounded-none'],
@@ -187,7 +187,7 @@ describe('Button', () => {
       [
         ButtonVariant.Default,
         'Default hover text',
-        'hover:text-card-foreground',
+        'hover:text-secondary-foreground',
       ],
       [ButtonVariant.Dashed, 'Dashed hover text', 'hover:text-foreground'],
       [ButtonVariant.Outlined, 'Outlined hover text', 'hover:text-foreground'],
