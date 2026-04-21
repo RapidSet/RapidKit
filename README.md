@@ -115,6 +115,7 @@ Current root exports:
 - Search
 - DropDown
 - DetailsCard
+- TextArea
 - version
 
 Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, `ChipProps`, and `ButtonProps`).

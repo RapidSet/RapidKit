@@ -22,5 +22,6 @@ Direct links:
 - https://tarikukebede.github.io/mezmer/components/input
 - https://tarikukebede.github.io/mezmer/components/page
 - https://tarikukebede.github.io/mezmer/components/search
+- https://tarikukebede.github.io/mezmer/components/text-area
 
 This keeps links stable for existing consumers while allowing component docs to grow independently.

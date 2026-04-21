@@ -13,6 +13,7 @@ import { Image } from '../../src/components/Image';
 import { Input } from '../../src/components/Input';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
+import { TextArea } from '../../src/components/TextArea';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
 import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
@@ -31,7 +32,8 @@ export type ComponentExampleId =
   | 'image'
   | 'input'
   | 'page'
-  | 'search';
+  | 'search'
+  | 'text-area';
 
 type ExampleConfig = {
   code: string;
@@ -946,6 +948,23 @@ function InputPreview(): JSX.Element {
   );
 }
 
+function TextAreaPreview(): JSX.Element {
+  const [notes, setNotes] = useState('');
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <TextArea
+        name="notes"
+        label="Notes"
+        value={notes}
+        onChange={(event) => setNotes(event.target.value)}
+        placeholder="Write implementation notes"
+        helperText="Keep this concise and actionable."
+      />
+    </div>
+  );
+}
+
 function PagePreview(): JSX.Element {
   return (
     <div>
@@ -1236,6 +1255,17 @@ import { ButtonVariant, Page } from '@tarikukebede/mezmer';
     code: `import { Search } from '@tarikukebede/mezmer';
 
 <Search placeholder="Search users" onChange={(value) => console.log(value)} />;`,
+  },
+  'text-area': {
+    render: TextAreaPreview,
+    code: `<TextArea
+  name="notes"
+  label="Notes"
+  value=""
+  onChange={() => {}}
+  placeholder="Write implementation notes"
+  helperText="Keep this concise and actionable."
+/>`,
   },
 };
 

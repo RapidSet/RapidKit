@@ -1,0 +1,47 @@
+{
+  "component": "TextArea",
+  "version": "1.0.0",
+  "source": "src/components/TextArea",
+  "description": "Access-aware, controlled textarea wrapper built on shadcn textarea primitive.",
+  "capabilities": {
+    "accessControl": true,
+    "accessibility": true,
+    "controlledValue": true,
+    "keyboardPropagationControl": true
+  },
+  "props": {
+    "name": { "type": "string", "required": true },
+    "value": { "type": "string", "required": false, "default": "\"\"" },
+    "onChange": {
+      "type": "(e: ChangeEvent<HTMLTextAreaElement>) => void",
+      "required": true
+    },
+    "label": { "type": "string", "required": false },
+    "required": { "type": "boolean", "required": false },
+    "error": { "type": "string", "required": false },
+    "helperText": { "type": "string", "required": false },
+    "infoText": { "type": "string", "required": false },
+    "disabled": { "type": "boolean", "required": false },
+    "accessRequirements": { "type": "string[]", "required": false },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "visibleWhenNoResolver": "true",
+    "hiddenWhenReadDenied": "true",
+    "disabledWhenWriteDenied": "true",
+    "disabledPropPrecedence": "true"
+  },
+  "accessibility": {
+    "ariaInvalidWhenError": "true",
+    "labelAssociatesWithTextareaId": "true"
+  },
+  "interaction": {
+    "stopsTextareaKeydownPropagation": "true",
+    "preservesConsumerOnKeyDown": "true"
+  },
+  "tests": ["src/components/TextArea/TextArea.test.tsx"]
+}

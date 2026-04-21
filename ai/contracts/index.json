@@ -147,6 +147,17 @@
         "loadingState",
         "accessControl"
       ]
+    },
+    {
+      "name": "TextArea",
+      "contractPath": "ai/contracts/components/text-area.contract.json",
+      "sourcePath": "src/components/TextArea",
+      "capabilities": [
+        "accessControl",
+        "accessibility",
+        "controlledValue",
+        "keyboardPropagationControl"
+      ]
     }
   ],
   "themes": [

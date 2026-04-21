@@ -115,8 +115,8 @@ test.describe('Theme Styling (Component Test)', () => {
     const dashed = component.getByRole('button', { name: 'Dashed' });
     const destructive = component.getByRole('button', { name: 'Destructive' });
 
-    const primaryBgImage = await primary.evaluate(
-      (node) => getComputedStyle(node).backgroundImage,
+    const primaryBg = await primary.evaluate(
+      (node) => getComputedStyle(node).backgroundColor,
     );
     const outlinedBg = await outlined.evaluate(
       (node) => getComputedStyle(node).backgroundColor,
@@ -128,7 +128,7 @@ test.describe('Theme Styling (Component Test)', () => {
       (node) => getComputedStyle(node).borderStyle,
     );
 
-    expect(primaryBgImage).not.toBe('none');
+    expect(primaryBg).not.toBe('rgba(0, 0, 0, 0)');
     expect(outlinedBg).toBe('rgba(0, 0, 0, 0)');
     expect(destructiveClasses).toContain('bg-destructive');
     expect(dashedBorderStyle).toBe('dashed');

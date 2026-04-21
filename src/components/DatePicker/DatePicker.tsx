@@ -115,7 +115,7 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
             name={name}
             aria-invalid={error ? 'true' : undefined}
             className={cn(
-              'h-[var(--mz-control-height)] w-full justify-start gap-2 rounded-sm border-[hsl(var(--mz-control-border))] bg-background px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-left text-[length:var(--mz-control-font-size)] font-normal text-foreground ring-0 shadow-none transition-[border-color,box-shadow] duration-150 hover:bg-background hover:text-foreground focus-visible:shadow-[var(--mz-control-shadow-focus)]',
+              'h-[var(--mz-control-height)] w-full justify-start gap-2 rounded-sm border-[hsl(var(--mz-control-border))] bg-background px-[var(--mz-control-padding-x)] py-[var(--mz-control-padding-y)] text-left text-[length:var(--mz-control-font-size)] font-medium text-foreground ring-0 shadow-none transition-[border-color,box-shadow] duration-150 hover:bg-background hover:text-foreground focus-visible:shadow-[var(--mz-control-shadow-focus)]',
               error &&
                 'border-destructive focus-visible:shadow-[0_0_0_3px_hsl(var(--mz-destructive)/0.2)]',
             )}

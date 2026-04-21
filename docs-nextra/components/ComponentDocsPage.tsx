@@ -635,6 +635,48 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     guidance:
       'The component returns a plain string on change so you can connect it quickly to client-side filters or debounced server queries.',
   },
+  'text-area': {
+    title: 'TextArea',
+    summary:
+      'TextArea is a controlled multi-line input for notes, descriptions, and longer freeform content with optional access-aware behavior.',
+    highlights: [
+      'Multi-line input',
+      'Helper and error text',
+      'Access-aware visibility/editing',
+    ],
+    importCode: "import { TextArea } from '@tarikukebede/mezmer';",
+    keyProps: [
+      {
+        name: 'name',
+        description:
+          'Identifies the field for change handlers and form submission mapping.',
+      },
+      {
+        name: 'value',
+        description:
+          'Controls the text area value when parent state owns the field.',
+      },
+      {
+        name: 'onChange',
+        description:
+          'Receives the native textarea change event to support standard form workflows.',
+      },
+      {
+        name: 'label, helperText, and error',
+        description:
+          'Provides clear guidance and validation messaging around longer text input.',
+      },
+      {
+        name: 'rows and placeholder',
+        description:
+          'Controls visible height and hint copy for better writing ergonomics.',
+      },
+    ],
+    accessibility:
+      'TextArea connects labels and invalid state to a native textarea so assistive technology can announce context and validation feedback clearly.',
+    accessBehavior:
+      'Optional access rules let TextArea stay hidden when view is denied or visible-but-disabled when edit is denied, with no host-app coupling.',
+  },
 };
 
 function ComponentDocsSections({
