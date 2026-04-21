@@ -18,15 +18,15 @@ export function DataTablePagination({
   const availablePages = Math.max(totalPages ?? 1, 1);
   const isCompact = columnCount <= 3;
   const controlClassName =
-    'inline-flex h-[var(--mz-control-height)] min-w-[var(--mz-control-height)] items-center justify-center rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-45';
+    'inline-flex h-[var(--mz-control-height)] min-w-[var(--mz-control-height)] items-center justify-center rounded-md border-0 bg-transparent px-2.5 text-xs font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-45';
   const pageValueClassName =
     'inline-flex h-[var(--mz-control-height)] min-w-[4rem] items-center justify-center rounded-md border border-transparent px-2 text-xs font-medium text-muted-foreground';
   const selectClassName =
-    'h-[var(--mz-control-height)] rounded-md border border-border bg-background px-2.5 text-xs text-foreground shadow-sm outline-none transition-colors focus:shadow-[var(--mz-control-shadow-focus)]';
+    'h-[var(--mz-control-height)] rounded-md border-0 bg-background px-2.5 text-xs text-foreground shadow-sm outline-none transition-colors focus:shadow-[var(--mz-control-shadow-focus)]';
 
   if (isCompact) {
     return (
-      <div className="flex w-full items-center justify-end gap-2 overflow-auto px-1 py-0.5">
+      <div className="flex w-full items-center justify-end gap-2 overflow-auto px-3 py-2 sm:px-4">
         <button
           type="button"
           aria-label="Go to previous page"
@@ -53,7 +53,7 @@ export function DataTablePagination({
   }
 
   return (
-    <div className="flex w-full flex-col-reverse items-center justify-between gap-3 overflow-auto px-1 py-0.5 sm:flex-row sm:gap-6">
+    <div className="flex w-full flex-col-reverse items-center justify-between gap-3 overflow-auto px-3 py-2 sm:flex-row sm:gap-6 sm:px-4">
       {enableSelection ? (
         <div className="flex-1 whitespace-nowrap text-sm text-muted-foreground">
           {selectedCount} of {rowCount} row(s) selected.
