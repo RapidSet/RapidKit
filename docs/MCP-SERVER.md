@@ -32,9 +32,33 @@ Validation and discovery tools:
 - `get_component_contract`
 - `list_themes`
 - `get_theme_contract`
+- `list_presets`
+- `get_preset_contract`
+- `plan_project`
+- `scaffold_project`
+- `validate_scaffold`
+- `recommend_execution_path`
 - `validate_contracts`
 - `validate_component_docs`
 - `validate_workspace_contract_surface`
+
+`validate_scaffold` performs a Node runtime preflight before executing checks.
+By default, it fails fast when Node is outside `^20.19.0 || >=22.12.0`.
+Use `allowIncompatibleNode=true` only when you intentionally want to continue on unsupported runtimes.
+
+`scaffold_project` also includes Node preflight metadata in its output as an advisory.
+It does not block project generation, but returns a warning when runtime is outside the recommended range.
+
+`plan_project` includes the same preflight metadata so agents can select safer execution paths before calling scaffold or validation tools.
+It now also returns `executionRecommendation` and accepts `allowIncompatibleNode` for explicit policy control.
+
+`recommend_execution_path` returns a deterministic runtime decision:
+
+- `proceed`
+- `proceed-with-warning`
+- `block-until-runtime-upgrade`
+
+Use it to normalize agent behavior before calling scaffold and validation tools.
 
 ## Why It Helps Developers
 

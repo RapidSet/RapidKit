@@ -279,6 +279,261 @@ const validateActiveTheme = (seenThemeIds) => {
   errors.push(`Missing active theme pointer: ${activeThemePath}`);
 };
 
+const validatePresetPrompt = (
+  presetEntryPrefix,
+  presetContractPath,
+  prompt,
+) => {
+  if (!prompt || typeof prompt !== 'object') {
+    errors.push(`${presetEntryPrefix} contains an invalid prompt entry.`);
+    return;
+  }
+
+  if (!prompt.name || typeof prompt.name !== 'string') {
+    errors.push(`${presetContractPath} prompt is missing a string name.`);
+  }
+
+  if (!prompt.type || typeof prompt.type !== 'string') {
+    errors.push(
+      `${presetContractPath} prompt '${String(prompt.name)}' is missing a string type.`,
+    );
+  }
+
+  if (prompt.type === 'select') {
+    const hasValidOptions =
+      Array.isArray(prompt.options) &&
+      prompt.options.length > 0 &&
+      prompt.options.every((option) => typeof option === 'string');
+
+    if (hasValidOptions === false) {
+      errors.push(
+        `${presetContractPath} select prompt '${String(prompt.name)}' must include a non-empty string options array.`,
+      );
+      return;
+    }
+
+    if (typeof prompt.default === 'string') {
+      if (prompt.options.includes(prompt.default) === false) {
+        errors.push(
+          `${presetContractPath} select prompt '${String(prompt.name)}' default (${prompt.default}) must be one of the declared options.`,
+        );
+      }
+    }
+  }
+};
+
+const validatePresetDistribution = (presetContractPath, distribution) => {
+  if (!distribution || typeof distribution !== 'object') {
+    errors.push(
+      `${presetContractPath} must include distribution metadata for template source governance.`,
+    );
+    return;
+  }
+
+  if (
+    distribution.source !== 'official' &&
+    distribution.source !== 'community'
+  ) {
+    errors.push(
+      `${presetContractPath} distribution.source must be either 'official' or 'community'.`,
+    );
+  }
+
+  if (typeof distribution.extensible !== 'boolean') {
+    errors.push(
+      `${presetContractPath} distribution.extensible must be a boolean.`,
+    );
+  }
+
+  if (
+    typeof distribution.templateSpecVersion !== 'string' ||
+    distribution.templateSpecVersion.trim().length === 0
+  ) {
+    errors.push(
+      `${presetContractPath} distribution.templateSpecVersion must be a non-empty string.`,
+    );
+  }
+};
+
+const validatePresetTests = (presetContractPath, tests) => {
+  if (Array.isArray(tests) === false || tests.length === 0) {
+    errors.push(
+      `${presetContractPath} must include at least one test file path in tests.`,
+    );
+    return;
+  }
+
+  tests.forEach((testPath) => {
+    if (typeof testPath !== 'string' || exists(testPath) === false) {
+      errors.push(
+        `${presetContractPath} references missing preset test file: ${String(testPath)}`,
+      );
+    }
+  });
+};
+
+const validatePresetProjectStructure = (
+  presetContractPath,
+  templateRoot,
+  requiredProjectStructure,
+) => {
+  if (
+    Array.isArray(requiredProjectStructure) === false ||
+    requiredProjectStructure.length === 0
+  ) {
+    errors.push(
+      `${presetContractPath} must include requiredProjectStructure as a non-empty array.`,
+    );
+    return;
+  }
+
+  const templateRootAbsolute = toAbsolute(templateRoot);
+
+  requiredProjectStructure.forEach((relativePath) => {
+    if (typeof relativePath !== 'string' || relativePath.length === 0) {
+      errors.push(
+        `${presetContractPath} requiredProjectStructure must contain non-empty string paths.`,
+      );
+      return;
+    }
+
+    const absolutePath = path.resolve(
+      templateRootAbsolute,
+      'template',
+      relativePath,
+    );
+    if (fs.existsSync(absolutePath) === false) {
+      errors.push(
+        `${presetContractPath} requiredProjectStructure path is missing in template: ${relativePath}`,
+      );
+    }
+  });
+};
+
+const validatePresetContractConsistency = (
+  presetEntryPrefix,
+  presetEntry,
+  presetContract,
+) => {
+  if (presetContract.id !== presetEntry.id) {
+    errors.push(
+      `${presetEntryPrefix} id (${presetEntry.id}) does not match contract.id (${presetContract.id}).`,
+    );
+  }
+
+  if (presetContract.templateRoot !== presetEntry.templateRoot) {
+    errors.push(
+      `${presetEntryPrefix} templateRoot (${presetEntry.templateRoot}) does not match contract.templateRoot (${presetContract.templateRoot}).`,
+    );
+  }
+
+  if (presetContract.category !== presetEntry.category) {
+    errors.push(
+      `${presetEntryPrefix} category (${presetEntry.category}) does not match contract.category (${presetContract.category}).`,
+    );
+  }
+};
+
+const validatePresetEntry = (presetEntry, presetEntryIndex, seenPresetIds) => {
+  const presetEntryPrefix = `${indexPath} presets[${presetEntryIndex}]`;
+
+  if (!presetEntry?.id || typeof presetEntry.id !== 'string') {
+    errors.push(`${presetEntryPrefix} is missing a string id.`);
+    return;
+  }
+
+  if (/^[a-z0-9-]+$/.test(presetEntry.id) === false) {
+    errors.push(`${presetEntryPrefix} id must match ^[a-z0-9-]+$.`);
+  }
+
+  if (seenPresetIds.has(presetEntry.id)) {
+    errors.push(`${presetEntryPrefix} has duplicate id: ${presetEntry.id}.`);
+  }
+  seenPresetIds.add(presetEntry.id);
+
+  if (
+    !presetEntry?.contractPath ||
+    typeof presetEntry.contractPath !== 'string'
+  ) {
+    errors.push(`${presetEntryPrefix} is missing a string contractPath.`);
+    return;
+  }
+
+  if (exists(presetEntry.contractPath) === false) {
+    errors.push(
+      `${presetEntryPrefix} points to missing contract: ${presetEntry.contractPath}`,
+    );
+    return;
+  }
+
+  if (
+    !presetEntry?.templateRoot ||
+    typeof presetEntry.templateRoot !== 'string'
+  ) {
+    errors.push(`${presetEntryPrefix} is missing a string templateRoot.`);
+  } else if (isDirectory(presetEntry.templateRoot) === false) {
+    errors.push(
+      `${presetEntryPrefix} templateRoot is not a directory: ${presetEntry.templateRoot}`,
+    );
+  }
+
+  if (!presetEntry?.category || typeof presetEntry.category !== 'string') {
+    errors.push(`${presetEntryPrefix} is missing a string category.`);
+  }
+
+  const presetContract = readJson(presetEntry.contractPath);
+  if (presetContract === null) {
+    return;
+  }
+
+  validatePresetContractConsistency(
+    presetEntryPrefix,
+    presetEntry,
+    presetContract,
+  );
+
+  if (
+    Array.isArray(presetContract.supportedPackageManagers) === false ||
+    presetContract.supportedPackageManagers.length === 0
+  ) {
+    errors.push(
+      `${presetEntry.contractPath} must include supportedPackageManagers as a non-empty array.`,
+    );
+  }
+
+  if (
+    Array.isArray(presetContract.requiredChecks) === false ||
+    presetContract.requiredChecks.length === 0
+  ) {
+    errors.push(
+      `${presetEntry.contractPath} must include requiredChecks as a non-empty array.`,
+    );
+  }
+
+  validatePresetDistribution(
+    presetEntry.contractPath,
+    presetContract.distribution,
+  );
+
+  if (Array.isArray(presetContract.prompts) === false) {
+    errors.push(
+      `${presetEntry.contractPath} must include prompts as an array.`,
+    );
+  } else {
+    presetContract.prompts.forEach((prompt) => {
+      validatePresetPrompt(presetEntryPrefix, presetEntry.contractPath, prompt);
+    });
+  }
+
+  validatePresetTests(presetEntry.contractPath, presetContract.tests);
+
+  validatePresetProjectStructure(
+    presetEntry.contractPath,
+    presetEntry.templateRoot,
+    presetContract.requiredProjectStructure,
+  );
+};
+
 const validateIndex = (indexJson) => {
   if (Array.isArray(indexJson.components)) {
     indexJson.components.forEach(validateComponentEntry);
@@ -299,6 +554,20 @@ const validateIndex = (indexJson) => {
       validateThemeEntry(themeEntry, index, indexJson.themes, seenThemeIds);
     });
     validateActiveTheme(seenThemeIds);
+  }
+
+  const presetsDeclared = indexJson.presets !== undefined;
+  const presetsAreArray = Array.isArray(indexJson.presets);
+
+  if (presetsDeclared && presetsAreArray === false) {
+    errors.push(`${indexPath} presets must be an array when provided.`);
+  }
+
+  if (presetsAreArray) {
+    const seenPresetIds = new Set();
+    indexJson.presets.forEach((presetEntry, index) => {
+      validatePresetEntry(presetEntry, index, seenPresetIds);
+    });
   }
 };
 

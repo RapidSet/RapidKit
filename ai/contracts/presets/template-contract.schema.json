@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rapidset.dev/schemas/template-contract.schema.json",
+  "title": "RapidKit Template Contract",
+  "type": "object",
+  "required": [
+    "id",
+    "displayName",
+    "version",
+    "category",
+    "templateRoot",
+    "distribution",
+    "supportedPackageManagers",
+    "requiredChecks",
+    "prompts",
+    "requiredProjectStructure",
+    "tests"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "category": {
+      "type": "string"
+    },
+    "templateRoot": {
+      "type": "string"
+    },
+    "distribution": {
+      "type": "object",
+      "required": ["source", "extensible", "templateSpecVersion"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["official", "community"]
+        },
+        "extensible": {
+          "type": "boolean"
+        },
+        "templateSpecVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "supportedPackageManagers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["pnpm", "npm", "yarn", "bun"]
+      }
+    },
+    "requiredChecks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "prompts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "required"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["select", "text", "confirm"]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "type": ["string", "boolean"]
+          }
+        }
+      }
+    },
+    "requiredProjectStructure": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

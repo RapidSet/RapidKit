@@ -32,6 +32,7 @@ hero:
   </p>
   <div class="home-center__links">
     <a href="/ARCHITECTURE">Architecture</a>
+    <a href="/RAPIDKIT-CLI">RapidKit CLI</a>
     <a href="/THEMING">Theming</a>
     <a href="/MCP-SERVER">MCP Server</a>
   </div>

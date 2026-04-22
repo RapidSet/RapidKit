@@ -1,0 +1,144 @@
+# RapidKit CLI
+
+Use RapidKit CLI to scaffold an AI-ready project blueprint that MCP-aware tooling can turn into a production React application.
+
+## What The CLI Generates
+
+`rapidkit init` creates a project folder with a contract-aligned JSON manifest.
+
+It does **not** generate React source files directly.
+
+The generated `rapidkit.template.json` is the source of intent used by AI agents together with RapidKit MCP contracts.
+
+## Quick Start
+
+Run from any folder, including an empty folder.
+
+No `npm init` or `yarn init` is required before running the CLI.
+
+```bash
+npx rapidkit@latest init my-product --preset enterprise-dashboard
+```
+
+Alternative package manager launchers:
+
+```bash
+pnpm dlx rapidkit@latest init my-product --preset operations-console
+yarn dlx rapidkit@latest init my-product --preset enterprise-dashboard
+```
+
+Global install is optional:
+
+```bash
+npm install -g rapidkit
+rapidkit init my-product --preset enterprise-dashboard
+```
+
+## Presets
+
+Current official presets:
+
+- `enterprise-dashboard`
+- `operations-console`
+
+List available presets:
+
+```bash
+rapidkit list-presets
+```
+
+## Generated Output
+
+Expected scaffold output:
+
+```text
+my-product/
+  rapidkit.template.json
+```
+
+The manifest includes:
+
+- routes and page intent
+- required RapidKit component surfaces
+- integration boundaries (auth, API style, validation)
+- generation constraints for AI workflows
+
+## VS Code Developer Workflow
+
+For teams using VS Code, the typical flow is:
+
+1. Run `rapidkit init` to generate `rapidkit.template.json`.
+2. Open the generated folder in VS Code.
+3. Connect an MCP-aware AI workflow to the RapidKit MCP server.
+4. Ask AI to materialize the app from the manifest and contracts.
+5. Run standard quality gates (`lint`, `typecheck`, `test`, `build`) in the generated app repository.
+
+## CLI vs Traditional Bootstrap
+
+When teams compare RapidKit CLI with classic code-first scaffolding (for example direct Vite or Next bootstrap), the key difference is where architecture decisions are enforced.
+
+| Area              | Traditional Bootstrap                  | RapidKit CLI                                                |
+| ----------------- | -------------------------------------- | ----------------------------------------------------------- |
+| Initial output    | Runnable app code immediately          | Intent blueprint (`rapidkit.template.json`)                 |
+| Framework/runtime | Selected and materialized immediately  | Selected during AI materialization step                     |
+| AI role           | Optional assistant after code exists   | Primary implementation path from manifest + contracts       |
+| Governance timing | Mostly during PR reviews and refactors | Shifted left into preset contracts and manifest constraints |
+| Standardization   | Template quality + team discipline     | Contract-driven generation and MCP context                  |
+
+Practical interpretation for VS Code teams:
+
+- if you prioritize immediate runnable code, traditional bootstrap feels faster initially
+- if you prioritize repeatable enterprise structure and policy alignment, RapidKit CLI reduces long-term drift
+
+## MCP Integration
+
+Start the RapidKit MCP server from the repository root:
+
+```bash
+pnpm mcp:server
+```
+
+Then configure your MCP-capable client to use stdio with:
+
+- command: `pnpm`
+- args: `mcp:server`
+- working directory: RapidKit repository root
+
+See `/MCP-SERVER` for complete setup examples.
+
+## Vite And Runtime Materialization
+
+The current CLI model is intent-first.
+
+That means `rapidkit init` does not directly run Vite scaffolding.
+
+Vite (or another runtime choice) is selected when AI materializes the application from `rapidkit.template.json` using RapidKit MCP context.
+
+## Recommended Team Policy
+
+To keep generation predictable in enterprise environments:
+
+- treat `rapidkit.template.json` as the project intent contract
+- avoid manual drift between manifest intent and generated code
+- use MCP contract tools as the source of truth during generation
+- enforce runtime quality gates in the generated application repository
+
+## Troubleshooting
+
+### Unknown preset
+
+Run:
+
+```bash
+rapidkit list-presets
+```
+
+Then retry with a valid `--preset` value.
+
+### Target directory is not empty
+
+Choose a new output name or an empty target directory.
+
+### Need runnable code immediately
+
+Use your AI materialization step right after scaffold generation. `rapidkit init` is designed to produce the blueprint, not final app code.

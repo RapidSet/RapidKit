@@ -5,6 +5,7 @@ export type SiteNavigationItem = {
 
 export const SITE_NAV_ITEMS: SiteNavigationItem[] = [
   { title: 'Installation', href: '/INSTALLATION/' },
+  { title: 'RapidKit CLI', href: '/RAPIDKIT-CLI/' },
   { title: 'Theming', href: '/THEMING/' },
   { title: 'MCP Server', href: '/MCP-SERVER/' },
   { title: 'Architecture', href: '/ARCHITECTURE/' },
