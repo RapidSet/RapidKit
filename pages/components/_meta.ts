@@ -5,6 +5,9 @@ export default {
   autocomplete: {
     title: 'Autocomplete',
   },
+  avatar: {
+    title: 'Avatar',
+  },
   'base-modal': {
     title: 'BaseModal',
   },

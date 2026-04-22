@@ -9,6 +9,7 @@ For scalable, per-component documentation, use the docs hub:
 Direct links:
 
 - https://rapidset.github.io/RapidKit/components/autocomplete
+- https://rapidset.github.io/RapidKit/components/avatar
 - https://rapidset.github.io/RapidKit/components/base-modal
 - https://rapidset.github.io/RapidKit/components/base-table
 - https://rapidset.github.io/RapidKit/components/button

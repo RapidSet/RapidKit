@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type JSX } from 'react';
 import { Autocomplete } from '../../src/components/Autocomplete';
+import { Avatar } from '../../src/components/Avatar';
 import { BaseModal } from '../../src/components/BaseModal';
 import { BaseTable } from '../../src/components/BaseTable';
 import { Button, ButtonVariant } from '../../src/components/Button';
@@ -22,6 +23,7 @@ import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
 
 export type ComponentExampleId =
   | 'autocomplete'
+  | 'avatar'
   | 'base-modal'
   | 'base-table'
   | 'button'
@@ -218,6 +220,28 @@ function AutocompletePreview(): JSX.Element {
         getOptionById={dummyGetUserById}
         onSelectOption={(item) => setSelectedId(item?.id ?? null)}
       />
+    </div>
+  );
+}
+
+function AvatarPreview(): JSX.Element {
+  const previewImageSrc =
+    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80';
+
+  return (
+    <div className="flex items-end gap-4">
+      <div className="flex flex-col items-center gap-1">
+        <Avatar src={previewImageSrc} alt="Alex Rivera" size="sm" />
+        <span className="text-xs text-muted-foreground">sm</span>
+      </div>
+      <div className="flex flex-col items-center gap-1">
+        <Avatar alt="Jordan Kim" size="md" />
+        <span className="text-xs text-muted-foreground">fallback</span>
+      </div>
+      <div className="flex flex-col items-center gap-1">
+        <Avatar fallback="RK" size="lg" />
+        <span className="text-xs text-muted-foreground">custom</span>
+      </div>
     </div>
   );
 }
@@ -1112,6 +1136,18 @@ function AssigneeField() {
     />
   );
 }`,
+  },
+  avatar: {
+    render: AvatarPreview,
+    code: `<div className="flex items-end gap-4">
+  <Avatar
+    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80"
+    alt="Alex Rivera"
+    size="sm"
+  />
+  <Avatar alt="Jordan Kim" size="md" />
+  <Avatar fallback="RK" size="lg" />
+</div>`,
   },
   'base-modal': {
     render: BaseModalPreview,

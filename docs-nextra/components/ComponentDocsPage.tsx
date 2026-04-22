@@ -88,6 +88,51 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'If your app supplies access rules, Autocomplete can stay hidden when the field should not be visible or visible-but-disabled when it should be read only.',
   },
+  avatar: {
+    title: 'Avatar',
+    summary:
+      'Avatar displays profile imagery with graceful fallback text, predictable sizing, and optional visibility access checks.',
+    highlights: [
+      'Image and fallback',
+      'Size variants',
+      'Access-aware visibility',
+    ],
+    importCode: "import { Avatar } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'src',
+        description: 'Supplies the avatar image URL when media is available.',
+      },
+      {
+        name: 'alt',
+        description:
+          'Provides descriptive text and initials source for fallback rendering.',
+      },
+      {
+        name: 'fallback',
+        description: 'Overrides derived initials with custom fallback content.',
+      },
+      {
+        name: 'size',
+        description:
+          'Applies sm, md, or lg dimensions with token-friendly utility classes.',
+      },
+      {
+        name: 'imageClassName and fallbackClassName',
+        description:
+          'Lets consumers style image and fallback surfaces independently.',
+      },
+      {
+        name: 'accessRequirements and resolveAccess',
+        description:
+          'Keeps visibility injectable through host-defined access rules.',
+      },
+    ],
+    accessibility:
+      'Alt text is forwarded to the underlying avatar image, and fallback content ensures a visible representation when image media is unavailable.',
+    accessBehavior:
+      'When access rules are provided, Avatar returns null only when view access is denied; write-only requirements keep it visible by convention.',
+  },
   'base-modal': {
     title: 'BaseModal',
     summary:
