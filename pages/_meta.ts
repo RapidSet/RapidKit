@@ -2,6 +2,9 @@ export default {
   INSTALLATION: {
     title: 'Installation',
   },
+  'RAPIDKIT-CLI': {
+    title: 'RapidKit CLI',
+  },
   THEMING: {
     title: 'Theming',
   },

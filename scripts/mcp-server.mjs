@@ -53,6 +53,7 @@ const loadContractIndex = () => {
   return {
     components: Array.isArray(indexJson.components) ? indexJson.components : [],
     themes: Array.isArray(indexJson.themes) ? indexJson.themes : [],
+    presets: Array.isArray(indexJson.presets) ? indexJson.presets : [],
     version: indexJson.version ?? null,
   };
 };
@@ -81,6 +82,37 @@ const findTheme = (themes, id) => {
   return themes.find((theme) => theme.id.toLowerCase() === normalized) ?? null;
 };
 
+const findPreset = (presets, id) => {
+  const normalized = id.trim().toLowerCase();
+
+  return (
+    presets.find((preset) => preset.id.toLowerCase() === normalized) ?? null
+  );
+};
+
+const selectPresetForUseCase = (presets, useCase) => {
+  const normalizedUseCase = useCase.toLowerCase();
+
+  if (
+    normalizedUseCase.includes('operations') ||
+    normalizedUseCase.includes('ops') ||
+    normalizedUseCase.includes('incident') ||
+    normalizedUseCase.includes('queue')
+  ) {
+    const operationsPreset = findPreset(presets, 'operations-console');
+    if (operationsPreset) {
+      return operationsPreset;
+    }
+  }
+
+  const enterprisePreset = findPreset(presets, 'enterprise-dashboard');
+  if (enterprisePreset) {
+    return enterprisePreset;
+  }
+
+  return presets[0] ?? null;
+};
+
 const loadComponentContract = (componentEntry) => {
   const absolutePath = toAbsolute(componentEntry.contractPath);
 
@@ -98,6 +130,18 @@ const loadThemeContract = (themeEntry) => {
 
   if (!fileExists(absolutePath)) {
     throw new Error(`Theme contract file missing: ${themeEntry.contractPath}`);
+  }
+
+  return readJsonFile(absolutePath);
+};
+
+const loadPresetContract = (presetEntry) => {
+  const absolutePath = toAbsolute(presetEntry.contractPath);
+
+  if (!fileExists(absolutePath)) {
+    throw new Error(
+      `Preset contract file missing: ${presetEntry.contractPath}`,
+    );
   }
 
   return readJsonFile(absolutePath);
@@ -136,6 +180,231 @@ const runScriptAndCapture = (scriptRelativePath) => {
     status: result.status,
     stdout: result.stdout ?? '',
     stderr: result.stderr ?? '',
+  };
+};
+
+const runCommandInDirectory = (command, args, cwd) => {
+  const result = spawnSync(command, args, {
+    cwd,
+    encoding: 'utf8',
+  });
+
+  return {
+    command: `${command} ${args.join(' ')}`,
+    success: result.status === 0,
+    status: result.status,
+    stdout: (result.stdout ?? '').trim(),
+    stderr: (result.stderr ?? '').trim(),
+  };
+};
+
+const resolveProjectDir = (projectDir) =>
+  path.isAbsolute(projectDir) ? projectDir : path.resolve(ROOT_DIR, projectDir);
+
+const resolvePresetForValidation = (presetId) => {
+  const { presets } = loadContractIndex();
+  const preset = findPreset(presets, presetId);
+  if (!preset) {
+    return null;
+  }
+
+  const contract = loadPresetContract(preset);
+  return {
+    preset,
+    contract,
+    requiredChecks: Array.isArray(contract.requiredChecks)
+      ? contract.requiredChecks
+      : [],
+  };
+};
+
+const runScaffoldValidationCheck = ({
+  check,
+  packageManager,
+  absoluteProjectDir,
+  skipInstall,
+}) => {
+  if (check === 'template-manifest') {
+    const manifestPath = path.resolve(
+      absoluteProjectDir,
+      'rapidkit.template.json',
+    );
+
+    if (!fileExists(manifestPath)) {
+      return {
+        check,
+        success: false,
+        status: 1,
+        command: 'validate template manifest',
+        stdout: '',
+        stderr: 'Missing rapidkit.template.json in scaffolded project.',
+      };
+    }
+
+    try {
+      readJsonFile(manifestPath);
+      return {
+        check,
+        success: true,
+        status: 0,
+        command: 'validate template manifest',
+        stdout: 'rapidkit.template.json is valid JSON.',
+        stderr: '',
+      };
+    } catch (error) {
+      return {
+        check,
+        success: false,
+        status: 1,
+        command: 'validate template manifest',
+        stdout: '',
+        stderr: `Invalid rapidkit.template.json: ${String(error)}`,
+      };
+    }
+  }
+
+  if (check === 'install') {
+    if (skipInstall) {
+      return {
+        check,
+        success: true,
+        skipped: true,
+        reason: 'skipInstall=true',
+      };
+    }
+
+    const installResult = runCommandInDirectory(
+      packageManager,
+      ['install'],
+      absoluteProjectDir,
+    );
+    return { check, ...installResult };
+  }
+
+  if (
+    check === 'typecheck' ||
+    check === 'lint' ||
+    check === 'test' ||
+    check === 'build'
+  ) {
+    const scriptResult = runCommandInDirectory(
+      packageManager,
+      ['run', check],
+      absoluteProjectDir,
+    );
+    return { check, ...scriptResult };
+  }
+
+  return {
+    check,
+    success: false,
+    skipped: true,
+    reason: `Unsupported check in preset requiredChecks: ${check}`,
+  };
+};
+
+const runScaffoldValidationChecks = ({
+  requiredChecks,
+  packageManager,
+  absoluteProjectDir,
+  skipInstall,
+}) => {
+  const results = [];
+
+  for (const check of requiredChecks) {
+    const result = runScaffoldValidationCheck({
+      check,
+      packageManager,
+      absoluteProjectDir,
+      skipInstall,
+    });
+    results.push(result);
+
+    if (!result.success) {
+      break;
+    }
+  }
+
+  return results;
+};
+
+const parseNodeVersion = (nodeVersion) => {
+  const normalized = nodeVersion.startsWith('v')
+    ? nodeVersion.slice(1)
+    : nodeVersion;
+  const [majorRaw, minorRaw, patchRaw] = normalized.split('.');
+
+  return {
+    major: Number(majorRaw),
+    minor: Number(minorRaw),
+    patch: Number(patchRaw),
+  };
+};
+
+const compareVersions = (left, right) => {
+  if (left.major !== right.major) {
+    return left.major - right.major;
+  }
+
+  if (left.minor !== right.minor) {
+    return left.minor - right.minor;
+  }
+
+  return left.patch - right.patch;
+};
+
+const isNodeVersionSupportedForScaffold = (nodeVersion) => {
+  const current = parseNodeVersion(nodeVersion);
+  const minimum20 = { major: 20, minor: 19, patch: 0 };
+  const minimum22 = { major: 22, minor: 12, patch: 0 };
+
+  const is20LineSupported =
+    current.major === 20 && compareVersions(current, minimum20) >= 0;
+  const is22PlusSupported =
+    current.major > 22 ||
+    (current.major === 22 && compareVersions(current, minimum22) >= 0);
+
+  return is20LineSupported || is22PlusSupported;
+};
+
+const getNodeCompatibilityPreflight = (nodeVersion) => {
+  const supported = isNodeVersionSupportedForScaffold(nodeVersion);
+
+  return {
+    runtimeNodeVersion: nodeVersion,
+    supported,
+    requiredRange: '^20.19.0 || >=22.12.0',
+    message: supported
+      ? 'Node runtime satisfies scaffold validation requirements.'
+      : 'Node runtime is below required range for Vite 7 templates. Use Node 20.19+ or 22.12+.',
+  };
+};
+
+const recommendExecutionPath = ({
+  preflight,
+  operation,
+  strictMode,
+  allowIncompatibleNode,
+}) => {
+  if (preflight.supported) {
+    return {
+      recommendation: 'proceed',
+      reason: `Runtime satisfies requirements for ${operation}.`,
+    };
+  }
+
+  if (strictMode && !allowIncompatibleNode) {
+    return {
+      recommendation: 'block-until-runtime-upgrade',
+      reason:
+        'Strict mode is enabled and runtime is incompatible. Upgrade Node before continuing.',
+    };
+  }
+
+  return {
+    recommendation: 'proceed-with-warning',
+    reason:
+      'Runtime is incompatible, but operation can continue in non-strict mode with higher risk of downstream failures.',
   };
 };
 
@@ -196,6 +465,7 @@ const createMcpServer = () => {
         version: index.version,
         components: index.components,
         themes: index.themes,
+        presets: index.presets,
       });
     },
   );
@@ -392,6 +662,343 @@ const createMcpServer = () => {
   );
 
   server.registerTool(
+    'list_presets',
+    {
+      title: 'List Presets',
+      description:
+        'Lists available project scaffolding presets from ai/contracts/index.json.',
+    },
+    async () => {
+      const { presets } = loadContractIndex();
+
+      return toolTextResult({ presets });
+    },
+  );
+
+  server.registerTool(
+    'get_preset_contract',
+    {
+      title: 'Get Preset Contract',
+      description:
+        'Returns one preset contract plus index metadata for scaffold planning.',
+      inputSchema: {
+        id: z.string().min(1),
+      },
+    },
+    async ({ id }) => {
+      const { presets } = loadContractIndex();
+      const preset = findPreset(presets, id);
+
+      if (!preset) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Unknown preset id: ${id}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      const contract = loadPresetContract(preset);
+
+      return toolTextResult({
+        id: preset.id,
+        indexEntry: preset,
+        contract,
+      });
+    },
+  );
+
+  server.registerTool(
+    'plan_project',
+    {
+      title: 'Plan Project',
+      description:
+        'Returns a contract-compliant scaffold plan for enterprise project generation.',
+      inputSchema: {
+        useCase: z.string().min(3),
+        packageManager: z.enum(['pnpm', 'npm']).optional(),
+        complianceProfile: z.enum(['baseline', 'hardened']).optional(),
+        deploymentTarget: z
+          .enum(['azure-container-apps', 'vercel', 'none'])
+          .optional(),
+        backendMode: z.enum(['real-api', 'mock-api']).optional(),
+        allowIncompatibleNode: z.boolean().optional(),
+      },
+    },
+    async ({
+      useCase,
+      packageManager,
+      complianceProfile,
+      deploymentTarget,
+      backendMode,
+      allowIncompatibleNode,
+    }) => {
+      const preflight = getNodeCompatibilityPreflight(process.version);
+      const executionRecommendation = recommendExecutionPath({
+        preflight,
+        operation: 'plan_project',
+        strictMode: false,
+        allowIncompatibleNode,
+      });
+      const { presets } = loadContractIndex();
+
+      const selectedPreset = selectPresetForUseCase(presets, useCase);
+
+      if (!selectedPreset) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'No presets are registered in ai/contracts/index.json.',
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      const contract = loadPresetContract(selectedPreset);
+
+      const resolvedPlan = {
+        presetId: selectedPreset.id,
+        rationale:
+          selectedPreset.id === 'operations-console'
+            ? 'Operations console preset matches incident and queue-driven internal workflows with enterprise constraints.'
+            : 'Enterprise dashboard preset is optimized for authenticated internal applications with backend integration boundaries.',
+        preflight,
+        preflightWarning: preflight.supported
+          ? null
+          : 'Node runtime is outside recommended range (^20.19.0 || >=22.12.0). Scaffolding can still run, but validation/build may fail later.',
+        executionRecommendation,
+        request: {
+          useCase,
+        },
+        options: {
+          packageManager: packageManager ?? 'pnpm',
+          complianceProfile: complianceProfile ?? 'baseline',
+          deploymentTarget: deploymentTarget ?? 'none',
+          backendMode: backendMode ?? 'real-api',
+        },
+        checks: contract.requiredChecks,
+        routeBlueprint: contract.routeBlueprint ?? null,
+        integrationBlueprint: contract.integrationBlueprint ?? null,
+      };
+
+      return toolTextResult(resolvedPlan);
+    },
+  );
+
+  server.registerTool(
+    'scaffold_project',
+    {
+      title: 'Scaffold Project',
+      description:
+        'Executes rapidkit init with validated options to generate a new project.',
+      inputSchema: {
+        projectName: z.string().min(1),
+        presetId: z.string().default('enterprise-dashboard'),
+        outputDir: z.string().optional(),
+        allowCommunity: z.boolean().optional(),
+      },
+    },
+    async ({ projectName, presetId, outputDir, allowCommunity }) => {
+      const preflight = getNodeCompatibilityPreflight(process.version);
+      const args = [
+        'packages/create-rapidkit/src/index.mjs',
+        'init',
+        projectName,
+        '--preset',
+        presetId,
+      ];
+
+      if (outputDir && outputDir.trim().length > 0) {
+        args.push('--output', outputDir);
+      }
+
+      if (allowCommunity) {
+        args.push('--allow-community');
+      }
+
+      const result = spawnSync(process.execPath, args, {
+        cwd: ROOT_DIR,
+        encoding: 'utf8',
+      });
+
+      const payload = {
+        command: `${process.execPath} ${args.join(' ')}`,
+        success: result.status === 0,
+        status: result.status,
+        preflight,
+        preflightWarning: preflight.supported
+          ? null
+          : 'Node runtime is outside recommended range (^20.19.0 || >=22.12.0). Scaffolding was allowed, but validation/build may fail later.',
+        stdout: (result.stdout ?? '').trim(),
+        stderr: (result.stderr ?? '').trim(),
+      };
+
+      if (!payload.success) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `${JSON.stringify(payload, null, 2)}\n`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      return toolTextResult(payload);
+    },
+  );
+
+  server.registerTool(
+    'validate_scaffold',
+    {
+      title: 'Validate Scaffold',
+      description:
+        'Runs required quality checks for a scaffolded project using preset contract requirements.',
+      inputSchema: {
+        projectDir: z.string().min(1),
+        presetId: z.string().default('enterprise-dashboard'),
+        packageManager: z.enum(['pnpm', 'npm']).default('pnpm'),
+        skipInstall: z.boolean().optional(),
+        allowIncompatibleNode: z.boolean().optional(),
+      },
+    },
+    async ({
+      projectDir,
+      presetId,
+      packageManager,
+      skipInstall,
+      allowIncompatibleNode,
+    }) => {
+      const absoluteProjectDir = resolveProjectDir(projectDir);
+      const preflight = getNodeCompatibilityPreflight(process.version);
+
+      if (!preflight.supported && !allowIncompatibleNode) {
+        const payload = {
+          presetId,
+          projectDir: absoluteProjectDir,
+          packageManager,
+          success: false,
+          preflight,
+          checks: [],
+          failureReason:
+            'Node runtime is incompatible. Re-run with allowIncompatibleNode=true to continue at your own risk.',
+        };
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `${JSON.stringify(payload, null, 2)}\n`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      const projectPackageJson = path.resolve(
+        absoluteProjectDir,
+        'package.json',
+      );
+      if (!fileExists(projectPackageJson)) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Scaffold validation target is missing package.json: ${absoluteProjectDir}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      const presetValidationContext = resolvePresetForValidation(presetId);
+      if (!presetValidationContext) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Unknown preset id: ${presetId}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      const results = runScaffoldValidationChecks({
+        requiredChecks: presetValidationContext.requiredChecks,
+        packageManager,
+        absoluteProjectDir,
+        skipInstall,
+      });
+
+      const success = results.every((result) => result.success === true);
+
+      const payload = {
+        presetId,
+        projectDir: absoluteProjectDir,
+        packageManager,
+        success,
+        preflight,
+        checks: results,
+      };
+
+      if (!success) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `${JSON.stringify(payload, null, 2)}\n`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      return toolTextResult(payload);
+    },
+  );
+
+  server.registerTool(
+    'recommend_execution_path',
+    {
+      title: 'Recommend Execution Path',
+      description:
+        'Returns a deterministic recommendation for scaffold workflows based on Node runtime compatibility and operation strictness.',
+      inputSchema: {
+        operation: z
+          .enum(['plan_project', 'scaffold_project', 'validate_scaffold'])
+          .default('validate_scaffold'),
+        allowIncompatibleNode: z.boolean().optional(),
+      },
+    },
+    async ({ operation, allowIncompatibleNode }) => {
+      const preflight = getNodeCompatibilityPreflight(process.version);
+      const strictMode = operation === 'validate_scaffold';
+      const recommendation = recommendExecutionPath({
+        preflight,
+        operation,
+        strictMode,
+        allowIncompatibleNode,
+      });
+
+      return toolTextResult({
+        operation,
+        strictMode,
+        preflight,
+        allowIncompatibleNode: Boolean(allowIncompatibleNode),
+        recommendation: recommendation.recommendation,
+        reason: recommendation.reason,
+      });
+    },
+  );
+
+  server.registerTool(
     'get_theme_contract',
     {
       title: 'Get Theme Contract',
@@ -583,6 +1190,8 @@ const main = async () => {
 try {
   await main();
 } catch (error) {
-  process.stderr.write(`Failed to start RapidKit MCP server: ${String(error)}\n`);
+  process.stderr.write(
+    `Failed to start RapidKit MCP server: ${String(error)}\n`,
+  );
   process.exit(1);
 }

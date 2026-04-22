@@ -1,0 +1,93 @@
+{
+  "id": "enterprise-dashboard",
+  "displayName": "Enterprise Dashboard",
+  "version": "1.0.0",
+  "category": "enterprise",
+  "description": "Role-aware enterprise dashboard starter powered by RapidKit with strict quality gates.",
+  "templateRoot": "packages/create-rapidkit/templates/presets/enterprise-dashboard",
+  "framework": "rapidkit-json-blueprint",
+  "distribution": {
+    "source": "official",
+    "extensible": true,
+    "templateSpecVersion": "1.0.0"
+  },
+  "supportedPackageManagers": ["pnpm", "npm"],
+  "requiredChecks": ["template-manifest"],
+  "capabilities": {
+    "landingPage": true,
+    "loginFlow": true,
+    "signupFlow": true,
+    "passwordResetFlow": true,
+    "dashboardShell": true,
+    "accessControlHooks": true,
+    "auditLoggingAdapters": true,
+    "backendIntegrationAdapters": true,
+    "requestValidation": true,
+    "formValidation": true,
+    "queryMutationDataFlow": true,
+    "themeIntegration": true,
+    "deploymentReadyDefaults": true
+  },
+  "routeBlueprint": {
+    "publicRoutes": ["/", "/login", "/signup", "/password-reset"],
+    "protectedRoutes": ["/app", "/app/profile"]
+  },
+  "integrationBlueprint": {
+    "transport": "REST",
+    "authStrategy": "token-with-refresh",
+    "apiClient": "axios",
+    "stateAndData": "tanstack-query",
+    "formEngine": "react-hook-form-with-zod"
+  },
+  "dataFlow": {
+    "principles": [
+      "ui-components-never-call-fetch-directly",
+      "features-call-service-hooks",
+      "service-hooks-call-api-clients",
+      "api-clients-are-environment-driven"
+    ]
+  },
+  "requiredProjectStructure": ["rapidkit.template.json"],
+  "prompts": [
+    {
+      "name": "packageManager",
+      "type": "select",
+      "required": true,
+      "options": ["pnpm", "npm"],
+      "default": "pnpm"
+    },
+    {
+      "name": "complianceProfile",
+      "type": "select",
+      "required": true,
+      "options": ["baseline", "hardened"],
+      "default": "baseline"
+    },
+    {
+      "name": "deploymentTarget",
+      "type": "select",
+      "required": true,
+      "options": [
+        "azure-container-apps",
+        "azure-static-web-apps",
+        "kubernetes",
+        "vercel",
+        "netlify",
+        "cloudflare-pages",
+        "aws-amplify",
+        "none"
+      ],
+      "default": "none"
+    },
+    {
+      "name": "backendMode",
+      "type": "select",
+      "required": true,
+      "options": ["real-api", "mock-api"],
+      "default": "real-api"
+    }
+  ],
+  "tests": [
+    "packages/create-rapidkit/templates/presets/enterprise-dashboard/template/rapidkit.template.json"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "templateVersion": "1.0.0",
+  "presetId": "operations-console",
+  "projectName": "__PROJECT_NAME__",
+  "generationMode": "ai-mcp-driven",
+  "frameworkIntent": "react-enterprise-app",
+  "constraints": {
+    "scaffoldContainsReactCode": false,
+    "useRapidKitMCP": true,
+    "useRapidKitContracts": true,
+    "productionReadyExpectation": true
+  },
+  "uiSpecification": {
+    "pages": [
+      {
+        "id": "landing",
+        "route": "/",
+        "purpose": "Operations entry and system posture summary"
+      },
+      {
+        "id": "login",
+        "route": "/login",
+        "purpose": "Operator authentication"
+      },
+      {
+        "id": "signup",
+        "route": "/signup",
+        "purpose": "Operator provisioning"
+      },
+      {
+        "id": "password-reset",
+        "route": "/password-reset",
+        "purpose": "Credential recovery"
+      },
+      {
+        "id": "dashboard",
+        "route": "/app",
+        "purpose": "Queue, incident, and SLA workload cockpit"
+      },
+      {
+        "id": "profile",
+        "route": "/app/profile",
+        "purpose": "Operator profile and notification controls"
+      }
+    ],
+    "components": [
+      "BaseTable",
+      "DetailsCard",
+      "Page",
+      "Search",
+      "Button",
+      "Input",
+      "DropDown",
+      "Toggle",
+      "Text"
+    ]
+  },
+  "integrationSpecification": {
+    "authFlow": "token-with-refresh",
+    "dataAccess": "service-layer-adapters",
+    "apiStyle": "rest",
+    "validation": "zod-based"
+  },
+  "deploymentSpecification": {
+    "target": "__DEPLOYMENT_TARGET__",
+    "containerization": {
+      "requiresDocker": "__DEPLOYMENT_REQUIRES_DOCKER__",
+      "dockerfileStrategy": "__DOCKER_BUILD_STRATEGY__"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "presets": [
+    {
+      "id": "enterprise-dashboard",
+      "contractPath": "presets/enterprise-dashboard.contract.json",
+      "templateRoot": "templates/presets/enterprise-dashboard",
+      "category": "enterprise",
+      "source": "official"
+    },
+    {
+      "id": "operations-console",
+      "contractPath": "presets/operations-console.contract.json",
+      "templateRoot": "templates/presets/operations-console",
+      "category": "enterprise",
+      "source": "official"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "operations-console",
+  "displayName": "Operations Console",
+  "version": "1.0.0",
+  "category": "enterprise",
+  "description": "Enterprise operations console starter with auth, validation boundaries, and backend adapter architecture.",
+  "templateRoot": "packages/create-rapidkit/templates/presets/operations-console",
+  "framework": "rapidkit-json-blueprint",
+  "distribution": {
+    "source": "official",
+    "extensible": true,
+    "templateSpecVersion": "1.0.0"
+  },
+  "supportedPackageManagers": ["pnpm", "npm"],
+  "requiredChecks": ["template-manifest"],
+  "capabilities": {
+    "landingPage": true,
+    "loginFlow": true,
+    "signupFlow": true,
+    "passwordResetFlow": true,
+    "operationsQueues": true,
+    "incidentPanels": true,
+    "accessControlHooks": true,
+    "auditLoggingAdapters": true,
+    "backendIntegrationAdapters": true,
+    "requestValidation": true,
+    "formValidation": true,
+    "queryMutationDataFlow": true,
+    "themeIntegration": true,
+    "deploymentReadyDefaults": true
+  },
+  "routeBlueprint": {
+    "publicRoutes": ["/", "/login", "/signup", "/password-reset"],
+    "protectedRoutes": ["/app", "/app/profile"]
+  },
+  "integrationBlueprint": {
+    "transport": "REST",
+    "authStrategy": "token-with-refresh",
+    "apiClient": "axios",
+    "stateAndData": "tanstack-query",
+    "formEngine": "react-hook-form-with-zod"
+  },
+  "dataFlow": {
+    "principles": [
+      "ui-components-never-call-fetch-directly",
+      "features-call-service-hooks",
+      "service-hooks-call-api-clients",
+      "api-clients-are-environment-driven"
+    ]
+  },
+  "requiredProjectStructure": ["rapidkit.template.json"],
+  "prompts": [
+    {
+      "name": "packageManager",
+      "type": "select",
+      "required": true,
+      "options": ["pnpm", "npm"],
+      "default": "pnpm"
+    },
+    {
+      "name": "complianceProfile",
+      "type": "select",
+      "required": true,
+      "options": ["baseline", "hardened"],
+      "default": "hardened"
+    },
+    {
+      "name": "deploymentTarget",
+      "type": "select",
+      "required": true,
+      "options": [
+        "azure-container-apps",
+        "azure-static-web-apps",
+        "kubernetes",
+        "vercel",
+        "netlify",
+        "cloudflare-pages",
+        "aws-amplify",
+        "none"
+      ],
+      "default": "azure-container-apps"
+    },
+    {
+      "name": "backendMode",
+      "type": "select",
+      "required": true,
+      "options": ["real-api", "mock-api"],
+      "default": "real-api"
+    }
+  ],
+  "tests": [
+    "packages/create-rapidkit/templates/presets/operations-console/template/rapidkit.template.json"
+  ]
+}

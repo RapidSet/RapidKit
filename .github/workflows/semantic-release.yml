@@ -1,62 +1,65 @@
 name: Semantic Release
 
 on:
-    push:
-        branches:
-            - main
-    workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - packages/create-rapidkit/**
+      - .github/workflows/cli-release.yml
+  workflow_dispatch:
 
 permissions:
-    contents: write
-    issues: write
-    pull-requests: write
-    id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
 
 jobs:
-    release:
-        name: Release
-        runs-on: ubuntu-latest
+  release:
+    name: Package Release
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 22.12.0
-                  cache: pnpm
-                  registry-url: https://registry.npmjs.org
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
 
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-            - name: Validate AI contracts
-              run: pnpm validate:contracts
+      - name: Validate AI contracts
+        run: pnpm validate:contracts
 
-            - name: Validate component docs coverage
-              run: pnpm validate:component-docs
+      - name: Validate component docs coverage
+        run: pnpm validate:component-docs
 
-            - name: Lint
-              run: pnpm lint
+      - name: Lint
+        run: pnpm lint
 
-            - name: Type check
-              run: pnpm tsc --noEmit
+      - name: Type check
+        run: pnpm tsc --noEmit
 
-            - name: Unit tests
-              run: pnpm test
+      - name: Unit tests
+        run: pnpm test
 
-            - name: Build package
-              run: pnpm build
+      - name: Build package
+        run: pnpm build
 
-            - name: Semantic release
-              run: pnpm release
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NPM_CONFIG_PROVENANCE: true
+      - name: Semantic release
+        run: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

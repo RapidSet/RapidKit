@@ -1,0 +1,97 @@
+{
+  "id": "enterprise-dashboard",
+  "displayName": "Enterprise Dashboard",
+  "version": "1.0.0",
+  "category": "enterprise",
+  "description": "Role-aware enterprise dashboard starter powered by RapidKit with strict quality gates.",
+  "templateRoot": "templates/presets/enterprise-dashboard",
+  "framework": "vite-react-ts",
+  "distribution": {
+    "source": "official",
+    "extensible": true,
+    "templateSpecVersion": "1.0.0"
+  },
+  "supportedPackageManagers": ["pnpm", "npm"],
+  "requiredChecks": ["install", "typecheck", "lint", "test", "build"],
+  "capabilities": {
+    "landingPage": true,
+    "loginFlow": true,
+    "signupFlow": true,
+    "passwordResetFlow": true,
+    "dashboardShell": true,
+    "accessControlHooks": true,
+    "auditLoggingAdapters": true,
+    "backendIntegrationAdapters": true,
+    "requestValidation": true,
+    "formValidation": true,
+    "queryMutationDataFlow": true,
+    "themeIntegration": true,
+    "deploymentReadyDefaults": true
+  },
+  "routeBlueprint": {
+    "publicRoutes": ["/", "/login", "/signup", "/password-reset"],
+    "protectedRoutes": ["/app", "/app/profile"]
+  },
+  "integrationBlueprint": {
+    "transport": "REST",
+    "authStrategy": "token-with-refresh",
+    "apiClient": "axios",
+    "stateAndData": "tanstack-query",
+    "formEngine": "react-hook-form-with-zod"
+  },
+  "dataFlow": {
+    "principles": [
+      "ui-components-never-call-fetch-directly",
+      "features-call-service-hooks",
+      "service-hooks-call-api-clients",
+      "api-clients-are-environment-driven"
+    ]
+  },
+  "requiredProjectStructure": [
+    "src/features/auth/pages",
+    "src/features/dashboard/pages",
+    "src/lib/api",
+    "src/lib/validation",
+    "src/auth"
+  ],
+  "prompts": [
+    {
+      "name": "packageManager",
+      "type": "select",
+      "required": true,
+      "options": ["pnpm", "npm"],
+      "default": "pnpm"
+    },
+    {
+      "name": "complianceProfile",
+      "type": "select",
+      "required": true,
+      "options": ["baseline", "hardened"],
+      "default": "baseline"
+    },
+    {
+      "name": "deploymentTarget",
+      "type": "select",
+      "required": true,
+      "options": [
+        "azure-container-apps",
+        "azure-static-web-apps",
+        "kubernetes",
+        "vercel",
+        "netlify",
+        "cloudflare-pages",
+        "aws-amplify",
+        "none"
+      ],
+      "default": "none"
+    },
+    {
+      "name": "backendMode",
+      "type": "select",
+      "required": true,
+      "options": ["real-api", "mock-api"],
+      "default": "real-api"
+    }
+  ],
+  "tests": ["templates/presets/enterprise-dashboard/template/src/app.test.ts"]
+}

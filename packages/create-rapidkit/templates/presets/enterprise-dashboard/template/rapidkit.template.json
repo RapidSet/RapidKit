@@ -1,0 +1,72 @@
+{
+  "templateVersion": "1.0.0",
+  "presetId": "enterprise-dashboard",
+  "projectName": "__PROJECT_NAME__",
+  "generationMode": "ai-mcp-driven",
+  "frameworkIntent": "react-enterprise-app",
+  "constraints": {
+    "scaffoldContainsReactCode": false,
+    "useRapidKitMCP": true,
+    "useRapidKitContracts": true,
+    "productionReadyExpectation": true
+  },
+  "uiSpecification": {
+    "pages": [
+      {
+        "id": "landing",
+        "route": "/",
+        "purpose": "Executive landing and entry point"
+      },
+      {
+        "id": "login",
+        "route": "/login",
+        "purpose": "User authentication"
+      },
+      {
+        "id": "signup",
+        "route": "/signup",
+        "purpose": "User registration"
+      },
+      {
+        "id": "password-reset",
+        "route": "/password-reset",
+        "purpose": "Credential recovery"
+      },
+      {
+        "id": "dashboard",
+        "route": "/app",
+        "purpose": "Role-aware operational dashboard"
+      },
+      {
+        "id": "profile",
+        "route": "/app/profile",
+        "purpose": "User profile and preferences"
+      }
+    ],
+    "components": [
+      "Button",
+      "Input",
+      "Text",
+      "DropDown",
+      "BaseTable",
+      "BaseModal",
+      "Page",
+      "DetailsCard",
+      "Toggle",
+      "Checkbox"
+    ]
+  },
+  "integrationSpecification": {
+    "authFlow": "token-with-refresh",
+    "dataAccess": "service-layer-adapters",
+    "apiStyle": "rest",
+    "validation": "zod-based"
+  },
+  "deploymentSpecification": {
+    "target": "__DEPLOYMENT_TARGET__",
+    "containerization": {
+      "requiresDocker": "__DEPLOYMENT_REQUIRES_DOCKER__",
+      "dockerfileStrategy": "__DOCKER_BUILD_STRATEGY__"
+    }
+  }
+}
