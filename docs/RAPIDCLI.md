@@ -1,12 +1,18 @@
-import { DocsCodePreview } from '../docs-nextra/components/DocsCodePreview';
+# RapidCLI
 
-# RapidKit CLI
+Use RapidCLI to scaffold an AI-ready project blueprint that MCP-aware tooling can turn into a production React application.
 
-Use RapidKit CLI to scaffold an AI-ready project blueprint that MCP-aware tooling can turn into a production React application.
+Package: https://www.npmjs.com/package/rapidcli
+
+<p align="center">
+  <img src="../public/rapidcli.svg" alt="rapidcli logo" width="96" height="96" />
+</p>
+
+<p align="center"><strong>Intent-first scaffolding for MCP-aware AI generation workflows.</strong></p>
 
 ## What The CLI Generates
 
-`rapidkit init` creates a project folder with a contract-aligned JSON manifest.
+`rapidcli init` creates a project folder with a contract-aligned JSON manifest.
 
 It does **not** generate React source files directly.
 
@@ -18,24 +24,33 @@ Run from any folder, including an empty folder.
 
 No `npm init` or `yarn init` is required before running the CLI.
 
-<DocsCodePreview
-  language="bash"
-  code={`npx rapidkit@latest init my-product --preset enterprise-dashboard`}
-/>
+```bash
+npx rapidcli@latest init my-product --preset enterprise-dashboard
+```
+
+During `init`, the CLI now prompts for a deployment target and lets you skip deployment planning entirely.
+
+You can also set it explicitly:
+
+```bash
+npx rapidcli@latest init my-product --preset enterprise-dashboard --deployment netlify
+npx rapidcli@latest init my-product --preset operations-console --deployment kubernetes
+npx rapidcli@latest init my-product --preset enterprise-dashboard --skip-deployment
+```
 
 Alternative package manager launchers:
 
-<DocsCodePreview
-  language="bash"
-  code={`pnpm dlx rapidkit@latest init my-product --preset operations-console\nyarn dlx rapidkit@latest init my-product --preset enterprise-dashboard`}
-/>
+```bash
+pnpm dlx rapidcli@latest init my-product --preset operations-console
+yarn dlx rapidcli@latest init my-product --preset enterprise-dashboard
+```
 
 Global install is optional:
 
-<DocsCodePreview
-  language="bash"
-  code={`npm install -g rapidkit\nrapidkit init my-product --preset enterprise-dashboard`}
-/>
+```bash
+npm install -g rapidcli
+rapidcli init my-product --preset enterprise-dashboard
+```
 
 ## Presets
 
@@ -46,30 +61,33 @@ Current official presets:
 
 List available presets:
 
-<DocsCodePreview language="bash" code={`rapidkit list-presets`} />
+```bash
+rapidcli list-presets
+```
 
 ## Generated Output
 
 Expected scaffold output:
 
-<DocsCodePreview
-  language="text"
-  code={`my-product/
-  rapidkit.template.json`}
-/>
+```text
+my-product/
+  rapidkit.template.json
+```
 
 The manifest includes:
 
 - routes and page intent
 - required RapidKit component surfaces
 - integration boundaries (auth, API style, validation)
+- deployment intent for downstream materialization workflows
+- containerization rules, including a required multi-stage Docker build for container-based targets such as Kubernetes and Azure Container Apps
 - generation constraints for AI workflows
 
 ## VS Code Developer Workflow
 
 For teams using VS Code, the typical flow is:
 
-1. Run `rapidkit init` to generate `rapidkit.template.json`.
+1. Run `rapidcli init` to generate `rapidkit.template.json`.
 2. Open the generated folder in VS Code.
 3. Connect an MCP-aware AI workflow to the RapidKit MCP server.
 4. Ask AI to materialize the app from the manifest and contracts.
@@ -77,9 +95,9 @@ For teams using VS Code, the typical flow is:
 
 ## CLI vs Traditional Bootstrap
 
-When teams compare RapidKit CLI with classic code-first scaffolding (for example direct Vite or Next bootstrap), the key difference is where architecture decisions are enforced.
+When teams compare RapidCLI with classic code-first scaffolding (for example direct Vite or Next bootstrap), the key difference is where architecture decisions are enforced.
 
-| Area              | Traditional Bootstrap                  | RapidKit CLI                                                |
+| Area              | Traditional Bootstrap                  | RapidCLI                                                    |
 | ----------------- | -------------------------------------- | ----------------------------------------------------------- |
 | Initial output    | Runnable app code immediately          | Intent blueprint (`rapidkit.template.json`)                 |
 | Framework/runtime | Selected and materialized immediately  | Selected during AI materialization step                     |
@@ -90,13 +108,15 @@ When teams compare RapidKit CLI with classic code-first scaffolding (for example
 Practical interpretation for VS Code teams:
 
 - if you prioritize immediate runnable code, traditional bootstrap feels faster initially
-- if you prioritize repeatable enterprise structure and policy alignment, RapidKit CLI reduces long-term drift
+- if you prioritize repeatable enterprise structure and policy alignment, RapidCLI reduces long-term drift
 
 ## MCP Integration
 
 Start the RapidKit MCP server from the repository root:
 
-<DocsCodePreview language="bash" code={`pnpm mcp:server`} />
+```bash
+pnpm mcp:server
+```
 
 Then configure your MCP-capable client to use stdio with:
 
@@ -110,9 +130,11 @@ See `/MCP-SERVER` for complete setup examples.
 
 The current CLI model is intent-first.
 
-That means `rapidkit init` does not directly run Vite scaffolding.
+That means `rapidcli init` does not directly run Vite scaffolding.
 
 Vite (or another runtime choice) is selected when AI materializes the application from `rapidkit.template.json` using RapidKit MCP context.
+
+For targets that require a container image, the generated blueprint now marks Docker as required and sets the Dockerfile strategy to `multi-stage` so downstream generation can optimize runtime image size.
 
 ## Recommended Team Policy
 
@@ -129,7 +151,9 @@ To keep generation predictable in enterprise environments:
 
 Run:
 
-<DocsCodePreview language="bash" code={`rapidkit list-presets`} />
+```bash
+rapidcli list-presets
+```
 
 Then retry with a valid `--preset` value.
 
@@ -137,6 +161,10 @@ Then retry with a valid `--preset` value.
 
 Choose a new output name or an empty target directory.
 
+### Need to skip deployment setup
+
+Use `--skip-deployment`, or press Enter at the deployment prompt to keep the preset default when running interactively.
+
 ### Need runnable code immediately
 
-Use your AI materialization step right after scaffold generation. `rapidkit init` is designed to produce the blueprint, not final app code.
+Use your AI materialization step right after scaffold generation. `rapidcli init` is designed to produce the blueprint, not final app code.

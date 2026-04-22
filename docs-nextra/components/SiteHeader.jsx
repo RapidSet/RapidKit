@@ -47,7 +47,7 @@ export function SiteHeader({ items = [] }) {
       <Link className="rk-logo" href="/">
         <Image
           className="rk-logo-icon"
-          src={`${basePath}/rapidkit-icon.svg`}
+          src={`${basePath}/rapidkit.svg`}
           alt=""
           width={20}
           height={20}

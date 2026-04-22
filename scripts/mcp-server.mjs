@@ -795,7 +795,7 @@ const createMcpServer = () => {
     {
       title: 'Scaffold Project',
       description:
-        'Executes rapidkit init with validated options to generate a new project.',
+        'Executes rapidcli init with validated options to generate a new project.',
       inputSchema: {
         projectName: z.string().min(1),
         presetId: z.string().default('enterprise-dashboard'),
@@ -806,7 +806,7 @@ const createMcpServer = () => {
     async ({ projectName, presetId, outputDir, allowCommunity }) => {
       const preflight = getNodeCompatibilityPreflight(process.version);
       const args = [
-        'packages/create-rapidkit/src/index.mjs',
+        'rapidcli@latest',
         'init',
         projectName,
         '--preset',
@@ -821,13 +821,13 @@ const createMcpServer = () => {
         args.push('--allow-community');
       }
 
-      const result = spawnSync(process.execPath, args, {
+      const result = spawnSync('npx', args, {
         cwd: ROOT_DIR,
         encoding: 'utf8',
       });
 
       const payload = {
-        command: `${process.execPath} ${args.join(' ')}`,
+        command: `npx ${args.join(' ')}`,
         success: result.status === 0,
         status: result.status,
         preflight,
