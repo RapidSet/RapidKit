@@ -17,7 +17,7 @@ Run from any folder, including an empty folder.
 No `npm init` or `yarn init` is required before running the CLI.
 
 ```bash
-npx rapidkit@latest init my-product --preset enterprise-dashboard
+npx @rapidset/rapidkit-cli@latest init my-product --preset enterprise-dashboard
 ```
 
 During `init`, the CLI now prompts for a deployment target and lets you skip deployment planning entirely.
@@ -25,22 +25,22 @@ During `init`, the CLI now prompts for a deployment target and lets you skip dep
 You can also set it explicitly:
 
 ```bash
-npx rapidkit@latest init my-product --preset enterprise-dashboard --deployment netlify
-npx rapidkit@latest init my-product --preset operations-console --deployment kubernetes
-npx rapidkit@latest init my-product --preset enterprise-dashboard --skip-deployment
+npx @rapidset/rapidkit-cli@latest init my-product --preset enterprise-dashboard --deployment netlify
+npx @rapidset/rapidkit-cli@latest init my-product --preset operations-console --deployment kubernetes
+npx @rapidset/rapidkit-cli@latest init my-product --preset enterprise-dashboard --skip-deployment
 ```
 
 Alternative package manager launchers:
 
 ```bash
-pnpm dlx rapidkit@latest init my-product --preset operations-console
-yarn dlx rapidkit@latest init my-product --preset enterprise-dashboard
+pnpm dlx @rapidset/rapidkit-cli@latest init my-product --preset operations-console
+yarn dlx @rapidset/rapidkit-cli@latest init my-product --preset enterprise-dashboard
 ```
 
 Global install is optional:
 
 ```bash
-npm install -g rapidkit
+npm install -g @rapidset/rapidkit-cli
 rapidkit init my-product --preset enterprise-dashboard
 ```
 

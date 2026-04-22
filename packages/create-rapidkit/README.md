@@ -4,11 +4,11 @@ Enterprise-first JSON blueprint scaffolding CLI for RapidKit.
 
 ## Usage
 
-- npx rapidkit@latest init my-app --preset enterprise-dashboard
-- pnpm dlx rapidkit@latest init my-app --preset operations-console
-- npx rapidkit@latest init my-app --preset enterprise-dashboard --deployment netlify
-- npx rapidkit@latest init my-app --preset operations-console --deployment kubernetes
-- npx rapidkit@latest init my-app --preset enterprise-dashboard --skip-deployment
+- npx @rapidset/rapidkit-cli@latest init my-app --preset enterprise-dashboard
+- pnpm dlx @rapidset/rapidkit-cli@latest init my-app --preset operations-console
+- npx @rapidset/rapidkit-cli@latest init my-app --preset enterprise-dashboard --deployment netlify
+- npx @rapidset/rapidkit-cli@latest init my-app --preset operations-console --deployment kubernetes
+- npx @rapidset/rapidkit-cli@latest init my-app --preset enterprise-dashboard --skip-deployment
 
 ## Commands
 

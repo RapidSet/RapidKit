@@ -68,9 +68,11 @@ pnpm build
 ## Release Workflow
 
 - The component library publishes from the repository root as `@rapidset/rapidkit`.
-- The CLI publishes from `packages/create-rapidkit` as `rapidkit`.
+- The CLI publishes from `packages/create-rapidkit` as `@rapidset/rapidkit-cli`.
 - Root package release automation is defined in `.github/workflows/semantic-release.yml` and ignores CLI-only changes.
 - CLI release automation is defined in `.github/workflows/cli-release.yml` and triggers on changes under `packages/create-rapidkit/**`.
+- Root release tags use `rapidkit-v<version>`.
+- CLI release tags use `rapidkit-cli-v<version>`.
 - Use `pnpm release:dry` to inspect the root package release path locally.
 - Use `pnpm release:cli:dry` to inspect the CLI release path locally.
 
