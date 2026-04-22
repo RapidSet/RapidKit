@@ -1,0 +1,42 @@
+{
+  "component": "Avatar",
+  "version": "1.0.0",
+  "source": "src/components/Avatar",
+  "description": "An avatar component wrapper with image/fallback rendering, size variants, and injectable visibility access control.",
+  "capabilities": {
+    "accessControl": true,
+    "fallbackRendering": true,
+    "sizeVariants": true,
+    "imagePropsForwarding": true
+  },
+  "props": {
+    "src": { "type": "string", "required": false },
+    "alt": { "type": "string", "required": false },
+    "fallback": { "type": "ReactNode", "required": false },
+    "size": {
+      "type": "\"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "default": "\"md\""
+    },
+    "className": { "type": "string", "required": false },
+    "imageClassName": { "type": "string", "required": false },
+    "fallbackClassName": { "type": "string", "required": false },
+    "accessRequirements": { "type": "string[]", "required": false },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "hidesWhenViewAccessDenied": "true",
+    "rendersFallbackWhenSrcMissing": "true",
+    "usesProvidedFallbackBeforeDerivedFallback": "true"
+  },
+  "accessibility": {
+    "forwardsAltToAvatarImage": "true"
+  },
+  "interaction": {
+    "supportsRefForwardingToRoot": "true"
+  },
+  "tests": ["src/components/Avatar/Avatar.test.tsx"]
+}

@@ -104,6 +104,7 @@ function Example() {
 Current root exports:
 
 - Autocomplete
+- Avatar
 - Input
 - Checkbox
 - Icon

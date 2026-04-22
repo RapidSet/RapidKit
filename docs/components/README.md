@@ -11,6 +11,7 @@ This section contains consumer-facing documentation for each public component ex
 ## Components
 
 - [Autocomplete](./autocomplete.md)
+- [Avatar](./avatar.md)
 - [BaseModal](./base-modal.md)
 - [BaseTable](./base-table.md)
 - [Button](./button.md)

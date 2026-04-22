@@ -21,6 +21,7 @@ Use the left navigation to browse individual components.
 ## Component Links
 
 - [Autocomplete](./autocomplete.md)
+- [Avatar](./avatar.md)
 - [BaseModal](./base-modal.md)
 - [BaseTable](./base-table.md)
 - [Button](./button.md)
