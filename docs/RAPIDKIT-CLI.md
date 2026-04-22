@@ -20,6 +20,16 @@ No `npm init` or `yarn init` is required before running the CLI.
 npx rapidkit@latest init my-product --preset enterprise-dashboard
 ```
 
+During `init`, the CLI now prompts for a deployment target and lets you skip deployment planning entirely.
+
+You can also set it explicitly:
+
+```bash
+npx rapidkit@latest init my-product --preset enterprise-dashboard --deployment netlify
+npx rapidkit@latest init my-product --preset operations-console --deployment kubernetes
+npx rapidkit@latest init my-product --preset enterprise-dashboard --skip-deployment
+```
+
 Alternative package manager launchers:
 
 ```bash
@@ -61,6 +71,8 @@ The manifest includes:
 - routes and page intent
 - required RapidKit component surfaces
 - integration boundaries (auth, API style, validation)
+- deployment intent for downstream materialization workflows
+- containerization rules, including a required multi-stage Docker build for container-based targets such as Kubernetes and Azure Container Apps
 - generation constraints for AI workflows
 
 ## VS Code Developer Workflow
@@ -114,6 +126,8 @@ That means `rapidkit init` does not directly run Vite scaffolding.
 
 Vite (or another runtime choice) is selected when AI materializes the application from `rapidkit.template.json` using RapidKit MCP context.
 
+For targets that require a container image, the generated blueprint now marks Docker as required and sets the Dockerfile strategy to `multi-stage` so downstream generation can optimize runtime image size.
+
 ## Recommended Team Policy
 
 To keep generation predictable in enterprise environments:
@@ -138,6 +152,10 @@ Then retry with a valid `--preset` value.
 ### Target directory is not empty
 
 Choose a new output name or an empty target directory.
+
+### Need to skip deployment setup
+
+Use `--skip-deployment`, or press Enter at the deployment prompt to keep the preset default when running interactively.
 
 ### Need runnable code immediately
 

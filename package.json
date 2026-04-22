@@ -44,6 +44,8 @@
     "scaffold:smoke": "node packages/create-rapidkit/src/index.mjs list-presets",
     "mcp:server": "node scripts/mcp-server.mjs",
     "mcp:help": "node scripts/mcp-server.mjs --help",
+    "release:cli": "semantic-release --extends ./packages/create-rapidkit/.releaserc.json",
+    "release:cli:dry": "semantic-release --dry-run --extends ./packages/create-rapidkit/.releaserc.json",
     "lint": "pnpm lint:src && pnpm lint:docs",
     "lint:src": "eslint src --max-warnings 0",
     "lint:docs": "eslint \"pages/**/*.{js,jsx,ts,tsx}\" \"docs-nextra/**/*.{js,jsx,ts,tsx}\" next.config.mjs theme.config.tsx --max-warnings 0",

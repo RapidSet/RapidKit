@@ -61,5 +61,12 @@
     "dataAccess": "service-layer-adapters",
     "apiStyle": "rest",
     "validation": "zod-based"
+  },
+  "deploymentSpecification": {
+    "target": "__DEPLOYMENT_TARGET__",
+    "containerization": {
+      "requiresDocker": "__DEPLOYMENT_REQUIRES_DOCKER__",
+      "dockerfileStrategy": "__DOCKER_BUILD_STRATEGY__"
+    }
   }
 }

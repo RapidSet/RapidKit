@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path';
+import process from 'node:process';
+import readline from 'node:readline/promises';
 import { getPresetById, listPresets } from './lib/contracts.mjs';
 import { resolveContractsIndexPath } from './lib/paths.mjs';
 import { scaffoldProject } from './lib/scaffold.mjs';
@@ -18,6 +20,124 @@ const getArgValue = (flag) => {
 
 const TEMPLATE_ROOT_PREFIX = 'packages/create-rapidkit/';
 
+const DEFAULT_DEPLOYMENT_TARGET = 'none';
+
+const DEPLOYMENT_PROMPT_NAME = 'deploymentTarget';
+
+const DOCKER_REQUIRED_TARGETS = new Set(['azure-container-apps', 'kubernetes']);
+
+const formatOptionLabel = (value) =>
+  value
+    .split('-')
+    .map((segment) => (segment.toUpperCase() === 'AWS' ? 'AWS' : segment))
+    .join(' ');
+
+const getDeploymentPrompt = (preset) =>
+  Array.isArray(preset.contract.prompts)
+    ? preset.contract.prompts.find(
+        (prompt) => prompt.name === DEPLOYMENT_PROMPT_NAME,
+      )
+    : null;
+
+const resolveDeploymentOptions = (preset) => {
+  const deploymentPrompt = getDeploymentPrompt(preset);
+  return Array.isArray(deploymentPrompt?.options)
+    ? deploymentPrompt.options
+    : [DEFAULT_DEPLOYMENT_TARGET];
+};
+
+const resolveDefaultDeploymentTarget = (preset) => {
+  const deploymentPrompt = getDeploymentPrompt(preset);
+  const options = resolveDeploymentOptions(preset);
+  const fallback = options.includes(DEFAULT_DEPLOYMENT_TARGET)
+    ? DEFAULT_DEPLOYMENT_TARGET
+    : options[0];
+
+  return options.includes(deploymentPrompt?.default)
+    ? deploymentPrompt.default
+    : fallback;
+};
+
+const resolveDeploymentFlag = (preset) => {
+  if (hasFlag('--skip-deployment')) {
+    return DEFAULT_DEPLOYMENT_TARGET;
+  }
+
+  const requestedTarget = getArgValue('--deployment');
+  if (!requestedTarget) {
+    return null;
+  }
+
+  const options = resolveDeploymentOptions(preset);
+  if (!options.includes(requestedTarget)) {
+    process.stderr.write(
+      `Unsupported deployment target '${requestedTarget}'. Supported targets: ${options.join(', ')}\n`,
+    );
+    process.exit(1);
+  }
+
+  return requestedTarget;
+};
+
+const resolveDockerRequirement = (deploymentTarget) =>
+  DOCKER_REQUIRED_TARGETS.has(deploymentTarget);
+
+const resolveDockerBuildStrategy = (deploymentTarget) =>
+  resolveDockerRequirement(deploymentTarget) ? 'multi-stage' : 'not-required';
+
+const promptForDeploymentTarget = async (preset) => {
+  const options = resolveDeploymentOptions(preset);
+  const defaultTarget = resolveDefaultDeploymentTarget(preset);
+
+  if (!process.stdin.isTTY || !process.stdout.isTTY) {
+    return defaultTarget;
+  }
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  try {
+    process.stdout.write('Select a deployment target for this blueprint:\n');
+    options.forEach((option, index) => {
+      const defaultLabel = option === defaultTarget ? ' (default)' : '';
+      process.stdout.write(
+        `  ${index + 1}. ${formatOptionLabel(option)} [${option}]${defaultLabel}\n`,
+      );
+    });
+
+    const answer = await rl.question(
+      `Deployment target [default: ${defaultTarget}, Enter to keep]: `,
+    );
+    const trimmedAnswer = answer.trim();
+
+    if (!trimmedAnswer) {
+      return defaultTarget;
+    }
+
+    const numericChoice = Number.parseInt(trimmedAnswer, 10);
+    if (
+      !Number.isNaN(numericChoice) &&
+      numericChoice >= 1 &&
+      numericChoice <= options.length
+    ) {
+      return options[numericChoice - 1];
+    }
+
+    if (options.includes(trimmedAnswer)) {
+      return trimmedAnswer;
+    }
+
+    process.stderr.write(
+      `Unsupported deployment target '${trimmedAnswer}'. Falling back to default '${defaultTarget}'.\n`,
+    );
+    return defaultTarget;
+  } finally {
+    rl.close();
+  }
+};
+
 const resolveTemplateRoot = (templateRoot, mode) => {
   if (mode !== 'packaged' || typeof templateRoot !== 'string') {
     return templateRoot;
@@ -30,7 +150,7 @@ const resolveTemplateRoot = (templateRoot, mode) => {
 
 const showHelp = () => {
   process.stdout.write(
-    `rapidkit\n\nUsage:\n  rapidkit list-presets\n  rapidkit init <project-name> [--preset enterprise-dashboard]\n\nFlags:\n  --preset <id>         Preset id (default: enterprise-dashboard)\n  --output <path>       Output directory parent (default: current working directory)\n  --allow-community     Allow presets marked as community source\n  --help                Show this message\n`,
+    `rapidkit\n\nUsage:\n  rapidkit list-presets\n  rapidkit init <project-name> [--preset enterprise-dashboard]\n\nFlags:\n  --preset <id>         Preset id (default: enterprise-dashboard)\n  --output <path>       Output directory parent (default: current working directory)\n  --deployment <id>     Deployment target to record in the blueprint\n  --skip-deployment     Record no deployment target and skip the deployment prompt\n  --allow-community     Allow presets marked as community source\n  --help                Show this message\n`,
   );
 };
 
@@ -49,7 +169,7 @@ const runListPresets = () => {
   });
 };
 
-const runInit = () => {
+const runInit = async () => {
   const projectName = args[1];
 
   if (!projectName || projectName.startsWith('-')) {
@@ -81,18 +201,25 @@ const runInit = () => {
   );
   const templateDir = path.resolve(rootDir, `${templateRoot}/template`);
   const targetDir = path.resolve(outputRoot, projectName);
+  const deploymentTarget =
+    resolveDeploymentFlag(preset) ?? (await promptForDeploymentTarget(preset));
+  const requiresDocker = resolveDockerRequirement(deploymentTarget);
+  const dockerBuildStrategy = resolveDockerBuildStrategy(deploymentTarget);
 
   scaffoldProject({
     templateDir,
     targetDir,
     replacements: {
+      __DEPLOYMENT_TARGET__: deploymentTarget,
+      '"__DEPLOYMENT_REQUIRES_DOCKER__"': String(requiresDocker),
+      __DOCKER_BUILD_STRATEGY__: dockerBuildStrategy,
       __PROJECT_NAME__: projectName,
       __RAPIDKIT_PRESET_ID__: preset.contract.id,
     },
   });
 
   process.stdout.write(
-    `Scaffolded '${projectName}' using preset '${preset.contract.id}' at ${targetDir}\n`,
+    `Scaffolded '${projectName}' using preset '${preset.contract.id}' at ${targetDir} with deployment target '${deploymentTarget}'\n`,
   );
 };
 
@@ -109,7 +236,7 @@ if (command === 'list-presets') {
 }
 
 if (command === 'init') {
-  runInit();
+  await runInit();
   process.exit(0);
 }
 

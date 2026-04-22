@@ -67,7 +67,16 @@
       "name": "deploymentTarget",
       "type": "select",
       "required": true,
-      "options": ["azure-container-apps", "vercel", "none"],
+      "options": [
+        "azure-container-apps",
+        "azure-static-web-apps",
+        "kubernetes",
+        "vercel",
+        "netlify",
+        "cloudflare-pages",
+        "aws-amplify",
+        "none"
+      ],
       "default": "none"
     },
     {
