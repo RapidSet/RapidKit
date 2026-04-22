@@ -119,6 +119,7 @@ Current root exports:
 - DetailsCard
 - Text
 - TextArea
+- Toggle
 - version
 
 Type exports are also available from each component module (for example, `InputProps`, `CheckBoxProps`, `ChipProps`, and `ButtonProps`).

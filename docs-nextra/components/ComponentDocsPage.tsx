@@ -719,6 +719,48 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'Optional access rules let TextArea stay hidden when view is denied or visible-but-disabled when edit is denied, with no host-app coupling.',
   },
+  toggle: {
+    title: 'Toggle',
+    summary:
+      'Toggle provides an accessible on/off switch with optional labels, helper text, and validation messaging for settings and preference screens.',
+    highlights: [
+      'Switch semantics',
+      'Controlled or uncontrolled',
+      'Access-aware visibility/editing',
+    ],
+    importCode: "import { Toggle } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'name',
+        description:
+          'Identifies the toggle in handlers and form submissions when used inside forms.',
+      },
+      {
+        name: 'checked and defaultChecked',
+        description:
+          'Support both controlled state and initial uncontrolled state for flexible integration.',
+      },
+      {
+        name: 'onCheckedChange and onToggleChange',
+        description:
+          'Receives value updates as a boolean, with optional field name payload for form coordination.',
+      },
+      {
+        name: 'label, title, helperText, and error',
+        description:
+          'Provides context, guidance, and validation feedback around the switch control.',
+      },
+      {
+        name: 'accessRequirements and resolveAccess',
+        description:
+          'Injects host access checks without coupling the component to app-specific authorization models.',
+      },
+    ],
+    accessibility:
+      'Toggle uses accessible switch primitives and connects visible label text to the control using id/htmlFor for stronger screen reader context.',
+    accessBehavior:
+      'Optional access rules let Toggle render null when view access is denied or remain visible but disabled when edit access is denied.',
+  },
 };
 
 function ComponentDocsSections({

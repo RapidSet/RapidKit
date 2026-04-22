@@ -50,4 +50,7 @@ export default {
   'text-area': {
     title: 'TextArea',
   },
+  toggle: {
+    title: 'Toggle',
+  },
 };

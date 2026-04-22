@@ -169,6 +169,17 @@
         "propForwarding",
         "semanticElementSelection"
       ]
+    },
+    {
+      "name": "Toggle",
+      "contractPath": "ai/contracts/components/toggle.contract.json",
+      "sourcePath": "src/components/Toggle",
+      "capabilities": [
+        "accessControl",
+        "checkedState",
+        "labelAndHelperText",
+        "errorState"
+      ]
     }
   ],
   "themes": [

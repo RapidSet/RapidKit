@@ -16,5 +16,6 @@ export * from './components/DetailsCard';
 export * from './components/DatePicker';
 export * from './components/TextArea';
 export * from './components/Text';
+export * from './components/Toggle';
 
 export const version = __RAPIDKIT_VERSION__;

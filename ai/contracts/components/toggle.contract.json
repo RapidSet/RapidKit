@@ -1,0 +1,49 @@
+{
+  "component": "Toggle",
+  "version": "1.0.0",
+  "source": "src/components/Toggle",
+  "description": "A theme-aware switch-style toggle with optional labels, helper/error messaging, and injectable access control.",
+  "capabilities": {
+    "accessControl": true,
+    "checkedState": true,
+    "labelAndHelperText": true,
+    "errorState": true
+  },
+  "props": {
+    "name": { "type": "string", "required": true },
+    "checked": { "type": "boolean", "required": false },
+    "defaultChecked": { "type": "boolean", "required": false },
+    "onCheckedChange": {
+      "type": "(checked: boolean) => void",
+      "required": false
+    },
+    "onToggleChange": {
+      "type": "(checked: boolean, name: string) => void",
+      "required": false
+    },
+    "label": { "type": "string", "required": false },
+    "title": { "type": "string", "required": false },
+    "helperText": { "type": "string", "required": false },
+    "error": { "type": "string", "required": false },
+    "required": { "type": "boolean", "required": false },
+    "accessRequirements": { "type": "string[]", "required": false },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "hiddenWhenViewDenied": "true",
+    "disabledWhenEditDenied": "true",
+    "errorMessageVisibleWhenErrorProvided": "true"
+  },
+  "accessibility": {
+    "usesSwitchRole": "true",
+    "labelAssociatesWithControlByHtmlFor": "true"
+  },
+  "interaction": {
+    "onToggleChangeReceivesCheckedAndName": "true"
+  },
+  "tests": ["src/components/Toggle/Toggle.test.tsx"]
+}

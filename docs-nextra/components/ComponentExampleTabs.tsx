@@ -15,6 +15,7 @@ import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
 import { Text } from '../../src/components/Text';
 import { TextArea } from '../../src/components/TextArea';
+import { Toggle } from '../../src/components/Toggle';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
 import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
@@ -35,7 +36,8 @@ export type ComponentExampleId =
   | 'page'
   | 'search'
   | 'text'
-  | 'text-area';
+  | 'text-area'
+  | 'toggle';
 
 type ExampleConfig = {
   code: string;
@@ -852,6 +854,20 @@ function CheckboxPreview(): JSX.Element {
   );
 }
 
+function TogglePreview(): JSX.Element {
+  const [enabled, setEnabled] = useState(true);
+
+  return (
+    <Toggle
+      name="emailAlerts"
+      label="Notifications"
+      title="Email alerts"
+      checked={enabled}
+      onToggleChange={(next) => setEnabled(next)}
+    />
+  );
+}
+
 function ChipPreview(): JSX.Element {
   const [visible, setVisible] = useState(true);
 
@@ -1354,6 +1370,16 @@ import { ButtonVariant, Page } from '@rapidset/rapidkit';
   onChange={() => {}}
   placeholder="Write implementation notes"
   helperText="Keep this concise and actionable."
+/>`,
+  },
+  toggle: {
+    render: TogglePreview,
+    code: `<Toggle
+  name="emailAlerts"
+  label="Notifications"
+  title="Email alerts"
+  checked={true}
+  onToggleChange={(checked, name) => console.log(name, checked)}
 />`,
   },
 };

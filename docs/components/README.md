@@ -26,6 +26,7 @@ This section contains consumer-facing documentation for each public component ex
 - [Search](./search.md)
 - [Text](./text.md)
 - [TextArea](./text-area.md)
+- [Toggle](./toggle.md)
 
 ## Shared Access-Control Pattern
 
