@@ -1,5 +1,9 @@
 # Components
 
+<p align="center">
+	<img src="https://raw.githubusercontent.com/RapidSet/RapidKit/main/public/rapidkit.svg" alt="RapidKit" width="140" />
+</p>
+
 This section contains consumer-facing documentation for each public component exported from `@rapidset/rapidkit`.
 
 ## How To Use This Section
@@ -28,6 +32,20 @@ This section contains consumer-facing documentation for each public component ex
 - [Text](./text.md)
 - [TextArea](./text-area.md)
 - [Toggle](./toggle.md)
+
+## Canonical Imports (AI-Friendly)
+
+Use one import style everywhere to reduce AI-generated import errors:
+
+1. Import components from `@rapidset/rapidkit` root.
+2. Import base styles from `@rapidset/rapidkit/styles.css`.
+3. Import exactly one theme from `@rapidset/rapidkit/themes/*`.
+
+```tsx
+import { Button, Input } from '@rapidset/rapidkit';
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/default.css';
+```
 
 ## Shared Access-Control Pattern
 
