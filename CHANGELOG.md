@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.3.0
+
+### Minor Changes
+
+- a98e2e1: include components with release
+
 ## 0.2.1
 
 ### Patch Changes
