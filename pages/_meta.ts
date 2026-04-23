@@ -2,8 +2,8 @@ export default {
   INSTALLATION: {
     title: 'Installation',
   },
-  rapidcli: {
-    title: 'RapidCLI',
+  rapidcraft: {
+    title: 'Rapidcraft',
   },
   THEMING: {
     title: 'Theming',

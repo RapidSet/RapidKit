@@ -32,7 +32,7 @@ hero:
   </p>
   <div class="home-center__links">
     <a href="/ARCHITECTURE">Architecture</a>
-    <a href="/rapidcli">RapidCLI</a>
+    <a href="/rapidcraft">Rapidcraft</a>
     <a href="/THEMING">Theming</a>
     <a href="/MCP-SERVER">MCP Server</a>
   </div>

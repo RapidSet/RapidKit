@@ -73,7 +73,7 @@ pnpm build
 - Use `pnpm release:dry` to inspect the root package release path locally.
 
 CLI note:
-The CLI is maintained and released separately as `rapidcli` in the standalone `rapidcli` project.
+The CLI is maintained and released separately as `rapidcraft` in the standalone `rapidcraft` project.
 
 ## Testing Strategy
 

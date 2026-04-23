@@ -1,41 +1,18 @@
-import { DocsCodePreview } from '../../docs-nextra/components/DocsCodePreview';
-import Image from 'next/image';
+# Rapidcraft
 
-# RapidCLI
+Use Rapidcraft to scaffold an AI-ready project blueprint that MCP-aware tooling can turn into a production React application.
 
-<div
-  style={{
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    padding: '1rem 1.25rem',
-    margin: '1rem 0 1.5rem',
-    border: '1px solid var(--nextra-border)',
-    borderRadius: '0.75rem',
-    background:
-      'linear-gradient(135deg, var(--nextra-bg) 0%, color-mix(in srgb, var(--nextra-primary-hue) 8%, var(--nextra-bg)) 100%)',
-  }}
->
-  <Image
-    src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/rapidcli.svg`}
-    alt="RapidCLI logo"
-    width={56}
-    height={56}
-    priority
-  />
-  <div>
-    <p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>RapidCLI</p>
-    <p style={{ margin: '0.15rem 0 0', opacity: 0.85 }}>
-      Intent-first scaffolding for MCP-aware AI app materialization.
-    </p>
-  </div>
-</div>
+Package: https://www.npmjs.com/package/rapidcraft
 
-Use RapidCLI to scaffold an AI-ready project blueprint that MCP-aware tooling can turn into a production React application.
+<p align="center">
+  <img src="../public/rapidcraft.svg" alt="rapidcraft logo" width="96" height="96" />
+</p>
+
+<p align="center"><strong>Intent-first scaffolding for MCP-aware AI generation workflows.</strong></p>
 
 ## What The CLI Generates
 
-`rapidcli init` creates a project folder with a contract-aligned JSON manifest.
+`rapidcraft init` creates a project folder with a contract-aligned JSON manifest.
 
 It does **not** generate React source files directly.
 
@@ -47,24 +24,33 @@ Run from any folder, including an empty folder.
 
 No `npm init` or `yarn init` is required before running the CLI.
 
-<DocsCodePreview
-  language="bash"
-  code={`npx rapidcli@latest init my-product --preset enterprise-dashboard`}
-/>
+```bash
+npx rapidcraft@latest init my-product --preset enterprise-dashboard
+```
+
+During `init`, the CLI now prompts for a deployment target and lets you skip deployment planning entirely.
+
+You can also set it explicitly:
+
+```bash
+npx rapidcraft@latest init my-product --preset enterprise-dashboard --deployment netlify
+npx rapidcraft@latest init my-product --preset operations-console --deployment kubernetes
+npx rapidcraft@latest init my-product --preset enterprise-dashboard --skip-deployment
+```
 
 Alternative package manager launchers:
 
-<DocsCodePreview
-  language="bash"
-  code={`pnpm dlx rapidcli@latest init my-product --preset operations-console\nyarn dlx rapidcli@latest init my-product --preset enterprise-dashboard`}
-/>
+```bash
+pnpm dlx rapidcraft@latest init my-product --preset operations-console
+yarn dlx rapidcraft@latest init my-product --preset enterprise-dashboard
+```
 
 Global install is optional:
 
-<DocsCodePreview
-  language="bash"
-  code={`npm install -g rapidcli\nrapidcli init my-product --preset enterprise-dashboard`}
-/>
+```bash
+npm install -g rapidcraft
+rapidcraft init my-product --preset enterprise-dashboard
+```
 
 ## Presets
 
@@ -75,30 +61,33 @@ Current official presets:
 
 List available presets:
 
-<DocsCodePreview language="bash" code={`rapidcli list-presets`} />
+```bash
+rapidcraft list-presets
+```
 
 ## Generated Output
 
 Expected scaffold output:
 
-<DocsCodePreview
-  language="text"
-  code={`my-product/
-  rapidkit.template.json`}
-/>
+```text
+my-product/
+  rapidkit.template.json
+```
 
 The manifest includes:
 
 - routes and page intent
 - required RapidKit component surfaces
 - integration boundaries (auth, API style, validation)
+- deployment intent for downstream materialization workflows
+- containerization rules, including a required multi-stage Docker build for container-based targets such as Kubernetes and Azure Container Apps
 - generation constraints for AI workflows
 
 ## VS Code Developer Workflow
 
 For teams using VS Code, the typical flow is:
 
-1. Run `rapidcli init` to generate `rapidkit.template.json`.
+1. Run `rapidcraft init` to generate `rapidkit.template.json`.
 2. Open the generated folder in VS Code.
 3. Connect an MCP-aware AI workflow to the RapidKit MCP server.
 4. Ask AI to materialize the app from the manifest and contracts.
@@ -106,9 +95,9 @@ For teams using VS Code, the typical flow is:
 
 ## CLI vs Traditional Bootstrap
 
-When teams compare RapidCLI with classic code-first scaffolding (for example direct Vite or Next bootstrap), the key difference is where architecture decisions are enforced.
+When teams compare Rapidcraft with classic code-first scaffolding (for example direct Vite or Next bootstrap), the key difference is where architecture decisions are enforced.
 
-| Area              | Traditional Bootstrap                  | RapidCLI                                                    |
+| Area              | Traditional Bootstrap                  | Rapidcraft                                                  |
 | ----------------- | -------------------------------------- | ----------------------------------------------------------- |
 | Initial output    | Runnable app code immediately          | Intent blueprint (`rapidkit.template.json`)                 |
 | Framework/runtime | Selected and materialized immediately  | Selected during AI materialization step                     |
@@ -119,13 +108,15 @@ When teams compare RapidCLI with classic code-first scaffolding (for example dir
 Practical interpretation for VS Code teams:
 
 - if you prioritize immediate runnable code, traditional bootstrap feels faster initially
-- if you prioritize repeatable enterprise structure and policy alignment, RapidCLI reduces long-term drift
+- if you prioritize repeatable enterprise structure and policy alignment, Rapidcraft reduces long-term drift
 
 ## MCP Integration
 
 Start the RapidKit MCP server from the repository root:
 
-<DocsCodePreview language="bash" code={`pnpm mcp:server`} />
+```bash
+pnpm mcp:server
+```
 
 Then configure your MCP-capable client to use stdio with:
 
@@ -139,9 +130,11 @@ See `/MCP-SERVER` for complete setup examples.
 
 The current CLI model is intent-first.
 
-That means `rapidcli init` does not directly run Vite scaffolding.
+That means `rapidcraft init` does not directly run Vite scaffolding.
 
 Vite (or another runtime choice) is selected when AI materializes the application from `rapidkit.template.json` using RapidKit MCP context.
+
+For targets that require a container image, the generated blueprint now marks Docker as required and sets the Dockerfile strategy to `multi-stage` so downstream generation can optimize runtime image size.
 
 ## Recommended Team Policy
 
@@ -158,7 +151,9 @@ To keep generation predictable in enterprise environments:
 
 Run:
 
-<DocsCodePreview language="bash" code={`rapidcli list-presets`} />
+```bash
+rapidcraft list-presets
+```
 
 Then retry with a valid `--preset` value.
 
@@ -166,6 +161,10 @@ Then retry with a valid `--preset` value.
 
 Choose a new output name or an empty target directory.
 
+### Need to skip deployment setup
+
+Use `--skip-deployment`, or press Enter at the deployment prompt to keep the preset default when running interactively.
+
 ### Need runnable code immediately
 
-Use your AI materialization step right after scaffold generation. `rapidcli init` is designed to produce the blueprint, not final app code.
+Use your AI materialization step right after scaffold generation. `rapidcraft init` is designed to produce the blueprint, not final app code.
