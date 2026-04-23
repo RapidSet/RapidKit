@@ -38,9 +38,10 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 
 ## Compatibility
 
-- React: 18 or 19
-- React DOM: 18 or 19
-- Tailwind CSS: 3 or 4
+- React: 19
+- React DOM: 19
+- Tailwind CSS: 4
+- Zod: 4
 - TypeScript declarations included in package output
 
 ## Included Components

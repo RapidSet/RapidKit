@@ -6,7 +6,7 @@ Use this guide to install RapidKit in a consumer React application.
 
 - Node.js 20+
 - pnpm 9+
-- React 18 or 19 application
+- React 19 application
 
 ## 1. Install RapidKit And Peer Dependencies
 
@@ -49,14 +49,14 @@ export function ExampleForm() {
 
 RapidKit expects these peer ranges in your app:
 
-- `react`: `^18.0.0 || ^19.0.0`
-- `react-dom`: `^18.0.0 || ^19.0.0`
+- `react`: `^19.0.0`
+- `react-dom`: `^19.0.0`
 - `@reduxjs/toolkit`: `^2.0.0`
 - `@tanstack/react-table`: `^8.0.0`
 - `react-hook-form`: `^7.0.0`
 - `react-redux`: `^9.0.0`
-- `zod`: `^3.0.0`
-- `tailwindcss`: `^3.0.0 || ^4.0.0`
+- `zod`: `^4.0.0`
+- `tailwindcss`: `^4.0.0`
 
 ## Troubleshooting
 
