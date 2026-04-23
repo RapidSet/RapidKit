@@ -202,7 +202,7 @@ Every time a new public component is added, do not treat the work as complete un
 - run `pnpm tsc --noEmit`
 - run `pnpm test` for behavior coverage
 - run `pnpm test:ct` when the component has browser-dependent interaction that merits Playwright coverage
-- run `pnpm mcp:server` and verify MCP `list_components` returns the new component and its docs/contract are discoverable from the index-driven MCP surface
+- run `pnpm --dir ../rapidmcp mcp:start -- --root "$PWD"` and verify MCP `list_components` returns the new component and its docs/contract are discoverable from the index-driven MCP surface
 - run `pnpm build` when the component changes package exports, public API shape, styles, or publishable output
 
 If any item above is skipped, explicitly document why it was not required or could not be completed before considering the component work done.

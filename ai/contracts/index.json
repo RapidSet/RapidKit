@@ -245,20 +245,5 @@
       "cssPath": "src/themes/sunset.css"
     }
   ],
-  "presets": [
-    {
-      "id": "enterprise-dashboard",
-      "contractPath": "packages/create-rapidkit/contracts/presets/enterprise-dashboard.contract.json",
-      "templateRoot": "packages/create-rapidkit/templates/presets/enterprise-dashboard",
-      "category": "enterprise",
-      "source": "official"
-    },
-    {
-      "id": "operations-console",
-      "contractPath": "packages/create-rapidkit/contracts/presets/operations-console.contract.json",
-      "templateRoot": "packages/create-rapidkit/templates/presets/operations-console",
-      "category": "enterprise",
-      "source": "official"
-    }
-  ]
+  "presets": []
 }

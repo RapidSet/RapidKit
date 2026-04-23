@@ -13,7 +13,7 @@ const config: DocsThemeConfig = {
         <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
         <link
           rel="icon"
-          href={`${basePath}/rapidkit-icon.svg`}
+          href={`${basePath}/rapidkit.svg`}
           type="image/svg+xml"
         />
       </>

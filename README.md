@@ -42,9 +42,6 @@ https://rapidset.github.io/RapidKit/components/
 ## Packages
 
 - `@rapidset/rapidkit`: publishable React UI component library
-- `rapidkit`: CLI scaffolder published from `packages/create-rapidkit`
-
-See `docs/RAPIDKIT-CLI.md` for CLI usage.
 
 ## License
 

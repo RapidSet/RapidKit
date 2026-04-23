@@ -72,9 +72,6 @@ importers:
       '@eslint/js':
         specifier: ^9.25.1
         version: 9.39.4
-      '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(zod@3.25.76)
       '@next/eslint-plugin-next':
         specifier: ^16.2.4
         version: 16.2.4

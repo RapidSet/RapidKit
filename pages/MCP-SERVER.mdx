@@ -2,7 +2,25 @@ import { DocsCodePreview } from '../docs-nextra/components/DocsCodePreview';
 
 # MCP Server
 
-RapidKit includes a repository-local MCP server for AI-assisted development workflows.
+RapidKit uses a standalone MCP server package (`rapidmcp`) for AI-assisted development workflows.
+
+Package: https://www.npmjs.com/package/@rapidset/rapidmcp
+
+<p align="center">
+  <img
+    src="../public/rapidmcp.svg"
+    alt="rapidmcp logo"
+    width="96"
+    height="96"
+  />
+</p>
+
+<p align="center">
+  <strong>
+    Contract-driven MCP context for RapidKit generation and validation
+    workflows.
+  </strong>
+</p>
 
 ## Purpose
 
@@ -19,7 +37,7 @@ The server helps AI tooling:
 
 ## What It Exposes
 
-Current resources and tools are implemented in `scripts/mcp-server.mjs`.
+Current resources and tools are provided by the npm package `@rapidset/rapidmcp`.
 
 Read-only resources:
 
@@ -60,36 +78,36 @@ When a new public component is added, verify MCP visibility from the contract in
 2. Add the component contract file under `ai/contracts/components`.
 3. Add the component docs file under `docs/components`.
 4. Run `pnpm validate:contracts` and `pnpm validate:component-docs`.
-5. Run `pnpm mcp:server` and confirm `list_components` includes the new component.
+5. Run `npm run mcp:start` from the generated project root and confirm `list_components` includes the new component.
 
 The MCP server reads component resources from `ai/contracts/index.json`, so index accuracy is the source of truth for MCP discoverability.
 
 ## Run Locally
 
-Start the stdio MCP server from the repository root:
+Start the stdio MCP server from the generated project root:
 
-<DocsCodePreview language="bash" code={`pnpm mcp:server`} />
+<DocsCodePreview language="bash" code={`npm run mcp:start`} />
 
 Show help:
 
-<DocsCodePreview language="bash" code={`pnpm mcp:help`} />
+<DocsCodePreview language="bash" code={`npm run mcp:help`} />
 
 ## Connect In MCP Clients
 
 This server uses stdio, so most MCP-capable clients can connect to it with the same three pieces of information:
 
-- command: `pnpm`
-- args: `mcp:server`
-- working directory: the absolute path to this repository
+- command: `npm`
+- args: `run mcp:start`
+- working directory: absolute path to the generated project root
 
 Reusable example:
 
 <DocsCodePreview
   language="json"
   code={`{
-  "command": "pnpm",
-  "args": ["mcp:server"],
-  "cwd": "/absolute/path/to/rapidkit"
+  "command": "npm",
+  "args": ["run", "mcp:start"],
+  "cwd": "/absolute/path/to/generated-project"
 }`}
 />
 
@@ -104,7 +122,7 @@ Common places to configure it:
 - workspace-scoped: `.vscode/mcp.json`
 - user-scoped: open it via the `MCP: Open User Configuration` command because the exact macOS path depends on the active VS Code profile
 
-Use the repository root as the working directory and point the command to:
+Use the generated project root as the working directory and point the command to:
 
 <DocsCodePreview
   language="json"
@@ -112,9 +130,9 @@ Use the repository root as the working directory and point the command to:
   "servers": {
     "rapidkit": {
       "type": "stdio",
-      "command": "pnpm",
-      "args": ["mcp:server"],
-      "cwd": "/Users/you/Code/rapidkit"
+      "command": "npm",
+      "args": ["run", "mcp:start"],
+      "cwd": "/Users/you/Code/my-product"
     }
   }
 }`}
@@ -131,33 +149,34 @@ Verified config locations:
 - project-scoped shared config: `.mcp.json` in the repository root
 - user-scoped private config on macOS: `/Users/you/.claude.json`
 
-Project-scoped example for this repository:
+Project-scoped example for a generated project:
 
 <DocsCodePreview
   language="json"
   code={`{
   "mcpServers": {
     "rapidkit": {
-      "command": "pnpm",
-      "args": ["mcp:server"],
+      "command": "npm",
+      "args": ["run", "mcp:start"],
+      "cwd": "/Users/you/Code/my-product",
       "env": {}
     }
   }
 }`}
 />
 
-From the repository root, you can also register it without editing JSON manually:
+From the generated project root, you can also register it without editing JSON manually:
 
 <DocsCodePreview
   language="bash"
-  code={`claude mcp add --transport stdio --scope project rapidkit -- pnpm mcp:server`}
+  code={`claude mcp add --transport stdio --scope project rapidkit -- npm run mcp:start`}
 />
 
 If you want the server available across projects instead, use user scope:
 
 <DocsCodePreview
   language="bash"
-  code={`claude mcp add --transport stdio --scope user rapidkit -- pnpm mcp:server`}
+  code={`claude mcp add --transport stdio --scope user rapidkit -- npm run mcp:start`}
 />
 
 After setup, use `/mcp` inside Claude Code to inspect connection state.
@@ -177,16 +196,16 @@ If your environment does not expose `pnpm` on the PATH for GUI apps, replace `pn
 
 ### Cursor
 
-In Cursor, add RapidKit as a local MCP server and configure it as a stdio command with the repository root as `cwd`.
+In Cursor, add RapidKit as a local MCP server and configure it as a stdio command with the generated project root as `cwd`.
 
 Use the same stdio values:
 
 <DocsCodePreview
   language="json"
   code={`{
-  "command": "pnpm",
-  "args": ["mcp:server"],
-  "cwd": "/Users/you/Code/rapidkit"
+  "command": "npm",
+  "args": ["run", "mcp:start"],
+  "cwd": "/Users/you/Code/my-product"
 }`}
 />
 
@@ -196,27 +215,28 @@ After connection, Cursor can use the RapidKit MCP surface for more accurate comp
 
 ### macOS Example Paths
 
-For a repository cloned to `/Users/you/Code/rapidkit`, common macOS examples look like:
+For a generated project in `/Users/you/Code/my-product`, common macOS examples look like:
 
 <DocsCodePreview
   language="json"
   code={`{
-  "workspaceVscodeConfig": "/Users/you/Code/rapidkit/.vscode/mcp.json",
-  "claudeProjectConfig": "/Users/you/Code/rapidkit/.mcp.json",
+  "workspaceVscodeConfig": "/Users/you/Code/my-product/.vscode/mcp.json",
+  "claudeProjectConfig": "/Users/you/Code/my-product/.mcp.json",
   "claudeUserConfig": "/Users/you/.claude.json"
 }`}
 />
 
 ### Notes
 
-- Start from the repository root so the server can read `ai/contracts`, `docs`, and validation scripts correctly.
-- Run `pnpm install` before connecting the server in a client for the first time.
-- If the client fails to launch the server, verify that `pnpm mcp:server` works in a terminal first.
-- If `pnpm` is not available in the client environment, use the absolute executable path instead.
+- Rapidcraft scaffolds `@rapidset/rapidkit` and `@rapidset/rapidmcp` from npm and installs dependencies by default.
+- Run your package manager install manually only if you used `--skip-install`.
+- If the client fails to launch the server, verify that `npm run mcp:start` works in a terminal first.
+- If `npm` is not available in the client environment, use the package manager command you used for scaffolded scripts.
 
 ## Related Files
 
-- `scripts/mcp-server.mjs`
+- generated project `package.json` (`mcp:start`, `mcp:help`)
+- npm package `@rapidset/rapidmcp`
 - `ai/contracts/index.json`
 - `ai/contracts/components/*.contract.json`
 - `ai/contracts/themes/*.contract.json`

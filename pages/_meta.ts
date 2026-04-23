@@ -2,8 +2,8 @@ export default {
   INSTALLATION: {
     title: 'Installation',
   },
-  'RAPIDKIT-CLI': {
-    title: 'RapidKit CLI',
+  rapidcraft: {
+    title: 'Rapidcraft',
   },
   THEMING: {
     title: 'Theming',

@@ -24,6 +24,5 @@ export default withNextra({
   typescript: {
     tsconfigPath: './tsconfig.docs.json',
   },
-  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   trailingSlash: true,
 });

@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - packages/create-rapidkit/**
-      - .github/workflows/cli-release.yml
   workflow_dispatch:
 
 permissions:
