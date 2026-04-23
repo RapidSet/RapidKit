@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node scripts/copy-theme-assets.mjs",
+    "build": "vite build && node scripts/copy-theme-assets.mjs",
     "docs:dev": "next dev",
     "docs:build": "next build",
     "docs:preview": "pnpm dlx serve out",

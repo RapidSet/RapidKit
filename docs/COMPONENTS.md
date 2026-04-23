@@ -1,5 +1,9 @@
 # Component Reference
 
+<p align="center">
+	<img src="https://raw.githubusercontent.com/RapidSet/RapidKit/main/public/rapidkit.svg" alt="RapidKit" width="120" />
+</p>
+
 This file is the stable entrypoint for component docs.
 
 For scalable, per-component documentation, use the docs hub:
@@ -28,3 +32,8 @@ Direct links:
 - https://rapidset.github.io/RapidKit/components/toggle
 
 This keeps links stable for existing consumers while allowing component docs to grow independently.
+
+Import guidance for consumers and AI tools is documented in:
+
+- `README.md` (package-level contract)
+- `docs/components/README.md` (component docs contract)

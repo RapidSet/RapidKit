@@ -31,6 +31,27 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                '@rapidset/rapidkit/*',
+                '!@rapidset/rapidkit/styles.css',
+                '!@rapidset/rapidkit/themes/*',
+              ],
+              message:
+                'Import components from @rapidset/rapidkit root only. Allowed subpaths: @rapidset/rapidkit/styles.css and @rapidset/rapidkit/themes/*.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       globals: {
