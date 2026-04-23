@@ -69,12 +69,8 @@ pnpm build
 
 - The component library publishes from the repository root as `@rapidset/rapidkit`.
 - Release automation is defined in `.github/workflows/changesets.yml`.
-- Run `pnpm changeset` to create a release note and select the version bump.
-- Use `pnpm release:dry` to inspect pending release state locally.
-- Published tags follow npm defaults such as `@rapidset/rapidkit@<version>`.
-
-CLI note:
-The CLI is maintained and released separately as `rapidcraft` in the standalone `rapidcraft` project.
+- Release PR creation and publishing are handled by Changesets.
+- Use `pnpm release:dry` to inspect the root package release path locally.
 
 ## Testing Strategy
 
