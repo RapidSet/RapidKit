@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.3.2
+
+### Patch Changes
+
+- fcc6322: Require latest major peer dependency baselines for modern installs by setting React/React DOM to v19, Tailwind CSS to v4, and Zod to v4.
+
 ## 0.3.1
 
 ### Patch Changes
