@@ -3,26 +3,38 @@ import Image from 'next/image';
 
 # MCP Server
 
-RapidKit uses a standalone MCP server package (`rapidmcp`) for AI-assisted development workflows.
-
-Package: https://www.npmjs.com/package/@rapidset/rapidmcp
-
-<p align="center">
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+    padding: '1rem 1.25rem',
+    margin: '1rem 0 1.5rem',
+    border: '1px solid var(--nextra-border)',
+    borderRadius: '0.75rem',
+    background:
+      'linear-gradient(135deg, var(--nextra-bg) 0%, color-mix(in srgb, var(--nextra-primary-hue) 8%, var(--nextra-bg)) 100%)',
+  }}
+>
   <Image
     src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/rapidmcp.svg`}
     alt="rapidmcp logo"
-    width={96}
-    height={96}
+    width={56}
+    height={56}
     priority
   />
-</p>
+  <div>
+    <p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>RapidMCP</p>
+    <p style={{ margin: '0.15rem 0 0', opacity: 0.85 }}>
+      Contract-driven MCP context for RapidKit generation and validation
+      workflows.
+    </p>
+  </div>
+</div>
 
-<p align="center">
-  <strong>
-    Contract-driven MCP context for RapidKit generation and validation
-    workflows.
-  </strong>
-</p>
+RapidKit uses a standalone MCP server package (`rapidmcp`) for AI-assisted development workflows.
+
+Package: https://www.npmjs.com/package/@rapidset/rapidmcp
 
 ## Purpose
 
