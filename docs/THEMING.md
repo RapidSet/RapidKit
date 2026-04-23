@@ -218,14 +218,14 @@ Theme metadata is intentionally machine-readable for AI systems:
 - `ai/contracts/themes/*.contract.json` defines theme contract metadata
 - `ai/theme.active.json` records workspace-selected theme state
 
-RapidKit includes a repository-local MCP server.
+RapidKit uses the standalone `rapidmcp` MCP server package.
 
 For theme workflows, that server can expose active theme state, theme registry metadata, and theme contract details without requiring tools to inspect the repository manually.
 
 Run it with:
 
 ```bash
-pnpm mcp:server
+pnpm --dir ../rapidmcp mcp:start -- --root "$PWD"
 ```
 
 For a broader overview of the MCP surface, see `docs/MCP-SERVER.md`.

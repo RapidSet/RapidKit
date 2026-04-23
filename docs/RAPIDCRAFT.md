@@ -71,8 +71,15 @@ Expected scaffold output:
 
 ```text
 my-product/
+  package.json
   rapidkit.template.json
 ```
+
+The generated project includes:
+
+- `package.json` with dependencies for `@rapidset/rapidkit` and `@rapidset/rapidmcp`
+- root scripts `mcp:start` and `mcp:help`
+- post-scaffold dependency installation (unless `--skip-install` is passed)
 
 The manifest includes:
 
@@ -87,9 +94,9 @@ The manifest includes:
 
 For teams using VS Code, the typical flow is:
 
-1. Run `rapidcraft init` to generate `rapidkit.template.json`.
+1. Run `rapidcraft init` to generate `rapidkit.template.json`, `package.json`, and install dependencies.
 2. Open the generated folder in VS Code.
-3. Connect an MCP-aware AI workflow to the RapidKit MCP server.
+3. Start MCP from project root using `npm run mcp:start` (or your package manager equivalent).
 4. Ask AI to materialize the app from the manifest and contracts.
 5. Run standard quality gates (`lint`, `typecheck`, `test`, `build`) in the generated app repository.
 
@@ -115,14 +122,13 @@ Practical interpretation for VS Code teams:
 Start the RapidKit MCP server from the repository root:
 
 ```bash
-pnpm mcp:server
+pnpm --dir ../rapidmcp mcp:start -- --root "$PWD"
 ```
 
 Then configure your MCP-capable client to use stdio with:
 
 - command: `pnpm`
-- args: `mcp:server`
-- working directory: RapidKit repository root
+- args: `--dir /absolute/path/to/rapidmcp mcp:start -- --root /absolute/path/to/rapidkit`
 
 See `/MCP-SERVER` for complete setup examples.
 
