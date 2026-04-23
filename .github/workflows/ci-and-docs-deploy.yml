@@ -1,11 +1,7 @@
 name: CI and Docs Deploy
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -63,6 +59,7 @@ jobs:
     name: Playwright CT
     runs-on: ubuntu-latest
     needs: validate
+    if: ${{ github.event_name == 'pull_request' }}
 
     steps:
       - name: Checkout
@@ -93,62 +90,3 @@ jobs:
           name: playwright-report
           path: playwright-report
           if-no-files-found: ignore
-
-  docs-build:
-    name: Build Docs
-    runs-on: ubuntu-latest
-    needs: component-tests
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push'
-      && github.ref == 'refs/heads/main') }}
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.12.0
-          cache: pnpm
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build docs
-        run: pnpm docs:build
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-  docs-deploy:
-    name: Deploy Docs
-    runs-on: ubuntu-latest
-    needs: docs-build
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push'
-      && github.ref == 'refs/heads/main') }}
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
