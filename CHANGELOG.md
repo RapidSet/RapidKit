@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.5.0
+
+### Minor Changes
+
+- 3f2ef2c: add useSearch and useDebounce hooks
+
 ## 0.4.0
 
 ### Minor Changes
