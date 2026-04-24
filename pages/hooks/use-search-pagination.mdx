@@ -12,33 +12,43 @@
 ## Usage
 
 ```tsx
-import { useSearchPagination } from '@rapidset/rapidkit';
+import { Button, Page, Text, useSearchPagination } from '@rapidset/rapidkit';
 
 export function UsersListState() {
   const { paginationParams, handleSearch, handlePaginationChange } =
-    useSearchPagination({ page: 1, size: 20 });
+    useSearchPagination();
 
   return (
-    <>
-      <input
-        value={paginationParams.query ?? ''}
-        onChange={(event) => {
-          handleSearch(event.target.value);
-        }}
-      />
+    <Page
+      onSearch={handleSearch}
+      searchPlaceholder="Search users"
+      className="max-h-none"
+    >
+      <div className="space-y-4 rounded-xl border border-border bg-card p-4">
+        <div className="flex items-center justify-between gap-3">
+          <Text
+            as="small"
+            tone="muted"
+            text={
+              'Page ' +
+              String(paginationParams.page ?? 1) +
+              ' / Size ' +
+              String(paginationParams.size ?? 20)
+            }
+          />
 
-      <button
-        type="button"
-        onClick={() => {
-          handlePaginationChange({
-            ...paginationParams,
-            page: (paginationParams.page ?? 1) + 1,
-          });
-        }}
-      >
-        Next
-      </button>
-    </>
+          <Button
+            label="Next"
+            onClick={() => {
+              handlePaginationChange({
+                ...paginationParams,
+                page: (paginationParams.page ?? 1) + 1,
+              });
+            }}
+          />
+        </div>
+      </div>
+    </Page>
   );
 }
 ```

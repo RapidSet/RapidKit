@@ -12,14 +12,11 @@ It supports:
 ## Basic Example
 
 ```tsx
-import { Search, useSearchPagination } from '@rapidset/rapidkit';
+import { Button, Page, Text, useSearchPagination } from '@rapidset/rapidkit';
 
 export function UsersPage() {
   const { paginationParams, handleSearch, handlePaginationChange } =
-    useSearchPagination({
-      page: 1,
-      size: 20,
-    });
+    useSearchPagination();
 
   async function fetchUsers(params) {
     // Call your data adapter with current params
@@ -27,29 +24,39 @@ export function UsersPage() {
   }
 
   return (
-    <div className="space-y-4">
-      <Search
-        value={paginationParams.query ?? ''}
-        onChange={(event) => {
-          handleSearch(event.target.value);
-        }}
-      />
+    <Page
+      onSearch={handleSearch}
+      searchPlaceholder="Search users"
+      className="max-h-none"
+    >
+      <div className="space-y-4 rounded-xl border border-border bg-card p-4">
+        <div className="flex items-center justify-between gap-3">
+          <Text
+            as="small"
+            tone="muted"
+            text={
+              'Page ' +
+              String(paginationParams.page ?? 1) +
+              ' / Size ' +
+              String(paginationParams.size ?? 20)
+            }
+          />
 
-      <button
-        type="button"
-        onClick={() => {
-          const next = {
-            ...paginationParams,
-            page: (paginationParams.page ?? 1) + 1,
-          };
+          <Button
+            label="Next Page"
+            onClick={() => {
+              const next = {
+                ...paginationParams,
+                page: (paginationParams.page ?? 1) + 1,
+              };
 
-          handlePaginationChange(next);
-          void fetchUsers(next);
-        }}
-      >
-        Next Page
-      </button>
-    </div>
+              handlePaginationChange(next);
+              void fetchUsers(next);
+            }}
+          />
+        </div>
+      </div>
+    </Page>
   );
 }
 ```

@@ -14,9 +14,6 @@ export default {
   ARCHITECTURE: {
     title: 'Architecture',
   },
-  CONTRIBUTING: {
-    title: 'Contributing',
-  },
   components: {
     title: 'Components',
   },
