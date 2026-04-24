@@ -20,4 +20,7 @@ export default {
   components: {
     title: 'Components',
   },
+  hooks: {
+    title: 'Hooks',
+  },
 };

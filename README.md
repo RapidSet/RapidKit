@@ -65,6 +65,10 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 - TextArea
 - Toggle
 
+## Included Hooks
+
+- useFormHandlers
+
 ## Quick Start
 
 ```tsx
@@ -80,6 +84,28 @@ export function Example() {
     </div>
   );
 }
+```
+
+## Hook Quick Start
+
+```tsx
+import { useFormHandlers } from '@rapidset/rapidkit';
+
+type LoginValues = {
+  email: string;
+  remember: boolean;
+};
+
+const form = useFormHandlers<LoginValues>({
+  initialValues: {
+    email: '',
+    remember: false,
+  },
+  validate: (values) => (values.email ? {} : { email: 'Email is required' }),
+  onSubmit: async (values) => {
+    console.log(values);
+  },
+});
 ```
 
 ## AI Import Contract
@@ -109,6 +135,7 @@ import { Button } from '@rapidset/rapidkit/src/components/Button';
 ## Documentation
 
 - Components: https://rapidset.github.io/RapidKit/components/
+- Hooks: https://rapidset.github.io/RapidKit/hooks/
 - Theming: https://rapidset.github.io/RapidKit/THEMING
 - Architecture: https://rapidset.github.io/RapidKit/ARCHITECTURE
 
