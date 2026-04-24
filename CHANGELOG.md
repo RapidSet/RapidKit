@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.4.0
+
+### Minor Changes
+
+- b11b466: add useFormHandlers hook
+
 ## 0.3.2
 
 ### Patch Changes
