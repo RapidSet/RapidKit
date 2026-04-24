@@ -11,4 +11,5 @@ export const SITE_NAV_ITEMS: SiteNavigationItem[] = [
   { title: 'Architecture', href: '/ARCHITECTURE/' },
   { title: 'Components', href: '/components/' },
   { title: 'Hooks', href: '/hooks/' },
+  { title: 'Flows', href: '/flows/' },
 ];
