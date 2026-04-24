@@ -1,3 +1,5 @@
+import { HookExampleTabs } from '../../docs-nextra/components/HookExampleTabs';
+
 # useSearchPagination
 
 `useSearchPagination` provides a small, reusable state model for search + pagination list experiences.
@@ -11,34 +13,8 @@
 
 ## Usage
 
-```tsx
-import { useSearchPagination } from '@rapidset/rapidkit';
+The example below includes both a live preview and full code.
 
-export function UsersListState() {
-  const { paginationParams, handleSearch, handlePaginationChange } =
-    useSearchPagination({ page: 1, size: 20 });
-
-  return (
-    <>
-      <input
-        value={paginationParams.query ?? ''}
-        onChange={(event) => {
-          handleSearch(event.target.value);
-        }}
-      />
-
-      <button
-        type="button"
-        onClick={() => {
-          handlePaginationChange({
-            ...paginationParams,
-            page: (paginationParams.page ?? 1) + 1,
-          });
-        }}
-      >
-        Next
-      </button>
-    </>
-  );
-}
-```
+<div className="component-example-tabs-host">
+  <HookExampleTabs hook="use-search-pagination" />
+</div>

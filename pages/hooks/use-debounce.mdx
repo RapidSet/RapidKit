@@ -1,3 +1,5 @@
+import { HookExampleTabs } from '../../docs-nextra/components/HookExampleTabs';
+
 # useDebounce
 
 `useDebounce` delays value propagation until updates stop for a configured duration.
@@ -10,25 +12,8 @@
 
 ## Usage
 
-```tsx
-import { useEffect, useState } from 'react';
-import { useDebounce } from '@rapidset/rapidkit';
+The example below includes both a live preview and full code.
 
-export function SearchInputState() {
-  const [query, setQuery] = useState('');
-  const debouncedQuery = useDebounce(query, 300);
-
-  useEffect(() => {
-    console.log('Query after debounce:', debouncedQuery);
-  }, [debouncedQuery]);
-
-  return (
-    <input
-      value={query}
-      onChange={(event) => {
-        setQuery(event.target.value);
-      }}
-    />
-  );
-}
-```
+<div className="component-example-tabs-host">
+  <HookExampleTabs hook="use-debounce" />
+</div>

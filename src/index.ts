@@ -21,5 +21,6 @@ export * from './components/Toggle';
 export * from './hooks/useDebounce';
 export * from './hooks/useFormHandlers';
 export * from './hooks/useSearchPagination';
+export * from './lib/pagination';
 
 export const version = __RAPIDKIT_VERSION__;
