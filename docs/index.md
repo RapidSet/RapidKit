@@ -11,6 +11,9 @@ hero:
     - theme: alt
       text: Browse Components
       link: /components/
+    - theme: alt
+      text: Explore Flows
+      link: /flows/
 ---
 
 <section class="home-tech" aria-label="Component technologies">
@@ -32,6 +35,7 @@ hero:
   </p>
   <div class="home-center__links">
     <a href="/ARCHITECTURE">Architecture</a>
+    <a href="/flows/">Flows</a>
     <a href="/rapidcraft">Rapidcraft</a>
     <a href="/THEMING">Theming</a>
     <a href="/MCP-SERVER">MCP Server</a>

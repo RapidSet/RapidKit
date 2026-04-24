@@ -20,4 +20,7 @@ export default {
   hooks: {
     title: 'Hooks',
   },
+  flows: {
+    title: 'Flows',
+  },
 };
