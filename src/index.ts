@@ -18,6 +18,8 @@ export * from './components/DatePicker';
 export * from './components/TextArea';
 export * from './components/Text';
 export * from './components/Toggle';
+export * from './hooks/useDebounce';
 export * from './hooks/useFormHandlers';
+export * from './hooks/useSearchPagination';
 
 export const version = __RAPIDKIT_VERSION__;

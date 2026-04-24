@@ -67,7 +67,9 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 
 ## Included Hooks
 
+- useDebounce
 - useFormHandlers
+- useSearchPagination
 
 ## Quick Start
 

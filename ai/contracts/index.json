@@ -247,6 +247,17 @@
   ],
   "hooks": [
     {
+      "name": "useDebounce",
+      "contractPath": "ai/contracts/hooks/use-debounce.contract.json",
+      "sourcePath": "src/hooks/useDebounce",
+      "capabilities": [
+        "delayedValuePropagation",
+        "rapidUpdateCoalescing",
+        "customEqualityMatching",
+        "optionalDebounceBypass"
+      ]
+    },
+    {
       "name": "useFormHandlers",
       "contractPath": "ai/contracts/hooks/use-form-handlers.contract.json",
       "sourcePath": "src/hooks/useFormHandlers",
@@ -263,6 +274,18 @@
         "customValidation",
         "submitLifecycle",
         "resetLifecycle"
+      ]
+    },
+    {
+      "name": "useSearchPagination",
+      "contractPath": "ai/contracts/hooks/use-search-pagination.contract.json",
+      "sourcePath": "src/hooks/useSearchPagination",
+      "capabilities": [
+        "paginationStateManagement",
+        "searchQueryHandling",
+        "searchResetsPage",
+        "paginationParamReplacement",
+        "emptyQueryNormalization"
       ]
     }
   ],

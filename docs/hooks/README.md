@@ -8,7 +8,9 @@ This section contains consumer-facing documentation for public hooks exported fr
 
 ## Hooks
 
+- [useDebounce](./use-debounce.md)
 - [useFormHandlers](./use-form-handlers.md)
+- [useSearchPagination](./use-search-pagination.md)
 
 ## Canonical Imports (AI-Friendly)
 
@@ -19,7 +21,14 @@ Use one import style everywhere to reduce AI-generated import errors:
 3. Import exactly one theme from `@rapidset/rapidkit/themes/*`.
 
 ```tsx
-import { useFormHandlers, Input, Checkbox, Button } from '@rapidset/rapidkit';
+import {
+  useDebounce,
+  useFormHandlers,
+  useSearchPagination,
+  Input,
+  Checkbox,
+  Button,
+} from '@rapidset/rapidkit';
 import '@rapidset/rapidkit/styles.css';
 import '@rapidset/rapidkit/themes/default.css';
 ```

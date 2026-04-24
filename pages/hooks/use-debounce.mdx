@@ -1,0 +1,34 @@
+# useDebounce
+
+`useDebounce` delays value propagation until updates stop for a configured duration.
+
+## What It Solves
+
+- avoids firing expensive effects on every keystroke
+- coalesces rapid updates into one stable value
+- supports immediate mode via `enabled: false`
+
+## Usage
+
+```tsx
+import { useEffect, useState } from 'react';
+import { useDebounce } from '@rapidset/rapidkit';
+
+export function SearchInputState() {
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, 300);
+
+  useEffect(() => {
+    console.log('Query after debounce:', debouncedQuery);
+  }, [debouncedQuery]);
+
+  return (
+    <input
+      value={query}
+      onChange={(event) => {
+        setQuery(event.target.value);
+      }}
+    />
+  );
+}
+```
