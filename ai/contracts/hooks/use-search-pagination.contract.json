@@ -1,0 +1,31 @@
+{
+  "hook": "useSearchPagination",
+  "version": "1.0.0",
+  "source": "src/hooks/useSearchPagination",
+  "description": "Pagination state hook with query handling for search-driven list views.",
+  "capabilities": {
+    "paginationStateManagement": true,
+    "searchQueryHandling": true,
+    "searchResetsPage": true,
+    "paginationParamReplacement": true,
+    "emptyQueryNormalization": true
+  },
+  "options": {
+    "initialParams": {
+      "type": "PaginationParams",
+      "required": false,
+      "default": "DEFAULT_PAGINATION_PARAMS"
+    }
+  },
+  "states": {
+    "usesProvidedInitialParams": "true",
+    "usesDefaultInitialParamsWhenMissing": "true"
+  },
+  "interaction": {
+    "handleSearchUpdatesQuery": "true",
+    "handleSearchResetsPageToOne": "true",
+    "handleSearchMapsEmptyStringToUndefined": "true",
+    "handlePaginationChangeReplacesState": "true"
+  },
+  "tests": ["src/hooks/useSearchPagination/useSearchPagination.test.tsx"]
+}

@@ -1,0 +1,33 @@
+{
+  "hook": "useDebounce",
+  "version": "1.0.0",
+  "source": "src/hooks/useDebounce",
+  "description": "Debounces value updates with optional bypass and custom equality semantics.",
+  "capabilities": {
+    "delayedValuePropagation": true,
+    "rapidUpdateCoalescing": true,
+    "customEqualityMatching": true,
+    "optionalDebounceBypass": true
+  },
+  "options": {
+    "value": {
+      "type": "T",
+      "required": true
+    },
+    "delay": {
+      "type": "number",
+      "required": true
+    },
+    "options": {
+      "type": "{ enabled?: boolean; isEqual?: (previous: T, next: T) => boolean }",
+      "required": false
+    }
+  },
+  "interaction": {
+    "returnsInitialValueImmediately": "true",
+    "propagatesLatestValueAfterDelay": "true",
+    "onlyLatestRapidChangeIsApplied": "true",
+    "enabledFalseSkipsDelay": "true"
+  },
+  "tests": ["src/hooks/useDebounce/useDebounce.test.tsx"]
+}

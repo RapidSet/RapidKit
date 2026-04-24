@@ -2,6 +2,7 @@ import { useEffect, useId, useState, type JSX } from 'react';
 import { Database, FileText, PencilLine } from 'lucide-react';
 import { z } from 'zod';
 import { Button } from '../../src/components/Button';
+import { ButtonVariant } from '../../src/components/Button/styles';
 import { Checkbox } from '../../src/components/Checkbox';
 import { DetailsCard } from '../../src/components/DetailsCard';
 import { Input } from '../../src/components/Input';
@@ -634,7 +635,7 @@ function ParentDetailSyncPreview(): JSX.Element {
                 />
                 <Button
                   label="Reset Draft"
-                  variant="outlined"
+                  variant={ButtonVariant.Outlined}
                   onClick={resetDraft}
                 />
               </div>
