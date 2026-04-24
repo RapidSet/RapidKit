@@ -1,0 +1,66 @@
+{
+  "hook": "useFormHandlers",
+  "version": "1.0.0",
+  "source": "src/hooks/useFormHandlers",
+  "description": "Generic form state hook for controlled values, touched/errors tracking, and submit handling with optional Zod-compatible schema validation.",
+  "capabilities": {
+    "fieldValueManagement": true,
+    "fieldTouchedManagement": true,
+    "fieldErrorManagement": true,
+    "fieldLookupByName": true,
+    "textFieldAutoBinding": true,
+    "checkboxFieldAutoBinding": true,
+    "changeEventHandling": true,
+    "checkboxBooleanHandling": true,
+    "schemaValidation": true,
+    "customValidation": true,
+    "submitLifecycle": true,
+    "resetLifecycle": true
+  },
+  "options": {
+    "initialValues": {
+      "type": "TValues",
+      "required": true
+    },
+    "initialErrors": {
+      "type": "Partial<Record<keyof TValues, string>>",
+      "required": false
+    },
+    "initialTouched": {
+      "type": "Partial<Record<keyof TValues, boolean>>",
+      "required": false
+    },
+    "schema": {
+      "type": "{ safeParse(values: unknown): { success: true; data: unknown } | { success: false; error: { issues: Array<{ path: (string | number)[]; message: string }> } } }",
+      "required": false
+    },
+    "validate": {
+      "type": "(values: TValues) => Partial<Record<keyof TValues, string>>",
+      "required": false
+    },
+    "onSubmit": {
+      "type": "(values: TValues, helpers: UseFormHandlersSubmitHelpers<TValues>) => void | Promise<void>",
+      "required": false
+    }
+  },
+  "states": {
+    "isDirtyWhenValuesDifferFromInitial": "true",
+    "resetClearsErrorsAndTouched": "true",
+    "submitReturnsFalseWhenErrorsExist": "true",
+    "submitReturnsTrueWhenValidationPasses": "true"
+  },
+  "validation": {
+    "schemaErrorsMappedByFirstPathSegment": "true",
+    "validateErrorsOverrideSchemaErrors": "true"
+  },
+  "interaction": {
+    "getFieldValueAndErrorByName": "true",
+    "handleFieldChangeSupportsEventOrFieldValue": "true",
+    "createChangeHandlerBindsToSpecificField": "true",
+    "createBlurHandlerBindsToSpecificField": "true",
+    "getTextFieldPropsBindsByName": "true",
+    "getCheckboxFieldPropsBindsByName": "true",
+    "checkboxEventUsesCheckedValue": "true"
+  },
+  "tests": ["src/hooks/useFormHandlers/useFormHandlers.test.tsx"]
+}

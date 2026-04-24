@@ -1,0 +1,44 @@
+import { HookExampleTabs } from '../../docs-nextra/components/HookExampleTabs';
+
+# useFormHandlers
+
+`useFormHandlers` is a generic form-state hook designed to compose with RapidKit form components.
+
+## What It Handles
+
+- field values
+- touched state
+- field errors
+- submit lifecycle
+- reset lifecycle
+- Zod-compatible schema validation through `safeParse`
+
+## Login Page Composition Example
+
+The example below demonstrates composing `useFormHandlers` with RapidKit `Input`, `Checkbox`, `Button`, and `Text` components.
+
+<div className="component-example-tabs-host">
+  <HookExampleTabs hook="use-form-handlers" />
+</div>
+
+## Draft Commit State Sync Example
+
+This example shows using the same handlers in a detail editor where a local draft is validated and then committed to external source-of-truth state.
+
+<div className="component-example-tabs-host">
+  <HookExampleTabs hook="use-form-handlers" example="parent-sync" />
+</div>
+
+## Real-Time State Sync Example
+
+This variant pushes changes to external source-of-truth state immediately on each edit (no Apply button).
+
+<div className="component-example-tabs-host">
+  <HookExampleTabs hook="use-form-handlers" example="parent-live-sync" />
+</div>
+
+## Validation Order
+
+1. schema errors are computed first.
+2. validate errors are merged next.
+3. validate errors override schema errors on the same field.

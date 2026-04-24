@@ -245,5 +245,26 @@
       "cssPath": "src/themes/sunset.css"
     }
   ],
+  "hooks": [
+    {
+      "name": "useFormHandlers",
+      "contractPath": "ai/contracts/hooks/use-form-handlers.contract.json",
+      "sourcePath": "src/hooks/useFormHandlers",
+      "capabilities": [
+        "fieldValueManagement",
+        "fieldTouchedManagement",
+        "fieldErrorManagement",
+        "fieldLookupByName",
+        "textFieldAutoBinding",
+        "checkboxFieldAutoBinding",
+        "changeEventHandling",
+        "checkboxBooleanHandling",
+        "schemaValidation",
+        "customValidation",
+        "submitLifecycle",
+        "resetLifecycle"
+      ]
+    }
+  ],
   "presets": []
 }
