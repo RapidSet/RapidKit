@@ -29,17 +29,14 @@ export function SideBar(props: Readonly<SideBarProps>) {
     contentClassName,
     footerClassName,
     providerProps,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     className,
     collapsible = 'icon',
     ...sidebarProps
   } = props;
 
-  const { canView, canEdit } = resolveSideBarAccessState(
-    accessRequirements,
-    resolveAccess,
-  );
+  const { canView, canEdit } = resolveSideBarAccessState(access, canAccess);
 
   if (!canView) {
     return null;
@@ -48,9 +45,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
   const composedBody = children ?? (
     <>
       <SidebarHeader className={headerClassName}>
-        {brand ?? (
-          <SideBarBrand readOnly={!canEdit} resolveAccess={resolveAccess} />
-        )}
+        {brand ?? <SideBarBrand readOnly={!canEdit} canAccess={canAccess} />}
       </SidebarHeader>
       {showHeaderSeparator ? <SidebarSeparator /> : null}
       <SidebarContent className={contentClassName}>
@@ -58,7 +53,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
           <SideBarNavMenu
             items={menuItems}
             readOnly={!canEdit}
-            resolveAccess={resolveAccess}
+            canAccess={canAccess}
           />
         )}
       </SidebarContent>
@@ -69,7 +64,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
               user={user}
               actions={userActions}
               readOnly={!canEdit}
-              resolveAccess={resolveAccess}
+              canAccess={canAccess}
             />
           ) : null)}
       </SidebarFooter>

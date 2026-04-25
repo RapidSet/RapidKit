@@ -4,8 +4,21 @@ import type { Sidebar, SidebarProvider } from '@ui/sidebar';
 
 export type SideBarAccessMode = 'view' | 'edit';
 
+export type SideBarAccessMatch = 'any' | 'all';
+
+export interface SideBarAccessRule {
+  action: string;
+  subject: string;
+  mode?: SideBarAccessMode;
+}
+
+export interface SideBarAccessConfig {
+  rules: SideBarAccessRule[];
+  match?: SideBarAccessMatch;
+}
+
 export type SideBarAccessResolver = (
-  requirement: string,
+  rule: SideBarAccessRule,
   mode: SideBarAccessMode,
 ) => boolean;
 
@@ -15,7 +28,7 @@ export interface SideBarMenuSubItem {
   href?: string;
   isActive?: boolean;
   disabled?: boolean;
-  accessRequirements?: string[];
+  access?: SideBarAccessConfig;
   onSelect?: () => void;
 }
 
@@ -28,7 +41,7 @@ export interface SideBarMenuItem {
   badge?: string;
   isActive?: boolean;
   disabled?: boolean;
-  accessRequirements?: string[];
+  access?: SideBarAccessConfig;
   onSelect?: () => void;
   items?: SideBarMenuSubItem[];
 }
@@ -44,7 +57,7 @@ export interface SideBarUserAction {
   label: string;
   icon?: LucideIcon;
   disabled?: boolean;
-  accessRequirements?: string[];
+  access?: SideBarAccessConfig;
   onSelect?: () => void;
 }
 
@@ -54,16 +67,16 @@ export interface SideBarBrandProps {
   subtitle?: string;
   logo?: ReactNode;
   renderLogo?: (open: boolean) => ReactNode;
-  accessRequirements?: string[];
-  resolveAccess?: SideBarAccessResolver;
+  access?: SideBarAccessConfig;
+  canAccess?: SideBarAccessResolver;
   readOnly?: boolean;
 }
 
 export interface SideBarNavMenuProps {
   className?: string;
   items: SideBarMenuItem[];
-  accessRequirements?: string[];
-  resolveAccess?: SideBarAccessResolver;
+  access?: SideBarAccessConfig;
+  canAccess?: SideBarAccessResolver;
   readOnly?: boolean;
 }
 
@@ -71,8 +84,8 @@ export interface SideBarUserMenuProps {
   className?: string;
   user: SideBarUserInfo;
   actions?: SideBarUserAction[];
-  accessRequirements?: string[];
-  resolveAccess?: SideBarAccessResolver;
+  access?: SideBarAccessConfig;
+  canAccess?: SideBarAccessResolver;
   readOnly?: boolean;
 }
 
@@ -93,6 +106,6 @@ export interface SideBarProps extends Omit<
   contentClassName?: string;
   footerClassName?: string;
   providerProps?: Omit<ComponentProps<typeof SidebarProvider>, 'children'>;
-  accessRequirements?: string[];
-  resolveAccess?: SideBarAccessResolver;
+  access?: SideBarAccessConfig;
+  canAccess?: SideBarAccessResolver;
 }

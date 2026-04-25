@@ -39,12 +39,12 @@
       "type": "SideBarUserAction[]",
       "required": false
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "SideBarAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "canAccess": {
+      "type": "(rule: SideBarAccessRule, mode: \"view\" | \"edit\") => boolean",
       "required": false
     }
   },

@@ -11,12 +11,12 @@ export function SideBarBrand(props: Readonly<SideBarBrandProps>) {
     subtitle,
     logo,
     renderLogo,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     readOnly = false,
   } = props;
   const { open } = useSidebar();
-  const { canView } = resolveNodeAccessState(accessRequirements, resolveAccess);
+  const { canView } = resolveNodeAccessState(access, canAccess);
 
   if (!canView) {
     return null;

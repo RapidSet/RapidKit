@@ -28,21 +28,15 @@ import {
 import type { SideBarNavMenuProps } from '../../types';
 
 export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
-  const {
-    className,
-    items,
-    accessRequirements,
-    resolveAccess,
-    readOnly = false,
-  } = props;
+  const { className, items, access, canAccess, readOnly = false } = props;
   const { open } = useSidebar();
-  const { canView } = resolveNodeAccessState(accessRequirements, resolveAccess);
+  const { canView } = resolveNodeAccessState(access, canAccess);
   const defaultExpandedItems = useMemo(() => {
     const expandedByDefault: Record<string, boolean> = {};
 
     items.forEach((item) => {
       const visibleSubItems = (item.items ?? []).filter((subItem) =>
-        canViewSubItem(subItem, resolveAccess),
+        canViewSubItem(subItem, canAccess),
       );
 
       if (visibleSubItems.length > 0) {
@@ -53,7 +47,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
     });
 
     return expandedByDefault;
-  }, [items, resolveAccess]);
+  }, [items, canAccess]);
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
     {},
   );
@@ -62,9 +56,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
     return null;
   }
 
-  const visibleItems = items.filter((item) =>
-    canViewMenuItem(item, resolveAccess),
-  );
+  const visibleItems = items.filter((item) => canViewMenuItem(item, canAccess));
   const hasExplicitGroups = visibleItems.some((item) => Boolean(item.group));
   const groupedItems = visibleItems.reduce<
     Array<{ group: string; items: typeof visibleItems }>
@@ -88,8 +80,8 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
     isExpanded: boolean,
   ) => {
     const { canEdit: canEditSubItem } = resolveNodeAccessState(
-      subItem.accessRequirements,
-      resolveAccess,
+      subItem.access,
+      canAccess,
     );
     const subItemDisabled = readOnly || subItem.disabled || !canEditSubItem;
 
@@ -129,13 +121,10 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
   };
 
   const renderMenuItem = (item: SideBarNavMenuProps['items'][number]) => {
-    const { canEdit } = resolveNodeAccessState(
-      item.accessRequirements,
-      resolveAccess,
-    );
+    const { canEdit } = resolveNodeAccessState(item.access, canAccess);
     const itemDisabled = readOnly || item.disabled || !canEdit;
     const visibleSubItems = (item.items ?? []).filter((subItem) =>
-      canViewSubItem(subItem, resolveAccess),
+      canViewSubItem(subItem, canAccess),
     );
     const hasSubItems = visibleSubItems.length > 0;
     const isExpanded =
@@ -147,8 +136,8 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
       >[number],
     ) => {
       const { canEdit: canEditSubItem } = resolveNodeAccessState(
-        subItem.accessRequirements,
-        resolveAccess,
+        subItem.access,
+        canAccess,
       );
       const subItemDisabled = readOnly || subItem.disabled || !canEditSubItem;
 

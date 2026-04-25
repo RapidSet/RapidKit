@@ -34,19 +34,19 @@ export function SideBarUserMenu(props: Readonly<SideBarUserMenuProps>) {
     className,
     user,
     actions = [],
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     readOnly = false,
   } = props;
   const { isMobile, open } = useSidebar();
-  const { canView } = resolveNodeAccessState(accessRequirements, resolveAccess);
+  const { canView } = resolveNodeAccessState(access, canAccess);
 
   if (!canView) {
     return null;
   }
 
   const visibleActions = actions.filter((action) =>
-    canViewUserAction(action, resolveAccess),
+    canViewUserAction(action, canAccess),
   );
 
   return (
@@ -123,8 +123,8 @@ export function SideBarUserMenu(props: Readonly<SideBarUserMenuProps>) {
                 <DropdownMenuGroup>
                   {visibleActions.map((action) => {
                     const { canEdit } = resolveNodeAccessState(
-                      action.accessRequirements,
-                      resolveAccess,
+                      action.access,
+                      canAccess,
                     );
                     const actionDisabled =
                       readOnly || action.disabled || !canEdit;

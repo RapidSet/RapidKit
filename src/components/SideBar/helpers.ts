@@ -1,57 +1,51 @@
 import type {
+  SideBarAccessConfig,
   SideBarAccessMode,
   SideBarAccessResolver,
+  SideBarAccessRule,
   SideBarMenuItem,
   SideBarMenuSubItem,
   SideBarUserAction,
 } from './types';
 
-const canAccess = (
-  requirements: string[],
-  resolveAccess: SideBarAccessResolver | undefined,
+export interface SideBarAbilityLike {
+  can: (action: string, subject: string) => boolean;
+}
+
+const matchesAccess = (
+  rules: SideBarAccessRule[],
+  access: SideBarAccessConfig | undefined,
+  canAccess: SideBarAccessResolver | undefined,
   mode: SideBarAccessMode,
 ): boolean => {
-  if (!requirements.length || !resolveAccess) {
+  if (!rules.length || !canAccess) {
     return true;
   }
 
-  return requirements.some((requirement) => resolveAccess(requirement, mode));
+  const match = access?.match ?? 'any';
+  if (match === 'all') {
+    return rules.every((rule) => canAccess(rule, mode));
+  }
+
+  return rules.some((rule) => canAccess(rule, mode));
 };
 
 export const resolveSideBarAccessState = (
-  requirements: string[] | undefined,
-  resolveAccess: SideBarAccessResolver | undefined,
+  access: SideBarAccessConfig | undefined,
+  canAccess: SideBarAccessResolver | undefined,
 ) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessConfig =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
+  const rules = access?.rules ?? [];
 
-  const readRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.read'),
+  const viewRules = rules.filter(
+    (rule) => rule.mode === 'view' || rule.action === 'read',
   );
-  const writeRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.write'),
+  const editRules = rules.filter(
+    (rule) =>
+      rule.mode === 'edit' || (rule.mode == null && rule.action !== 'read'),
   );
 
-  let viewRequirements = normalizedRequirements;
-  if (readRequirements.length > 0) {
-    viewRequirements = readRequirements;
-  } else if (writeRequirements.length > 0) {
-    viewRequirements = [];
-  }
-
-  const editRequirements =
-    writeRequirements.length > 0 ? writeRequirements : normalizedRequirements;
-
-  let canView = true;
-  if (hasAccessConfig && viewRequirements.length > 0) {
-    canView = canAccess(viewRequirements, resolveAccess, 'view');
-  }
-
-  let canEdit = true;
-  if (hasAccessConfig) {
-    canEdit = canAccess(editRequirements, resolveAccess, 'edit');
-  }
+  const canView = matchesAccess(viewRules, access, canAccess, 'view');
+  const canEdit = matchesAccess(editRules, access, canAccess, 'edit');
 
   return {
     canView,
@@ -60,39 +54,36 @@ export const resolveSideBarAccessState = (
 };
 
 export const resolveNodeAccessState = (
-  requirements: string[] | undefined,
-  resolveAccess: SideBarAccessResolver | undefined,
-) => resolveSideBarAccessState(requirements, resolveAccess);
+  access: SideBarAccessConfig | undefined,
+  canAccess: SideBarAccessResolver | undefined,
+) => resolveSideBarAccessState(access, canAccess);
 
 export const canViewMenuItem = (
   item: SideBarMenuItem,
-  resolveAccess: SideBarAccessResolver | undefined,
+  canAccess: SideBarAccessResolver | undefined,
 ) => {
-  const { canView } = resolveNodeAccessState(
-    item.accessRequirements,
-    resolveAccess,
-  );
+  const { canView } = resolveNodeAccessState(item.access, canAccess);
   return canView;
 };
 
 export const canViewSubItem = (
   item: SideBarMenuSubItem,
-  resolveAccess: SideBarAccessResolver | undefined,
+  canAccess: SideBarAccessResolver | undefined,
 ) => {
-  const { canView } = resolveNodeAccessState(
-    item.accessRequirements,
-    resolveAccess,
-  );
+  const { canView } = resolveNodeAccessState(item.access, canAccess);
   return canView;
 };
 
 export const canViewUserAction = (
   action: SideBarUserAction,
-  resolveAccess: SideBarAccessResolver | undefined,
+  canAccess: SideBarAccessResolver | undefined,
 ) => {
-  const { canView } = resolveNodeAccessState(
-    action.accessRequirements,
-    resolveAccess,
-  );
+  const { canView } = resolveNodeAccessState(action.access, canAccess);
   return canView;
+};
+
+export const createSideBarCaslResolver = (
+  ability: SideBarAbilityLike,
+): SideBarAccessResolver => {
+  return (rule) => ability.can(rule.action, rule.subject);
 };

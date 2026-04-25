@@ -35,16 +35,18 @@ describe('SideBarUserMenu', () => {
           {
             key: 'admin',
             label: 'Admin',
-            accessRequirements: ['admin.read'],
+            access: { rules: [{ action: 'read', subject: 'admin' }] },
           },
         ]}
-        resolveAccess={() => false}
+        canAccess={() => false}
       />,
     );
 
     const trigger = screen.getAllByRole('button', { name: /alex doe/i }).at(0);
     expect(trigger).toBeTruthy();
-    fireEvent.click(trigger!);
+    if (trigger) {
+      fireEvent.click(trigger);
+    }
     expect(screen.queryByText('Admin')).toBeNull();
   });
 

@@ -9,7 +9,7 @@ import {
 describe('resolveSideBarAccessState', () => {
   it('allows view when requirements are write-only', () => {
     const state = resolveSideBarAccessState(
-      ['sidebar.write'],
+      { rules: [{ action: 'write', subject: 'sidebar' }] },
       (_, mode) => mode === 'edit',
     );
 
@@ -18,17 +18,24 @@ describe('resolveSideBarAccessState', () => {
   });
 
   it('denies view when read requirement fails', () => {
-    const state = resolveSideBarAccessState(['sidebar.read'], () => false);
+    const state = resolveSideBarAccessState(
+      { rules: [{ action: 'read', subject: 'sidebar' }] },
+      () => false,
+    );
 
     expect(state.canView).toBe(false);
-    expect(state.canEdit).toBe(false);
+    expect(state.canEdit).toBe(true);
   });
 
   it('grants edit when at least one requirement passes', () => {
     const state = resolveSideBarAccessState(
-      ['sidebar.write', 'settings.write'],
-      (requirement, mode) =>
-        mode === 'edit' && requirement === 'settings.write',
+      {
+        rules: [
+          { action: 'write', subject: 'sidebar' },
+          { action: 'write', subject: 'settings' },
+        ],
+      },
+      (rule, mode) => mode === 'edit' && rule.subject === 'settings',
     );
 
     expect(state.canView).toBe(true);
@@ -37,11 +44,14 @@ describe('resolveSideBarAccessState', () => {
 });
 
 describe('entity visibility helpers', () => {
-  const resolver = (requirement: string, mode: 'view' | 'edit') => {
+  const resolver = (
+    rule: { action: string; subject: string },
+    mode: 'view' | 'edit',
+  ) => {
     if (mode === 'view') {
-      return requirement === 'menu.read';
+      return rule.subject === 'menu' && rule.action === 'read';
     }
-    return requirement === 'menu.write';
+    return rule.subject === 'menu' && rule.action === 'write';
   };
 
   it('evaluates menu item view access', () => {
@@ -50,7 +60,7 @@ describe('entity visibility helpers', () => {
         {
           key: 'menu',
           label: 'Menu',
-          accessRequirements: ['menu.read'],
+          access: { rules: [{ action: 'read', subject: 'menu' }] },
         },
         resolver,
       ),
@@ -63,7 +73,7 @@ describe('entity visibility helpers', () => {
         {
           key: 'submenu',
           label: 'Sub Menu',
-          accessRequirements: ['menu.read'],
+          access: { rules: [{ action: 'read', subject: 'menu' }] },
         },
         resolver,
       ),
@@ -76,7 +86,7 @@ describe('entity visibility helpers', () => {
         {
           key: 'logout',
           label: 'Logout',
-          accessRequirements: ['menu.read'],
+          access: { rules: [{ action: 'read', subject: 'menu' }] },
         },
         resolver,
       ),

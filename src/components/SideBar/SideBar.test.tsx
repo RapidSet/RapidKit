@@ -30,8 +30,8 @@ describe('SideBar', () => {
   it('returns null when view access is denied', () => {
     render(
       <SideBar
-        accessRequirements={['sidebar.read']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'read', subject: 'sidebar' }] }}
+        canAccess={() => false}
         menuItems={[{ key: 'home', label: 'Home' }]}
       />,
     );
@@ -44,8 +44,8 @@ describe('SideBar', () => {
 
     render(
       <SideBar
-        accessRequirements={['sidebar.write']}
-        resolveAccess={(_, mode) => mode !== 'edit'}
+        access={{ rules: [{ action: 'write', subject: 'sidebar' }] }}
+        canAccess={(_, mode) => mode !== 'edit'}
         menuItems={[{ key: 'billing', label: 'Billing', onSelect }]}
       />,
     );

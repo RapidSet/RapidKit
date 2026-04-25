@@ -45,10 +45,10 @@ describe('SideBarNavMenu', () => {
           {
             key: 'admin',
             label: 'Admin',
-            accessRequirements: ['admin.read'],
+            access: { rules: [{ action: 'read', subject: 'admin' }] },
           },
         ]}
-        resolveAccess={() => false}
+        canAccess={() => false}
       />,
     );
 
@@ -64,11 +64,11 @@ describe('SideBarNavMenu', () => {
           {
             key: 'billing',
             label: 'Billing',
-            accessRequirements: ['billing.write'],
+            access: { rules: [{ action: 'write', subject: 'billing' }] },
             onSelect,
           },
         ]}
-        resolveAccess={(_, mode) => mode === 'view'}
+        canAccess={(_, mode) => mode === 'view'}
       />,
     );
 
@@ -107,11 +107,11 @@ describe('SideBarNavMenu', () => {
           {
             key: 'settings',
             label: 'Settings',
-            accessRequirements: ['settings.write'],
+            access: { rules: [{ action: 'write', subject: 'settings' }] },
             items: [{ key: 'users', label: 'Users', onSelect: vi.fn() }],
           },
         ]}
-        resolveAccess={(_, mode) => mode === 'view'}
+        canAccess={(_, mode) => mode === 'view'}
       />,
       false,
     );
