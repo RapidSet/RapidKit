@@ -12,14 +12,30 @@ import { DropDown } from '../../src/components/DropDown';
 import { Icon } from '../../src/components/Icon';
 import { Image } from '../../src/components/Image';
 import { Input } from '../../src/components/Input';
+import { Logo } from '../../src/components/Logo';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
+import { SideBar } from '../../src/components/SideBar';
 import { Text } from '../../src/components/Text';
 import { TextArea } from '../../src/components/TextArea';
 import { Toggle } from '../../src/components/Toggle';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
-import { Archive, Bell, Circle, Download, FileText, Plus } from 'lucide-react';
+import {
+  Archive,
+  BarChart3,
+  Bell,
+  Circle,
+  Download,
+  FileText,
+  FolderKanban,
+  Home,
+  LifeBuoy,
+  PanelLeft,
+  Plus,
+  Settings,
+  Users,
+} from 'lucide-react';
 
 export type ComponentExampleId =
   | 'autocomplete'
@@ -34,9 +50,11 @@ export type ComponentExampleId =
   | 'drop-down'
   | 'icon'
   | 'image'
+  | 'logo'
   | 'input'
   | 'page'
   | 'search'
+  | 'side-bar'
   | 'text'
   | 'text-area'
   | 'toggle';
@@ -1024,6 +1042,56 @@ function ImagePreview(): JSX.Element {
   );
 }
 
+function LogoPreview(): JSX.Element {
+  return (
+    <div className="space-y-3 p-3">
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex min-h-10 items-center">
+          <Logo
+            size="small"
+            open
+            showIcon
+            showText
+            logoSrc="/rapidkit.svg"
+            iconSrc="/rapidkit.svg"
+            alt="RapidKit logo"
+          />
+        </div>
+        <div
+          className="hidden h-10 w-px bg-border sm:block"
+          aria-hidden="true"
+        />
+        <div className="flex min-h-10 items-center">
+          <Logo
+            size="medium"
+            open={false}
+            showIcon
+            showText
+            logoSrc="/rapidkit.svg"
+            iconSrc="/rapidkit.svg"
+            alt="RapidKit collapsed logo"
+          />
+        </div>
+        <div
+          className="hidden h-10 w-px bg-border sm:block"
+          aria-hidden="true"
+        />
+        <div className="flex min-h-10 items-center">
+          <Logo
+            size="large"
+            open
+            showIcon
+            showText
+            logoSrc="/rapidkit.svg"
+            iconSrc="/rapidkit.svg"
+            alt="RapidKit large logo"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function InputPreview(): JSX.Element {
   const [email, setEmail] = useState('');
 
@@ -1087,6 +1155,123 @@ function SearchPreview(): JSX.Element {
   return (
     <div style={{ maxWidth: 320 }}>
       <Search placeholder="Search users" value={value} onChange={setValue} />
+    </div>
+  );
+}
+
+function SideBarPreview(): JSX.Element {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <div className="relative rounded-md border bg-background">
+      <button
+        type="button"
+        aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+        className={`absolute top-3 z-20 inline-flex h-8 w-8 items-center justify-center rounded-md bg-background transition-[left] duration-200 hover:bg-muted ${
+          isOpen ? 'left-[calc(16rem+0.25rem)]' : 'left-[calc(3rem+0.25rem)]'
+        }`}
+        onClick={() => setIsOpen((previous) => !previous)}
+      >
+        <Icon
+          icon={PanelLeft}
+          className="h-4 w-4"
+          aria-label="Toggle sidebar"
+        />
+      </button>
+      <div className="relative h-[28rem] overflow-hidden [transform:translateZ(0)] md:h-[32rem]">
+        <SideBar
+          providerProps={{
+            className: '!min-h-full !w-full',
+            open: isOpen,
+            onOpenChange: setIsOpen,
+          }}
+          brand={
+            <Logo
+              open={isOpen}
+              size="medium"
+              logoSrc="/rapidkit.svg"
+              iconSrc="/rapidkit.svg"
+              text="RapidKit"
+              alt="RapidKit logo"
+            />
+          }
+          menuItems={[
+            {
+              key: 'dashboard',
+              label: 'Dashboard',
+              group: 'Core',
+              icon: Home,
+              isActive: true,
+              badge: '12',
+              onSelect: () => undefined,
+            },
+            {
+              key: 'analytics',
+              label: 'Analytics',
+              group: 'Core',
+              icon: BarChart3,
+              onSelect: () => undefined,
+            },
+            {
+              key: 'billing',
+              label: 'Billing',
+              group: 'Operations',
+              icon: FolderKanban,
+              onSelect: () => undefined,
+            },
+            {
+              key: 'support',
+              label: 'Support',
+              group: 'Operations',
+              icon: LifeBuoy,
+              onSelect: () => undefined,
+            },
+            {
+              key: 'settings',
+              label: 'Settings',
+              group: 'Administration',
+              icon: Settings,
+              onSelect: () => undefined,
+              items: [
+                {
+                  key: 'users',
+                  label: 'Users',
+                  isActive: true,
+                  onSelect: () => undefined,
+                },
+                {
+                  key: 'roles',
+                  label: 'Roles',
+                  onSelect: () => undefined,
+                },
+              ],
+            },
+          ]}
+          user={{
+            name: 'Alex Doe',
+            email: 'alex@example.com',
+            avatar: (
+              <Avatar
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=128&q=80"
+                alt="Alex Doe"
+                size="sm"
+              />
+            ),
+          }}
+          userActions={[
+            {
+              key: 'team',
+              label: 'Team switch',
+              icon: Users,
+              onSelect: () => undefined,
+            },
+            { key: 'signout', label: 'Sign out', onSelect: () => undefined },
+          ]}
+          collapsible="icon"
+          showRail={false}
+          className="h-full border-r"
+        />
+      </div>
     </div>
   );
 }
@@ -1354,6 +1539,42 @@ interface UserDetails {
   />
 </div>`,
   },
+  logo: {
+    render: LogoPreview,
+    code: `import { Logo } from '@rapidset/rapidkit';
+
+<div className="flex flex-wrap items-center gap-3">
+  <Logo
+    size="small"
+    open
+    showIcon
+    showText
+    logoSrc="/rapidkit.svg"
+    iconSrc="/rapidkit.svg"
+    alt="RapidKit logo"
+  />
+  <div className="hidden h-10 w-px bg-border sm:block" aria-hidden="true" />
+  <Logo
+    size="medium"
+    open={false}
+    showIcon
+    showText
+    logoSrc="/rapidkit.svg"
+    iconSrc="/rapidkit.svg"
+    alt="RapidKit collapsed logo"
+  />
+  <div className="hidden h-10 w-px bg-border sm:block" aria-hidden="true" />
+  <Logo
+    size="large"
+    open
+    showIcon
+    showText
+    logoSrc="/rapidkit.svg"
+    iconSrc="/rapidkit.svg"
+    alt="RapidKit large logo"
+  />
+</div>;`,
+  },
   input: {
     render: InputPreview,
     code: `<Input
@@ -1390,6 +1611,81 @@ import { ButtonVariant, Page } from '@rapidset/rapidkit';
     code: `import { Search } from '@rapidset/rapidkit';
 
 <Search placeholder="Search users" onChange={(value) => console.log(value)} />;`,
+  },
+  'side-bar': {
+    render: SideBarPreview,
+    code: `import {
+  BarChart3,
+  FolderKanban,
+  Home,
+  LifeBuoy,
+  Settings,
+  Users,
+} from 'lucide-react';
+import { SideBar } from '@rapidset/rapidkit';
+
+<SideBar
+  menuItems={[
+    {
+      key: 'dashboard',
+      label: 'Dashboard',
+      group: 'Core',
+      icon: Home,
+      isActive: true,
+      badge: '12',
+      onSelect: () => {},
+    },
+    {
+      key: 'analytics',
+      label: 'Analytics',
+      group: 'Core',
+      icon: BarChart3,
+      onSelect: () => {},
+    },
+    {
+      key: 'billing',
+      label: 'Billing',
+      group: 'Operations',
+      icon: FolderKanban,
+      onSelect: () => {},
+    },
+    {
+      key: 'support',
+      label: 'Support',
+      group: 'Operations',
+      icon: LifeBuoy,
+      onSelect: () => {},
+    },
+    {
+      key: 'settings',
+      label: 'Settings',
+      group: 'Administration',
+      icon: Settings,
+      onSelect: () => {},
+      items: [
+        { key: 'users', label: 'Users', isActive: true, onSelect: () => {} },
+        { key: 'roles', label: 'Roles', onSelect: () => {} },
+      ],
+    },
+  ]}
+  user={{
+    name: 'Alex Doe',
+    email: 'alex@example.com',
+    avatar: (
+      <Avatar
+        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=128&q=80"
+        alt="Alex Doe"
+        size="sm"
+      />
+    ),
+  }}
+  userActions={[
+    { key: 'team', label: 'Team switch', icon: Users, onSelect: () => {} },
+    { key: 'signout', label: 'Sign out', onSelect: () => {} },
+  ]}
+  collapsible="icon"
+  showRail={false}
+/>;`,
   },
   text: {
     render: TextPreview,

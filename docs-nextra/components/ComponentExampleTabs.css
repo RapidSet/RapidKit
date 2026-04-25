@@ -249,6 +249,11 @@
   background: transparent;
 }
 
+.component-example-tabs__preview--side-bar {
+  padding: 0;
+  overflow: hidden;
+}
+
 .component-example-tabs__code-viewer {
   position: relative;
   border: 0;

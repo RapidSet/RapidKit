@@ -24,9 +24,11 @@ Direct links:
 - https://rapidset.github.io/RapidKit/components/drop-down
 - https://rapidset.github.io/RapidKit/components/icon
 - https://rapidset.github.io/RapidKit/components/image
+- https://rapidset.github.io/RapidKit/components/logo
 - https://rapidset.github.io/RapidKit/components/input
 - https://rapidset.github.io/RapidKit/components/page
 - https://rapidset.github.io/RapidKit/components/search
+- https://rapidset.github.io/RapidKit/components/side-bar
 - https://rapidset.github.io/RapidKit/components/text
 - https://rapidset.github.io/RapidKit/components/text-area
 - https://rapidset.github.io/RapidKit/components/toggle

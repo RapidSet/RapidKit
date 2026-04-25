@@ -553,6 +553,44 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'Optional access rules let images stay hidden when the current user should not see them, while keeping the component itself presentational.',
   },
+  logo: {
+    title: 'Logo',
+    summary:
+      'Logo renders your brand lockup and icon states with simple props for collapsed navigation and size variants.',
+    highlights: ['Brand lockup', 'Collapsed icon state', 'Size variants'],
+    importCode: "import { Logo } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'open',
+        description:
+          'When false, the component switches to icon mode for collapsed sidebar layouts.',
+      },
+      {
+        name: 'showIcon and showText',
+        description:
+          'Controls whether the icon, full lockup, or icon-only state should render.',
+      },
+      {
+        name: 'size',
+        description:
+          'Applies small, medium, or large sizing presets for common layout contexts.',
+      },
+      {
+        name: 'logoSrc and iconSrc',
+        description:
+          'Lets consumers provide app-specific logo and icon assets while keeping the component reusable.',
+      },
+      {
+        name: 'alt and testId',
+        description:
+          'Sets image accessibility text and deterministic selectors for tests.',
+      },
+    ],
+    accessibility:
+      'The underlying image forwards alt text so assistive technology can announce the brand asset meaningfully.',
+    guidance:
+      'Use brand assets from your public app path and keep this component presentational by handling brand selection outside the component.',
+  },
   input: {
     title: 'Input',
     summary:
@@ -679,6 +717,50 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
       'Search uses a native input, keeps the icon decorative, and supports a custom accessible label when the default placeholder is not descriptive enough.',
     guidance:
       'The component returns a plain string on change so you can connect it quickly to client-side filters or debounced server queries.',
+  },
+  'side-bar': {
+    title: 'SideBar',
+    summary:
+      'SideBar composes shadcn sidebar primitives into a package-safe navigation shell with injectable access checks and customizable child sections.',
+    highlights: [
+      'Composable layout slots',
+      'Nested menu support',
+      'Optional access-aware rendering',
+    ],
+    importCode: "import { SideBar } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'menuItems',
+        description:
+          'Provides top-level and nested navigation items while keeping routing behavior owned by the host app.',
+      },
+      {
+        name: 'user and userActions',
+        description:
+          'Configures the footer identity surface and action menu in a domain-neutral shape.',
+      },
+      {
+        name: 'accessRequirements and resolveAccess',
+        description:
+          'Injects optional view/edit checks so access control can be enforced without app-specific imports.',
+      },
+      {
+        name: 'brandSlot, navSlot, footerSlot',
+        description:
+          'Lets consumers replace default sections with custom wrappers while preserving the base sidebar shell.',
+      },
+      {
+        name: 'children',
+        description:
+          'Overrides the default composed sections entirely when full custom sidebar content is needed.',
+      },
+    ],
+    accessibility:
+      'The component builds on accessible sidebar/menu primitives and keeps keyboard-friendly interactive controls for menu and user actions.',
+    guidance:
+      'Keep permission resolution and route handling in your app layer. Pass plain navigation metadata and callbacks into SideBar props.',
+    accessBehavior:
+      'When view access is denied the sidebar returns null. When view is allowed but edit is denied, interactive menu and user actions are rendered as read-only.',
   },
   text: {
     title: 'Text',
@@ -881,6 +963,20 @@ export function ComponentDocsPage({
 }: ComponentDocsPageProps): JSX.Element {
   const doc = COMPONENT_DOCS[component];
   const installCode = 'pnpm add @rapidset/rapidkit';
+
+  if (!doc) {
+    return (
+      <article className="component-doc-page">
+        <header className="component-doc-hero">
+          <p className="component-doc-hero__eyebrow">UI component</p>
+          <h1>Documentation unavailable</h1>
+          <p className="component-doc-hero__summary">
+            No documentation metadata was found for this component.
+          </p>
+        </header>
+      </article>
+    );
+  }
 
   return (
     <article className="component-doc-page">
