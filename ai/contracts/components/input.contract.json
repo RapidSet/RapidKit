@@ -27,7 +27,7 @@
     "disabled": { "type": "boolean", "required": false },
     "access": { "type": "InputAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: InputAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "InputAccessResolver",
       "required": false
     }
   },

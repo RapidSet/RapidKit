@@ -9,7 +9,7 @@ RapidKit components use injectable access rules instead of coupling to any speci
 Where supported, components accept:
 
 - `access?: AccessConfig<TMode>`
-- `canAccess?: (rule: AccessRule<TMode>, mode: TMode) => boolean`
+- `canAccess?: AccessResolver<TMode, AccessRule<TMode>>`
 
 `access` contains:
 
@@ -21,6 +21,12 @@ Each rule uses a consistent object shape:
 - `action: string`
 - `subject: string`
 - `mode?: TMode`
+
+Common exported aliases are available for the most frequent access shapes:
+
+- `ViewAccessConfig` and `ViewAccessResolver`
+- `ViewEditAccessConfig` and `ViewEditAccessResolver`
+- `ActionAccessConfig` and `ActionAccessResolver`
 
 ## Default Behavior
 

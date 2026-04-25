@@ -24,7 +24,7 @@
     "disabled": { "type": "boolean", "required": false },
     "access": { "type": "DatePickerAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: DatePickerAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "DatePickerAccessResolver",
       "required": false
     }
   },

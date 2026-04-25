@@ -23,7 +23,7 @@
     "fallbackClassName": { "type": "string", "required": false },
     "access": { "type": "AvatarAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: AvatarAccessRule, mode: \"view\") => boolean",
+      "type": "AvatarAccessResolver",
       "required": false
     }
   },

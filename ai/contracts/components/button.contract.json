@@ -37,7 +37,7 @@
       "required": false
     },
     "canAccess": {
-      "type": "(rule: ButtonAccessRule, mode: \"action\") => boolean",
+      "type": "ButtonAccessResolver",
       "required": false
     },
     "accessDeniedBehavior": {

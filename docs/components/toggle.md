@@ -28,7 +28,7 @@ import { Toggle } from '@rapidset/rapidkit';
 - `error?: string`
 - `required?: boolean`
 - `access?: ToggleAccessConfig`
-- `canAccess?: (rule: ToggleAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: ToggleAccessResolver`
 
 ## Accessibility
 

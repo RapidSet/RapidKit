@@ -29,7 +29,7 @@ import { TextArea } from '@rapidset/rapidkit';
 - `placeholder?: string`
 - `disabled?: boolean`
 - `access?: TextAreaAccessConfig`
-- `canAccess?: (rule: TextAreaAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: TextAreaAccessResolver`
 
 ## Accessibility
 

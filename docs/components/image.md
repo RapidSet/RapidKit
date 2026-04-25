@@ -21,7 +21,7 @@ import { Image } from '@rapidset/rapidkit';
 - `loading?: 'lazy' | 'eager'`
 - `srcSet?: string`
 - `access?: ImageAccessConfig`
-- `canAccess?: (rule: ImageAccessRule, mode: 'view') => boolean`
+- `canAccess?: ImageAccessResolver`
 
 ## Accessibility
 

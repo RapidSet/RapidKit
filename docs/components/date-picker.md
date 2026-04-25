@@ -31,7 +31,7 @@ import { DatePicker } from '@rapidset/rapidkit';
 - `open?: boolean`
 - `onOpenChange?: (open: boolean) => void`
 - `access?: DatePickerAccessConfig`
-- `canAccess?: (rule: DatePickerAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: DatePickerAccessResolver`
 
 ## Accessibility
 

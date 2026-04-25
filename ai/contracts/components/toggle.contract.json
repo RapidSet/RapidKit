@@ -28,7 +28,7 @@
     "required": { "type": "boolean", "required": false },
     "access": { "type": "ToggleAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: ToggleAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "ToggleAccessResolver",
       "required": false
     }
   },

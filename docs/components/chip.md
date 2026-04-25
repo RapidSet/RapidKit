@@ -23,7 +23,7 @@ import { Chip } from '@rapidset/rapidkit';
 - `onRemove?: () => void`
 - `disabled?: boolean`
 - `access?: ChipAccessConfig`
-- `canAccess?: (rule: ChipAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: ChipAccessResolver`
 
 ## Accessibility
 

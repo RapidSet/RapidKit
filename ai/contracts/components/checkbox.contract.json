@@ -22,7 +22,7 @@
     "required": { "type": "boolean", "required": false },
     "access": { "type": "CheckboxAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: CheckboxAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "CheckboxAccessResolver",
       "required": false
     }
   },

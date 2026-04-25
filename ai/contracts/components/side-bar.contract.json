@@ -44,7 +44,7 @@
       "required": false
     },
     "canAccess": {
-      "type": "(rule: SideBarAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "SideBarAccessResolver",
       "required": false
     }
   },

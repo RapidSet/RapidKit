@@ -52,7 +52,7 @@
     },
     "access": { "type": "BaseTableAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: BaseTableAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "BaseTableAccessResolver",
       "required": false
     },
     "placeholder": { "type": "string", "required": false }

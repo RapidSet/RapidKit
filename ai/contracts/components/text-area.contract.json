@@ -24,7 +24,7 @@
     "disabled": { "type": "boolean", "required": false },
     "access": { "type": "TextAreaAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: TextAreaAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "TextAreaAccessResolver",
       "required": false
     }
   },

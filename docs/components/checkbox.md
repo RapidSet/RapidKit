@@ -27,7 +27,7 @@ import { Checkbox } from '@rapidset/rapidkit';
 - `error?: string`
 - `required?: boolean`
 - `access?: CheckboxAccessConfig`
-- `canAccess?: (rule: CheckboxAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: CheckboxAccessResolver`
 
 ## Accessibility
 

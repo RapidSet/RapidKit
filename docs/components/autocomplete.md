@@ -24,7 +24,7 @@ import { Autocomplete } from '@rapidset/rapidkit';
 - `size?: number`
 - `renderOption?: (item: T) => ReactNode`
 - `access?: AutocompleteAccessConfig`
-- `canAccess?: (rule: AutocompleteAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: AutocompleteAccessResolver`
 
 ## Accessibility
 

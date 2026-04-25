@@ -22,7 +22,7 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
 - `variant?: ButtonVariant`
 - `disabled?: boolean`
 - `access?: ButtonAccessConfig`
-- `canAccess?: (rule: ButtonAccessRule, mode: 'action') => boolean`
+- `canAccess?: ButtonAccessResolver`
 - `accessDeniedBehavior?: 'hide' | 'disable'`
 
 ## Accessibility

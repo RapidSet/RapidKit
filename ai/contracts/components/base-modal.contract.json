@@ -105,7 +105,7 @@
       "required": false
     },
     "canAccess": {
-      "type": "(rule: BaseModalAccessRule, mode: \"view\" | \"action\") => boolean",
+      "type": "BaseModalAccessResolver",
       "required": false
     }
   },

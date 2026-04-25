@@ -63,7 +63,7 @@
       "required": false
     },
     "canAccess": {
-      "type": "(rule: AutocompleteAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "AutocompleteAccessResolver",
       "required": false
     }
   },

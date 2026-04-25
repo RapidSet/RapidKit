@@ -29,7 +29,7 @@
     "truncate": { "type": "boolean", "required": false, "default": "false" },
     "access": { "type": "TextAccessConfig", "required": false },
     "canAccess": {
-      "type": "(rule: TextAccessRule, mode: 'view') => boolean",
+      "type": "TextAccessResolver",
       "required": false
     }
   },

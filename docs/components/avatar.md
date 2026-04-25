@@ -22,7 +22,7 @@ import { Avatar } from '@rapidset/rapidkit';
 - `imageClassName?: string`
 - `fallbackClassName?: string`
 - `access?: AvatarAccessConfig`
-- `canAccess?: (rule: AvatarAccessRule, mode: 'view') => boolean`
+- `canAccess?: AvatarAccessResolver`
 
 ## Accessibility
 

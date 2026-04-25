@@ -27,7 +27,7 @@ import { Input } from '@rapidset/rapidkit';
 - `helperText?: string`
 - `disabled?: boolean`
 - `access?: InputAccessConfig`
-- `canAccess?: (rule: InputAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: InputAccessResolver`
 
 ## Accessibility
 

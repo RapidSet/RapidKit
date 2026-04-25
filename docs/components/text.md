@@ -24,7 +24,7 @@ import { Text } from '@rapidset/rapidkit';
 - `truncate?: boolean`
 - `className?: string`
 - `access?: TextAccessConfig`
-- `canAccess?: (rule: TextAccessRule, mode: 'view') => boolean`
+- `canAccess?: TextAccessResolver`
 
 ## Accessibility
 

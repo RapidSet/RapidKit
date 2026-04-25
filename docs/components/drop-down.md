@@ -29,7 +29,7 @@ import { DropDown } from '@rapidset/rapidkit';
 - `error?: string`
 - `onOpenChange?: (open: boolean) => void`
 - `access?: DropDownAccessConfig`
-- `canAccess?: (rule: DropDownAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: DropDownAccessResolver`
 
 ## Accessibility
 

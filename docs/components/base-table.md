@@ -29,7 +29,7 @@ import { BaseTable } from '@rapidset/rapidkit';
 - `enableSelection?: boolean`
 - `onSelectionChange?: (selectedItems: T[]) => void`
 - `access?: BaseTableAccessConfig`
-- `canAccess?: (rule: BaseTableAccessRule, mode: 'view' | 'edit') => boolean`
+- `canAccess?: BaseTableAccessResolver`
 
 ## Access Behavior
 

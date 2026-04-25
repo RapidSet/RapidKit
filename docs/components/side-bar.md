@@ -25,7 +25,7 @@ import { SideBar } from '@rapidset/rapidkit';
 - showRail?: boolean
 - providerProps?: Omit<React.ComponentProps<typeof SidebarProvider>, 'children'>
 - access?: SideBarAccessConfig
-- canAccess?: (rule: SideBarAccessRule, mode: 'view' | 'edit') => boolean
+- canAccess?: SideBarAccessResolver
 - Any supported shadcn Sidebar props such as side, variant, collapsible, and className
 
 ## Access Control

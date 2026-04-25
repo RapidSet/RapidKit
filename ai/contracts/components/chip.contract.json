@@ -44,7 +44,7 @@
       "required": false
     },
     "canAccess": {
-      "type": "(rule: ChipAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "ChipAccessResolver",
       "required": false
     }
   },

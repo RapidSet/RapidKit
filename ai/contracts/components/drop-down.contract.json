@@ -60,7 +60,7 @@
       "required": false
     },
     "canAccess": {
-      "type": "(rule: DropDownAccessRule, mode: \"view\" | \"edit\") => boolean",
+      "type": "DropDownAccessResolver",
       "required": false
     }
   },

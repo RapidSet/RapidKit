@@ -36,7 +36,7 @@ import { BaseModal, ButtonVariant } from '@rapidset/rapidkit';
 - `customButtons?: CustomButtonProps[]`
 - `access?: BaseModalAccessConfig`
 - `saveAccess?: BaseModalAccessConfig`
-- `canAccess?: (rule: BaseModalAccessRule, mode: 'view' | 'action') => boolean`
+- `canAccess?: BaseModalAccessResolver`
 
 ## Accessibility
 
