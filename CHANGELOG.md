@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.6.0
+
+### Minor Changes
+
+- c82497c: add sidebar component
+
 ## 0.5.0
 
 ### Minor Changes
