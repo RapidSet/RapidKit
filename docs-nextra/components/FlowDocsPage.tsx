@@ -17,6 +17,25 @@ type FlowDocsPageProps = Readonly<{
   flow: FlowExampleId;
 }>;
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+function withBasePath(path: string): string {
+  if (!path) {
+    return basePath || '/';
+  }
+
+  if (!basePath) {
+    return path;
+  }
+
+  if (path.startsWith(basePath)) {
+    return path;
+  }
+
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${basePath}${normalizedPath}`;
+}
+
 const FLOW_DOCS: Record<FlowExampleId, FlowDoc> = {
   login: {
     title: 'Login',
@@ -38,6 +57,7 @@ function FlowBlockCard({
   flow,
 }: Readonly<{ flow: FlowExampleId }>): JSX.Element {
   const doc = FLOW_DOCS[flow];
+  const docsHref = withBasePath(doc.docsHref);
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-sm border border-border bg-card">
@@ -73,13 +93,13 @@ function FlowBlockCard({
 
         <div className="flex flex-wrap gap-2">
           <a
-            href={doc.docsHref}
+            href={docsHref}
             className="inline-flex items-center rounded-sm border border-border bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground no-underline transition-colors hover:bg-secondary/80"
           >
             Preview
           </a>
           <a
-            href={`${doc.docsHref}?tab=code`}
+            href={`${docsHref}?tab=code`}
             className="inline-flex items-center rounded-sm border border-border bg-background px-4 py-2 text-sm font-medium text-foreground no-underline transition-colors hover:bg-muted"
           >
             Code
@@ -118,6 +138,7 @@ export function FlowDocsIndexPage(): JSX.Element {
 
 export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
   const doc = FLOW_DOCS[flow];
+  const docsHref = withBasePath(doc.docsHref);
   const [isFullMode, setIsFullMode] = useState(false);
 
   useEffect(() => {
@@ -181,7 +202,7 @@ export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
       <section className="component-example-tabs-host flex-1 min-h-[calc(100vh-23rem)]">
         <FlowExampleTabs
           flow={flow}
-          fullPreviewHref={`${doc.docsHref}?view=full`}
+          fullPreviewHref={`${docsHref}?view=full`}
         />
       </section>
     </article>

@@ -113,6 +113,7 @@
 - Keep `docs/COMPONENTS.md` as a stable compatibility entrypoint that points to the scalable docs structure.
 - Ensure examples use package imports (`@rapidset/rapidkit`) and documented theme imports.
 - Keep component docs aligned with public props, access behavior, accessibility notes, and tested interaction guarantees.
+- For all flow docs pages (not only login), make route links and `?view=full` preview links base-path aware for GitHub Pages by resolving paths with `NEXT_PUBLIC_BASE_PATH` instead of hardcoded root-relative `/flows/...` URLs.
 
 ## Release Checklist Commands
 
