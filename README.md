@@ -58,9 +58,11 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 - DropDown
 - Icon
 - Image
+- Logo
 - Input
 - Page
 - Search
+- SideBar
 - Text
 - TextArea
 - Toggle

@@ -67,6 +67,14 @@
     --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.22);
     --rk-checkbox-size: 1rem;
     --rk-checkbox-radius: 0.1875rem;
+    --sidebar-background: var(--rk-card);
+    --sidebar-foreground: var(--rk-card-foreground);
+    --sidebar-primary: var(--rk-primary);
+    --sidebar-primary-foreground: var(--rk-primary-foreground);
+    --sidebar-accent: var(--rk-accent);
+    --sidebar-accent-foreground: var(--rk-accent-foreground);
+    --sidebar-border: var(--rk-border);
+    --sidebar-ring: var(--rk-ring);
   }
 
   .dark {

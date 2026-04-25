@@ -1,0 +1,65 @@
+{
+  "component": "SideBar",
+  "version": "1.0.0",
+  "source": "src/components/SideBar",
+  "description": "A domain-neutral sidebar wrapper based on shadcn Sidebar primitives with composable brand, navigation, and user menu sections.",
+  "capabilities": {
+    "layoutComposition": true,
+    "sidebarContainer": true,
+    "slotBasedStructure": true,
+    "providerConfiguration": true,
+    "accessControl": true
+  },
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "brand": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "navigation": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "footer": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "menuItems": {
+      "type": "SideBarMenuItem[]",
+      "required": false
+    },
+    "user": {
+      "type": "SideBarUserInfo",
+      "required": false
+    },
+    "userActions": {
+      "type": "SideBarUserAction[]",
+      "required": false
+    },
+    "accessRequirements": {
+      "type": "string[]",
+      "required": false
+    },
+    "resolveAccess": {
+      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+      "required": false
+    }
+  },
+  "states": {
+    "hiddenWhenViewDenied": "true",
+    "childrenOverrideStructuredSlots": "true",
+    "railHiddenWhenShowRailFalse": "true",
+    "menuAndActionsReadOnlyWhenEditDenied": "true"
+  },
+  "accessibility": {
+    "shadcnSidebarSemanticsPreserved": "true"
+  },
+  "interaction": {
+    "sidebarPropsForwarded": "true",
+    "providerPropsForwarded": "true"
+  },
+  "tests": ["src/components/SideBar/SideBar.test.tsx"]
+}

@@ -7,9 +7,12 @@ const withNextra = nextra({
 
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'RapidKit';
 const basePath = process.env.GITHUB_ACTIONS ? `/${repoName}` : '';
+const shouldExport =
+  process.env.GITHUB_ACTIONS === 'true' ||
+  process.env.NEXT_OUTPUT_EXPORT === 'true';
 
 export default withNextra({
-  output: 'export',
+  ...(shouldExport ? { output: 'export' } : {}),
   basePath,
   assetPrefix: basePath || undefined,
   eslint: {

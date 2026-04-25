@@ -14,6 +14,18 @@
       ]
     },
     {
+      "name": "SideBar",
+      "contractPath": "ai/contracts/components/side-bar.contract.json",
+      "sourcePath": "src/components/SideBar",
+      "capabilities": [
+        "layoutComposition",
+        "sidebarContainer",
+        "slotBasedStructure",
+        "providerConfiguration",
+        "accessControl"
+      ]
+    },
+    {
       "name": "Avatar",
       "contractPath": "ai/contracts/components/avatar.contract.json",
       "sourcePath": "src/components/Avatar",

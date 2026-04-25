@@ -38,6 +38,10 @@ export default {
   image: {
     title: 'Image',
   },
+  logo: {
+    title: 'Logo',
+    href: '/components/logo',
+  },
   input: {
     title: 'Input',
   },
@@ -46,6 +50,9 @@ export default {
   },
   search: {
     title: 'Search',
+  },
+  'side-bar': {
+    title: 'SideBar',
   },
   text: {
     title: 'Text',
