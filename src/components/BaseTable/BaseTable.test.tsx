@@ -5,7 +5,8 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { BaseTable } from './BaseTable';
 import { CellType } from './components/BaseTableRow/components/BaseTableCell';
 import type { Column } from './components/BaseTableRow';
@@ -38,9 +39,25 @@ const queryParams: BaseTableQueryParams = {
   size: 10,
 };
 
+let canView = true;
+let canEdit = true;
+
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? canView : canEdit),
+);
+
 describe('BaseTable', () => {
   afterEach(() => {
     cleanup();
+  });
+
+  beforeEach(() => {
+    canView = true;
+    canEdit = true;
+    canAccess.mockClear();
   });
 
   it('renders table data and pagination controls', () => {
@@ -239,16 +256,77 @@ describe('BaseTable', () => {
   });
 
   it('returns null when view access is denied', () => {
+    canView = false;
+
     const { container } = render(
       <BaseTable<TestRow>
         data={rows}
         columns={columns}
         queryParams={queryParams}
-        accessRequirements={['table.read']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'read', subject: 'table' }] }}
+        canAccess={canAccess}
       />,
     );
 
     expect(container.firstChild).toBeNull();
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'table' },
+      'view',
+    );
+  });
+
+  it('disables selection when edit access is denied', () => {
+    canEdit = false;
+
+    render(
+      <BaseTable<TestRow>
+        data={rows}
+        columns={columns}
+        enableSelection
+        queryParams={queryParams}
+        access={{ rules: [{ action: 'write', subject: 'table' }] }}
+        canAccess={canAccess}
+      />,
+    );
+
+    const checkboxes = screen.getAllByRole('checkbox');
+    expect((checkboxes[0] as HTMLInputElement).disabled).toBe(true);
+    expect((checkboxes[1] as HTMLInputElement).disabled).toBe(true);
+    expect((checkboxes[2] as HTMLInputElement).disabled).toBe(true);
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'write', subject: 'table' },
+      'edit',
+    );
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <BaseTable<TestRow>
+          data={rows}
+          columns={columns}
+          queryParams={queryParams}
+          access={{ rules: [{ action: 'read', subject: 'table' }] }}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <BaseTable<TestRow>
+          data={rows}
+          columns={columns}
+          queryParams={queryParams}
+          access={{ rules: [{ action: 'read', subject: 'table' }] }}
+          canAccess={() => true}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByText('Alpha')).toBeTruthy();
   });
 });

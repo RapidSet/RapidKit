@@ -1,21 +1,28 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { Circle } from 'lucide-react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Chip } from './Chip';
 
 let allowsRead = true;
 let allowsWrite = true;
 
-const resolveAccess = vi.fn((_: string, mode: 'view' | 'edit') =>
-  mode === 'view' ? allowsRead : allowsWrite,
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? allowsRead : allowsWrite),
 );
 
 describe('Chip', () => {
-  afterEach(() => {
-    cleanup();
+  beforeEach(() => {
     allowsRead = true;
     allowsWrite = true;
-    resolveAccess.mockClear();
+    canAccess.mockClear();
+  });
+
+  afterEach(() => {
+    cleanup();
   });
 
   it('renders chip label content', () => {
@@ -106,13 +113,16 @@ describe('Chip', () => {
     const { container } = render(
       <Chip
         label="restricted"
-        accessRequirements={['chip.read']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'read', subject: 'chip' }] }}
+        canAccess={canAccess}
       />,
     );
 
     expect(container.firstChild).toBeNull();
-    expect(resolveAccess).toHaveBeenCalledWith('chip.read', 'view');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'chip' },
+      'view',
+    );
   });
 
   it('disables remove action when edit access is denied', () => {
@@ -124,8 +134,8 @@ describe('Chip', () => {
       <Chip
         label="locked"
         onRemove={onRemove}
-        accessRequirements={['chip.write']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'write', subject: 'chip' }] }}
+        canAccess={canAccess}
       />,
     );
 
@@ -134,12 +144,47 @@ describe('Chip', () => {
 
     fireEvent.click(removeButton);
     expect(onRemove).not.toHaveBeenCalled();
-    expect(resolveAccess).toHaveBeenCalledWith('chip.write', 'edit');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'write', subject: 'chip' },
+      'edit',
+    );
   });
 
-  it('keeps chip visible when requirements exist but resolver is missing', () => {
-    render(<Chip label="visible" accessRequirements={['chip.read']} />);
+  it('keeps chip visible when rules exist but resolver is missing', () => {
+    render(
+      <Chip
+        label="visible"
+        access={{ rules: [{ action: 'read', subject: 'chip' }] }}
+      />,
+    );
 
     expect(screen.getByText('visible')).toBeTruthy();
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Chip
+          label="provider hidden"
+          access={{ rules: [{ action: 'read', subject: 'chip' }] }}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Chip
+          label="provider override"
+          access={{ rules: [{ action: 'read', subject: 'chip' }] }}
+          canAccess={() => true}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByText('provider override')).toBeTruthy();
   });
 });

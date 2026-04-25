@@ -29,8 +29,8 @@ import { Page } from '@rapidset/rapidkit';
 - `icon?: LucideIcon`
 - `variant?: ButtonVariant`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'action') => boolean`
+- `access?: ButtonAccessConfig`
+- `canAccess?: ButtonAccessResolver`
 - `accessDeniedBehavior?: 'hide' | 'disable'`
 
 ## Accessibility

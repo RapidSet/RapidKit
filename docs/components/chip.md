@@ -22,9 +22,16 @@ import { Chip } from '@rapidset/rapidkit';
 - `pulse?: boolean`
 - `onRemove?: () => void`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: ChipAccessConfig`
+- `canAccess?: (rule: ChipAccessRule, mode: 'view' | 'edit') => boolean`
 
 ## Accessibility
 
 - Remove action includes an `aria-label` (`Remove <label>` or `Remove chip`).
+
+## Access Control
+
+- No resolver or no rules: chip remains visible and interactive.
+- Read or view rules gate visibility.
+- Write or edit rules gate remove interaction.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

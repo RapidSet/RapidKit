@@ -1,16 +1,19 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Text } from './Text';
 
 let allowsView = true;
 
-const resolveAccess = vi.fn((_: string, mode: 'view') => {
-  if (mode !== 'view') {
-    return false;
-  }
+const canAccess = vi.fn(
+  (_: { action: string; subject: string; mode?: 'view' }, mode: 'view') => {
+    if (mode !== 'view') {
+      return false;
+    }
 
-  return allowsView;
-});
+    return allowsView;
+  },
+);
 
 describe('Text', () => {
   afterEach(() => {
@@ -19,7 +22,7 @@ describe('Text', () => {
 
   beforeEach(() => {
     allowsView = true;
-    resolveAccess.mockClear();
+    canAccess.mockClear();
   });
 
   it('renders content with default styles', () => {
@@ -62,18 +65,55 @@ describe('Text', () => {
     allowsView = false;
 
     const { container } = render(
-      <Text accessRequirements={['copy.read']} resolveAccess={resolveAccess}>
+      <Text
+        access={{ rules: [{ action: 'read', subject: 'copy' }] }}
+        canAccess={canAccess}
+      >
         Hidden text
       </Text>,
     );
 
     expect(container.firstChild).toBeNull();
-    expect(resolveAccess).toHaveBeenCalledWith('copy.read', 'view');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'copy' },
+      'view',
+    );
   });
 
-  it('keeps text visible when requirements exist but resolver is missing', () => {
-    render(<Text accessRequirements={['copy.read']}>Visible fallback</Text>);
+  it('keeps text visible when rules exist but resolver is missing', () => {
+    render(
+      <Text access={{ rules: [{ action: 'read', subject: 'copy' }] }}>
+        Visible fallback
+      </Text>,
+    );
 
     expect(screen.getByText('Visible fallback')).toBeTruthy();
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Text access={{ rules: [{ action: 'read', subject: 'copy' }] }}>
+          Provider hidden text
+        </Text>
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Text
+          access={{ rules: [{ action: 'read', subject: 'copy' }] }}
+          canAccess={() => true}
+        >
+          Provider override text
+        </Text>
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByText('Provider override text')).toBeTruthy();
   });
 });

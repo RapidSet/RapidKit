@@ -55,12 +55,12 @@
       "type": "(open: boolean) => void",
       "required": false
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "DropDownAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "canAccess": {
+      "type": "(rule: DropDownAccessRule, mode: \"view\" | \"edit\") => boolean",
       "required": false
     }
   },

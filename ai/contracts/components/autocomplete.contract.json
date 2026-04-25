@@ -58,12 +58,12 @@
       "required": false,
       "default": "\"No results found\""
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "AutocompleteAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "canAccess": {
+      "type": "(rule: AutocompleteAccessRule, mode: \"view\" | \"edit\") => boolean",
       "required": false
     }
   },

@@ -47,12 +47,12 @@
       "type": "() => void",
       "required": false
     },
-    "saveAccessRequirements": {
-      "type": "string[]",
+    "saveAccess": {
+      "type": "ButtonAccessConfig",
       "required": false
     },
-    "deleteAccessRequirements": {
-      "type": "string[]",
+    "deleteAccess": {
+      "type": "ButtonAccessConfig",
       "required": false
     },
     "customButtons": {
@@ -76,7 +76,7 @@
   "interaction": {
     "saveDeleteAndCustomActionsReceiveDataOrNull": "true",
     "tabSelectionSwitchesVisiblePanel": "true",
-    "buttonActionsRespectAccessRequirements": "true"
+    "buttonActionsRespectAccess": "true"
   },
   "tests": [
     "src/components/DetailsCard/DetailsCard.test.tsx",

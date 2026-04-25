@@ -39,12 +39,12 @@
       "type": "() => void",
       "required": false
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "ChipAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "canAccess": {
+      "type": "(rule: ChipAccessRule, mode: \"view\" | \"edit\") => boolean",
       "required": false
     }
   },

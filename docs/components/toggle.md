@@ -40,4 +40,4 @@ import { Toggle } from '@rapidset/rapidkit';
 - No resolver or no rules: toggle stays visible and interactive.
 - Read or view rules gate visibility.
 - Write or edit rules gate interactivity.
-- `RapidKitAccessProvider` can supply a default `canAccess` resolver when the prop is omitted.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

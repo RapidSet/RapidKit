@@ -22,6 +22,20 @@ const matchesAccess = <TMode extends string>(
   return rules.some((rule) => canAccess(rule, mode));
 };
 
+export const resolveViewAccessState = <TMode extends 'view'>(
+  access: AccessConfig<TMode> | undefined,
+  canAccess: AccessResolver<TMode, AccessRule<TMode>> | undefined,
+) => {
+  const rules = access?.rules ?? [];
+  const viewRules = rules.filter(
+    (rule) => rule.mode === 'view' || rule.action === 'read',
+  );
+
+  return {
+    canView: matchesAccess(viewRules, access, canAccess, 'view' as TMode),
+  };
+};
+
 export const resolveViewEditAccessState = <TMode extends 'view' | 'edit'>(
   access: AccessConfig<TMode> | undefined,
   canAccess: AccessResolver<TMode, AccessRule<TMode>> | undefined,

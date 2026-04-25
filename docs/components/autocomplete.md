@@ -23,8 +23,8 @@ import { Autocomplete } from '@rapidset/rapidkit';
 - `placeholder?: string`
 - `size?: number`
 - `renderOption?: (item: T) => ReactNode`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: AutocompleteAccessConfig`
+- `canAccess?: (rule: AutocompleteAccessRule, mode: 'view' | 'edit') => boolean`
 
 ## Accessibility
 
@@ -34,9 +34,10 @@ import { Autocomplete } from '@rapidset/rapidkit';
 
 ## Access Control Behavior
 
-- No access config: visible and editable unless `disabled` is passed.
+- No resolver or no rules: visible and editable unless `disabled` is passed.
 - View denied: component returns `null`.
 - Edit denied: input renders disabled and dropdown toggle is blocked.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).
 
 ## Behavior
 

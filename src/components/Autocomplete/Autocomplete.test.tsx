@@ -6,6 +6,7 @@ import {
   within,
 } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { DEFAULT_PAGINATION_PARAM } from '@lib/pagination';
 import { Autocomplete } from './Autocomplete';
 import type { AutocompleteProps } from './types';
@@ -27,8 +28,11 @@ const makeSearchResult = (items: TestItem[]) => ({
 let canView = true;
 let canEdit = true;
 
-const resolveAccess = vi.fn((_: string, mode: 'view' | 'edit') =>
-  mode === 'view' ? canView : canEdit,
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? canView : canEdit),
 );
 
 const renderAutocomplete = (
@@ -68,7 +72,7 @@ describe('Autocomplete', () => {
   beforeEach(() => {
     canView = true;
     canEdit = true;
-    resolveAccess.mockClear();
+    canAccess.mockClear();
   });
 
   it('loads selected item by id and displays it', async () => {
@@ -211,24 +215,32 @@ describe('Autocomplete', () => {
     canView = false;
 
     const { container } = renderAutocomplete({
-      accessRequirements: ['resource.read'],
-      resolveAccess,
+      access: { rules: [{ action: 'read', subject: 'resource' }] },
+      canAccess,
     });
 
     expect(container.firstChild).toBeNull();
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'resource' },
+      'view',
+    );
   });
 
   it('renders disabled when edit access is denied', () => {
     canEdit = false;
 
     const { container } = renderAutocomplete({
-      accessRequirements: ['resource.write'],
-      resolveAccess,
+      access: { rules: [{ action: 'write', subject: 'resource' }] },
+      canAccess,
     });
 
     expect(within(container).getByLabelText('Resource')).toHaveProperty(
       'disabled',
       true,
+    );
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'write', subject: 'resource' },
+      'edit',
     );
   });
 
@@ -255,5 +267,44 @@ describe('Autocomplete', () => {
       'value',
       '',
     );
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const searchOptions = vi.fn().mockResolvedValue(makeSearchResult([]));
+
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Autocomplete<TestItem>
+          name="resource"
+          value={null}
+          label="Resource"
+          searchOptions={searchOptions}
+          onSelectOption={vi.fn()}
+          access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    const searchOptions = vi.fn().mockResolvedValue(makeSearchResult([]));
+
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Autocomplete<TestItem>
+          name="resource"
+          value={null}
+          label="Resource"
+          searchOptions={searchOptions}
+          onSelectOption={vi.fn()}
+          access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+          canAccess={() => true}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(within(container).getByLabelText('Resource')).toBeTruthy();
   });
 });

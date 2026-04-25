@@ -20,9 +20,16 @@ import { Image } from '@rapidset/rapidkit';
 - `className?: string`
 - `loading?: 'lazy' | 'eager'`
 - `srcSet?: string`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: ImageAccessConfig`
+- `canAccess?: (rule: ImageAccessRule, mode: 'view') => boolean`
 
 ## Accessibility
 
 - Forwards `alt` to the native `<img>` element.
+
+## Access Control
+
+- No resolver or no rules: image remains visible.
+- View denied: component returns `null`.
+- Non-view rules do not hide the image.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

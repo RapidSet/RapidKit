@@ -28,8 +28,8 @@ import { DropDown } from '@rapidset/rapidkit';
 - `helperText?: string`
 - `error?: string`
 - `onOpenChange?: (open: boolean) => void`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: DropDownAccessConfig`
+- `canAccess?: (rule: DropDownAccessRule, mode: 'view' | 'edit') => boolean`
 
 ## Accessibility
 
@@ -38,6 +38,7 @@ import { DropDown } from '@rapidset/rapidkit';
 
 ## Access Behavior
 
-- No resolver or no requirements: component is visible and editable (unless `disabled` is true).
+- No resolver or no rules: component is visible and editable (unless `disabled` is true).
 - View denied: component returns `null`.
 - View allowed but edit denied: component stays visible and is disabled.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

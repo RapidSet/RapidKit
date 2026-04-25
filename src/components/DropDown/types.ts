@@ -1,11 +1,17 @@
 import type { ReactNode } from 'react';
+import type {
+  AccessConfig,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 
 export type DropDownAccessMode = 'view' | 'edit';
-
-export type DropDownAccessResolver = (
-  requirement: string,
-  mode: DropDownAccessMode,
-) => boolean;
+export type DropDownAccessRule = AccessRule<DropDownAccessMode>;
+export type DropDownAccessConfig = AccessConfig<DropDownAccessMode>;
+export type DropDownAccessResolver = AccessResolver<
+  DropDownAccessMode,
+  DropDownAccessRule
+>;
 
 export interface DropDownProps {
   label?: string;
@@ -20,8 +26,8 @@ export interface DropDownProps {
   helperText?: string;
   error?: string;
   onOpenChange?: (open: boolean) => void;
-  accessRequirements?: string[];
-  resolveAccess?: DropDownAccessResolver;
+  access?: DropDownAccessConfig;
+  canAccess?: DropDownAccessResolver;
 }
 
 export interface DropDownOption {

@@ -11,6 +11,7 @@ import {
   formErrorTextClassName,
   formHelperTextClassName,
 } from '@lib/feedbackText';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import {
   optionItemBaseClassName,
   optionItemDropdownStateClassName,
@@ -35,14 +36,16 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
     helperText,
     error,
     onOpenChange,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     className,
   } = props;
 
+  const resolvedCanAccess = useAccessResolver(canAccess);
+
   const { canView, canEdit } = resolveDropDownAccessState(
-    accessRequirements,
-    resolveAccess,
+    access,
+    resolvedCanAccess,
   );
 
   if (!canView) {

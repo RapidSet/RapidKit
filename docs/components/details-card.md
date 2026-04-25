@@ -26,8 +26,8 @@ import { DetailsCard } from '@rapidset/rapidkit';
 - `onSave?: (data: T | null) => void`
 - `onDelete?: (data: T | null) => void`
 - `onClose?: () => void`
-- `saveAccessRequirements?: string[]`
-- `deleteAccessRequirements?: string[]`
+- `saveAccess?: ButtonAccessConfig`
+- `deleteAccess?: ButtonAccessConfig`
 - `customButtons?: CustomButton<T>[]`
 
 `CustomButton<T>` supports:
@@ -38,7 +38,7 @@ import { DetailsCard } from '@rapidset/rapidkit';
 - `variant?: ButtonVariant`
 - `loading?: boolean`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
+- `access?: ButtonAccessConfig`
 
 ## Accessibility
 
@@ -48,5 +48,5 @@ import { DetailsCard } from '@rapidset/rapidkit';
 ## Access Behavior
 
 - Header actions are delegated to `Button`, so access behavior matches the shared action-control contract.
-- Save and delete actions can receive dedicated access requirement lists.
-- Custom actions may provide `accessRequirements` for per-action gating.
+- Save and delete actions can receive dedicated typed access configs.
+- Custom actions may provide `access` for per-action gating.

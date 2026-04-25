@@ -1,13 +1,19 @@
+import type {
+  AccessConfig,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 import { Column } from './components/BaseTableRow';
 
 export type BaseTableSortOrder = 'asc' | 'desc';
 
 export type BaseTableAccessMode = 'view' | 'edit';
-
-export type BaseTableAccessResolver = (
-  requirement: string,
-  mode: BaseTableAccessMode,
-) => boolean;
+export type BaseTableAccessRule = AccessRule<BaseTableAccessMode>;
+export type BaseTableAccessConfig = AccessConfig<BaseTableAccessMode>;
+export type BaseTableAccessResolver = AccessResolver<
+  BaseTableAccessMode,
+  BaseTableAccessRule
+>;
 
 export interface BaseTableQueryParams {
   query: string;
@@ -28,8 +34,8 @@ export interface TableProps<T extends object> {
   sortBy?: string;
   sortOrder?: BaseTableSortOrder;
   enableSelection?: boolean;
-  accessRequirements?: string[];
-  resolveAccess?: BaseTableAccessResolver;
+  access?: BaseTableAccessConfig;
+  canAccess?: BaseTableAccessResolver;
   onRowClicked?: (item: T) => void;
   onSelectionChange?: (selectedItems: T[]) => void;
   onQueryParamsChange?: (params: BaseTableQueryParams) => void;

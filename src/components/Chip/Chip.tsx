@@ -1,4 +1,5 @@
 import { cn } from '@lib/utils';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { X } from 'lucide-react';
 import { Icon } from '../Icon';
 import {
@@ -20,15 +21,17 @@ export const Chip = (props: ChipProps) => {
     size = 'md',
     pulse = false,
     onRemove,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     disabled,
     ...rest
   } = props;
 
+  const resolvedCanAccess = useAccessResolver(canAccess);
+
   const { canView, canEdit } = resolveChipAccessState(
-    accessRequirements,
-    resolveAccess,
+    access,
+    resolvedCanAccess,
   );
 
   if (!canView) {

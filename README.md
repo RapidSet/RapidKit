@@ -139,6 +139,7 @@ import { Button } from '@rapidset/rapidkit/src/components/Button';
 ## Documentation
 
 - Components: https://rapidset.github.io/RapidKit/components/
+- Access Control: https://rapidset.github.io/RapidKit/ACCESS_CONTROL
 - Flows: https://rapidset.github.io/RapidKit/flows/
 - Hooks: https://rapidset.github.io/RapidKit/hooks/
 - Theming: https://rapidset.github.io/RapidKit/THEMING

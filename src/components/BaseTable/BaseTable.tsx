@@ -13,11 +13,9 @@ import {
 } from '@tanstack/react-table';
 import { cn } from '@lib/utils';
 import { Checkbox } from '@components/Checkbox';
-import type {
-  BaseTableAccessResolver,
-  BaseTableSortOrder,
-  TableProps,
-} from './types';
+import { useAccessResolver } from '@lib/use-access-resolver';
+import { resolveViewEditAccessState } from '@lib/view-edit-access';
+import type { BaseTableSortOrder, TableProps } from './types';
 import { CellType } from './components/BaseTableRow/components/BaseTableCell';
 import { transformColumns } from './helper';
 import { isRowInactive } from './components/BaseTableRow/helper';
@@ -31,18 +29,6 @@ import {
   TableHeader,
   TableRow,
 } from '@ui/table';
-
-const canAccess = (
-  requirements: string[] | undefined,
-  resolveAccess: BaseTableAccessResolver | undefined,
-  mode: 'view' | 'edit',
-): boolean => {
-  if (!requirements?.length || !resolveAccess) {
-    return true;
-  }
-
-  return requirements.some((requirement) => resolveAccess(requirement, mode));
-};
 
 const resolveRowId = <T extends object>(
   item: T,
@@ -82,8 +68,8 @@ export const BaseTable = <T extends object>({
   selectedItems,
   compactPagination = false,
   className,
-  accessRequirements,
-  resolveAccess,
+  access,
+  canAccess,
   getRowId,
 }: TableProps<T>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -92,18 +78,13 @@ export const BaseTable = <T extends object>({
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [activeRow, setActiveRow] = useState<string | null>(null);
   const isSyncingFromProp = useRef(false);
+  const resolvedCanAccess = useAccessResolver(canAccess);
 
   const availableColumns = customRow ?? columns ?? [];
 
-  const hasViewPermission = canAccess(
-    accessRequirements,
-    resolveAccess,
-    'view',
-  );
-  const hasEditPermission = canAccess(
-    accessRequirements,
-    resolveAccess,
-    'edit',
+  const { canView, canEdit } = resolveViewEditAccessState(
+    access,
+    resolvedCanAccess,
   );
 
   const initialSelection = useMemo(() => {
@@ -271,7 +252,7 @@ export const BaseTable = <T extends object>({
     onSelectionChange(selectedRows.map((row) => row.original));
   }, [onSelectionChange, rowSelection, table]);
 
-  if (!hasViewPermission) {
+  if (!canView) {
     return null;
   }
 
@@ -304,7 +285,7 @@ export const BaseTable = <T extends object>({
                       aria-label="Select all rows"
                       checked={allRowsSelected}
                       onCheckChange={(checked) => handleSelectAll(checked)}
-                      disabled={!hasEditPermission}
+                      disabled={!canEdit}
                       name="select-all-rows"
                       className="h-4 w-4"
                     />
@@ -409,7 +390,7 @@ export const BaseTable = <T extends object>({
                             handleSelectRow(row.id, checked)
                           }
                           onClick={(event) => event.stopPropagation()}
-                          disabled={!hasEditPermission || rowInactive}
+                          disabled={!canEdit || rowInactive}
                           name={`${row.id}-select`}
                           className="h-4 w-4"
                         />

@@ -16,9 +16,9 @@
     "className": { "type": "string", "required": false },
     "loading": { "type": "\"lazy\" | \"eager\"", "required": false },
     "srcSet": { "type": "string", "required": false },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "access": { "type": "ImageAccessConfig", "required": false },
+    "canAccess": {
+      "type": "(rule: ImageAccessRule, mode: \"view\") => boolean",
       "required": false
     }
   },

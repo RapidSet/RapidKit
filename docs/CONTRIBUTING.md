@@ -7,7 +7,7 @@ This package is a publishable, reusable UI component library. Contributions shou
 - Keep components presentational and data-source agnostic.
 - Do not couple core components to host app routing, auth, state containers, or backend contracts.
 - Keep public APIs domain-neutral and backward compatible by default.
-- For authorization behavior, use injectable checks through `accessRequirements` and `resolveAccess`.
+- For authorization behavior, use injectable checks through `access` and `canAccess`.
 
 ## AI-First Operating Model
 
@@ -43,7 +43,7 @@ For every new public component:
 ## Input Contract Snapshot
 
 - Access behavior:
-  - Missing `accessRequirements` or missing `resolveAccess`: input remains visible and editable unless explicitly disabled.
+  - Missing `access` or missing `canAccess`: input remains visible and editable unless explicitly disabled.
   - No view permission: component returns `null`.
   - View allowed and edit denied: input renders disabled.
   - Explicit `disabled` prop always keeps input disabled.

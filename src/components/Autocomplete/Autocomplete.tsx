@@ -3,6 +3,7 @@ import { Check, ChevronDown, X } from 'lucide-react';
 import { Input } from '@components/Input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Skeleton } from '@ui/skeleton';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
 import {
   optionItemBaseClassName,
@@ -39,13 +40,15 @@ export function Autocomplete<T extends AutocompleteOptionBase>(
     getOptionLabel,
     emptyMessage = 'No results found',
     size = DEFAULT_PAGINATION_PARAM.size ?? AUTOCOMPLETE_FALLBACK_PAGE_SIZE,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
   } = props;
 
+  const resolvedCanAccess = useAccessResolver(canAccess);
+
   const { canView, canEdit } = resolveAutocompleteAccessState(
-    accessRequirements,
-    resolveAccess,
+    access,
+    resolvedCanAccess,
   );
 
   const [searchValue, setSearchValue] = useState(AUTOCOMPLETE_EMPTY_QUERY);

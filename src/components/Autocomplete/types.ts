@@ -1,4 +1,9 @@
 import type { ReactNode } from 'react';
+import type {
+  AccessConfig,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 import type { PaginationParams } from '@lib/pagination';
 
 export type AutocompleteId = string | number;
@@ -22,11 +27,12 @@ export interface AutocompleteSearchResult<T> {
 }
 
 export type AutocompleteAccessMode = 'view' | 'edit';
-
-export type AutocompleteAccessResolver = (
-  requirement: string,
-  mode: AutocompleteAccessMode,
-) => boolean;
+export type AutocompleteAccessRule = AccessRule<AutocompleteAccessMode>;
+export type AutocompleteAccessConfig = AccessConfig<AutocompleteAccessMode>;
+export type AutocompleteAccessResolver = AccessResolver<
+  AutocompleteAccessMode,
+  AutocompleteAccessRule
+>;
 
 export interface AutocompleteProps<T extends AutocompleteOptionBase> {
   name: string;
@@ -47,6 +53,6 @@ export interface AutocompleteProps<T extends AutocompleteOptionBase> {
   getOptionLabel?: (item: T) => string;
   emptyMessage?: string;
   size?: number;
-  accessRequirements?: string[];
-  resolveAccess?: AutocompleteAccessResolver;
+  access?: AutocompleteAccessConfig;
+  canAccess?: AutocompleteAccessResolver;
 }

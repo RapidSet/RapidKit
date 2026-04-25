@@ -21,8 +21,8 @@ import { Avatar } from '@rapidset/rapidkit';
 - `className?: string`
 - `imageClassName?: string`
 - `fallbackClassName?: string`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view') => boolean`
+- `access?: AvatarAccessConfig`
+- `canAccess?: (rule: AvatarAccessRule, mode: 'view') => boolean`
 
 ## Accessibility
 
@@ -31,6 +31,7 @@ import { Avatar } from '@rapidset/rapidkit';
 
 ## Access Control
 
-- No resolver or no requirements: avatar remains visible.
+- No resolver or no rules: avatar remains visible.
 - View denied: component returns `null`.
-- `.write` requirements without `.read` keep the component visible by convention.
+- Non-view rules do not hide the avatar.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

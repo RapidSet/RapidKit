@@ -1,54 +1,7 @@
-import type { DropDownProps } from './types';
-
-const canAccess = (
-  requirements: string[],
-  resolveAccess: DropDownProps['resolveAccess'],
-  mode: 'view' | 'edit',
-): boolean => {
-  if (!requirements.length || !resolveAccess) {
-    return true;
-  }
-
-  return requirements.some((requirement) => resolveAccess(requirement, mode));
-};
+import { resolveViewEditAccessState } from '@lib/view-edit-access';
+import type { DropDownAccessConfig, DropDownAccessResolver } from './types';
 
 export const resolveDropDownAccessState = (
-  requirements: string[] | undefined,
-  resolveAccess: DropDownProps['resolveAccess'],
-) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessConfig =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
-
-  const readRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.read'),
-  );
-  const writeRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.write'),
-  );
-
-  let viewRequirements = normalizedRequirements;
-  if (readRequirements.length > 0) {
-    viewRequirements = readRequirements;
-  } else if (writeRequirements.length > 0) {
-    viewRequirements = [];
-  }
-
-  const editRequirements =
-    writeRequirements.length > 0 ? writeRequirements : normalizedRequirements;
-
-  let canView = true;
-  if (hasAccessConfig && viewRequirements.length > 0) {
-    canView = canAccess(viewRequirements, resolveAccess, 'view');
-  }
-
-  let canEdit = true;
-  if (hasAccessConfig) {
-    canEdit = canAccess(editRequirements, resolveAccess, 'edit');
-  }
-
-  return {
-    canView,
-    canEdit,
-  };
-};
+  access: DropDownAccessConfig | undefined,
+  canAccess: DropDownAccessResolver | undefined,
+) => resolveViewEditAccessState(access, canAccess);

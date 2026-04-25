@@ -44,4 +44,4 @@ import { DatePicker } from '@rapidset/rapidkit';
 - No `canAccess` or no `access`: visible and interactive unless `disabled` is set.
 - View denied: renders `null`.
 - Edit denied: remains visible but becomes disabled.
-- `RapidKitAccessProvider` can supply a default `canAccess` resolver when the prop is omitted.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).
