@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { SideBarAccessResolver } from '@components/SideBar/types';
-import { SideBarAccessContext } from '@components/SideBar/access-store';
+import { RapidKitAccessProvider } from '@lib/access-provider';
+import type { RapidKitAccessResolver } from '@lib/access-store';
 
 export interface SideBarAccessProviderProps {
   children: ReactNode;
@@ -13,8 +14,10 @@ export function SideBarAccessProvider(
   const { children, canAccess } = props;
 
   return (
-    <SideBarAccessContext.Provider value={canAccess}>
+    <RapidKitAccessProvider
+      canAccess={canAccess as RapidKitAccessResolver | undefined}
+    >
       {children}
-    </SideBarAccessContext.Provider>
+    </RapidKitAccessProvider>
   );
 }

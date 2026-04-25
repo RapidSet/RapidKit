@@ -1,6 +1,7 @@
 import type * as React from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Input } from './Input';
 
 let allowsRead = true;
@@ -279,5 +280,38 @@ describe('Input', () => {
     const updatedStyle = getComputedStyle(input);
     expect(updatedStyle.backgroundColor).toBe('rgb(100, 110, 120)');
     expect(updatedStyle.borderColor).toBe('rgb(130, 140, 150)');
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Input
+          name="providerHiddenField"
+          value="value"
+          access={{ rules: [{ action: 'read', subject: 'control' }] }}
+          onChange={vi.fn()}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Input
+          name="providerOverrideField"
+          value="open"
+          access={{ rules: [{ action: 'read', subject: 'control' }] }}
+          canAccess={() => true}
+          onChange={vi.fn()}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect((screen.getByRole('textbox') as HTMLInputElement).value).toBe(
+      'open',
+    );
   });
 });

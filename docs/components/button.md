@@ -37,3 +37,4 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
 - All listed action rules must pass by default (`access.match` defaults to `'all'`).
 - Action denied with `accessDeniedBehavior="hide"`: component returns `null`.
 - Action denied with `accessDeniedBehavior="disable"`: button remains visible but becomes disabled.
+- `RapidKitAccessProvider` can supply a default `canAccess` resolver when the prop is omitted.

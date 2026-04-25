@@ -1,26 +1,25 @@
 import type { ComponentProps, ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import type { Sidebar, SidebarProvider } from '@ui/sidebar';
+import type {
+  AccessConfig,
+  AccessMatch,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 
 export type SideBarAccessMode = 'view' | 'edit';
 
-export type SideBarAccessMatch = 'any' | 'all';
+export type SideBarAccessMatch = AccessMatch;
 
-export interface SideBarAccessRule {
-  action: string;
-  subject: string;
-  mode?: SideBarAccessMode;
-}
+export type SideBarAccessRule = AccessRule<SideBarAccessMode>;
 
-export interface SideBarAccessConfig {
-  rules: SideBarAccessRule[];
-  match?: SideBarAccessMatch;
-}
+export type SideBarAccessConfig = AccessConfig<SideBarAccessMode>;
 
-export type SideBarAccessResolver = (
-  rule: SideBarAccessRule,
-  mode: SideBarAccessMode,
-) => boolean;
+export type SideBarAccessResolver = AccessResolver<
+  SideBarAccessMode,
+  SideBarAccessRule
+>;
 
 export interface SideBarMenuSubItem {
   key: string;

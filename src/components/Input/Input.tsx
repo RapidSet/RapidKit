@@ -1,4 +1,5 @@
 import { forwardRef, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
 import {
   formErrorTextClassName,
@@ -28,6 +29,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     onKeyDown,
     ...rest
   } = props;
+  const resolvedCanAccess = useAccessResolver(canAccess);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e);
@@ -35,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   const { hasViewPermission, hasEditPermission } = resolveInputAccess(
     access,
-    canAccess,
+    resolvedCanAccess,
   );
 
   if (!hasViewPermission) {

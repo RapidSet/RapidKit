@@ -1,5 +1,6 @@
 import { forwardRef, type ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
 import { Button as UIButton } from '@ui/button';
 import { Icon } from '../Icon';
@@ -28,10 +29,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       ...rest
     } = props;
+    const resolvedCanAccess = useAccessResolver(canAccess);
 
     const { canView, canClick } = resolveButtonAccessState(
       access,
-      canAccess,
+      resolvedCanAccess,
       accessDeniedBehavior,
     );
 

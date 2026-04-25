@@ -1,24 +1,23 @@
 import * as React from 'react';
+import type {
+  AccessConfig,
+  AccessMatch,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 
 export type InputAccessMode = 'view' | 'edit';
 
-export type InputAccessMatch = 'any' | 'all';
+export type InputAccessMatch = AccessMatch;
 
-export interface InputAccessRule {
-  action: string;
-  subject: string;
-  mode?: InputAccessMode;
-}
+export type InputAccessRule = AccessRule<InputAccessMode>;
 
-export interface InputAccessConfig {
-  rules: InputAccessRule[];
-  match?: InputAccessMatch;
-}
+export type InputAccessConfig = AccessConfig<InputAccessMode>;
 
-export type InputAccessResolver = (
-  rule: InputAccessRule,
-  mode: InputAccessMode,
-) => boolean;
+export type InputAccessResolver = AccessResolver<
+  InputAccessMode,
+  InputAccessRule
+>;
 
 type BaseInputProps = Omit<
   React.ComponentPropsWithoutRef<'input'>,
