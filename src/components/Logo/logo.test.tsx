@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
 import { Logo } from './logo';
 
 describe('Logo Component', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders icon and text by default when open is true', () => {
     render(<Logo open={true} />);
 

@@ -3,10 +3,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Sidebar, SidebarProvider } from '@ui/sidebar';
 import { SideBarNavMenu } from './SideBarNavMenu';
 
-const renderWithSidebarContext = (ui: React.ReactElement) =>
+const renderWithSidebarContext = (ui: React.ReactElement, open = true) =>
   render(
-    <SidebarProvider>
-      <Sidebar>{ui}</Sidebar>
+    <SidebarProvider open={open}>
+      <Sidebar collapsible="icon">{ui}</Sidebar>
     </SidebarProvider>,
   );
 
@@ -97,6 +97,48 @@ describe('SideBarNavMenu', () => {
     link.dispatchEvent(clickEvent);
 
     expect(clickEvent.defaultPrevented).toBe(true);
+    expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps collapsed submenu trigger disabled when edit access is denied', () => {
+    renderWithSidebarContext(
+      <SideBarNavMenu
+        items={[
+          {
+            key: 'settings',
+            label: 'Settings',
+            accessRequirements: ['settings.write'],
+            items: [{ key: 'users', label: 'Users', onSelect: vi.fn() }],
+          },
+        ]}
+        resolveAccess={(_, mode) => mode === 'view'}
+      />,
+      false,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Settings' });
+    expect(trigger.getAttribute('disabled')).not.toBeNull();
+  });
+
+  it('allows collapsed submenu item click when access permits', () => {
+    const onSelect = vi.fn();
+
+    renderWithSidebarContext(
+      <SideBarNavMenu
+        items={[
+          {
+            key: 'settings',
+            label: 'Settings',
+            items: [{ key: 'users', label: 'Users', onSelect }],
+          },
+        ]}
+      />,
+      false,
+    );
+
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Settings' }));
+    fireEvent.click(screen.getByText('Users'));
+
     expect(onSelect).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,6 +1,12 @@
 import { useMemo, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@ui/dropdown-menu';
+import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -11,6 +17,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@ui/sidebar';
 import { cn } from '@lib/utils';
 import {
@@ -28,6 +35,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
     resolveAccess,
     readOnly = false,
   } = props;
+  const { open } = useSidebar();
   const { canView } = resolveNodeAccessState(accessRequirements, resolveAccess);
   const defaultExpandedItems = useMemo(() => {
     const expandedByDefault: Record<string, boolean> = {};
@@ -77,6 +85,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
 
   const renderSubItem = (
     subItem: NonNullable<SideBarNavMenuProps['items'][number]['items']>[number],
+    isExpanded: boolean,
   ) => {
     const { canEdit: canEditSubItem } = resolveNodeAccessState(
       subItem.accessRequirements,
@@ -96,6 +105,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
         >
           <a
             href={subItem.href ?? '#'}
+            tabIndex={isExpanded ? undefined : -1}
             onClick={(event) => {
               if (subItemDisabled) {
                 event.preventDefault();
@@ -131,6 +141,96 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
     const isExpanded =
       expandedItems[item.key] ?? defaultExpandedItems[item.key] ?? false;
 
+    const renderCollapsedDropdownSubItem = (
+      subItem: NonNullable<
+        SideBarNavMenuProps['items'][number]['items']
+      >[number],
+    ) => {
+      const { canEdit: canEditSubItem } = resolveNodeAccessState(
+        subItem.accessRequirements,
+        resolveAccess,
+      );
+      const subItemDisabled = readOnly || subItem.disabled || !canEditSubItem;
+
+      return (
+        <DropdownMenuItem
+          asChild
+          key={subItem.key}
+          disabled={subItemDisabled}
+          className={cn(
+            'cursor-pointer text-xs focus:bg-transparent focus:text-sidebar-primary data-[highlighted]:bg-transparent data-[highlighted]:text-sidebar-primary',
+            subItemDisabled && 'opacity-70',
+          )}
+        >
+          <a
+            href={subItem.href ?? '#'}
+            onClick={(event) => {
+              if (subItemDisabled) {
+                event.preventDefault();
+                return;
+              }
+
+              if (!subItem.href) {
+                event.preventDefault();
+              }
+
+              subItem.onSelect?.();
+            }}
+          >
+            {subItem.label}
+          </a>
+        </DropdownMenuItem>
+      );
+    };
+
+    const renderCollapsedMenuItem = () => (
+      <SidebarMenuItem key={item.key}>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              asChild
+              isActive={item.isActive}
+              tooltip={{
+                children: item.label,
+                className:
+                  'border border-sidebar-border bg-white text-sidebar-foreground shadow-md dark:bg-sidebar dark:text-sidebar-foreground',
+              }}
+              className={cn(
+                'h-9 cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent',
+                itemDisabled && 'opacity-70',
+              )}
+            >
+              <button
+                type="button"
+                disabled={itemDisabled}
+                aria-disabled={itemDisabled || undefined}
+                className={cn(itemDisabled && 'pointer-events-none')}
+              >
+                {item.icon ? <item.icon aria-hidden="true" /> : null}
+                <span>{item.label}</span>
+                {item.badge ? (
+                  <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
+                ) : null}
+                <ChevronRight aria-hidden="true" className="ml-auto" />
+              </button>
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="min-w-52 rounded-lg border-sidebar-border bg-white text-sidebar-foreground dark:bg-sidebar dark:text-sidebar-foreground"
+            side="right"
+            align="start"
+            sideOffset={8}
+          >
+            {visibleSubItems.map(renderCollapsedDropdownSubItem)}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    );
+
+    if (hasSubItems && !open) {
+      return renderCollapsedMenuItem();
+    }
+
     return (
       <SidebarMenuItem key={item.key}>
         <SidebarMenuButton
@@ -154,7 +254,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
                 return;
               }
 
-              if (hasSubItems) {
+              if (hasSubItems && open) {
                 event.preventDefault();
                 setExpandedItems((previous) => ({
                   ...previous,
@@ -189,8 +289,24 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
             ) : null}
           </a>
         </SidebarMenuButton>
-        {hasSubItems && isExpanded ? (
-          <SidebarMenuSub>{visibleSubItems.map(renderSubItem)}</SidebarMenuSub>
+        {hasSubItems && open ? (
+          <div
+            aria-hidden={!isExpanded}
+            className={cn(
+              'grid overflow-hidden transition-all duration-200 ease-out',
+              isExpanded
+                ? 'grid-rows-[1fr] opacity-100'
+                : 'grid-rows-[0fr] opacity-0 pointer-events-none',
+            )}
+          >
+            <div className="min-h-0">
+              <SidebarMenuSub>
+                {visibleSubItems.map((subItem) =>
+                  renderSubItem(subItem, isExpanded),
+                )}
+              </SidebarMenuSub>
+            </div>
+          </div>
         ) : null}
       </SidebarMenuItem>
     );
