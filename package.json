@@ -1,6 +1,6 @@
 {
   "name": "@rapidset/rapidkit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "AI-first predefined UI templates for enterprise React apps, built on shadcn, TanStack Table, Redux Toolkit, React Hook Form, Zod, and Lucide",
   "type": "module",
   "main": "./dist/index.js",
