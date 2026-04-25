@@ -6,8 +6,11 @@ import { Input } from './Input';
 let allowsRead = true;
 let allowsWrite = true;
 
-const resolveAccess = vi.fn((_: string, mode: 'view' | 'edit') =>
-  mode === 'view' ? allowsRead : allowsWrite,
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? allowsRead : allowsWrite),
 );
 
 const renderInput = (
@@ -46,7 +49,7 @@ describe('Input', () => {
   beforeEach(() => {
     allowsRead = true;
     allowsWrite = true;
-    resolveAccess.mockClear();
+    canAccess.mockClear();
     installThemeProbeStyles();
   });
 
@@ -130,14 +133,14 @@ describe('Input', () => {
     renderInput({
       name: 'alias',
       value: 'mez',
-      accessRequirements: [],
-      resolveAccess,
+      access: { rules: [] },
+      canAccess,
     });
 
     expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
       false,
     );
-    expect(resolveAccess).not.toHaveBeenCalled();
+    expect(canAccess).not.toHaveBeenCalled();
   });
 
   it('hides input when read access is denied', () => {
@@ -147,22 +150,28 @@ describe('Input', () => {
       <Input
         name="hiddenField"
         value="value"
-        accessRequirements={['control.read']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'read', subject: 'control' }] }}
+        canAccess={canAccess}
         onChange={vi.fn()}
       />,
     );
 
     expect(container.firstChild).toBeNull();
-    expect(resolveAccess).toHaveBeenCalledWith('control.read', 'view');
-    expect(resolveAccess).not.toHaveBeenCalledWith('control.read', 'edit');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'control' },
+      'view',
+    );
+    expect(canAccess).not.toHaveBeenCalledWith(
+      { action: 'read', subject: 'control' },
+      'edit',
+    );
   });
 
   it('keeps input enabled when requirements exist but resolver is missing', () => {
     renderInput({
       name: 'fallbackField',
       value: 'open',
-      accessRequirements: ['control.read'],
+      access: { rules: [{ action: 'read', subject: 'control' }] },
     });
 
     expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
@@ -177,15 +186,21 @@ describe('Input', () => {
     renderInput({
       name: 'readonlyField',
       value: 'locked',
-      accessRequirements: ['control.write'],
-      resolveAccess,
+      access: { rules: [{ action: 'write', subject: 'control' }] },
+      canAccess,
     });
 
     expect((screen.getByRole('textbox') as HTMLInputElement).disabled).toBe(
       true,
     );
-    expect(resolveAccess).not.toHaveBeenCalledWith('control.write', 'view');
-    expect(resolveAccess).toHaveBeenCalledWith('control.write', 'edit');
+    expect(canAccess).not.toHaveBeenCalledWith(
+      { action: 'write', subject: 'control' },
+      'view',
+    );
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'write', subject: 'control' },
+      'edit',
+    );
   });
 
   it('keeps the input disabled when disabled is passed explicitly', () => {

@@ -1,29 +1,30 @@
 import type { ButtonProps } from './types';
 
-const canAccess = (
-  requirements: string[],
-  resolveAccess: ButtonProps['resolveAccess'],
+const matchesActionAccess = (
+  access: ButtonProps['access'],
+  canAccess: ButtonProps['canAccess'],
   mode: 'action',
 ) => {
-  if (!requirements.length || !resolveAccess) {
+  const rules = access?.rules ?? [];
+
+  if (!rules.length || !canAccess) {
     return true;
   }
 
-  return requirements.every((requirement) => resolveAccess(requirement, mode));
+  const match = access?.match ?? 'all';
+  if (match === 'any') {
+    return rules.some((rule) => canAccess(rule, mode));
+  }
+
+  return rules.every((rule) => canAccess(rule, mode));
 };
 
 export const resolveButtonAccessState = (
-  requirements: string[] | undefined,
-  resolveAccess: ButtonProps['resolveAccess'],
+  access: ButtonProps['access'],
+  canAccess: ButtonProps['canAccess'],
   accessDeniedBehavior: ButtonProps['accessDeniedBehavior'] = 'disable',
 ) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessConfig =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
-
-  const hasActionAccess = hasAccessConfig
-    ? canAccess(normalizedRequirements, resolveAccess, 'action')
-    : true;
+  const hasActionAccess = matchesActionAccess(access, canAccess, 'action');
 
   return {
     canView: accessDeniedBehavior === 'hide' ? hasActionAccess : true,

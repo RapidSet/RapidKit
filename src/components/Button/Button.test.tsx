@@ -34,8 +34,8 @@ describe('Button', () => {
     render(
       <Button
         label="Restricted"
-        accessRequirements={['action.delete']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'delete', subject: 'action' }] }}
+        canAccess={() => false}
         accessDeniedBehavior="hide"
       />,
     );
@@ -47,8 +47,8 @@ describe('Button', () => {
     render(
       <Button
         label="Locked"
-        accessRequirements={['action.delete']}
-        resolveAccess={(_, mode) => mode !== 'action'}
+        access={{ rules: [{ action: 'delete', subject: 'action' }] }}
+        canAccess={(_, mode) => mode !== 'action'}
       />,
     );
 
@@ -62,8 +62,13 @@ describe('Button', () => {
     render(
       <Button
         label="Publish"
-        accessRequirements={['article.publish', 'article.approve']}
-        resolveAccess={(requirement) => requirement === 'article.publish'}
+        access={{
+          rules: [
+            { action: 'publish', subject: 'article' },
+            { action: 'approve', subject: 'article' },
+          ],
+        }}
+        canAccess={(rule) => rule.action === 'publish'}
       />,
     );
 

@@ -12,8 +12,9 @@ export const DetailsCardHeader = <T,>(props: DetailsCardHeaderProps<T>) => {
     onClose,
     onSave,
     onDelete,
-    saveAccessRequirements,
-    deleteAccessRequirements,
+    saveAccess,
+    deleteAccess,
+    canAccess,
     customButtons = [],
   } = props;
 
@@ -34,7 +35,8 @@ export const DetailsCardHeader = <T,>(props: DetailsCardHeaderProps<T>) => {
                 leftIcon={TrashIcon}
                 label="Delete"
                 variant={ButtonVariant.Destructive}
-                accessRequirements={deleteAccessRequirements}
+                access={deleteAccess}
+                canAccess={canAccess}
               />
             )}
             {customButtons.map((button) => (
@@ -44,7 +46,8 @@ export const DetailsCardHeader = <T,>(props: DetailsCardHeaderProps<T>) => {
                 leftIcon={button.icon}
                 label={button.label}
                 variant={button.variant || ButtonVariant.Default}
-                accessRequirements={button.accessRequirements}
+                access={button.access}
+                canAccess={button.canAccess ?? canAccess}
                 loading={button.loading}
                 disabled={button.disabled}
               />
@@ -55,7 +58,8 @@ export const DetailsCardHeader = <T,>(props: DetailsCardHeaderProps<T>) => {
                 leftIcon={SaveIcon}
                 label="Save"
                 variant={ButtonVariant.Primary}
-                accessRequirements={saveAccessRequirements}
+                access={saveAccess}
+                canAccess={canAccess}
               />
             )}
             {onClose && (

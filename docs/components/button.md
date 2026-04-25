@@ -21,8 +21,8 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
 - `loading?: boolean`
 - `variant?: ButtonVariant`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'action') => boolean`
+- `access?: ButtonAccessConfig`
+- `canAccess?: (rule: ButtonAccessRule, mode: 'action') => boolean`
 - `accessDeniedBehavior?: 'hide' | 'disable'`
 
 ## Accessibility
@@ -33,7 +33,7 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
 
 ## Access Control
 
-- No resolver or no requirements: button remains visible and enabled.
-- All listed action requirements must pass for the action to stay enabled.
+- No resolver or no rules: button remains visible and enabled.
+- All listed action rules must pass by default (`access.match` defaults to `'all'`).
 - Action denied with `accessDeniedBehavior="hide"`: component returns `null`.
 - Action denied with `accessDeniedBehavior="disable"`: button remains visible but becomes disabled.

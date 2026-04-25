@@ -32,12 +32,12 @@
       "required": false,
       "default": "ButtonVariant.Default"
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "ButtonAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"action\") => boolean",
+    "canAccess": {
+      "type": "(rule: ButtonAccessRule, mode: \"action\") => boolean",
       "required": false
     },
     "accessDeniedBehavior": {
@@ -61,7 +61,7 @@
   "interaction": {
     "onClickFiresWhenEnabled": "true",
     "labelOrChildrenVisible": "true",
-    "allActionRequirementsMustPass": "true"
+    "allActionRulesMustPassByDefault": "true"
   },
   "tests": ["src/components/Button/Button.test.tsx"]
 }

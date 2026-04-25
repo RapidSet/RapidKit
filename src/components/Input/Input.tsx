@@ -7,62 +7,8 @@ import {
 } from '@lib/feedbackText';
 import { Label } from '@ui/label';
 import { Input as ShadcnInput } from '@ui/input';
-import { InputProps } from './types';
-
-const resolveInputAccess = (
-  requirements: string[] | undefined,
-  resolveAccess: InputProps['resolveAccess'],
-) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessResolver =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
-
-  if (!hasAccessResolver) {
-    return {
-      hasViewPermission: true,
-      hasEditPermission: true,
-    };
-  }
-
-  const readRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.read'),
-  );
-  const writeRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.write'),
-  );
-
-  let viewRequirements = normalizedRequirements;
-  if (readRequirements.length > 0) {
-    viewRequirements = readRequirements;
-  } else if (writeRequirements.length > 0) {
-    viewRequirements = [];
-  }
-
-  const editRequirements =
-    writeRequirements.length > 0 ? writeRequirements : normalizedRequirements;
-
-  const hasViewPermission =
-    viewRequirements.length === 0 ||
-    viewRequirements.some((requirement) =>
-      resolveAccess?.(requirement, 'view'),
-    );
-
-  if (!hasViewPermission) {
-    return {
-      hasViewPermission,
-      hasEditPermission: false,
-    };
-  }
-
-  const hasEditPermission = editRequirements.some((requirement) =>
-    resolveAccess?.(requirement, 'edit'),
-  );
-
-  return {
-    hasViewPermission,
-    hasEditPermission,
-  };
-};
+import { resolveInputAccess } from '@components/Input/helpers';
+import { InputProps } from '@components/Input/types';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
@@ -76,8 +22,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     value = '',
     onChange,
     required,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     disabled,
     onKeyDown,
     ...rest
@@ -88,8 +34,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   };
 
   const { hasViewPermission, hasEditPermission } = resolveInputAccess(
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
   );
 
   if (!hasViewPermission) {

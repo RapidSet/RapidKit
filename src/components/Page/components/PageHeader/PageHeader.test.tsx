@@ -10,7 +10,7 @@ interface MockButtonProps {
   disabled?: boolean;
   variant?: string;
   leftIcon?: unknown;
-  accessRequirements?: string[];
+  access?: { rules: Array<{ action: string; subject: string }> };
 }
 
 interface MockSearchProps {
@@ -25,7 +25,7 @@ vi.mock('@components/Button', () => ({
     disabled,
     variant,
     leftIcon,
-    accessRequirements,
+    access,
   }: MockButtonProps) => (
     <button
       type="button"
@@ -34,7 +34,9 @@ vi.mock('@components/Button', () => ({
       data-testid={`action-${label}`}
       data-variant={variant || ''}
       data-has-icon={String(Boolean(leftIcon))}
-      data-access-requirements={(accessRequirements || []).join(',')}
+      data-access-rules={(access?.rules || [])
+        .map((rule) => `${rule.subject}.${rule.action}`)
+        .join(',')}
     >
       {label}
     </button>
@@ -94,7 +96,7 @@ describe('PageHeader', () => {
             name: 'Create',
             onClick: createClick,
             variant: ButtonVariant.Default,
-            accessRequirements: ['project:create'],
+            access: { rules: [{ action: 'create', subject: 'project' }] },
           },
           {
             name: 'Export',
@@ -111,8 +113,8 @@ describe('PageHeader', () => {
     const exportButton = screen.getByTestId('action-Export');
 
     expect((createButton as HTMLButtonElement).dataset.variant).toBe('default');
-    expect((createButton as HTMLButtonElement).dataset.accessRequirements).toBe(
-      'project:create',
+    expect((createButton as HTMLButtonElement).dataset.accessRules).toBe(
+      'project.create',
     );
     expect((exportButton as HTMLButtonElement).dataset.variant).toBe(
       'outlined',

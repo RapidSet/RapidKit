@@ -13,8 +13,9 @@ export const DetailsCard = <T,>(props: DetailsCardProps<T>) => {
     onDelete,
     tabs = [],
     renderCustomContent,
-    saveAccessRequirements,
-    deleteAccessRequirements,
+    saveAccess,
+    deleteAccess,
+    canAccess,
     customButtons = [],
   } = props;
 
@@ -30,8 +31,9 @@ export const DetailsCard = <T,>(props: DetailsCardProps<T>) => {
         onClose={onClose}
         onSave={onSave}
         onDelete={onDelete}
-        saveAccessRequirements={saveAccessRequirements}
-        deleteAccessRequirements={deleteAccessRequirements}
+        saveAccess={saveAccess}
+        deleteAccess={deleteAccess}
+        canAccess={canAccess}
         customButtons={customButtons}
       />
       {shouldShowCustomContent && (

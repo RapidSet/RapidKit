@@ -46,18 +46,19 @@ vi.mock('@components/Button', () => ({
     children,
     onClick,
     disabled,
-    ...rest
+    'aria-label': ariaLabel,
   }: {
     label?: string;
     children?: ReactNode;
     onClick?: () => void;
     disabled?: boolean;
+    'aria-label'?: string;
   }) => (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      {...(rest as Record<string, unknown>)}
+      aria-label={ariaLabel}
     >
       {label ?? children}
     </button>

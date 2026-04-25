@@ -2,8 +2,21 @@ import * as React from 'react';
 
 export type InputAccessMode = 'view' | 'edit';
 
+export type InputAccessMatch = 'any' | 'all';
+
+export interface InputAccessRule {
+  action: string;
+  subject: string;
+  mode?: InputAccessMode;
+}
+
+export interface InputAccessConfig {
+  rules: InputAccessRule[];
+  match?: InputAccessMatch;
+}
+
 export type InputAccessResolver = (
-  requirement: string,
+  rule: InputAccessRule,
   mode: InputAccessMode,
 ) => boolean;
 
@@ -24,6 +37,6 @@ export type InputProps = BaseInputProps & {
   required?: boolean;
   infoText?: string;
   isLoading?: boolean;
-  accessRequirements?: string[];
-  resolveAccess?: InputAccessResolver;
+  access?: InputAccessConfig;
+  canAccess?: InputAccessResolver;
 };

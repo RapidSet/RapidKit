@@ -10,7 +10,55 @@ import { X } from 'lucide-react';
 import { Button } from '@components/Button';
 import { ButtonVariant } from '@components/Button/styles';
 import { cn } from '@lib/utils';
+import type {
+  ButtonAccessConfig,
+  ButtonAccessResolver,
+  ButtonAccessRule,
+} from '@components/Button';
 import type { BaseModalAccessResolver, BaseModalProps } from './types';
+
+const toAccessRule = (requirement: string): ButtonAccessRule => {
+  const lastDotIndex = requirement.lastIndexOf('.');
+  if (lastDotIndex === -1) {
+    return {
+      action: requirement,
+      subject: 'resource',
+      mode: 'action',
+    };
+  }
+
+  return {
+    subject: requirement.slice(0, lastDotIndex),
+    action: requirement.slice(lastDotIndex + 1),
+    mode: 'action',
+  };
+};
+
+const toAccessConfig = (
+  requirements: string[] | undefined,
+): ButtonAccessConfig | undefined => {
+  if (!requirements?.length) {
+    return undefined;
+  }
+
+  return {
+    rules: requirements.map(toAccessRule),
+    match: 'all',
+  };
+};
+
+const toRequirementString = (rule: ButtonAccessRule) =>
+  rule.subject === 'resource' ? rule.action : `${rule.subject}.${rule.action}`;
+
+const toButtonAccessResolver = (
+  resolveAccess: BaseModalAccessResolver | undefined,
+): ButtonAccessResolver | undefined => {
+  if (!resolveAccess) {
+    return undefined;
+  }
+
+  return (rule) => resolveAccess(toRequirementString(rule), 'action');
+};
 
 const canAccess = (
   requirements: string[],
@@ -65,6 +113,7 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
     accessRequirements,
     resolveAccess,
   );
+  const buttonCanAccess = toButtonAccessResolver(resolveAccess);
 
   if (!canView) {
     return null;
@@ -151,8 +200,8 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 loading={button.loading}
                 label={button.label}
                 className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
-                accessRequirements={button.accessRequirements}
-                resolveAccess={resolveAccess}
+                access={toAccessConfig(button.accessRequirements)}
+                canAccess={buttonCanAccess}
               />
             ))}
             {showSave && (
@@ -163,8 +212,8 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 loading={isLoading}
                 label={saveLabel}
                 className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
-                accessRequirements={saveAccessRequirements}
-                resolveAccess={resolveAccess}
+                access={toAccessConfig(saveAccessRequirements)}
+                canAccess={buttonCanAccess}
               />
             )}
           </DialogFooter>

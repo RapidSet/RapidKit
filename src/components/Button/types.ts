@@ -5,10 +5,23 @@ import type { ButtonVariant } from './styles';
 
 export type ButtonAccessMode = 'action';
 
+export type ButtonAccessMatch = 'any' | 'all';
+
+export interface ButtonAccessRule {
+  action: string;
+  subject: string;
+  mode?: ButtonAccessMode;
+}
+
+export interface ButtonAccessConfig {
+  rules: ButtonAccessRule[];
+  match?: ButtonAccessMatch;
+}
+
 export type ButtonAccessDeniedBehavior = 'hide' | 'disable';
 
 export type ButtonAccessResolver = (
-  requirement: string,
+  rule: ButtonAccessRule,
   mode: ButtonAccessMode,
 ) => boolean;
 
@@ -21,8 +34,8 @@ export interface ButtonProps extends Omit<
   leftIcon?: LucideIcon;
   rightIcon?: LucideIcon;
   variant?: ButtonVariant;
-  accessRequirements?: string[];
-  resolveAccess?: ButtonAccessResolver;
+  access?: ButtonAccessConfig;
+  canAccess?: ButtonAccessResolver;
   accessDeniedBehavior?: ButtonAccessDeniedBehavior;
   children?: ReactNode;
 }

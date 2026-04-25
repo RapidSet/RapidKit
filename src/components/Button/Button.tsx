@@ -22,16 +22,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = ButtonVariant.Default,
       size,
       className,
-      accessRequirements,
-      resolveAccess,
+      access,
+      canAccess,
       accessDeniedBehavior = 'disable',
       disabled,
       ...rest
     } = props;
 
     const { canView, canClick } = resolveButtonAccessState(
-      accessRequirements,
-      resolveAccess,
+      access,
+      canAccess,
       accessDeniedBehavior,
     );
 

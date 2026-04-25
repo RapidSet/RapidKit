@@ -28,8 +28,8 @@ export function PageHeader(props: Readonly<PageHeaderProps>) {
               leftIcon={action.icon}
               label={action.name}
               disabled={action.disabled}
-              accessRequirements={action.accessRequirements}
-              resolveAccess={action.resolveAccess}
+              access={action.access}
+              canAccess={action.canAccess}
               accessDeniedBehavior={action.accessDeniedBehavior}
             />
           ))}
