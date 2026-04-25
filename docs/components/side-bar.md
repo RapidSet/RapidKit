@@ -34,6 +34,8 @@ import { SideBar } from '@rapidset/rapidkit';
 - Read or view rules gate visibility.
 - Write or edit rules gate interactivity (disabled behavior).
 - Rules support `match: 'any' | 'all'` through `access.match`.
+- Use `SideBarAccessProvider` to define a default `canAccess` resolver for nested SideBar components.
+- Explicit `canAccess` props override the provider value.
 
 ## Accessibility
 

@@ -59,7 +59,9 @@
   },
   "interaction": {
     "sidebarPropsForwarded": "true",
-    "providerPropsForwarded": "true"
+    "providerPropsForwarded": "true",
+    "canAccessInheritedFromProviderWhenOmitted": "true",
+    "explicitCanAccessOverridesProviderValue": "true"
   },
   "tests": ["src/components/SideBar/SideBar.test.tsx"]
 }
