@@ -26,9 +26,9 @@
     "helperText": { "type": "string", "required": false },
     "error": { "type": "string", "required": false },
     "required": { "type": "boolean", "required": false },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "access": { "type": "ToggleAccessConfig", "required": false },
+    "canAccess": {
+      "type": "(rule: ToggleAccessRule, mode: \"view\" | \"edit\") => boolean",
       "required": false
     }
   },

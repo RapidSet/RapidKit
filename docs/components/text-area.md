@@ -28,10 +28,17 @@ import { TextArea } from '@rapidset/rapidkit';
 - `rows?: number`
 - `placeholder?: string`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: TextAreaAccessConfig`
+- `canAccess?: (rule: TextAreaAccessRule, mode: 'view' | 'edit') => boolean`
 
 ## Accessibility
 
 - Associates label and textarea via `htmlFor`/`id`.
 - Sets `aria-invalid="true"` when error is present.
+
+## Access Control
+
+- No resolver or no rules: textarea stays visible and editable.
+- Read or view rules gate visibility.
+- Write or edit rules gate editability.
+- `RapidKitAccessProvider` can supply a default `canAccess` resolver when the prop is omitted.

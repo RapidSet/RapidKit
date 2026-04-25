@@ -1,4 +1,5 @@
 import { forwardRef, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
 import {
   formErrorTextClassName,
@@ -7,62 +8,8 @@ import {
 } from '@lib/feedbackText';
 import { Label } from '@ui/label';
 import { Textarea as ShadcnTextArea } from '@ui/textarea';
-import { TextAreaProps } from './types';
-
-const resolveTextAreaAccess = (
-  requirements: string[] | undefined,
-  resolveAccess: TextAreaProps['resolveAccess'],
-) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessResolver =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
-
-  if (!hasAccessResolver) {
-    return {
-      hasViewPermission: true,
-      hasEditPermission: true,
-    };
-  }
-
-  const readRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.read'),
-  );
-  const writeRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.write'),
-  );
-
-  let viewRequirements = normalizedRequirements;
-  if (readRequirements.length > 0) {
-    viewRequirements = readRequirements;
-  } else if (writeRequirements.length > 0) {
-    viewRequirements = [];
-  }
-
-  const editRequirements =
-    writeRequirements.length > 0 ? writeRequirements : normalizedRequirements;
-
-  const hasViewPermission =
-    viewRequirements.length === 0 ||
-    viewRequirements.some((requirement) =>
-      resolveAccess?.(requirement, 'view'),
-    );
-
-  if (!hasViewPermission) {
-    return {
-      hasViewPermission,
-      hasEditPermission: false,
-    };
-  }
-
-  const hasEditPermission = editRequirements.some((requirement) =>
-    resolveAccess?.(requirement, 'edit'),
-  );
-
-  return {
-    hasViewPermission,
-    hasEditPermission,
-  };
-};
+import { resolveTextAreaAccessState } from '@components/TextArea/helpers';
+import { TextAreaProps } from '@components/TextArea/types';
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (props, ref) => {
@@ -76,20 +23,21 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       value = '',
       onChange,
       required,
-      accessRequirements,
-      resolveAccess,
+      access,
+      canAccess,
       disabled,
       onKeyDown,
       ...rest
     } = props;
+    const resolvedCanAccess = useAccessResolver(canAccess);
 
     const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
       onChange(e);
     };
 
-    const { hasViewPermission, hasEditPermission } = resolveTextAreaAccess(
-      accessRequirements,
-      resolveAccess,
+    const { hasViewPermission, hasEditPermission } = resolveTextAreaAccessState(
+      access,
+      resolvedCanAccess,
     );
 
     if (!hasViewPermission) {

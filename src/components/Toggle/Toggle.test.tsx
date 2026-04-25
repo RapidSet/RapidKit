@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Toggle } from './Toggle';
 
 let canView = true;
@@ -47,8 +48,8 @@ describe('Toggle', () => {
     render(
       <Toggle
         name="secure"
-        accessRequirements={['feature.toggle.read']}
-        resolveAccess={(_, mode) => (mode === 'view' ? canView : canEdit)}
+        access={{ rules: [{ action: 'read', subject: 'feature.toggle' }] }}
+        canAccess={(_, mode) => (mode === 'view' ? canView : canEdit)}
       />,
     );
 
@@ -61,8 +62,8 @@ describe('Toggle', () => {
     render(
       <Toggle
         name="secure"
-        accessRequirements={['feature.toggle.write']}
-        resolveAccess={(_, mode) => (mode === 'view' ? canView : canEdit)}
+        access={{ rules: [{ action: 'write', subject: 'feature.toggle' }] }}
+        canAccess={(_, mode) => (mode === 'view' ? canView : canEdit)}
       />,
     );
 
@@ -87,5 +88,33 @@ describe('Toggle', () => {
     expect(screen.getByRole('switch').className).toContain(
       'border-destructive',
     );
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Toggle
+          name="providerHiddenToggle"
+          access={{ rules: [{ action: 'read', subject: 'feature.toggle' }] }}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.queryByRole('switch')).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Toggle
+          name="providerOverrideToggle"
+          title="Enabled"
+          access={{ rules: [{ action: 'read', subject: 'feature.toggle' }] }}
+          canAccess={() => true}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(Boolean(screen.getByText('Enabled'))).toBe(true);
   });
 });

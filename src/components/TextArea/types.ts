@@ -1,11 +1,23 @@
 import * as React from 'react';
+import type {
+  AccessConfig,
+  AccessMatch,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 
 export type TextAreaAccessMode = 'view' | 'edit';
 
-export type TextAreaAccessResolver = (
-  requirement: string,
-  mode: TextAreaAccessMode,
-) => boolean;
+export type TextAreaAccessMatch = AccessMatch;
+
+export type TextAreaAccessRule = AccessRule<TextAreaAccessMode>;
+
+export type TextAreaAccessConfig = AccessConfig<TextAreaAccessMode>;
+
+export type TextAreaAccessResolver = AccessResolver<
+  TextAreaAccessMode,
+  TextAreaAccessRule
+>;
 
 type BaseTextAreaProps = Omit<
   React.ComponentPropsWithoutRef<'textarea'>,
@@ -21,6 +33,6 @@ export type TextAreaProps = BaseTextAreaProps & {
   helperText?: string;
   required?: boolean;
   infoText?: string;
-  accessRequirements?: string[];
-  resolveAccess?: TextAreaAccessResolver;
+  access?: TextAreaAccessConfig;
+  canAccess?: TextAreaAccessResolver;
 };

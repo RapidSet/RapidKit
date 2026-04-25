@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import {
   formErrorTextClassName,
   formHelperTextClassName,
@@ -21,15 +22,16 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
       className,
       onCheckedChange,
       onToggleChange,
-      accessRequirements,
-      resolveAccess,
+      access,
+      canAccess,
       disabled,
       ...rest
     } = props;
+    const resolvedCanAccess = useAccessResolver(canAccess);
 
     const { canView, canEdit } = resolveToggleAccessState(
-      accessRequirements,
-      resolveAccess,
+      access,
+      resolvedCanAccess,
     );
 
     if (!canView) {

@@ -26,6 +26,7 @@ export * from './hooks/useSearchPagination';
 export * from './lib/access-provider';
 export * from './lib/access-types';
 export * from './lib/use-access-resolver';
+export * from './lib/view-edit-access';
 export * from './lib/pagination';
 
 export const version = __RAPIDKIT_VERSION__;

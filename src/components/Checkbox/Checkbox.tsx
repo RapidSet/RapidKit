@@ -1,5 +1,6 @@
 import { forwardRef, type ChangeEvent } from 'react';
 import { Check } from 'lucide-react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import {
   formErrorTextClassName,
   formHelperTextClassName,
@@ -20,16 +21,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckBoxProps>(
       helperText,
       required,
       className,
-      accessRequirements,
-      resolveAccess,
+      access,
+      canAccess,
       disabled,
       onChange,
       ...params
     } = props;
+    const resolvedCanAccess = useAccessResolver(canAccess);
 
     const { canView, canEdit } = resolveCheckboxAccessState(
-      accessRequirements,
-      resolveAccess,
+      access,
+      resolvedCanAccess,
     );
 
     if (!canView) {

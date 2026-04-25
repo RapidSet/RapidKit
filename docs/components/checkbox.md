@@ -26,10 +26,17 @@ import { Checkbox } from '@rapidset/rapidkit';
 - `helperText?: string`
 - `error?: string`
 - `required?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: CheckboxAccessConfig`
+- `canAccess?: (rule: CheckboxAccessRule, mode: 'view' | 'edit') => boolean`
 
 ## Accessibility
 
 - Uses native checkbox input semantics.
 - Associates label with input using `htmlFor`.
+
+## Access Control
+
+- No resolver or no rules: checkbox stays visible and interactive.
+- Read or view rules gate visibility.
+- Write or edit rules gate interactivity.
+- `RapidKitAccessProvider` can supply a default `canAccess` resolver when the prop is omitted.

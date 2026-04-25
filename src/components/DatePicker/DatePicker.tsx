@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { CalendarIcon } from 'lucide-react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import {
   formErrorTextClassName,
   formHelperTextClassName,
@@ -67,14 +68,15 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
     helperText,
     error,
     className,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     open: controlledOpen,
     onOpenChange,
     placeholder = 'Select date',
     startMonth = new Date(2000, 0),
     endMonth = new Date(2050, 11),
   } = props;
+  const resolvedCanAccess = useAccessResolver(canAccess);
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
 
   const selectedDate = React.useMemo(() => parseDateValue(value), [value]);
@@ -88,8 +90,8 @@ export function DatePicker(props: Readonly<DatePickerProps>) {
   };
 
   const { canView, canEdit } = resolveDatePickerAccessState(
-    accessRequirements,
-    resolveAccess,
+    access,
+    resolvedCanAccess,
   );
 
   if (!canView) {

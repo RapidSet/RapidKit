@@ -1,3 +1,4 @@
+import { resolveViewEditAccessState } from '@lib/view-edit-access';
 import type { DatePickerProps } from './types';
 
 const dateLabelFormatter = new Intl.DateTimeFormat('en-US', {
@@ -5,18 +6,6 @@ const dateLabelFormatter = new Intl.DateTimeFormat('en-US', {
   day: '2-digit',
   year: 'numeric',
 });
-
-const canAccess = (
-  requirements: string[] | undefined,
-  resolveAccess: DatePickerProps['resolveAccess'],
-  mode: 'view' | 'edit',
-): boolean => {
-  if (!requirements?.length || !resolveAccess) {
-    return true;
-  }
-
-  return requirements.some((requirement) => resolveAccess(requirement, mode));
-};
 
 export const formatDateLabel = (value: string) => {
   const parsedDate = parseDateValue(value);
@@ -56,42 +45,6 @@ export const toLocalDateValue = (value: Date) => {
 };
 
 export const resolveDatePickerAccessState = (
-  requirements: string[] | undefined,
-  resolveAccess: DatePickerProps['resolveAccess'],
-) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessConfig =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
-
-  const readRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.read'),
-  );
-  const writeRequirements = normalizedRequirements.filter((requirement) =>
-    requirement.endsWith('.write'),
-  );
-
-  let viewRequirements = normalizedRequirements;
-  if (readRequirements.length > 0) {
-    viewRequirements = readRequirements;
-  } else if (writeRequirements.length > 0) {
-    viewRequirements = [];
-  }
-
-  const editRequirements =
-    writeRequirements.length > 0 ? writeRequirements : normalizedRequirements;
-
-  let canView = true;
-  if (hasAccessConfig && viewRequirements.length > 0) {
-    canView = canAccess(viewRequirements, resolveAccess, 'view');
-  }
-
-  let canEdit = true;
-  if (hasAccessConfig) {
-    canEdit = canAccess(editRequirements, resolveAccess, 'edit');
-  }
-
-  return {
-    canView,
-    canEdit,
-  };
-};
+  access: DatePickerProps['access'],
+  canAccess: DatePickerProps['canAccess'],
+) => resolveViewEditAccessState(access, canAccess);
