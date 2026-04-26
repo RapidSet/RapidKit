@@ -51,88 +51,70 @@ const FLOW_DOCS: Record<FlowExampleId, FlowDoc> = {
   },
 };
 
-const FLOW_ORDER: readonly FlowExampleId[] = ['login'];
-
-function FlowBlockCard({
-  flow,
-}: Readonly<{ flow: FlowExampleId }>): JSX.Element {
-  const doc = FLOW_DOCS[flow];
-  const docsHref = withBasePath(doc.docsHref);
-
-  return (
-    <article className="flex h-full flex-col overflow-hidden rounded-sm border border-border bg-card">
-      <div className="relative border-b border-border bg-gradient-to-br from-background via-muted/40 to-muted/70 p-5">
-        <div className="flex flex-wrap gap-2">
-          {doc.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-4 grid gap-2 sm:grid-cols-3">
-          {doc.highlights.map((item) => (
-            <div
-              key={item}
-              className="rounded-sm border border-border bg-background/80 p-3 text-xs text-muted-foreground"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-1 flex-col justify-between space-y-4 p-5">
-        <div>
-          <h2 className="text-xl font-semibold text-foreground">{doc.title}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">{doc.summary}</p>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <a
-            href={docsHref}
-            className="inline-flex items-center rounded-sm border border-border bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground no-underline transition-colors hover:bg-secondary/80"
-          >
-            Preview
-          </a>
-          <a
-            href={`${docsHref}?tab=code`}
-            className="inline-flex items-center rounded-sm border border-border bg-background px-4 py-2 text-sm font-medium text-foreground no-underline transition-colors hover:bg-muted"
-          >
-            Code
-          </a>
-        </div>
-      </div>
-    </article>
-  );
-}
-
 export function FlowDocsIndexPage(): JSX.Element {
   return (
-    <div className="mx-auto flex min-h-[calc(100vh-9.5rem)] max-w-6xl flex-col space-y-8">
-      <section className="space-y-3">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          Flows
+    <article className="component-doc-page">
+      <header className="component-doc-hero">
+        <p className="component-doc-hero__eyebrow">Composable page flows</p>
+        <h1>Flows</h1>
+        <p className="component-doc-hero__summary">
+          Browse reference flows that show how RapidKit components, hooks, and
+          local adapters fit together in full-page application screens.
         </p>
-        <h1 className="text-4xl font-semibold tracking-tight text-foreground">
-          Ready-to-use page flows
-        </h1>
-        <p className="max-w-3xl text-base text-muted-foreground">
-          Flows are presented as blocks: open a full-page preview in a new tab,
-          then switch between Preview and Code from the controls at the
-          top-left.
-        </p>
+      </header>
+
+      <section className="component-doc-section">
+        <div className="component-doc-section__header">
+          <h2>Overview</h2>
+          <p>
+            Flows are implementation references for page-level composition. They
+            stay outside the core package API while documenting how multiple
+            primitives work together in realistic screens.
+          </p>
+        </div>
+
+        <div className="component-doc-note-grid">
+          <section className="component-doc-note-card">
+            <h2>What flows are for</h2>
+            <p>
+              These pages show where validation, async state, navigation
+              affordances, and supporting layout decisions should live when you
+              build on top of the kit.
+            </p>
+          </section>
+
+          <section className="component-doc-note-card">
+            <h2>How to use the docs</h2>
+            <p>
+              Open a flow page to inspect the preview and switch to the code tab
+              for a copyable example. Use the full-page preview when you need to
+              assess the complete layout in context.
+            </p>
+          </section>
+        </div>
       </section>
 
-      <section className="grid flex-1 auto-rows-fr gap-6 lg:grid-cols-2">
-        {FLOW_ORDER.map((flow) => (
-          <FlowBlockCard key={flow} flow={flow} />
-        ))}
-      </section>
-    </div>
+      <div className="component-doc-note-grid">
+        <section className="component-doc-note-card">
+          <h2>Composition boundaries</h2>
+          <p>
+            Flow examples document layout and interaction composition without
+            turning page-level behavior into package-owned primitives. Business
+            rules, routing, and host-specific data adapters should stay local to
+            the consuming app.
+          </p>
+        </section>
+
+        <section className="component-doc-note-card">
+          <h2>What to expect on flow pages</h2>
+          <p>
+            Each flow page focuses on the assembled screen, the main interaction
+            path, and the implementation shape behind it so teams can adapt the
+            pattern without inheriting product-specific assumptions.
+          </p>
+        </section>
+      </div>
+    </article>
   );
 }
 

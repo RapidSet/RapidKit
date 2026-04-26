@@ -218,7 +218,7 @@ export function DebouncePreview() {
 
   return (
     <Page enableSearch={false} className='max-h-none px-0 py-0'>
-      <div className='space-y-3 rounded-xl border border-border bg-card p-4'>
+      <div className='space-y-3 p-1'>
         <Input
           name='query'
           label='Search Query'
@@ -229,12 +229,16 @@ export function DebouncePreview() {
           placeholder='Type to debounce...'
         />
 
-        <Text as='small' tone='muted'>
-          Immediate: {query || '(empty)'}
-        </Text>
-        <Text as='small' tone='muted'>
-          Debounced: {debouncedQuery || '(empty)'}
-        </Text>
+        {query ? (
+          <Text as='small' tone='muted'>
+            Immediate: {query}
+          </Text>
+        ) : null}
+        {debouncedQuery ? (
+          <Text as='small' tone='muted'>
+            Debounced: {debouncedQuery}
+          </Text>
+        ) : null}
       </div>
     </Page>
   );
@@ -1121,7 +1125,7 @@ function UseDebouncePreview(): JSX.Element {
 
   return (
     <Page enableSearch={false} className="max-h-none px-0 py-0">
-      <div className="space-y-3 rounded-xl border border-border bg-card p-4">
+      <div className="space-y-3 p-1">
         <Input
           name="query"
           label="Search Query"
@@ -1132,12 +1136,16 @@ function UseDebouncePreview(): JSX.Element {
           placeholder="Type to debounce..."
         />
 
-        <Text as="small" tone="muted">
-          Immediate: {query || '(empty)'}
-        </Text>
-        <Text as="small" tone="muted">
-          Debounced: {debouncedQuery || '(empty)'}
-        </Text>
+        {query ? (
+          <Text as="small" tone="muted">
+            Immediate: {query}
+          </Text>
+        ) : null}
+        {debouncedQuery ? (
+          <Text as="small" tone="muted">
+            Debounced: {debouncedQuery}
+          </Text>
+        ) : null}
       </div>
     </Page>
   );

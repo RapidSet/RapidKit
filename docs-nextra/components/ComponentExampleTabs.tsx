@@ -68,6 +68,27 @@ type ExampleTabsProps = Readonly<{
   component: ComponentExampleId;
 }>;
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+function withBasePath(path: string): string {
+  if (!path) {
+    return basePath || '/';
+  }
+
+  if (!basePath) {
+    return path;
+  }
+
+  if (path.startsWith(basePath)) {
+    return path;
+  }
+
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${basePath}${normalizedPath}`;
+}
+
+const rapidKitLogoSrc = withBasePath('/rapidkit.svg');
+
 type ServiceSearchCandidate = {
   name: string;
   owner: string;
@@ -1052,8 +1073,8 @@ function LogoPreview(): JSX.Element {
             open
             showIcon
             showText
-            logoSrc="/rapidkit.svg"
-            iconSrc="/rapidkit.svg"
+            logoSrc={rapidKitLogoSrc}
+            iconSrc={rapidKitLogoSrc}
             alt="RapidKit logo"
           />
         </div>
@@ -1067,8 +1088,8 @@ function LogoPreview(): JSX.Element {
             open={false}
             showIcon
             showText
-            logoSrc="/rapidkit.svg"
-            iconSrc="/rapidkit.svg"
+            logoSrc={rapidKitLogoSrc}
+            iconSrc={rapidKitLogoSrc}
             alt="RapidKit collapsed logo"
           />
         </div>
@@ -1082,8 +1103,8 @@ function LogoPreview(): JSX.Element {
             open
             showIcon
             showText
-            logoSrc="/rapidkit.svg"
-            iconSrc="/rapidkit.svg"
+            logoSrc={rapidKitLogoSrc}
+            iconSrc={rapidKitLogoSrc}
             alt="RapidKit large logo"
           />
         </div>
@@ -1163,7 +1184,7 @@ function SideBarPreview(): JSX.Element {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="relative rounded-md border bg-background">
+    <div className="relative rounded-md border border-border bg-background">
       <button
         type="button"
         aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
@@ -1189,8 +1210,8 @@ function SideBarPreview(): JSX.Element {
             <Logo
               open={isOpen}
               size="medium"
-              logoSrc="/rapidkit.svg"
-              iconSrc="/rapidkit.svg"
+              logoSrc={rapidKitLogoSrc}
+              iconSrc={rapidKitLogoSrc}
               text="RapidKit"
               alt="RapidKit logo"
             />
@@ -1269,7 +1290,7 @@ function SideBarPreview(): JSX.Element {
           ]}
           collapsible="icon"
           showRail={false}
-          className="h-full border-r"
+          className="h-full border-r border-sidebar-border"
         />
       </div>
     </div>
@@ -1324,7 +1345,9 @@ function AssigneeField() {
   },
   avatar: {
     render: AvatarPreview,
-    code: `<div className="flex items-end gap-4">
+    code: `import { Avatar } from '@rapidset/rapidkit';
+
+<div className="flex items-end gap-4">
   <Avatar
     src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80"
     alt="Alex Rivera"
@@ -1424,7 +1447,9 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
   },
   checkbox: {
     render: CheckboxPreview,
-    code: `<Checkbox
+    code: `import { Checkbox } from '@rapidset/rapidkit';
+
+<Checkbox
   name="acceptTerms"
   label="Terms"
   title="I agree to the terms"
@@ -1434,6 +1459,7 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
   chip: {
     render: ChipPreview,
     code: `import { Circle } from 'lucide-react';
+import { Chip } from '@rapidset/rapidkit';
 
 <Chip
   label="Synced"
@@ -1445,7 +1471,9 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
   },
   'date-picker': {
     render: DatePickerPreview,
-    code: `<DatePicker
+    code: `import { DatePicker } from '@rapidset/rapidkit';
+
+<DatePicker
   name="startDate"
   label="Start Date"
   value="2026-04-18"
@@ -1509,6 +1537,7 @@ interface UserDetails {
   icon: {
     render: IconPreview,
     code: `import { Bell } from 'lucide-react';
+import { Icon } from '@rapidset/rapidkit';
 
 <Icon
   icon={Bell}
@@ -1518,7 +1547,9 @@ interface UserDetails {
   },
   image: {
     render: ImagePreview,
-    code: `<div className="flex items-end gap-4">
+    code: `import { Image } from '@rapidset/rapidkit';
+
+<div className="flex items-end gap-4">
   <Image
     src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=512&q=80"
     alt="Nature preview small"
@@ -1549,8 +1580,8 @@ interface UserDetails {
     open
     showIcon
     showText
-    logoSrc="/rapidkit.svg"
-    iconSrc="/rapidkit.svg"
+    logoSrc="${rapidKitLogoSrc}"
+    iconSrc="${rapidKitLogoSrc}"
     alt="RapidKit logo"
   />
   <div className="hidden h-10 w-px bg-border sm:block" aria-hidden="true" />
@@ -1559,8 +1590,8 @@ interface UserDetails {
     open={false}
     showIcon
     showText
-    logoSrc="/rapidkit.svg"
-    iconSrc="/rapidkit.svg"
+    logoSrc="${rapidKitLogoSrc}"
+    iconSrc="${rapidKitLogoSrc}"
     alt="RapidKit collapsed logo"
   />
   <div className="hidden h-10 w-px bg-border sm:block" aria-hidden="true" />
@@ -1569,15 +1600,17 @@ interface UserDetails {
     open
     showIcon
     showText
-    logoSrc="/rapidkit.svg"
-    iconSrc="/rapidkit.svg"
+    logoSrc="${rapidKitLogoSrc}"
+    iconSrc="${rapidKitLogoSrc}"
     alt="RapidKit large logo"
   />
 </div>;`,
   },
   input: {
     render: InputPreview,
-    code: `<Input
+    code: `import { Input } from '@rapidset/rapidkit';
+
+<Input
   name="email"
   label="Email"
   value=""
@@ -1622,7 +1655,7 @@ import { ButtonVariant, Page } from '@rapidset/rapidkit';
   Settings,
   Users,
 } from 'lucide-react';
-import { SideBar } from '@rapidset/rapidkit';
+import { Avatar, SideBar } from '@rapidset/rapidkit';
 
 <SideBar
   menuItems={[
@@ -1689,13 +1722,17 @@ import { SideBar } from '@rapidset/rapidkit';
   },
   text: {
     render: TextPreview,
-    code: `<Text as="p" tone="muted" weight="medium">
+    code: `import { Text } from '@rapidset/rapidkit';
+
+<Text as="p" tone="muted" weight="medium">
   Portable component copy that keeps typography consistent across hosts.
 </Text>`,
   },
   'text-area': {
     render: TextAreaPreview,
-    code: `<TextArea
+    code: `import { TextArea } from '@rapidset/rapidkit';
+
+<TextArea
   name="notes"
   label="Notes"
   value=""
@@ -1706,7 +1743,9 @@ import { SideBar } from '@rapidset/rapidkit';
   },
   toggle: {
     render: TogglePreview,
-    code: `<Toggle
+    code: `import { Toggle } from '@rapidset/rapidkit';
+
+<Toggle
   name="emailAlerts"
   label="Notifications"
   title="Email alerts"
