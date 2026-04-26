@@ -45,7 +45,7 @@ export function getItemClassName(
   linkClassName?: string,
 ): string {
   return cn(
-    'group/item block cursor-pointer rounded-md border border-transparent bg-transparent text-sm !text-foreground transition-colors focus-visible:outline-none hover:bg-transparent hover:!text-primary hover:font-medium focus-visible:bg-transparent focus-visible:!text-primary focus-visible:font-medium active:bg-transparent active:!text-primary',
+    'group/item block cursor-pointer rounded-md bg-transparent text-sm !text-foreground transition-colors focus-visible:outline-none hover:bg-transparent hover:!text-primary hover:font-medium focus-visible:bg-transparent focus-visible:!text-primary focus-visible:font-medium active:bg-transparent active:!text-primary',
     isCompactSection ? 'px-3 py-2' : 'p-3',
     linkClassName,
   );
