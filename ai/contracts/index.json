@@ -194,6 +194,19 @@
       ]
     },
     {
+      "name": "NavMenu",
+      "contractPath": "ai/contracts/components/nav-menu.contract.json",
+      "sourcePath": "src/components/NavMenu",
+      "capabilities": [
+        "groupedNavigation",
+        "descriptionRendering",
+        "externalLinkBehavior",
+        "customItemRendering",
+        "accessControl",
+        "itemIconRendering"
+      ]
+    },
+    {
       "name": "Toggle",
       "contractPath": "ai/contracts/components/toggle.contract.json",
       "sourcePath": "src/components/Toggle",

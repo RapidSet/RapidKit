@@ -9,6 +9,7 @@ export * from './components/Icon';
 export * from './components/Checkbox';
 export * from './components/Image';
 export * from './components/Logo';
+export * from './components/NavMenu';
 export * from './components/Chip';
 export * from './components/Button';
 export * from './components/Page';

@@ -591,6 +591,48 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     guidance:
       'Use brand assets from your public app path and keep this component presentational by handling brand selection outside the component.',
   },
+  'nav-menu': {
+    title: 'NavMenu',
+    summary:
+      'NavMenu wraps shadcn Navigation Menu into a package-friendly grouped navigation API with optional descriptions and custom item rendering.',
+    highlights: [
+      'Grouped nav sections',
+      'Optional item descriptions',
+      'External links',
+    ],
+    importCode: "import { NavMenu } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'sections',
+        description:
+          'Defines top-level menu triggers and the list of links shown in each section.',
+      },
+      {
+        name: 'renderItem',
+        description:
+          'Lets you replace the default item text block with custom content for each link.',
+      },
+      {
+        name: 'linkClassName and descriptionClassName',
+        description:
+          'Styles item containers and description text while keeping menu behavior unchanged.',
+      },
+      {
+        name: 'value and onValueChange',
+        description:
+          'Allows controlled menu state when the host app needs to manage open sections.',
+      },
+      {
+        name: 'ariaLabel',
+        description:
+          'Sets a descriptive label for the menu root for assistive technologies.',
+      },
+    ],
+    accessibility:
+      'The component is built on Radix Navigation Menu semantics and keeps disabled items non-interactive with aria-disabled markers.',
+    guidance:
+      'Keep routing logic in the host app by passing href values only; this component stays presentational and router-agnostic.',
+  },
   input: {
     title: 'Input',
     summary:

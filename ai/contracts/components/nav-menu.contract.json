@@ -1,0 +1,93 @@
+{
+  "component": "NavMenu",
+  "version": "1.0.0",
+  "source": "src/components/NavMenu",
+  "description": "Composable navigation menu wrapper built on shadcn Navigation Menu with grouped links and optional custom item rendering.",
+  "capabilities": {
+    "groupedNavigation": true,
+    "descriptionRendering": true,
+    "externalLinkBehavior": true,
+    "customItemRendering": true,
+    "accessControl": true,
+    "itemIconRendering": true
+  },
+  "item": {
+    "icon": {
+      "type": "LucideIcon",
+      "required": false
+    }
+  },
+  "props": {
+    "sections": {
+      "type": "NavMenuSection[]",
+      "required": true
+    },
+    "renderItem": {
+      "type": "(item: NavMenuItem) => ReactNode",
+      "required": false
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    },
+    "listClassName": {
+      "type": "string",
+      "required": false
+    },
+    "triggerClassName": {
+      "type": "string",
+      "required": false
+    },
+    "contentClassName": {
+      "type": "string",
+      "required": false
+    },
+    "linkClassName": {
+      "type": "string",
+      "required": false
+    },
+    "descriptionClassName": {
+      "type": "string",
+      "required": false
+    },
+    "viewportClassName": {
+      "type": "string",
+      "required": false
+    },
+    "ariaLabel": {
+      "type": "string",
+      "required": false,
+      "default": "\"Navigation menu\""
+    },
+    "access": {
+      "type": "NavMenuAccessConfig",
+      "required": false
+    },
+    "canAccess": {
+      "type": "NavMenuAccessResolver",
+      "required": false
+    }
+  },
+  "states": {
+    "rendersSectionTriggers": "true",
+    "rendersMenuLinks": "true",
+    "disabledItemsAreNonInteractive": "true",
+    "viewDeniedReturnsNull": "true",
+    "editDeniedDisablesItems": "true"
+  },
+  "accessibility": {
+    "rootAriaLabelIsConfigurable": "true",
+    "disabledItemsExposeAriaDisabled": "true"
+  },
+  "interaction": {
+    "externalItemsOpenInNewTabByDefault": "true",
+    "renderItemOverridesDefaultItemMarkup": "true",
+    "inheritsAccessResolverFromProvider": "true",
+    "explicitCanAccessOverridesProviderResolver": "true",
+    "itemIconsRenderWhenProvided": "true"
+  },
+  "tests": [
+    "src/components/NavMenu/NavMenu.test.tsx",
+    "src/components/NavMenu/components/NavMenuItemContent/NavMenuItemContent.test.tsx"
+  ]
+}

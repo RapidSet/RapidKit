@@ -28,6 +28,7 @@ This section contains consumer-facing documentation for each public component ex
 - [Image](./image.md)
 - [Input](./input.md)
 - [Logo](./logo.md)
+- [NavMenu](./nav-menu.md)
 - [Page](./page.md)
 - [Search](./search.md)
 - [SideBar](./side-bar.md)

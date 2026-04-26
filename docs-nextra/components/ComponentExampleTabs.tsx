@@ -13,6 +13,7 @@ import { Icon } from '../../src/components/Icon';
 import { Image } from '../../src/components/Image';
 import { Input } from '../../src/components/Input';
 import { Logo } from '../../src/components/Logo';
+import { NavMenu } from '../../src/components/NavMenu';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
 import { SideBar } from '../../src/components/SideBar';
@@ -51,6 +52,7 @@ export type ComponentExampleId =
   | 'icon'
   | 'image'
   | 'logo'
+  | 'nav-menu'
   | 'input'
   | 'page'
   | 'search'
@@ -1113,6 +1115,144 @@ function LogoPreview(): JSX.Element {
   );
 }
 
+function NavMenuPreview(): JSX.Element {
+  return (
+    <div className="rounded-md border border-border bg-background p-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Logo
+            size="small"
+            open={false}
+            showIcon
+            showText
+            logoSrc={rapidKitLogoSrc}
+            iconSrc={rapidKitLogoSrc}
+            alt="RapidKit"
+          />
+          <span className="text-sm font-medium text-foreground">
+            Operations Console
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span className="rounded-full bg-muted px-2 py-1">EU-West-1</span>
+          <span className="rounded-full bg-muted px-2 py-1">7 Alerts</span>
+        </div>
+      </div>
+
+      <div className="mt-3 border-t border-border pt-3">
+        <NavMenu
+          ariaLabel="Primary dashboard navigation"
+          sections={[
+            {
+              label: 'Dashboard',
+              items: [
+                {
+                  label: 'Overview',
+                  href: '#',
+                  icon: Home,
+                  description: 'Live system health, SLAs, and key KPIs.',
+                },
+                {
+                  label: 'Incidents',
+                  href: '#',
+                  icon: Bell,
+                  description: 'Active incidents and escalation history.',
+                },
+                {
+                  label: 'Usage Reports',
+                  href: '#',
+                  icon: BarChart3,
+                  description: 'Traffic and cost analytics by environment.',
+                },
+              ],
+            },
+            {
+              label: 'Workloads',
+              items: [
+                {
+                  label: 'Services',
+                  href: '#',
+                  icon: FolderKanban,
+                  description: 'Runtime status and deployment health.',
+                },
+                {
+                  label: 'Data Pipelines',
+                  href: '#',
+                  icon: Archive,
+                  description: 'Batch and streaming pipeline operations.',
+                },
+                {
+                  label: 'Environments',
+                  href: '#',
+                  icon: Circle,
+                  disabled: true,
+                  description: 'Cross-environment controls (coming soon).',
+                },
+              ],
+            },
+            {
+              label: 'Administration',
+              items: [
+                {
+                  label: 'Team Access',
+                  href: '#',
+                  icon: Users,
+                  description: 'Roles, permissions, and approval flows.',
+                },
+                {
+                  label: 'Audit Logs',
+                  href: '#',
+                  icon: FileText,
+                  description: 'Policy, access, and configuration audit trail.',
+                },
+              ],
+            },
+            {
+              label: 'Account',
+              items: [
+                {
+                  label: 'Profile',
+                  href: '#',
+                  icon: Users,
+                },
+                {
+                  label: 'API Keys',
+                  href: '#',
+                  icon: Settings,
+                },
+                {
+                  label: 'Billing',
+                  href: '#',
+                  icon: Download,
+                  disabled: true,
+                },
+              ],
+            },
+            {
+              label: 'Resources',
+              items: [
+                {
+                  label: 'Documentation',
+                  href: 'https://rapidset.github.io/RapidKit/components/',
+                  icon: FileText,
+                  external: true,
+                  description: 'Component reference and implementation guides.',
+                },
+                {
+                  label: 'API Reference',
+                  href: '#',
+                  icon: PanelLeft,
+                  description: 'Schemas, SDK examples, and endpoints.',
+                },
+              ],
+            },
+          ]}
+        />
+      </div>
+    </div>
+  );
+}
+
 function InputPreview(): JSX.Element {
   const [email, setEmail] = useState('');
 
@@ -1605,6 +1745,85 @@ import { Icon } from '@rapidset/rapidkit';
     alt="RapidKit large logo"
   />
 </div>;`,
+  },
+  'nav-menu': {
+    render: NavMenuPreview,
+    code: `import { BarChart3, Bell, Home } from 'lucide-react';
+import { NavMenu } from '@rapidset/rapidkit';
+
+<NavMenu
+  ariaLabel="Primary dashboard navigation"
+  sections={[
+    {
+      label: 'Dashboard',
+      items: [
+        {
+          label: 'Overview',
+          href: '/overview',
+          icon: Home,
+          description: 'Live system health, SLAs, and key KPIs.',
+        },
+        {
+          label: 'Incidents',
+          href: '/incidents',
+          icon: Bell,
+          description: 'Active incidents and escalation history.',
+        },
+        {
+          label: 'Usage Reports',
+          href: '/usage-reports',
+          icon: BarChart3,
+          description: 'Traffic and cost analytics by environment.',
+        },
+      ],
+    },
+    {
+      label: 'Workloads',
+      items: [
+        {
+          label: 'Services',
+          href: '/services',
+          description: 'Runtime status and deployment health.',
+        },
+        {
+          label: 'Environments',
+          href: '/environments',
+          disabled: true,
+          description: 'Cross-environment controls (coming soon).',
+        },
+      ],
+    },
+    {
+      label: 'Account',
+      items: [
+        {
+          label: 'Profile',
+          href: '/profile',
+        },
+        {
+          label: 'API Keys',
+          href: '/api-keys',
+        },
+        {
+          label: 'Billing',
+          href: '/billing',
+          disabled: true,
+        },
+      ],
+    },
+    {
+      label: 'Resources',
+      items: [
+        {
+          label: 'Documentation',
+          href: 'https://rapidset.github.io/RapidKit/components/',
+          external: true,
+          description: 'Component reference and implementation guides.',
+        },
+      ],
+    },
+  ]}
+/>;`,
   },
   input: {
     render: InputPreview,

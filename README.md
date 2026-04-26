@@ -59,6 +59,7 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 - Icon
 - Image
 - Logo
+- NavMenu
 - Input
 - Page
 - Search
