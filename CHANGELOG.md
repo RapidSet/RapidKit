@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.8.0
+
+### Minor Changes
+
+- bebf7fe: add NavMenu
+
 ## 0.7.0
 
 ### Minor Changes
