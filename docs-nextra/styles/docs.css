@@ -478,13 +478,10 @@ body,
 .rk-site-header {
   box-sizing: border-box;
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
   padding-inline: clamp(0.8rem, 2.4vw, 2rem);
-}
-
-.rk-home .rk-site-header {
-  padding-inline: 0;
 }
 
 .rk-logo {
@@ -782,10 +779,6 @@ body,
 
   .rk-site-header {
     padding-inline: 0.7rem;
-  }
-
-  .rk-home .rk-site-header {
-    padding-inline: 0;
   }
 
   .rk-theme-control {
