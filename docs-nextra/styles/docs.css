@@ -1,4 +1,6 @@
 :root {
+  --rk-page-shell-max-width: 1240px;
+  --rk-page-shell-padding: clamp(0.8rem, 2.4vw, 2rem);
   --vp-c-bg: hsl(var(--rk-background, 0 0% 100%));
   --vp-c-bg-soft: hsl(var(--rk-muted, 210 40% 96.1%));
   --vp-c-text-1: hsl(var(--rk-foreground, 222.2 84% 4.9%));
@@ -86,11 +88,11 @@ div:has(> aside.nextra-sidebar-container):has(
   --rk-title-tight: -0.035em;
   position: relative;
   width: 100%;
-  max-width: 1240px;
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
-  padding-inline: clamp(1rem, 3vw, 2.5rem);
+  padding-inline: 0;
   background: transparent;
   font-family: 'Geist', 'Avenir Next', 'Segoe UI', sans-serif;
   color: hsl(var(--rk-foreground));
@@ -105,7 +107,7 @@ body,
 
 .nextra-nav-container {
   border-bottom: none;
-  background: transparent;
+  background: hsl(var(--rk-background));
   backdrop-filter: none;
 }
 
@@ -449,7 +451,7 @@ body,
   border-bottom: 1px solid hsl(var(--rk-border) / 0.55);
   border-radius: 0;
   padding: 0.85rem 0.2rem;
-  background: hsl(var(--rk-background) / 0.88);
+  background: hsl(var(--rk-background));
   backdrop-filter: none;
   box-shadow: none;
 }
@@ -478,10 +480,10 @@ body,
 .rk-site-header {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1240px;
+  max-width: var(--rk-page-shell-max-width);
   margin-left: auto;
   margin-right: auto;
-  padding-inline: clamp(0.8rem, 2.4vw, 2rem);
+  padding-inline: var(--rk-page-shell-padding);
 }
 
 .rk-logo {
@@ -644,9 +646,12 @@ body,
   opacity: 1;
   transform: none;
   animation: none;
+  max-width: var(--rk-page-shell-max-width);
+  margin-inline: auto;
   border: none;
   border-radius: 4px;
-  padding: clamp(3.1rem, 10vw, 8rem) 0 clamp(2.1rem, 5vw, 3.4rem);
+  padding: clamp(3.1rem, 10vw, 8rem) var(--rk-page-shell-padding)
+    clamp(2.1rem, 5vw, 3.4rem);
   background: transparent;
   box-shadow: none;
   display: block;
@@ -751,7 +756,6 @@ body,
 @media (max-width: 768px) {
   .rk-home {
     margin-top: 0;
-    padding-inline: 0.7rem;
   }
 
   article.nextra-content:has(.rk-home) > main {
@@ -781,17 +785,18 @@ body,
     padding-inline: 0.7rem;
   }
 
+  .rk-hero {
+    padding: 2rem 0.7rem 1.3rem;
+    padding-inline: 0.7rem;
+    border-radius: 4px;
+  }
+
   .rk-theme-control {
     flex: 1 1 9rem;
   }
 
   .rk-mode-toggle {
     margin-left: 0;
-  }
-
-  .rk-hero {
-    padding: 2rem 0 1.3rem;
-    border-radius: 4px;
   }
 
   .rk-hero h1 {
