@@ -28,8 +28,15 @@ import { BaseTable } from '@rapidset/rapidkit';
 - `onSortChange?: (sortBy: string, sortOrder: 'asc' | 'desc') => void`
 - `enableSelection?: boolean`
 - `onSelectionChange?: (selectedItems: T[]) => void`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: BaseTableAccessConfig`
+- `canAccess?: BaseTableAccessResolver`
+
+## Access Behavior
+
+- No resolver or no rules: the table remains visible and interactive.
+- View denied: component returns `null`.
+- Edit denied: selection controls are disabled while rows remain visible.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).
 
 ### Action Menu Highlighting
 

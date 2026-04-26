@@ -1,12 +1,18 @@
 import type { ReactNode } from 'react';
+import type {
+  AccessConfig,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 import type { ButtonVariant } from '@components/Button/styles';
 
 export type BaseModalAccessMode = 'view' | 'action';
-
-export type BaseModalAccessResolver = (
-  requirement: string,
-  mode: BaseModalAccessMode,
-) => boolean;
+export type BaseModalAccessRule = AccessRule<BaseModalAccessMode>;
+export type BaseModalAccessConfig = AccessConfig<BaseModalAccessMode>;
+export type BaseModalAccessResolver = AccessResolver<
+  BaseModalAccessMode,
+  BaseModalAccessRule
+>;
 
 export interface CustomButtonProps {
   label: string;
@@ -14,7 +20,7 @@ export interface CustomButtonProps {
   variant?: ButtonVariant;
   disabled?: boolean;
   loading?: boolean;
-  accessRequirements?: string[];
+  access?: BaseModalAccessConfig;
 }
 
 export interface BaseModalProps {
@@ -37,7 +43,7 @@ export interface BaseModalProps {
   className?: string;
   preventOutsideClose?: boolean;
   customButtons?: CustomButtonProps[];
-  accessRequirements?: string[];
-  saveAccessRequirements?: string[];
-  resolveAccess?: BaseModalAccessResolver;
+  access?: BaseModalAccessConfig;
+  saveAccess?: BaseModalAccessConfig;
+  canAccess?: BaseModalAccessResolver;
 }

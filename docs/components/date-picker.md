@@ -30,8 +30,8 @@ import { DatePicker } from '@rapidset/rapidkit';
 - `endMonth?: Date`
 - `open?: boolean`
 - `onOpenChange?: (open: boolean) => void`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: DatePickerAccessConfig`
+- `canAccess?: DatePickerAccessResolver`
 
 ## Accessibility
 
@@ -41,6 +41,7 @@ import { DatePicker } from '@rapidset/rapidkit';
 
 ## Access Behavior
 
-- No `resolveAccess` or no `accessRequirements`: visible and interactive unless `disabled` is set.
+- No `canAccess` or no `access`: visible and interactive unless `disabled` is set.
 - View denied: renders `null`.
 - Edit denied: remains visible but becomes disabled.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

@@ -24,15 +24,17 @@ import { SideBar } from '@rapidset/rapidkit';
 - showHeaderSeparator?: boolean
 - showRail?: boolean
 - providerProps?: Omit<React.ComponentProps<typeof SidebarProvider>, 'children'>
-- accessRequirements?: string[]
-- resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean
+- access?: SideBarAccessConfig
+- canAccess?: SideBarAccessResolver
 - Any supported shadcn Sidebar props such as side, variant, collapsible, and className
 
 ## Access Control
 
-- No resolver or no requirements: SideBar stays visible and interactive.
-- If read requirements fail: SideBar returns null.
-- If write requirements fail: SideBar remains visible but child interactions are disabled.
+- No resolver or no rules: SideBar stays visible and interactive.
+- Read or view rules gate visibility.
+- Write or edit rules gate interactivity (disabled behavior).
+- Rules support `match: 'any' | 'all'` through `access.match`.
+- For provider inheritance, explicit override behavior, and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).
 
 ## Accessibility
 
@@ -62,11 +64,16 @@ export function ExampleSideBar() {
       userActions={[
         { key: 'logout', label: 'Log out', icon: LogOut, onSelect: () => {} },
       ]}
-      accessRequirements={['sidebar.read', 'sidebar.write']}
-      resolveAccess={(requirement, mode) =>
-        mode === 'view'
-          ? requirement.endsWith('.read')
-          : requirement.endsWith('.write')
+      access={{
+        match: 'all',
+        rules: [
+          { action: 'read', subject: 'sidebar' },
+          { action: 'write', subject: 'sidebar' },
+        ],
+      }}
+      canAccess={(rule) =>
+        rule.subject === 'sidebar' &&
+        (rule.action === 'read' || rule.action === 'write')
       }
     />
   );

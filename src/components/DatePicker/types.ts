@@ -1,9 +1,22 @@
+import type {
+  AccessConfig,
+  AccessMatch,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
+
 export type DatePickerAccessMode = 'view' | 'edit';
 
-export type DatePickerAccessResolver = (
-  requirement: string,
-  mode: DatePickerAccessMode,
-) => boolean;
+export type DatePickerAccessMatch = AccessMatch;
+
+export type DatePickerAccessRule = AccessRule<DatePickerAccessMode>;
+
+export type DatePickerAccessConfig = AccessConfig<DatePickerAccessMode>;
+
+export type DatePickerAccessResolver = AccessResolver<
+  DatePickerAccessMode,
+  DatePickerAccessRule
+>;
 
 export interface DatePickerChange {
   target: {
@@ -27,6 +40,6 @@ export interface DatePickerProps {
   placeholder?: string;
   startMonth?: Date;
   endMonth?: Date;
-  accessRequirements?: string[];
-  resolveAccess?: DatePickerAccessResolver;
+  access?: DatePickerAccessConfig;
+  canAccess?: DatePickerAccessResolver;
 }

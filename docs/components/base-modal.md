@@ -34,9 +34,9 @@ import { BaseModal, ButtonVariant } from '@rapidset/rapidkit';
 - `isLoading?: boolean`
 - `preventOutsideClose?: boolean`
 - `customButtons?: CustomButtonProps[]`
-- `accessRequirements?: string[]`
-- `saveAccessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'action') => boolean`
+- `access?: BaseModalAccessConfig`
+- `saveAccess?: BaseModalAccessConfig`
+- `canAccess?: BaseModalAccessResolver`
 
 ## Accessibility
 
@@ -45,5 +45,6 @@ import { BaseModal, ButtonVariant } from '@rapidset/rapidkit';
 
 ## Access Behavior
 
-- If `accessRequirements` and `resolveAccess` deny `view`, the modal renders `null`.
+- If `access` and `canAccess` deny `view`, the modal renders `null`.
 - Save and custom actions delegate to the shared `Button` action access behavior.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

@@ -2,6 +2,7 @@ import { createRef } from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { MoreVertical } from 'lucide-react';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Button } from './Button';
 import { ButtonVariant } from './styles';
 
@@ -34,8 +35,8 @@ describe('Button', () => {
     render(
       <Button
         label="Restricted"
-        accessRequirements={['action.delete']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'delete', subject: 'action' }] }}
+        canAccess={() => false}
         accessDeniedBehavior="hide"
       />,
     );
@@ -47,8 +48,8 @@ describe('Button', () => {
     render(
       <Button
         label="Locked"
-        accessRequirements={['action.delete']}
-        resolveAccess={(_, mode) => mode !== 'action'}
+        access={{ rules: [{ action: 'delete', subject: 'action' }] }}
+        canAccess={(_, mode) => mode !== 'action'}
       />,
     );
 
@@ -62,8 +63,13 @@ describe('Button', () => {
     render(
       <Button
         label="Publish"
-        accessRequirements={['article.publish', 'article.approve']}
-        resolveAccess={(requirement) => requirement === 'article.publish'}
+        access={{
+          rules: [
+            { action: 'publish', subject: 'article' },
+            { action: 'approve', subject: 'article' },
+          ],
+        }}
+        canAccess={(rule) => rule.action === 'publish'}
       />,
     );
 
@@ -233,5 +239,33 @@ describe('Button', () => {
 
     const button = screen.getByRole('button', { name: 'Text radius' });
     expect(button.className).toContain('rounded-none');
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Button
+          label="Inherited"
+          access={{ rules: [{ action: 'delete', subject: 'action' }] }}
+          accessDeniedBehavior="hide"
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.queryByRole('button', { name: 'Inherited' })).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Button
+          label="Override"
+          access={{ rules: [{ action: 'delete', subject: 'action' }] }}
+          canAccess={() => true}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Override' })).toBeTruthy();
   });
 });

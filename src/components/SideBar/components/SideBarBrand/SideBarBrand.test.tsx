@@ -28,8 +28,8 @@ describe('SideBarBrand', () => {
     renderWithSidebarContext(
       <SideBarBrand
         title="Workspace"
-        accessRequirements={['branding.read']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'read', subject: 'branding' }] }}
+        canAccess={() => false}
       />,
     );
 

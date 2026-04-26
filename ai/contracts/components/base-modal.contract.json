@@ -96,16 +96,16 @@
       "required": false,
       "default": "[]"
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "BaseModalAccessConfig",
       "required": false
     },
-    "saveAccessRequirements": {
-      "type": "string[]",
+    "saveAccess": {
+      "type": "BaseModalAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"action\") => boolean",
+    "canAccess": {
+      "type": "BaseModalAccessResolver",
       "required": false
     }
   },

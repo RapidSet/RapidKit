@@ -35,6 +35,7 @@ hero:
   </p>
   <div class="home-center__links">
     <a href="/ARCHITECTURE">Architecture</a>
+    <a href="/ACCESS_CONTROL">Access Control</a>
     <a href="/flows/">Flows</a>
     <a href="/rapidcraft">Rapidcraft</a>
     <a href="/THEMING">Theming</a>

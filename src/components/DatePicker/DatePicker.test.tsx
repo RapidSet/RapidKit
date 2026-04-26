@@ -1,13 +1,17 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ReactNode } from 'react';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { DatePicker } from './DatePicker';
 
 let canView = true;
 let canEdit = true;
 
-const resolveAccess = vi.fn((_: string, mode: 'view' | 'edit') =>
-  mode === 'view' ? canView : canEdit,
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? canView : canEdit),
 );
 
 vi.mock('@ui/popover', () => ({
@@ -62,7 +66,7 @@ describe('DatePicker', () => {
   beforeEach(() => {
     canView = true;
     canEdit = true;
-    resolveAccess.mockClear();
+    canAccess.mockClear();
   });
 
   it('renders label, required marker and selected date text', () => {
@@ -140,8 +144,8 @@ describe('DatePicker', () => {
         label="Start Date"
         name="startDate"
         value=""
-        accessRequirements={['resource.write']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'write', subject: 'resource' }] }}
+        canAccess={canAccess}
         onChange={vi.fn()}
       />,
     );
@@ -163,8 +167,8 @@ describe('DatePicker', () => {
         label="Start Date"
         name="startDate"
         value=""
-        accessRequirements={['resource.read']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+        canAccess={canAccess}
         onChange={vi.fn()}
       />,
     );
@@ -187,5 +191,38 @@ describe('DatePicker', () => {
       'disabled',
       true,
     );
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <DatePicker
+          label="Start Date"
+          name="providerHiddenDate"
+          value=""
+          access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+          onChange={vi.fn()}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <DatePicker
+          label="Provider Override"
+          name="providerOverrideDate"
+          value="2024-01-02"
+          access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+          canAccess={() => true}
+          onChange={vi.fn()}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByText('Jan 02, 2024')).toBeTruthy();
   });
 });

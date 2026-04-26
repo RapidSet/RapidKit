@@ -1,8 +1,11 @@
 import React from 'react';
 import * as LucideIcons from 'lucide-react';
+import type { AccessConfig } from '@lib/access-types';
 import { CellType } from './components/BaseTableCell';
 import { CellContext } from '@tanstack/react-table';
 import type { IconVariant } from '@components/Icon/types';
+
+export type BaseTableColumnAccessConfig = AccessConfig<'view' | 'edit'>;
 
 export interface RowProps<T extends object> {
   item: T;
@@ -48,7 +51,7 @@ export interface Column<T extends object> {
   cell?: (context: CellContext<T, unknown>) => React.JSX.Element;
   transformer?: (value: unknown) => string;
   styler?: (value: unknown) => string;
-  accessRequirements?: string[];
+  access?: BaseTableColumnAccessConfig;
 }
 
 export interface RowAction<T extends object> {
@@ -57,5 +60,5 @@ export interface RowAction<T extends object> {
   variant?: IconVariant;
   iconVariant?: IconVariant;
   onClick: (item: T) => void;
-  accessRequirements?: string[];
+  access?: BaseTableColumnAccessConfig;
 }

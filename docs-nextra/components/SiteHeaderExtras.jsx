@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Moon, Palette, Sun } from 'lucide-react';
+import { Github, Moon, Palette, Sun } from 'lucide-react';
 import { useTheme } from 'nextra-theme-docs';
 import { DropDown } from '../../src/components/DropDown';
 import { Icon } from '../../src/components/Icon';
@@ -119,6 +119,16 @@ export function SiteHeaderExtras() {
           aria-hidden="true"
         />
       </button>
+      <a
+        className="rk-github-link"
+        href="https://github.com/RapidSet/RapidKit"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="RapidKit GitHub repository"
+        title="GitHub"
+      >
+        <Icon icon={Github} className="rk-github-icon" aria-hidden="true" />
+      </a>
     </div>
   );
 }

@@ -22,9 +22,9 @@
     "helperText": { "type": "string", "required": false },
     "infoText": { "type": "string", "required": false },
     "disabled": { "type": "boolean", "required": false },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "access": { "type": "TextAreaAccessConfig", "required": false },
+    "canAccess": {
+      "type": "TextAreaAccessResolver",
       "required": false
     }
   },

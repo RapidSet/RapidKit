@@ -1,4 +1,5 @@
 import { forwardRef, type ComponentRef } from 'react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
 import {
   Avatar as ShadcnAvatar,
@@ -21,15 +22,14 @@ export const Avatar = forwardRef<
     className,
     imageClassName,
     fallbackClassName,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     ...rest
   } = props;
 
-  const { canView } = resolveAvatarAccessState(
-    accessRequirements,
-    resolveAccess,
-  );
+  const resolvedCanAccess = useAccessResolver(canAccess);
+
+  const { canView } = resolveAvatarAccessState(access, resolvedCanAccess);
 
   if (!canView) {
     return null;

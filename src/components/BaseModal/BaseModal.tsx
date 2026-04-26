@@ -9,29 +9,78 @@ import {
 import { X } from 'lucide-react';
 import { Button } from '@components/Button';
 import { ButtonVariant } from '@components/Button/styles';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
-import type { BaseModalAccessResolver, BaseModalProps } from './types';
+import type {
+  ButtonAccessConfig,
+  ButtonAccessResolver,
+  ButtonAccessRule,
+} from '@components/Button';
+import type {
+  BaseModalAccessConfig,
+  BaseModalAccessResolver,
+  BaseModalAccessRule,
+  BaseModalProps,
+} from './types';
 
-const canAccess = (
-  requirements: string[],
-  resolveAccess: BaseModalAccessResolver | undefined,
+const toButtonAccessRule = (rule: BaseModalAccessRule): ButtonAccessRule => ({
+  subject: rule.subject,
+  action: rule.action,
+  mode: 'action',
+});
+
+const toButtonAccessConfig = (
+  access: BaseModalAccessConfig | undefined,
+): ButtonAccessConfig | undefined => {
+  if (!access?.rules.length) {
+    return undefined;
+  }
+
+  return {
+    rules: access.rules.map(toButtonAccessRule),
+    match: access.match,
+  };
+};
+
+const toButtonAccessResolver = (
+  canAccess: BaseModalAccessResolver | undefined,
+): ButtonAccessResolver | undefined => {
+  if (!canAccess) {
+    return undefined;
+  }
+
+  return (rule) => canAccess(toButtonAccessRule(rule), 'action');
+};
+
+const matchesModalAccess = (
+  rules: BaseModalAccessRule[],
+  access: BaseModalAccessConfig | undefined,
+  canAccess: BaseModalAccessResolver | undefined,
   mode: 'view' | 'action',
 ) => {
-  if (!requirements.length || !resolveAccess) {
+  if (!rules.length || !canAccess) {
     return true;
   }
 
-  return requirements.every((requirement) => resolveAccess(requirement, mode));
+  const match = access?.match ?? 'any';
+  if (match === 'all') {
+    return rules.every((rule) => canAccess(rule, mode));
+  }
+
+  return rules.some((rule) => canAccess(rule, mode));
 };
 
 const resolveModalAccessState = (
-  requirements: string[] | undefined,
-  resolveAccess: BaseModalAccessResolver | undefined,
+  access: BaseModalAccessConfig | undefined,
+  canAccess: BaseModalAccessResolver | undefined,
 ) => {
-  const normalizedRequirements = requirements ?? [];
+  const rules = access?.rules ?? [];
+  const viewRules = rules.filter(
+    (rule) => rule.mode === 'view' || rule.action === 'read',
+  );
 
   return {
-    canView: canAccess(normalizedRequirements, resolveAccess, 'view'),
+    canView: matchesModalAccess(viewRules, access, canAccess, 'view'),
   };
 };
 
@@ -55,16 +104,16 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
     maxWidth = 'max-w-lg',
     className,
     customButtons = [],
-    accessRequirements,
-    saveAccessRequirements,
-    resolveAccess,
+    access,
+    saveAccess,
+    canAccess,
     preventOutsideClose = false,
   } = props;
 
-  const { canView } = resolveModalAccessState(
-    accessRequirements,
-    resolveAccess,
-  );
+  const resolvedCanAccess = useAccessResolver(canAccess);
+
+  const { canView } = resolveModalAccessState(access, resolvedCanAccess);
+  const buttonCanAccess = toButtonAccessResolver(resolvedCanAccess);
 
   if (!canView) {
     return null;
@@ -151,8 +200,8 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 loading={button.loading}
                 label={button.label}
                 className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
-                accessRequirements={button.accessRequirements}
-                resolveAccess={resolveAccess}
+                access={toButtonAccessConfig(button.access)}
+                canAccess={buttonCanAccess}
               />
             ))}
             {showSave && (
@@ -163,8 +212,8 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
                 loading={isLoading}
                 label={saveLabel}
                 className="h-[var(--rk-control-height)] min-w-[80px] py-[var(--rk-button-padding-y)]"
-                accessRequirements={saveAccessRequirements}
-                resolveAccess={resolveAccess}
+                access={toButtonAccessConfig(saveAccess)}
+                canAccess={buttonCanAccess}
               />
             )}
           </DialogFooter>

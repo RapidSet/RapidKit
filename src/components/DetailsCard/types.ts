@@ -1,13 +1,18 @@
 import type { LucideIcon } from 'lucide-react';
 import type { DetailsCardBodyTab } from './components/DetailsCardBody/types';
-import type { ButtonVariant } from '@components/Button/styles';
+import type {
+  ButtonAccessConfig,
+  ButtonAccessResolver,
+  ButtonVariant,
+} from '@components/Button';
 
 export interface CustomButton<T = unknown> {
   label: string;
   onClick: (data: T | null) => void;
   icon?: LucideIcon;
   variant?: ButtonVariant;
-  accessRequirements?: string[];
+  access?: ButtonAccessConfig;
+  canAccess?: ButtonAccessResolver;
   loading?: boolean;
   disabled?: boolean;
 }
@@ -23,8 +28,9 @@ export interface DetailsCardProps<T> {
   onClose?: () => void;
   tabs?: DetailsCardBodyTab[];
   renderCustomContent?: () => React.ReactNode;
-  saveAccessRequirements?: string[];
-  deleteAccessRequirements?: string[];
+  saveAccess?: ButtonAccessConfig;
+  deleteAccess?: ButtonAccessConfig;
+  canAccess?: ButtonAccessResolver;
   customButtons?: CustomButton<T>[];
 }
 export interface DetailsCardAction {

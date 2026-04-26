@@ -50,9 +50,9 @@
       "type": "\"primary\" | \"success\" | \"warning\" | \"danger\"",
       "required": false
     },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "access": { "type": "BaseTableAccessConfig", "required": false },
+    "canAccess": {
+      "type": "BaseTableAccessResolver",
       "required": false
     },
     "placeholder": { "type": "string", "required": false }

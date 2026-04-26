@@ -1,16 +1,28 @@
 import type { ReactNode, ComponentPropsWithoutRef } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import type { Button as ButtonPrimitive } from '@ui/button';
+import type {
+  AccessConfig,
+  AccessMatch,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 import type { ButtonVariant } from './styles';
 
 export type ButtonAccessMode = 'action';
 
+export type ButtonAccessMatch = AccessMatch;
+
+export type ButtonAccessRule = AccessRule<ButtonAccessMode>;
+
+export type ButtonAccessConfig = AccessConfig<ButtonAccessMode>;
+
 export type ButtonAccessDeniedBehavior = 'hide' | 'disable';
 
-export type ButtonAccessResolver = (
-  requirement: string,
-  mode: ButtonAccessMode,
-) => boolean;
+export type ButtonAccessResolver = AccessResolver<
+  ButtonAccessMode,
+  ButtonAccessRule
+>;
 
 export interface ButtonProps extends Omit<
   ComponentPropsWithoutRef<typeof ButtonPrimitive>,
@@ -21,8 +33,8 @@ export interface ButtonProps extends Omit<
   leftIcon?: LucideIcon;
   rightIcon?: LucideIcon;
   variant?: ButtonVariant;
-  accessRequirements?: string[];
-  resolveAccess?: ButtonAccessResolver;
+  access?: ButtonAccessConfig;
+  canAccess?: ButtonAccessResolver;
   accessDeniedBehavior?: ButtonAccessDeniedBehavior;
   children?: ReactNode;
 }

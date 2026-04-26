@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import type {
+  ButtonAccessConfig,
   ButtonAccessDeniedBehavior,
   ButtonAccessResolver,
   ButtonVariant,
@@ -12,8 +13,8 @@ export interface PageAction {
   icon?: LucideIcon;
   variant?: ButtonVariant;
   disabled?: boolean;
-  accessRequirements?: string[];
-  resolveAccess?: ButtonAccessResolver;
+  access?: ButtonAccessConfig;
+  canAccess?: ButtonAccessResolver;
   accessDeniedBehavior?: ButtonAccessDeniedBehavior;
 }
 

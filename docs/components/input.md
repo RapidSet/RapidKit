@@ -26,10 +26,17 @@ import { Input } from '@rapidset/rapidkit';
 - `error?: string`
 - `helperText?: string`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: InputAccessConfig`
+- `canAccess?: InputAccessResolver`
 
 ## Accessibility
 
 - Associates label and input via `htmlFor`/`id`.
 - Sets `aria-invalid="true"` when error is present.
+
+## Access Control
+
+- No resolver or no rules: input stays visible and editable.
+- Read or view rules gate visibility.
+- Write or edit rules gate editability.
+- For provider inheritance and shared resolver patterns, see [Access Control](../ACCESS_CONTROL.md).

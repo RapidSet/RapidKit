@@ -1,13 +1,17 @@
 import type * as React from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { TextArea } from './TextArea';
 
 let allowsRead = true;
 let allowsWrite = true;
 
-const resolveAccess = vi.fn((_: string, mode: 'view' | 'edit') =>
-  mode === 'view' ? allowsRead : allowsWrite,
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? allowsRead : allowsWrite),
 );
 
 const renderTextArea = (
@@ -36,7 +40,7 @@ describe('TextArea', () => {
   beforeEach(() => {
     allowsRead = true;
     allowsWrite = true;
-    resolveAccess.mockClear();
+    canAccess.mockClear();
   });
 
   it('renders label, required marker, and value', () => {
@@ -100,15 +104,21 @@ describe('TextArea', () => {
       <TextArea
         name="hiddenAbout"
         value="value"
-        accessRequirements={['profile.read']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+        canAccess={canAccess}
         onChange={vi.fn()}
       />,
     );
 
     expect(container.firstChild).toBeNull();
-    expect(resolveAccess).toHaveBeenCalledWith('profile.read', 'view');
-    expect(resolveAccess).not.toHaveBeenCalledWith('profile.read', 'edit');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'profile' },
+      'view',
+    );
+    expect(canAccess).not.toHaveBeenCalledWith(
+      { action: 'read', subject: 'profile' },
+      'edit',
+    );
   });
 
   it('disables textarea when edit permission is denied', () => {
@@ -118,15 +128,21 @@ describe('TextArea', () => {
     renderTextArea({
       name: 'readonlyAbout',
       value: 'locked',
-      accessRequirements: ['profile.write'],
-      resolveAccess,
+      access: { rules: [{ action: 'write', subject: 'profile' }] },
+      canAccess,
     });
 
     expect((screen.getByRole('textbox') as HTMLTextAreaElement).disabled).toBe(
       true,
     );
-    expect(resolveAccess).not.toHaveBeenCalledWith('profile.write', 'view');
-    expect(resolveAccess).toHaveBeenCalledWith('profile.write', 'edit');
+    expect(canAccess).not.toHaveBeenCalledWith(
+      { action: 'write', subject: 'profile' },
+      'view',
+    );
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'write', subject: 'profile' },
+      'edit',
+    );
   });
 
   it('stops keydown propagation and still calls consumer onKeyDown', () => {
@@ -142,5 +158,38 @@ describe('TextArea', () => {
     expect(onKeyDown).toHaveBeenCalledTimes(1);
 
     document.body.removeEventListener('keydown', bodyListener);
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <TextArea
+          name="providerHiddenTextArea"
+          value="value"
+          access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+          onChange={vi.fn()}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <TextArea
+          name="providerOverrideTextArea"
+          value="allowed"
+          access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+          canAccess={() => true}
+          onChange={vi.fn()}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect((screen.getByRole('textbox') as HTMLTextAreaElement).value).toBe(
+      'allowed',
+    );
   });
 });

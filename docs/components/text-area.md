@@ -28,10 +28,17 @@ import { TextArea } from '@rapidset/rapidkit';
 - `rows?: number`
 - `placeholder?: string`
 - `disabled?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: TextAreaAccessConfig`
+- `canAccess?: TextAreaAccessResolver`
 
 ## Accessibility
 
 - Associates label and textarea via `htmlFor`/`id`.
 - Sets `aria-invalid="true"` when error is present.
+
+## Access Control
+
+- No resolver or no rules: textarea stays visible and editable.
+- Read or view rules gate visibility.
+- Write or edit rules gate editability.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

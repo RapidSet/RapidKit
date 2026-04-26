@@ -22,9 +22,9 @@
     "error": { "type": "string", "required": false },
     "placeholder": { "type": "string", "required": false },
     "disabled": { "type": "boolean", "required": false },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "access": { "type": "DatePickerAccessConfig", "required": false },
+    "canAccess": {
+      "type": "DatePickerAccessResolver",
       "required": false
     }
   },

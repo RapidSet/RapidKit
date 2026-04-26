@@ -8,11 +8,13 @@ import {
   SidebarSeparator,
 } from '@ui/sidebar';
 import { cn } from '@lib/utils';
-import { resolveSideBarAccessState } from './helpers';
-import { SideBarBrand } from './components/SideBarBrand';
-import { SideBarNavMenu } from './components/SideBarNavMenu';
-import { SideBarUserMenu } from './components/SideBarUserMenu';
-import type { SideBarProps } from './types';
+import { resolveSideBarAccessState } from '@components/SideBar/helpers';
+import { SideBarAccessProvider } from '@components/SideBar/access-context';
+import { useSideBarAccessResolver } from '@components/SideBar/access-hook';
+import { SideBarBrand } from '@components/SideBar/components/SideBarBrand';
+import { SideBarNavMenu } from '@components/SideBar/components/SideBarNavMenu';
+import { SideBarUserMenu } from '@components/SideBar/components/SideBarUserMenu';
+import type { SideBarProps } from '@components/SideBar/types';
 
 export function SideBar(props: Readonly<SideBarProps>) {
   const {
@@ -29,16 +31,18 @@ export function SideBar(props: Readonly<SideBarProps>) {
     contentClassName,
     footerClassName,
     providerProps,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     className,
     collapsible = 'icon',
     ...sidebarProps
   } = props;
 
+  const resolvedCanAccess = useSideBarAccessResolver(canAccess);
+
   const { canView, canEdit } = resolveSideBarAccessState(
-    accessRequirements,
-    resolveAccess,
+    access,
+    resolvedCanAccess,
   );
 
   if (!canView) {
@@ -48,9 +52,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
   const composedBody = children ?? (
     <>
       <SidebarHeader className={headerClassName}>
-        {brand ?? (
-          <SideBarBrand readOnly={!canEdit} resolveAccess={resolveAccess} />
-        )}
+        {brand ?? <SideBarBrand readOnly={!canEdit} canAccess={canAccess} />}
       </SidebarHeader>
       {showHeaderSeparator ? <SidebarSeparator /> : null}
       <SidebarContent className={contentClassName}>
@@ -58,7 +60,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
           <SideBarNavMenu
             items={menuItems}
             readOnly={!canEdit}
-            resolveAccess={resolveAccess}
+            canAccess={canAccess}
           />
         )}
       </SidebarContent>
@@ -69,7 +71,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
               user={user}
               actions={userActions}
               readOnly={!canEdit}
-              resolveAccess={resolveAccess}
+              canAccess={canAccess}
             />
           ) : null)}
       </SidebarFooter>
@@ -78,14 +80,16 @@ export function SideBar(props: Readonly<SideBarProps>) {
   );
 
   return (
-    <SidebarProvider {...providerProps}>
-      <Sidebar
-        collapsible={collapsible}
-        className={cn('text-sidebar-foreground', className)}
-        {...sidebarProps}
-      >
-        {composedBody}
-      </Sidebar>
-    </SidebarProvider>
+    <SideBarAccessProvider canAccess={resolvedCanAccess}>
+      <SidebarProvider {...providerProps}>
+        <Sidebar
+          collapsible={collapsible}
+          className={cn('text-sidebar-foreground', className)}
+          {...sidebarProps}
+        >
+          {composedBody}
+        </Sidebar>
+      </SidebarProvider>
+    </SideBarAccessProvider>
   );
 }

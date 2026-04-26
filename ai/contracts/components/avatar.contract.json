@@ -21,9 +21,9 @@
     "className": { "type": "string", "required": false },
     "imageClassName": { "type": "string", "required": false },
     "fallbackClassName": { "type": "string", "required": false },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\") => boolean",
+    "access": { "type": "AvatarAccessConfig", "required": false },
+    "canAccess": {
+      "type": "AvatarAccessResolver",
       "required": false
     }
   },

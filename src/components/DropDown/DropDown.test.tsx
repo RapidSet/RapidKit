@@ -1,10 +1,20 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ReactNode } from 'react';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { DropDown } from './DropDown';
 
 let selectOnValueChange: ((value: string) => void) | undefined;
 let selectOnOpenChange: ((open: boolean) => void) | undefined;
+let canView = true;
+let canEdit = true;
+
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'edit' },
+    mode: 'view' | 'edit',
+  ) => (mode === 'view' ? canView : canEdit),
+);
 
 vi.mock('@ui/select', () => ({
   Select: ({
@@ -51,6 +61,9 @@ describe('DropDown', () => {
     cleanup();
     selectOnValueChange = undefined;
     selectOnOpenChange = undefined;
+    canView = true;
+    canEdit = true;
+    canAccess.mockClear();
   });
 
   it('renders label, required marker, and helper text', () => {
@@ -138,33 +151,34 @@ describe('DropDown', () => {
   });
 
   it('renders null when view access is denied', () => {
-    const resolveAccess = vi.fn(() => false);
+    canView = false;
 
     render(
       <DropDown
         value="US"
         onChange={vi.fn()}
-        accessRequirements={['resource.read']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+        canAccess={canAccess}
         options={[{ value: 'US', label: 'United States' }]}
       />,
     );
 
     expect(screen.queryByTestId('select-root')).toBeNull();
-    expect(resolveAccess).toHaveBeenCalledWith('resource.read', 'view');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'resource' },
+      'view',
+    );
   });
 
   it('disables select when edit access is denied', () => {
-    const resolveAccess = vi.fn(
-      (_: string, mode: 'view' | 'edit') => mode === 'view',
-    );
+    canEdit = false;
 
     render(
       <DropDown
         value="US"
         onChange={vi.fn()}
-        accessRequirements={['resource.read', 'resource.write']}
-        resolveAccess={resolveAccess}
+        access={{ rules: [{ action: 'write', subject: 'resource' }] }}
+        canAccess={canAccess}
         options={[{ value: 'US', label: 'United States' }]}
       />,
     );
@@ -173,8 +187,10 @@ describe('DropDown', () => {
       screen.getByTestId('select-root').getAttribute('data-disabled'),
     ).toBe('true');
 
-    expect(resolveAccess).toHaveBeenCalledWith('resource.read', 'view');
-    expect(resolveAccess).toHaveBeenCalledWith('resource.write', 'edit');
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'write', subject: 'resource' },
+      'edit',
+    );
   });
 
   it('renders empty state when options are empty', () => {
@@ -228,5 +244,36 @@ describe('DropDown', () => {
     expect(
       screen.queryByRole('button', { name: 'Clear selection' }),
     ).toBeNull();
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <DropDown
+          value="US"
+          onChange={vi.fn()}
+          access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+          options={[{ value: 'US', label: 'United States' }]}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.queryByTestId('select-root')).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <DropDown
+          value="US"
+          onChange={vi.fn()}
+          access={{ rules: [{ action: 'read', subject: 'resource' }] }}
+          canAccess={() => true}
+          options={[{ value: 'US', label: 'United States' }]}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByTestId('select-root')).toBeTruthy();
   });
 });

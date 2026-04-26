@@ -1,8 +1,9 @@
 import { Logo } from '@components/Logo';
 import { useSidebar } from '@ui/sidebar';
 import { cn } from '@lib/utils';
-import { resolveNodeAccessState } from '../../helpers';
-import type { SideBarBrandProps } from '../../types';
+import { useSideBarAccessResolver } from '@components/SideBar/access-hook';
+import { resolveNodeAccessState } from '@components/SideBar/helpers';
+import type { SideBarBrandProps } from '@components/SideBar/types';
 
 export function SideBarBrand(props: Readonly<SideBarBrandProps>) {
   const {
@@ -11,12 +12,13 @@ export function SideBarBrand(props: Readonly<SideBarBrandProps>) {
     subtitle,
     logo,
     renderLogo,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     readOnly = false,
   } = props;
   const { open } = useSidebar();
-  const { canView } = resolveNodeAccessState(accessRequirements, resolveAccess);
+  const resolvedCanAccess = useSideBarAccessResolver(canAccess);
+  const { canView } = resolveNodeAccessState(access, resolvedCanAccess);
 
   if (!canView) {
     return null;

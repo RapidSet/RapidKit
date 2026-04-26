@@ -33,9 +33,6 @@ const config: DocsThemeConfig = {
     storageKey: MODE_STORAGE_KEY,
     defaultTheme: 'light',
   },
-  project: {
-    link: 'https://github.com/RapidSet/RapidKit',
-  },
   docsRepositoryBase: 'https://github.com/RapidSet/RapidKit/tree/main',
   footer: {
     content: 'RapidKit',

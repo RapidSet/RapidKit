@@ -39,12 +39,12 @@
       "type": "SideBarUserAction[]",
       "required": false
     },
-    "accessRequirements": {
-      "type": "string[]",
+    "access": {
+      "type": "SideBarAccessConfig",
       "required": false
     },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: \"view\" | \"edit\") => boolean",
+    "canAccess": {
+      "type": "SideBarAccessResolver",
       "required": false
     }
   },
@@ -59,7 +59,9 @@
   },
   "interaction": {
     "sidebarPropsForwarded": "true",
-    "providerPropsForwarded": "true"
+    "providerPropsForwarded": "true",
+    "canAccessInheritedFromProviderWhenOmitted": "true",
+    "explicitCanAccessOverridesProviderValue": "true"
   },
   "tests": ["src/components/SideBar/SideBar.test.tsx"]
 }

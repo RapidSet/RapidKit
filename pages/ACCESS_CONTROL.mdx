@@ -1,0 +1,199 @@
+import { DocsCodePreview } from '../docs-nextra/components/DocsCodePreview';
+
+# Access Control
+
+RapidKit components use injectable access rules instead of coupling to any specific authorization library. This guide explains the shared `access` plus `canAccess` contract, provider inheritance with `RapidKitAccessProvider`, and a CASL adapter pattern.
+
+## Shared Contract
+
+Where supported, components accept `access?: AccessConfig<TMode>` and `canAccess?: AccessResolver<TMode, AccessRule<TMode>>`.
+
+`access` provides `rules: AccessRule<TMode>[]` plus optional `match?: 'any' | 'all'` behavior. Each rule follows a stable shape with `action`, `subject`, and optional `mode`.
+
+Use the exported aliases for common shapes:
+
+- `ViewAccessConfig` with `ViewAccessResolver`
+- `ViewEditAccessConfig` with `ViewEditAccessResolver`
+- `ActionAccessConfig` with `ActionAccessResolver`
+
+## Default Behavior
+
+If `access` is not provided, components remain visible and interactive. If `access` is provided but no resolver is available, behavior is also permissive by default.
+
+When `view` access is denied, visibility-gated components return `null`. When `edit` or `action` access is denied, interactive surfaces generally remain visible and become disabled where applicable.
+
+## Provider Inheritance
+
+Use `RapidKitAccessProvider` when you want one resolver for a subtree.
+
+<DocsCodePreview
+  language="tsx"
+  code={`import {
+  Button,
+  Input,
+  RapidKitAccessProvider,
+  type RapidKitAccessRule,
+} from '@rapidset/rapidkit';
+
+const canAccess = (
+rule: RapidKitAccessRule,
+mode: 'view' | 'edit' | 'action',
+) => {
+if (mode === 'view') {
+return rule.subject !== 'billing';
+}
+
+return rule.action !== 'delete';
+};
+
+export function AccessExample() {
+  return (
+    <RapidKitAccessProvider canAccess={canAccess}>
+      <Input
+        name="name"
+        label="Name"
+        value="RapidKit"
+        onChange={() => {}}
+        access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+      />
+
+      <Button
+        label="Delete"
+        onClick={() => {}}
+        access={{ rules: [{ action: 'delete', subject: 'project' }] }}
+      />
+    </RapidKitAccessProvider>
+
+);
+}`}
+/>
+
+Explicit `canAccess` props override the provider value.
+
+## App-Level Provider Example
+
+At the app shell level, you can bridge your auth layer once, then let components inherit it everywhere.
+
+<DocsCodePreview
+  language="tsx"
+  code={`import {
+  RapidKitAccessProvider,
+  type RapidKitAccessMode,
+  type RapidKitAccessRule,
+} from '@rapidset/rapidkit';
+import type { PropsWithChildren } from 'react';
+import { useAuthz } from './authz';
+
+export function AppProviders({ children }: PropsWithChildren) {
+  const authz = useAuthz();
+
+const canAccess = (rule: RapidKitAccessRule, mode: RapidKitAccessMode) => {
+return authz.can({
+action: rule.action,
+subject: rule.subject,
+mode,
+});
+};
+
+return (
+<RapidKitAccessProvider canAccess={canAccess}>
+{children}
+</RapidKitAccessProvider>
+);
+}
+`}
+/>
+
+## CASL Adapter
+
+CASL fits this model cleanly because RapidKit already resolves access through `(action, subject)` pairs.
+
+<DocsCodePreview
+  language="tsx"
+  code={`import {
+  RapidKitAccessProvider,
+  type RapidKitAccessRule,
+} from '@rapidset/rapidkit';
+import { createContext, useContext } from 'react';
+import type { AppAbility } from './ability';
+
+const AbilityContext = createContext<AppAbility | null>(null);
+
+function useRapidKitCanAccess() {
+const ability = useContext(AbilityContext);
+
+return (rule: RapidKitAccessRule) => {
+if (!ability) {
+return true;
+}
+
+    return ability.can(rule.action, rule.subject);
+
+};
+}
+
+export function AppAccessProvider({ children }: { children: React.ReactNode }) {
+  const canAccess = useRapidKitCanAccess();
+
+return (
+<RapidKitAccessProvider canAccess={canAccess}>
+{children}
+</RapidKitAccessProvider>
+);
+}`}
+/>
+
+## CASL Example
+
+<DocsCodePreview
+  language="tsx"
+  code={`import { Button, Input } from '@rapidset/rapidkit';
+
+export function ProjectEditor() {
+  return (
+    <>
+      <Input
+        name="projectName"
+        label="Project Name"
+        value="Atlas"
+        onChange={() => {}}
+        access={{
+          rules: [
+            { action: 'read', subject: 'Project' },
+            { action: 'update', subject: 'Project' },
+          ],
+          match: 'all',
+        }}
+      />
+
+      <Button
+        label="Archive Project"
+        onClick={() => {}}
+        access={{ rules: [{ action: 'archive', subject: 'Project' }] }}
+      />
+    </>
+
+);
+}`}
+/>
+
+In that setup, denying `read Project` hides the input. Allowing `read Project` but denying `update Project` keeps the input visible and disables editing. Denying `archive Project` makes the button follow its normal access-denied behavior.
+
+## Match Semantics
+
+Use `match: 'any'` when any rule should grant access, and use `match: 'all'` when every rule must pass.
+
+<DocsCodePreview
+  language="tsx"
+  code={`access={{
+  rules: [
+    { action: 'read', subject: 'Project' },
+    { action: 'update', subject: 'Project' },
+  ],
+  match: 'all',
+}}`}
+/>
+
+## Recommendations
+
+Prefer a single app-level provider instead of repeating `canAccess` props on each component. Keep subjects domain-neutral and aligned with your CASL ability model. Use `view`, `edit`, and `action` semantics that map to component behavior, and only pass explicit per-component `canAccess` when a single component must diverge from the subtree default.

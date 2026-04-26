@@ -1,26 +1,9 @@
 import { createElement } from 'react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
+import { resolveViewAccessState } from '@lib/view-edit-access';
 import { TEXT_TONE_CLASS_NAMES, TEXT_WEIGHT_CLASS_NAMES } from './styles';
 import { TextProps } from './types';
-
-const resolveTextAccess = (
-  requirements: string[] | undefined,
-  resolveAccess: TextProps['resolveAccess'],
-) => {
-  const normalizedRequirements = requirements ?? [];
-  const hasAccessResolver =
-    normalizedRequirements.length > 0 && Boolean(resolveAccess);
-
-  if (!hasAccessResolver) {
-    return { hasViewPermission: true };
-  }
-
-  const hasViewPermission = normalizedRequirements.some((requirement) =>
-    resolveAccess?.(requirement, 'view'),
-  );
-
-  return { hasViewPermission };
-};
 
 export function Text(props: Readonly<TextProps>) {
   const {
@@ -30,17 +13,15 @@ export function Text(props: Readonly<TextProps>) {
     truncate = false,
     children,
     className,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     ...rest
   } = props;
 
-  const { hasViewPermission } = resolveTextAccess(
-    accessRequirements,
-    resolveAccess,
-  );
+  const resolvedCanAccess = useAccessResolver(canAccess);
+  const { canView } = resolveViewAccessState(access, resolvedCanAccess);
 
-  if (!hasViewPermission) {
+  if (!canView) {
     return null;
   }
 

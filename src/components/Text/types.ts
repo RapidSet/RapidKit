@@ -1,11 +1,14 @@
 import * as React from 'react';
+import type {
+  AccessConfig,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 
 export type TextAccessMode = 'view';
-
-export type TextAccessResolver = (
-  requirement: string,
-  mode: TextAccessMode,
-) => boolean;
+export type TextAccessRule = AccessRule<TextAccessMode>;
+export type TextAccessConfig = AccessConfig<TextAccessMode>;
+export type TextAccessResolver = AccessResolver<TextAccessMode, TextAccessRule>;
 
 export type TextElement = 'span' | 'p' | 'small' | 'strong' | 'div';
 
@@ -24,6 +27,6 @@ export type TextProps = BaseTextProps & {
   tone?: TextTone;
   weight?: TextWeight;
   truncate?: boolean;
-  accessRequirements?: string[];
-  resolveAccess?: TextAccessResolver;
+  access?: TextAccessConfig;
+  canAccess?: TextAccessResolver;
 };

@@ -1,11 +1,24 @@
 import { createRef } from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Avatar } from './Avatar';
+
+let canView = true;
+
+const canAccess = vi.fn(
+  (_: { action: string; subject: string; mode?: 'view' }, mode: 'view') =>
+    mode === 'view' ? canView : false,
+);
 
 describe('Avatar', () => {
   afterEach(() => {
     cleanup();
+  });
+
+  beforeEach(() => {
+    canView = true;
+    canAccess.mockClear();
   });
 
   it('renders derived fallback when image is unavailable', () => {
@@ -41,26 +54,60 @@ describe('Avatar', () => {
   });
 
   it('hides avatar when view access is denied', () => {
+    canView = false;
+
     render(
       <Avatar
         alt="Restricted"
-        accessRequirements={['profile.read']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+        canAccess={canAccess}
       />,
     );
 
     expect(screen.queryByText('R')).toBeNull();
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'profile' },
+      'view',
+    );
   });
 
-  it('remains visible for write-only requirements', () => {
+  it('remains visible for non-view rules', () => {
     render(
       <Avatar
         alt="Editable"
-        accessRequirements={['profile.write']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'write', subject: 'profile' }] }}
+        canAccess={canAccess}
       />,
     );
 
     expect(screen.getByText('E')).toBeTruthy();
+    expect(canAccess).not.toHaveBeenCalled();
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Avatar
+          alt="Provider Restricted"
+          access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <Avatar
+          alt="Provider Override"
+          access={{ rules: [{ action: 'read', subject: 'profile' }] }}
+          canAccess={() => true}
+        />
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByText('PO')).toBeTruthy();
   });
 });

@@ -1,7 +1,17 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ReactNode } from 'react';
+import { RapidKitAccessProvider } from '@lib/access-provider';
 import { BaseModal } from './BaseModal';
+
+let canView = true;
+
+const canAccess = vi.fn(
+  (
+    _: { action: string; subject: string; mode?: 'view' | 'action' },
+    mode: 'view' | 'action',
+  ) => (mode === 'view' ? canView : true),
+);
 
 vi.mock('@ui/dialog', () => ({
   Dialog: ({
@@ -46,18 +56,19 @@ vi.mock('@components/Button', () => ({
     children,
     onClick,
     disabled,
-    ...rest
+    'aria-label': ariaLabel,
   }: {
     label?: string;
     children?: ReactNode;
     onClick?: () => void;
     disabled?: boolean;
+    'aria-label'?: string;
   }) => (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      {...(rest as Record<string, unknown>)}
+      aria-label={ariaLabel}
     >
       {label ?? children}
     </button>
@@ -77,6 +88,11 @@ afterEach(() => {
 });
 
 describe('BaseModal', () => {
+  beforeEach(() => {
+    canView = true;
+    canAccess.mockClear();
+  });
+
   it('renders title, description and content when open', () => {
     render(
       <BaseModal
@@ -190,5 +206,59 @@ describe('BaseModal', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Mock Close' }));
 
     expect(onClose).toHaveBeenCalledTimes(0);
+  });
+
+  it('returns null when view access is denied', () => {
+    canView = false;
+
+    const { container } = render(
+      <BaseModal
+        isOpen
+        onClose={vi.fn()}
+        access={{ rules: [{ action: 'read', subject: 'modal' }] }}
+        canAccess={canAccess}
+      >
+        <div>Hidden modal</div>
+      </BaseModal>,
+    );
+
+    expect(container.firstChild).toBeNull();
+    expect(canAccess).toHaveBeenCalledWith(
+      { action: 'read', subject: 'modal' },
+      'view',
+    );
+  });
+
+  it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
+    const { container } = render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <BaseModal
+          isOpen
+          onClose={vi.fn()}
+          access={{ rules: [{ action: 'read', subject: 'modal' }] }}
+        >
+          <div>Hidden by provider</div>
+        </BaseModal>
+      </RapidKitAccessProvider>,
+    );
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('prefers explicit canAccess over RapidKitAccessProvider value', () => {
+    render(
+      <RapidKitAccessProvider canAccess={() => false}>
+        <BaseModal
+          isOpen
+          onClose={vi.fn()}
+          access={{ rules: [{ action: 'read', subject: 'modal' }] }}
+          canAccess={() => true}
+        >
+          <div>Visible by override</div>
+        </BaseModal>
+      </RapidKitAccessProvider>,
+    );
+
+    expect(screen.getByText('Visible by override')).toBeTruthy();
   });
 });

@@ -15,8 +15,12 @@ import {
   useSidebar,
 } from '@ui/sidebar';
 import { cn } from '@lib/utils';
-import { canViewUserAction, resolveNodeAccessState } from '../../helpers';
-import type { SideBarUserMenuProps } from '../../types';
+import { useSideBarAccessResolver } from '@components/SideBar/access-hook';
+import {
+  canViewUserAction,
+  resolveNodeAccessState,
+} from '@components/SideBar/helpers';
+import type { SideBarUserMenuProps } from '@components/SideBar/types';
 
 const initials = (name: string) =>
   name
@@ -34,19 +38,20 @@ export function SideBarUserMenu(props: Readonly<SideBarUserMenuProps>) {
     className,
     user,
     actions = [],
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     readOnly = false,
   } = props;
+  const resolvedCanAccess = useSideBarAccessResolver(canAccess);
   const { isMobile, open } = useSidebar();
-  const { canView } = resolveNodeAccessState(accessRequirements, resolveAccess);
+  const { canView } = resolveNodeAccessState(access, resolvedCanAccess);
 
   if (!canView) {
     return null;
   }
 
   const visibleActions = actions.filter((action) =>
-    canViewUserAction(action, resolveAccess),
+    canViewUserAction(action, resolvedCanAccess),
   );
 
   return (
@@ -123,8 +128,8 @@ export function SideBarUserMenu(props: Readonly<SideBarUserMenuProps>) {
                 <DropdownMenuGroup>
                   {visibleActions.map((action) => {
                     const { canEdit } = resolveNodeAccessState(
-                      action.accessRequirements,
-                      resolveAccess,
+                      action.access,
+                      resolvedCanAccess,
                     );
                     const actionDisabled =
                       readOnly || action.disabled || !canEdit;

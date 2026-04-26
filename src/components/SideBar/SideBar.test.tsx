@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Settings } from 'lucide-react';
+import { SideBarAccessProvider } from './access-context';
 import { SideBar } from './SideBar';
 
 describe('SideBar', () => {
@@ -30,8 +31,8 @@ describe('SideBar', () => {
   it('returns null when view access is denied', () => {
     render(
       <SideBar
-        accessRequirements={['sidebar.read']}
-        resolveAccess={() => false}
+        access={{ rules: [{ action: 'read', subject: 'sidebar' }] }}
+        canAccess={() => false}
         menuItems={[{ key: 'home', label: 'Home' }]}
       />,
     );
@@ -44,8 +45,8 @@ describe('SideBar', () => {
 
     render(
       <SideBar
-        accessRequirements={['sidebar.write']}
-        resolveAccess={(_, mode) => mode !== 'edit'}
+        access={{ rules: [{ action: 'write', subject: 'sidebar' }] }}
+        canAccess={(_, mode) => mode !== 'edit'}
         menuItems={[{ key: 'billing', label: 'Billing', onSelect }]}
       />,
     );
@@ -62,5 +63,32 @@ describe('SideBar', () => {
     );
 
     expect(screen.getByText('Custom sidebar body')).toBeTruthy();
+  });
+
+  it('inherits canAccess from SideBarAccessProvider when prop is omitted', () => {
+    render(
+      <SideBarAccessProvider canAccess={() => false}>
+        <SideBar
+          access={{ rules: [{ action: 'read', subject: 'sidebar' }] }}
+          menuItems={[{ key: 'home', label: 'Home' }]}
+        />
+      </SideBarAccessProvider>,
+    );
+
+    expect(screen.queryByText('Home')).toBeNull();
+  });
+
+  it('prefers explicit canAccess prop over provider value', () => {
+    render(
+      <SideBarAccessProvider canAccess={() => false}>
+        <SideBar
+          access={{ rules: [{ action: 'read', subject: 'sidebar' }] }}
+          canAccess={() => true}
+          menuItems={[{ key: 'home', label: 'Home' }]}
+        />
+      </SideBarAccessProvider>,
+    );
+
+    expect(screen.getByText('Home')).toBeTruthy();
   });
 });

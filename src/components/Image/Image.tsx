@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 import { ImageIcon } from 'lucide-react';
+import { useAccessResolver } from '@lib/use-access-resolver';
 import { cn } from '@lib/utils';
 import { ImageProps } from './types';
 import { imageSizeClasses, resolveImageAccessState } from './helpers';
@@ -10,16 +11,14 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>((props, ref) => {
     className,
     src,
     alt,
-    accessRequirements,
-    resolveAccess,
+    access,
+    canAccess,
     ...imgProps
   } = props;
 
   const [hasError, setHasError] = useState(false);
-  const { canView } = resolveImageAccessState(
-    accessRequirements,
-    resolveAccess,
-  );
+  const resolvedCanAccess = useAccessResolver(canAccess);
+  const { canView } = resolveImageAccessState(access, resolvedCanAccess);
 
   const handleError = () => {
     setHasError(true);

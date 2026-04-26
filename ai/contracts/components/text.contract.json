@@ -27,9 +27,9 @@
       "default": "'regular'"
     },
     "truncate": { "type": "boolean", "required": false, "default": "false" },
-    "accessRequirements": { "type": "string[]", "required": false },
-    "resolveAccess": {
-      "type": "(requirement: string, mode: 'view') => boolean",
+    "access": { "type": "TextAccessConfig", "required": false },
+    "canAccess": {
+      "type": "TextAccessResolver",
       "required": false
     }
   },

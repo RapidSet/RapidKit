@@ -1,13 +1,20 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type {
+  AccessConfig,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 import type { Avatar as ShadcnAvatar } from '@ui/avatar';
 import type { AvatarSize } from './styles';
 
 export type AvatarAccessMode = 'view';
 
-export type AvatarAccessResolver = (
-  requirement: string,
-  mode: AvatarAccessMode,
-) => boolean;
+export type AvatarAccessRule = AccessRule<AvatarAccessMode>;
+export type AvatarAccessConfig = AccessConfig<AvatarAccessMode>;
+export type AvatarAccessResolver = AccessResolver<
+  AvatarAccessMode,
+  AvatarAccessRule
+>;
 
 type AvatarPrimitiveProps = Omit<
   ComponentPropsWithoutRef<typeof ShadcnAvatar>,
@@ -21,6 +28,6 @@ export interface AvatarProps extends AvatarPrimitiveProps {
   size?: AvatarSize;
   imageClassName?: string;
   fallbackClassName?: string;
-  accessRequirements?: string[];
-  resolveAccess?: AvatarAccessResolver;
+  access?: AvatarAccessConfig;
+  canAccess?: AvatarAccessResolver;
 }

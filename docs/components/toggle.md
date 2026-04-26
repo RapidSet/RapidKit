@@ -27,10 +27,17 @@ import { Toggle } from '@rapidset/rapidkit';
 - `helperText?: string`
 - `error?: string`
 - `required?: boolean`
-- `accessRequirements?: string[]`
-- `resolveAccess?: (requirement: string, mode: 'view' | 'edit') => boolean`
+- `access?: ToggleAccessConfig`
+- `canAccess?: ToggleAccessResolver`
 
 ## Accessibility
 
 - Uses accessible switch semantics from Radix Switch primitives.
 - Associates label text with the toggle using `htmlFor` and `id`.
+
+## Access Control
+
+- No resolver or no rules: toggle stays visible and interactive.
+- Read or view rules gate visibility.
+- Write or edit rules gate interactivity.
+- For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).

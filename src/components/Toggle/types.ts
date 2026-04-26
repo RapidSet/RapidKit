@@ -1,12 +1,24 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import { Switch as ShadcnSwitch } from '@ui/switch';
+import type {
+  AccessConfig,
+  AccessMatch,
+  AccessResolver,
+  AccessRule,
+} from '@lib/access-types';
 
 export type ToggleAccessMode = 'view' | 'edit';
 
-export type ToggleAccessResolver = (
-  requirement: string,
-  mode: ToggleAccessMode,
-) => boolean;
+export type ToggleAccessMatch = AccessMatch;
+
+export type ToggleAccessRule = AccessRule<ToggleAccessMode>;
+
+export type ToggleAccessConfig = AccessConfig<ToggleAccessMode>;
+
+export type ToggleAccessResolver = AccessResolver<
+  ToggleAccessMode,
+  ToggleAccessRule
+>;
 
 type TogglePrimitiveProps = Omit<
   ComponentPropsWithoutRef<typeof ShadcnSwitch>,
@@ -22,6 +34,6 @@ export interface ToggleProps extends TogglePrimitiveProps {
   required?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   onToggleChange?: (checked: boolean, name: string) => void;
-  accessRequirements?: string[];
-  resolveAccess?: ToggleAccessResolver;
+  access?: ToggleAccessConfig;
+  canAccess?: ToggleAccessResolver;
 }
