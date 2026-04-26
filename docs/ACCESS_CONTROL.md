@@ -6,34 +6,21 @@ RapidKit components use injectable access rules instead of coupling to any speci
 
 ## Shared Contract
 
-Where supported, components accept:
+Where supported, components accept `access?: AccessConfig<TMode>` and `canAccess?: AccessResolver<TMode, AccessRule<TMode>>`.
 
-- `access?: AccessConfig<TMode>`
-- `canAccess?: AccessResolver<TMode, AccessRule<TMode>>`
+`access` provides `rules: AccessRule<TMode>[]` plus optional `match?: 'any' | 'all'` behavior. Each rule follows a stable shape with `action`, `subject`, and optional `mode`.
 
-`access` contains:
+Use the exported aliases for common shapes:
 
-- `rules: AccessRule<TMode>[]`
-- `match?: 'any' | 'all'`
-
-Each rule uses a consistent object shape:
-
-- `action: string`
-- `subject: string`
-- `mode?: TMode`
-
-Common exported aliases are available for the most frequent access shapes:
-
-- `ViewAccessConfig` and `ViewAccessResolver`
-- `ViewEditAccessConfig` and `ViewEditAccessResolver`
-- `ActionAccessConfig` and `ActionAccessResolver`
+- `ViewAccessConfig` with `ViewAccessResolver`
+- `ViewEditAccessConfig` with `ViewEditAccessResolver`
+- `ActionAccessConfig` with `ActionAccessResolver`
 
 ## Default Behavior
 
-- No `access`: component stays visible and interactive.
-- `access` without `canAccess`: component stays visible and interactive.
-- View denied: visibility-gated components return `null`.
-- Edit or action denied: interactive components stay visible but become disabled where applicable.
+If `access` is not provided, components remain visible and interactive. If `access` is provided but no resolver is available, behavior is also permissive by default.
+
+When `view` access is denied, visibility-gated components return `null`. When `edit` or `action` access is denied, interactive surfaces generally remain visible and become disabled where applicable.
 
 ## Provider Inheritance
 
@@ -80,6 +67,38 @@ export function AccessExample() {
 ```
 
 Explicit `canAccess` props override the provider value.
+
+## App-Level Provider Example
+
+At the app shell level, you can bridge your auth layer once, then let components inherit it everywhere.
+
+```tsx
+import {
+  RapidKitAccessProvider,
+  type RapidKitAccessMode,
+  type RapidKitAccessRule,
+} from '@rapidset/rapidkit';
+import type { PropsWithChildren } from 'react';
+import { useAuthz } from './authz';
+
+export function AppProviders({ children }: PropsWithChildren) {
+  const authz = useAuthz();
+
+  const canAccess = (rule: RapidKitAccessRule, mode: RapidKitAccessMode) => {
+    return authz.can({
+      action: rule.action,
+      subject: rule.subject,
+      mode,
+    });
+  };
+
+  return (
+    <RapidKitAccessProvider canAccess={canAccess}>
+      {children}
+    </RapidKitAccessProvider>
+  );
+}
+```
 
 ## CASL Adapter
 
@@ -150,16 +169,11 @@ export function ProjectEditor() {
 }
 ```
 
-In that setup:
-
-- if CASL denies `read Project`, the input is hidden
-- if CASL allows `read Project` but denies `update Project`, the input stays visible and becomes disabled
-- if CASL denies `archive Project`, the button follows its configured access-denied behavior
+In that setup, denying `read Project` hides the input. Allowing `read Project` but denying `update Project` keeps the input visible and disables editing. Denying `archive Project` makes the button follow its normal access-denied behavior.
 
 ## Match Semantics
 
-- Use `match: 'any'` when any rule should grant access.
-- Use `match: 'all'` when every rule must pass.
+Use `match: 'any'` when any rule should grant access, and use `match: 'all'` when every rule must pass.
 
 Example:
 
@@ -175,7 +189,4 @@ access={{
 
 ## Recommendations
 
-- Prefer a single app-level provider over repeating `canAccess` props.
-- Keep subjects domain-neutral and consistent with your CASL ability definitions.
-- Use `view`, `edit`, and `action` semantics to match component behavior rather than inventing component-specific authorization modes in the app.
-- Use explicit per-component `canAccess` only when a component must diverge from the default subtree policy.
+Prefer a single app-level provider instead of repeating `canAccess` props on each component. Keep subjects domain-neutral and aligned with your CASL ability model. Use `view`, `edit`, and `action` semantics that map to component behavior, and only pass explicit per-component `canAccess` when a single component must diverge from the subtree default.

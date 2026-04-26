@@ -17,6 +17,7 @@ const normalizeNavItems = (items) => {
       return {
         href,
         title: item.title,
+        external: Boolean(item.external),
       };
     })
     .filter((item) => item.href && item.title);
@@ -57,6 +58,20 @@ export function SiteHeader({ items = [] }) {
       </Link>
       <nav className="rk-topnav">
         {navItems.map((item) => {
+          if (item.external) {
+            return (
+              <a
+                key={item.href}
+                className="rk-topnav-link"
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {item.title}
+              </a>
+            );
+          }
+
           const itemPath = normalizePath(item.href);
           const isActive =
             currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
