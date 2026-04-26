@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.7.0
+
+### Minor Changes
+
+- 88c5b5b: improve access control
+
 ## 0.6.0
 
 ### Minor Changes
