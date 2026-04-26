@@ -42,6 +42,9 @@ export default {
     title: 'Logo',
     href: '/components/logo',
   },
+  'nav-menu': {
+    title: 'NavMenu',
+  },
   input: {
     title: 'Input',
   },

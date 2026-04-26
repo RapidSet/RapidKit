@@ -25,6 +25,7 @@ Direct links:
 - https://rapidset.github.io/RapidKit/components/icon
 - https://rapidset.github.io/RapidKit/components/image
 - https://rapidset.github.io/RapidKit/components/logo
+- https://rapidset.github.io/RapidKit/components/nav-menu
 - https://rapidset.github.io/RapidKit/components/input
 - https://rapidset.github.io/RapidKit/components/page
 - https://rapidset.github.io/RapidKit/components/search
