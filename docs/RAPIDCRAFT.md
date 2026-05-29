@@ -71,6 +71,8 @@ Expected scaffold output:
 
 ```text
 my-product/
+  .mcp.json
+  AGENTS.md
   package.json
   rapidkit.template.json
 ```
@@ -80,6 +82,8 @@ The generated project includes:
 - `package.json` with dependencies for `@rapidset/rapidkit` and `@rapidset/rapidmcp`
 - root scripts `mcp:start` and `mcp:help`
 - post-scaffold dependency installation (unless `--skip-install` is passed)
+- `.mcp.json` — MCP client config that wires the local RapidKit MCP server so MCP-aware editors (Claude Code, Cursor) auto-attach when the project opens (omit with `--no-mcp-config`)
+- `AGENTS.md` — onboarding doc the AI agent reads first: explains the blueprint, the hard constraints (`scaffoldContainsReactCode: false`, `useRapidKitMCP: true`), which MCP tools to call, and a suggested implementation order
 
 The manifest includes:
 
@@ -92,12 +96,12 @@ The manifest includes:
 
 ## VS Code Developer Workflow
 
-For teams using VS Code, the typical flow is:
+For teams using VS Code (or Claude Code, Cursor, or any MCP-aware editor), the typical flow is:
 
-1. Run `rapidcraft init` to generate `rapidkit.template.json`, `package.json`, and install dependencies.
-2. Open the generated folder in VS Code.
-3. Start MCP from project root using `npm run mcp:start` (or your package manager equivalent).
-4. Ask AI to materialize the app from the manifest and contracts.
+1. Run `rapidcraft init` to generate the blueprint, `AGENTS.md`, `.mcp.json`, `package.json`, and install dependencies.
+2. Open the generated folder in your editor. The bundled `.mcp.json` auto-wires the RapidKit MCP server — no manual MCP configuration needed.
+3. Point your AI agent at `AGENTS.md`; it orients the agent on what to build, the blueprint constraints, and which MCP tools (`get_component_contract`, `validate_scaffold`, etc.) to call.
+4. Let the agent materialize the app from `rapidkit.template.json` plus the MCP contract surface.
 5. Run standard quality gates (`lint`, `typecheck`, `test`, `build`) in the generated app repository.
 
 ## CLI vs Traditional Bootstrap
@@ -119,7 +123,15 @@ Practical interpretation for VS Code teams:
 
 ## MCP Integration
 
-Start the RapidKit MCP server from the repository root:
+### Scaffolded projects (recommended path)
+
+Projects created by `rapidcraft init` already include `.mcp.json` at the project root pointing at the locally-installed `@rapidset/rapidmcp`. MCP-aware editors (Claude Code, Cursor, Claude Desktop) pick it up automatically when the project opens. No additional client configuration is required — just open the folder.
+
+If you manage MCP configuration centrally and don't want the per-project file, pass `--no-mcp-config` to `rapidcraft init`.
+
+### Manual setup (monorepo / development)
+
+When working against a sibling checkout of `rapidmcp` rather than the published package:
 
 ```bash
 pnpm --dir ../rapidmcp mcp:start -- --root "$PWD"
@@ -170,6 +182,10 @@ Choose a new output name or an empty target directory.
 ### Need to skip deployment setup
 
 Use `--skip-deployment`, or press Enter at the deployment prompt to keep the preset default when running interactively.
+
+### Don't want a per-project MCP config
+
+Use `--no-mcp-config` to skip writing `.mcp.json` into the scaffold. The scaffold's `mcp:start` script still works; only the editor auto-attach hook is omitted.
 
 ### Need runnable code immediately
 
