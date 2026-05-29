@@ -40,6 +40,28 @@ export const resolveStoredThemeId = () => {
     : 'default';
 };
 
+export const PREVIEW_MESSAGE_SET_THEME = 'rapidkit:set-theme';
+export const PREVIEW_MESSAGE_READY = 'rapidkit:preview-ready';
+
+const broadcastThemeToPreviewIframes = (themeId) => {
+  if (typeof document === 'undefined' || typeof window === 'undefined') {
+    return;
+  }
+
+  const iframes = document.querySelectorAll('iframe[data-rk-preview="true"]');
+
+  iframes.forEach((iframe) => {
+    try {
+      iframe.contentWindow?.postMessage(
+        { type: PREVIEW_MESSAGE_SET_THEME, themeId },
+        window.location.origin,
+      );
+    } catch {
+      // Cross-origin or detached frames are not addressable; ignore.
+    }
+  });
+};
+
 export const applyRuntimeThemeStylesheet = (themeId) => {
   if (typeof document === 'undefined') {
     return;
@@ -64,4 +86,6 @@ export const applyRuntimeThemeStylesheet = (themeId) => {
       }),
     );
   }
+
+  broadcastThemeToPreviewIframes(resolvedTheme);
 };

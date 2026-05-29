@@ -9,6 +9,7 @@ import { Page } from '../../src/components/Page';
 import { Text } from '../../src/components/Text';
 import { useFormHandlers } from '../../src/hooks/useFormHandlers';
 import { DocsCodePreview } from './DocsCodePreview';
+import { FlowPreviewFrame } from './FlowPreviewFrame';
 
 export type FlowExampleId = 'login';
 
@@ -17,7 +18,7 @@ type FlowTab = 'preview' | 'code';
 type FlowExampleTabsProps = Readonly<{
   flow: FlowExampleId;
   initialTab?: FlowTab;
-  fullPreviewHref?: string;
+  previewSrc: string;
 }>;
 
 type FlowExample = Readonly<{
@@ -346,6 +347,8 @@ const FLOW_EXAMPLES: Record<FlowExampleId, FlowExample> = {
   },
 };
 
+export const FLOW_EXAMPLE_IDS = Object.keys(FLOW_EXAMPLES) as FlowExampleId[];
+
 export function FlowPreviewSurface({
   flow,
 }: Readonly<{ flow: FlowExampleId }>): JSX.Element {
@@ -370,7 +373,7 @@ function resolveInitialFlowTab(initialTab?: FlowTab): FlowTab {
 export function FlowExampleTabs({
   flow,
   initialTab,
-  fullPreviewHref,
+  previewSrc,
 }: FlowExampleTabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<FlowTab>(() =>
     resolveInitialFlowTab(initialTab),
@@ -381,8 +384,6 @@ export function FlowExampleTabs({
   const previewPanelId = `${idPrefix}-preview-panel`;
   const codePanelId = `${idPrefix}-code-panel`;
   const resolvedExample = FLOW_EXAMPLES[flow];
-
-  const Preview = resolvedExample.render;
 
   return (
     <div className="component-example-tabs">
@@ -419,17 +420,6 @@ export function FlowExampleTabs({
             Code
           </button>
         </div>
-
-        {fullPreviewHref ? (
-          <a
-            href={fullPreviewHref}
-            target="_blank"
-            rel="noreferrer"
-            className="component-example-tabs__button no-underline"
-          >
-            Full
-          </a>
-        ) : null}
       </div>
 
       <div
@@ -437,13 +427,9 @@ export function FlowExampleTabs({
         role="tabpanel"
         aria-labelledby={previewTabId}
         hidden={activeTab !== 'preview'}
-        className="component-example-tabs__panel"
+        className="component-example-tabs__panel component-example-tabs__panel--flow"
       >
-        {activeTab === 'preview' ? (
-          <div className="component-example-tabs__preview">
-            <Preview />
-          </div>
-        ) : null}
+        <FlowPreviewFrame flow={flow} previewSrc={previewSrc} />
       </div>
 
       <div

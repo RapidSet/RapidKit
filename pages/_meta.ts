@@ -26,4 +26,7 @@ export default {
   flows: {
     title: 'Flows',
   },
+  preview: {
+    display: 'hidden',
+  },
 };

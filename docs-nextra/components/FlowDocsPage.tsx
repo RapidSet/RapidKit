@@ -1,9 +1,5 @@
-import { useEffect, useState, type JSX } from 'react';
-import {
-  FlowExampleTabs,
-  FlowPreviewSurface,
-  type FlowExampleId,
-} from './FlowExampleTabs';
+import { type JSX } from 'react';
+import { FlowExampleTabs, type FlowExampleId } from './FlowExampleTabs';
 
 type FlowDoc = Readonly<{
   title: string;
@@ -120,43 +116,7 @@ export function FlowDocsIndexPage(): JSX.Element {
 
 export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
   const doc = FLOW_DOCS[flow];
-  const docsHref = withBasePath(doc.docsHref);
-  const [isFullMode, setIsFullMode] = useState(false);
-
-  useEffect(() => {
-    if (globalThis.window === undefined) {
-      return;
-    }
-
-    const nextIsFullMode =
-      new URLSearchParams(globalThis.window.location.search).get('view') ===
-      'full';
-
-    setIsFullMode(nextIsFullMode);
-  }, []);
-
-  useEffect(() => {
-    if (!isFullMode || globalThis.document === undefined) {
-      return;
-    }
-
-    const previousOverflow = globalThis.document.body.style.overflow;
-    globalThis.document.body.style.overflow = 'hidden';
-
-    return () => {
-      globalThis.document.body.style.overflow = previousOverflow;
-    };
-  }, [isFullMode]);
-
-  if (isFullMode) {
-    return (
-      <div className="fixed inset-0 z-[9999] h-screen w-screen overflow-auto bg-background">
-        <div className="h-full w-full p-0">
-          <FlowPreviewSurface flow={flow} />
-        </div>
-      </div>
-    );
-  }
+  const previewSrc = withBasePath(`/preview/flows/${flow}/`);
 
   return (
     <article className="mx-auto flex min-h-[calc(100vh-9.5rem)] max-w-6xl flex-col gap-5">
@@ -182,10 +142,7 @@ export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
       </section>
 
       <section className="component-example-tabs-host flex-1 min-h-[calc(100vh-23rem)]">
-        <FlowExampleTabs
-          flow={flow}
-          fullPreviewHref={`${docsHref}?view=full`}
-        />
+        <FlowExampleTabs flow={flow} previewSrc={previewSrc} />
       </section>
     </article>
   );
