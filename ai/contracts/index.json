@@ -57,7 +57,8 @@
         "pagination",
         "sorting",
         "placeholder",
-        "rowInactive"
+        "rowInactive",
+        "responsive"
       ]
     },
     {

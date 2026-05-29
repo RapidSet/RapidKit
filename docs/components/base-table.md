@@ -38,6 +38,72 @@ import { BaseTable } from '@rapidset/rapidkit';
 - Edit denied: selection controls are disabled while rows remain visible.
 - For provider inheritance and CASL adapter examples, see [Access Control](../ACCESS_CONTROL.md).
 
+## Responsive Behavior
+
+`BaseTable` is responsive by default. When the table is wider than its container, it scrolls horizontally inside the shadcn `<Table>` wrapper, while one anchor column stays pinned on the left and the last `CellType.ACTIONS` column stays pinned on the right. On wide viewports the behavior is invisible — nothing scrolls, nothing visibly pins.
+
+### Default inference
+
+- **Sticky left:** the selection checkbox column when `enableSelection`, otherwise the first declared column.
+- **Sticky right:** the last column whose `type === CellType.ACTIONS`. If no `ACTIONS` column exists, nothing pins right.
+
+### Opt out
+
+Pass `responsive={false}` to disable all sticky behavior. The table still scrolls horizontally on overflow (provided by the underlying primitive); no columns pin.
+
+```tsx
+<BaseTable data={rows} columns={columns} responsive={false} />
+```
+
+### Override per column
+
+Set `column.sticky: 'left' | 'right'` to pin a specific column. Explicit overrides beat inference, including the selection-column anchor. If two columns claim the same side, the first declared wins and subsequent same-side claims are ignored.
+
+```tsx
+const columns = [
+  { id: 'name', header: 'Service', type: CellType.TEXT, sticky: 'left' },
+  { id: 'status', header: 'Status', type: CellType.STATUS },
+  {
+    id: 'actions',
+    header: 'Actions',
+    type: CellType.ACTIONS,
+    actions: [
+      /* ... */
+    ],
+  },
+];
+```
+
+### Hide columns at narrow widths
+
+Set `column.showFrom` to deprioritize a column on small screens. The column only renders at viewports at or above the named Tailwind breakpoint. Implementation is CSS-only — no JavaScript resize listeners, SSR-safe, and composes with the sticky behavior above.
+
+| Breakpoint | Min width |
+| ---------- | --------- |
+| `sm`       | 640px     |
+| `md`       | 768px     |
+| `lg`       | 1024px    |
+| `xl`       | 1280px    |
+| `2xl`      | 1536px    |
+
+```tsx
+const columns = [
+  { id: 'name', header: 'Service', type: CellType.TEXT },
+  { id: 'owner', header: 'Owner', type: CellType.AVATAR, showFrom: 'md' },
+  { id: 'region', header: 'Region', type: CellType.CHIP, showFrom: 'lg' },
+];
+```
+
+Interaction with sticky inference:
+
+- Columns declaring `showFrom` are skipped when BaseTable infers the default sticky-left anchor or the sticky-right action column, so the pinned column never disappears at narrow widths.
+- Explicit `column.sticky` still wins. If a column sets both `sticky: 'left'` and `showFrom: 'md'`, CSS hides it below `md` — and no column pins on that side there.
+- The selection checkbox column never accepts `showFrom` (selection stays visible at every viewport).
+
+### Known constraint
+
+Sticky positioning resolves against the nearest scrolling ancestor — the shadcn `<Table>` primitive's `overflow-auto` wrapper. If any ancestor in the consuming app sets `overflow: hidden`, sticky cells silently revert to normal scrolling. Keep the wrapper chain free of `overflow-hidden`.
+
 ### Action Menu Highlighting
 
 For `CellType.ACTIONS`, each action can include a `variant` to highlight the icon and label in the expanded menu.

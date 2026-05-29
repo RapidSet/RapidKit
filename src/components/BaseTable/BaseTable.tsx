@@ -17,7 +17,11 @@ import { useAccessResolver } from '@lib/use-access-resolver';
 import { resolveViewEditAccessState } from '@lib/view-edit-access';
 import type { BaseTableSortOrder, TableProps } from './types';
 import { CellType } from './components/BaseTableRow/components/BaseTableCell';
-import { transformColumns } from './helper';
+import {
+  getShowFromClass,
+  resolveStickyColumns,
+  transformColumns,
+} from './helper';
 import { isRowInactive } from './components/BaseTableRow/helper';
 import TablePlaceholder from './components/BaseTablePlaceHolder/BaseTablePlaceHolder';
 import { DataTablePagination } from './components/Pagination/Pagination';
@@ -71,6 +75,7 @@ export const BaseTable = <T extends object>({
   access,
   canAccess,
   getRowId,
+  responsive = true,
 }: TableProps<T>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -80,12 +85,53 @@ export const BaseTable = <T extends object>({
   const isSyncingFromProp = useRef(false);
   const resolvedCanAccess = useAccessResolver(canAccess);
 
-  const availableColumns = customRow ?? columns ?? [];
+  const availableColumns = useMemo(
+    () => customRow ?? columns ?? [],
+    [customRow, columns],
+  );
 
   const { canView, canEdit } = resolveViewEditAccessState(
     access,
     resolvedCanAccess,
   );
+
+  const sticky = useMemo(
+    () =>
+      resolveStickyColumns(availableColumns, {
+        responsive,
+        enableSelection: Boolean(enableSelection),
+      }),
+    [availableColumns, responsive, enableSelection],
+  );
+
+  const getRowBgClass = (rowInactive: boolean, isActive: boolean) => {
+    if (rowInactive) {
+      return 'bg-muted/35';
+    }
+    if (isActive) {
+      return 'bg-muted/65';
+    }
+    return 'bg-background';
+  };
+
+  const getStickyCellClasses = (
+    side: 'left' | 'right' | undefined,
+    role: 'header' | 'body',
+  ) => {
+    if (!side) {
+      return '';
+    }
+    const position = side === 'left' ? 'left-0' : 'right-0';
+    const shadow =
+      side === 'left'
+        ? 'shadow-[inset_-1px_0_0_0_hsl(var(--rk-control-border))]'
+        : 'shadow-[inset_1px_0_0_0_hsl(var(--rk-control-border))]';
+    const removeDivider = side === 'left' ? 'border-r-0' : '';
+    if (role === 'header') {
+      return cn('sticky', position, 'z-20 bg-muted', shadow, removeDivider);
+    }
+    return cn('sticky', position, 'z-[1]', shadow, removeDivider);
+  };
 
   const initialSelection = useMemo(() => {
     if (!selectedItems?.length) {
@@ -271,16 +317,22 @@ export const BaseTable = <T extends object>({
         className,
       )}
     >
+      {/* Sticky columns anchor against the shadcn <Table> primitive's overflow-auto wrapper; keep these ancestors free of overflow-hidden. */}
       <div className="flex-1 min-h-0 border border-[hsl(var(--rk-control-border))] border-b-0">
-        <Table className="w-full min-w-full border-collapse text-sm">
+        <Table className="w-full min-w-full border-separate border-spacing-0 text-sm">
           <TableHeader className="sticky top-0 z-10 bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                className="border-b border-[hsl(var(--rk-control-border))] hover:bg-transparent"
-              >
+              <TableRow key={headerGroup.id} className="hover:bg-transparent">
                 {enableSelection ? (
-                  <TableHead className="w-12 border-r !border-[hsl(var(--rk-control-border))] px-3 py-3 text-left last:border-r-0">
+                  <TableHead
+                    className={cn(
+                      'w-12 border-r border-b !border-[hsl(var(--rk-control-border))] px-3 py-3 text-left last:border-r-0',
+                      getStickyCellClasses(
+                        sticky.selectionSticky ?? undefined,
+                        'header',
+                      ),
+                    )}
+                  >
                     <Checkbox
                       aria-label="Select all rows"
                       checked={allRowsSelected}
@@ -303,14 +355,17 @@ export const BaseTable = <T extends object>({
                     sortIndicator = sortOrder === 'asc' ? '↑' : '↓';
                   }
 
+                  const stickySide = sticky.columnSticky[header.id];
                   return (
                     <TableHead
                       key={header.id}
                       className={cn(
-                        'h-12 border-r !border-[hsl(var(--rk-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
+                        'h-12 border-r border-b !border-[hsl(var(--rk-control-border))] px-4 py-3 text-left text-xs font-medium text-muted-foreground last:border-r-0',
                         isActionColumn && 'w-14 px-4 text-right',
                         isSortable &&
                           'cursor-pointer select-none transition-colors hover:bg-muted/70 hover:text-foreground',
+                        getStickyCellClasses(stickySide, 'header'),
+                        getShowFromClass(column?.showFrom),
                       )}
                       onClick={() => {
                         if (!isSortable || !onSortChange) {
@@ -360,17 +415,26 @@ export const BaseTable = <T extends object>({
                   row.original,
                   availableColumns,
                 );
+                const isActive = activeRow === row.id;
+                const rowBgClass = getRowBgClass(rowInactive, isActive);
+                const stickyBgClasses = cn(
+                  rowBgClass,
+                  !rowInactive && 'group-hover:bg-muted/45',
+                );
+                const isLastRow = rowIndex === rows.length - 1;
+                const cellBorderClass = isLastRow
+                  ? ''
+                  : 'border-b !border-[hsl(var(--rk-control-border))]';
 
                 return (
                   <TableRow
                     key={row.id}
                     className={cn(
-                      'border-b border-[hsl(var(--rk-control-border))] bg-background transition-colors',
-                      rowIndex === rows.length - 1 && 'border-b-0',
+                      'group bg-background transition-colors',
                       rowInactive
                         ? 'cursor-not-allowed bg-muted/35 text-muted-foreground opacity-65'
                         : 'cursor-pointer hover:bg-muted/45',
-                      activeRow === row.id && 'bg-muted/65',
+                      isActive && 'bg-muted/65',
                     )}
                     data-state={row.getIsSelected() ? 'selected' : undefined}
                     aria-disabled={rowInactive}
@@ -382,7 +446,20 @@ export const BaseTable = <T extends object>({
                     }}
                   >
                     {enableSelection ? (
-                      <TableCell className="w-12 border-r !border-[hsl(var(--rk-control-border))] px-3 py-3 align-middle last:border-r-0">
+                      <TableCell
+                        className={cn(
+                          'w-12 border-r !border-[hsl(var(--rk-control-border))] px-3 py-3 align-middle last:border-r-0',
+                          cellBorderClass,
+                          sticky.selectionSticky &&
+                            cn(
+                              getStickyCellClasses(
+                                sticky.selectionSticky,
+                                'body',
+                              ),
+                              stickyBgClasses,
+                            ),
+                        )}
+                      >
                         <Checkbox
                           aria-label="Select row"
                           checked={Boolean(rowSelection[row.id])}
@@ -401,15 +478,23 @@ export const BaseTable = <T extends object>({
                         (item) => item.id === cell.column.id,
                       );
                       const isActionColumn = column?.type === CellType.ACTIONS;
+                      const stickySide = sticky.columnSticky[cell.column.id];
 
                       return (
                         <TableCell
                           key={cell.id}
                           className={cn(
                             'border-r !border-[hsl(var(--rk-control-border))] px-4 py-3 text-xs align-middle text-foreground last:border-r-0',
+                            cellBorderClass,
                             isActionColumn
                               ? 'w-14 text-right'
                               : 'max-w-[240px] truncate text-foreground',
+                            stickySide &&
+                              cn(
+                                getStickyCellClasses(stickySide, 'body'),
+                                stickyBgClasses,
+                              ),
+                            getShowFromClass(column?.showFrom),
                           )}
                           title={
                             isActionColumn

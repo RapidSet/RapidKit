@@ -45,4 +45,11 @@ export interface TableProps<T extends object> {
   selectedItems?: T[];
   compactPagination?: boolean;
   getRowId?: (item: T, index: number) => string;
+  /**
+   * When true (default), the table pins an anchor column on the left
+   * (selection checkbox when enabled, otherwise the first column) and the
+   * last `CellType.ACTIONS` column on the right inside a horizontally
+   * scrolling container. Set to `false` to disable all sticky behavior.
+   */
+  responsive?: boolean;
 }

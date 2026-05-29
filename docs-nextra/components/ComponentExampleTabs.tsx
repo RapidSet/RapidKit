@@ -33,8 +33,11 @@ import {
   Home,
   LifeBuoy,
   PanelLeft,
+  Laptop,
   Plus,
   Settings,
+  Smartphone,
+  Tablet,
   Users,
 } from 'lucide-react';
 
@@ -673,6 +676,7 @@ function BaseTablePreview(): JSX.Element {
         header: 'Owner',
         accessorKey: 'owner' as const,
         type: CellType.AVATAR,
+        showFrom: 'md' as const,
       },
       {
         id: 'status',
@@ -695,12 +699,14 @@ function BaseTablePreview(): JSX.Element {
         header: 'Tags',
         accessorKey: 'tags' as const,
         type: CellType.MULTI_STATUS,
+        showFrom: 'lg' as const,
       },
       {
         id: 'region',
         header: 'Region',
         accessorKey: 'region' as const,
         type: CellType.CHIP,
+        showFrom: 'lg' as const,
       },
       {
         id: 'uptime',
@@ -727,6 +733,7 @@ function BaseTablePreview(): JSX.Element {
         accessorKey: 'createdAt' as const,
         type: CellType.DATE,
         sortable: true,
+        showFrom: 'xl' as const,
       },
       {
         id: 'alertsIcon',
@@ -1547,7 +1554,7 @@ export function ServicesTable() {
         type: CellType.TEXT,
         sortable: true,
       },
-      { id: 'owner', header: 'Owner', accessorKey: 'owner', type: CellType.AVATAR },
+      { id: 'owner', header: 'Owner', accessorKey: 'owner', type: CellType.AVATAR, showFrom: 'md' },
       {
         id: 'status',
         header: 'Status',
@@ -1974,8 +1981,37 @@ import { Avatar, SideBar } from '@rapidset/rapidkit';
   },
 };
 
+type PreviewViewport = 'desktop' | 'laptop' | 'tablet' | 'mobile';
+
+const VIEWPORT_OPTIONS: Array<{
+  id: Exclude<PreviewViewport, 'desktop'>;
+  label: string;
+  shortLabel: string;
+  Icon: typeof Smartphone;
+}> = [
+  {
+    id: 'mobile',
+    label: 'Mobile preview (390px)',
+    shortLabel: 'SM',
+    Icon: Smartphone,
+  },
+  {
+    id: 'tablet',
+    label: 'Tablet preview (768px)',
+    shortLabel: 'MD',
+    Icon: Tablet,
+  },
+  {
+    id: 'laptop',
+    label: 'Laptop preview (1024px)',
+    shortLabel: 'LG',
+    Icon: Laptop,
+  },
+];
+
 function ExampleTabsContent({ component }: ExampleTabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview');
+  const [viewport, setViewport] = useState<PreviewViewport>('desktop');
   const [copyState, setCopyState] = useState<'idle' | 'done' | 'error'>('idle');
   const [highlightedCodeHtml, setHighlightedCodeHtml] = useState('');
 
@@ -2065,6 +2101,38 @@ function ExampleTabsContent({ component }: ExampleTabsProps): JSX.Element {
         >
           Code
         </button>
+        {activeTab === 'preview' ? (
+          <div
+            className="component-example-tabs__viewport-group"
+            role="group"
+            aria-label="Preview viewport"
+          >
+            {VIEWPORT_OPTIONS.map(({ id, label, shortLabel, Icon }) => {
+              const isActive = viewport === id;
+              const nextLabel = isActive ? 'Switch to desktop preview' : label;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  aria-pressed={isActive}
+                  aria-label={nextLabel}
+                  title={nextLabel}
+                  className={`component-example-tabs__viewport-toggle ${
+                    isActive ? 'is-active' : ''
+                  }`}
+                  onClick={() =>
+                    setViewport((current) => (current === id ? 'desktop' : id))
+                  }
+                >
+                  <Icon size={13} aria-hidden="true" />
+                  <span className="component-example-tabs__viewport-toggle-label">
+                    {shortLabel}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
 
       <div
@@ -2076,9 +2144,21 @@ function ExampleTabsContent({ component }: ExampleTabsProps): JSX.Element {
       >
         {activeTab === 'preview' ? (
           <div
-            className={`component-example-tabs__preview component-example-tabs__preview--${component}`}
+            className={`component-example-tabs__preview component-example-tabs__preview--${component} ${
+              viewport !== 'desktop'
+                ? `component-example-tabs__preview--sim component-example-tabs__preview--sim-${viewport}`
+                : ''
+            }`}
           >
-            <Preview />
+            {viewport !== 'desktop' ? (
+              <div
+                className={`component-example-tabs__sim-frame component-example-tabs__sim-frame--${viewport}`}
+              >
+                <Preview />
+              </div>
+            ) : (
+              <Preview />
+            )}
           </div>
         ) : null}
       </div>

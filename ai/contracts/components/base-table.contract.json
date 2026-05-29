@@ -9,7 +9,8 @@
     "pagination": true,
     "sorting": true,
     "placeholder": true,
-    "rowInactive": true
+    "rowInactive": true,
+    "responsive": true
   },
   "props": {
     "data": { "type": "T[]", "required": true },
@@ -55,7 +56,16 @@
       "type": "BaseTableAccessResolver",
       "required": false
     },
-    "placeholder": { "type": "string", "required": false }
+    "placeholder": { "type": "string", "required": false },
+    "responsive": { "type": "boolean", "required": false },
+    "column.sticky": {
+      "type": "\"left\" | \"right\"",
+      "required": false
+    },
+    "column.showFrom": {
+      "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\"",
+      "required": false
+    }
   },
   "states": {
     "visibleWhenNoAccessConfig": "true",
@@ -63,7 +73,12 @@
     "selectionDisabledWhenEditDenied": "true",
     "rowSelectionDisabledWhenInactive": "true",
     "rowClickDisabledWhenInactive": "true",
-    "placeholderVisibleWhenNoRows": "true"
+    "placeholderVisibleWhenNoRows": "true",
+    "stickyAnchorByDefault": "true",
+    "stickyActionsByDefault": "true",
+    "responsiveDisabledWhenResponsiveFalse": "true",
+    "stickyOverrideRespectsColumnSticky": "true",
+    "showFromSkippedInStickyInference": "true"
   },
   "accessibility": {
     "headerSelectionCheckboxHasLabel": "true",

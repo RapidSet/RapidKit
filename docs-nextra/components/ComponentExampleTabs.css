@@ -38,6 +38,12 @@
   gap: 0.75rem;
   padding-top: 0.85rem;
   border-top: 1px solid var(--vp-c-divider);
+  /* Prevent grid items with wide intrinsic content from expanding the column. */
+  min-width: 0;
+}
+
+.component-doc-section > * {
+  min-width: 0;
 }
 
 .component-doc-section__header {
@@ -190,6 +196,14 @@
 
 .component-example-tabs-host {
   margin-top: 1rem;
+  /*
+   * Suppress intrinsic min-content sizing so the example-tabs container
+   * cannot push its CSS-grid parents wider than the docs content column.
+   * Without this, the tabs container expands into the Nextra TOC sidebar
+   * area and the TOC paints over the viewport-toggle buttons, blocking
+   * clicks on all but the rightmost one.
+   */
+  min-width: 0;
 }
 
 .component-example-tabs {
@@ -198,6 +212,8 @@
   overflow: visible;
   background: var(--vp-c-bg);
   box-shadow: none;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .component-example-tabs__controls {
@@ -233,6 +249,123 @@
   color: var(--vp-c-text-1);
   border-color: var(--vp-c-divider);
   background: var(--vp-c-bg-soft);
+}
+
+.component-example-tabs__viewport-group {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.45rem;
+  background: var(--vp-c-bg-soft);
+}
+
+.component-example-tabs__viewport-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--vp-c-text-2);
+  min-width: 2.2rem;
+  height: 1.7rem;
+  padding: 0 0.45rem;
+  border-radius: 0.32rem;
+  cursor: pointer;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition:
+    color 0.12s ease,
+    border-color 0.12s ease,
+    background 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.component-example-tabs__viewport-toggle:hover {
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg);
+  border-color: var(--vp-c-divider);
+}
+
+.component-example-tabs__viewport-toggle.is-active {
+  color: var(--vp-c-text-1);
+  border-color: var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.component-example-tabs__viewport-toggle-label {
+  line-height: 1;
+}
+
+.component-example-tabs__preview--sim {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.component-example-tabs__sim-frame {
+  flex: 0 0 auto;
+  margin: 0 auto;
+  padding: 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  box-shadow: 0 0 0 4px var(--vp-c-bg-soft);
+}
+
+.component-example-tabs__sim-frame > * {
+  max-width: 100%;
+}
+
+.component-example-tabs__sim-frame--mobile {
+  width: 390px;
+  border-radius: 1.25rem;
+}
+
+.component-example-tabs__sim-frame--tablet {
+  width: 768px;
+  border-radius: 0.85rem;
+}
+
+.component-example-tabs__sim-frame--laptop {
+  width: 1024px;
+  border-radius: 0.65rem;
+}
+
+/*
+ * BaseTable showFrom simulation.
+ *
+ * BaseTable emits Tailwind responsive classes like `hidden md:table-cell`
+ * which evaluate against the real browser viewport — not against the
+ * width of the simulated frame above. To make the docs preview honestly
+ * demonstrate showFrom across viewports, we force-hide cells whose
+ * `min-width:` breakpoint exceeds the simulated viewport width.
+ *
+ * Active in sim frames only. Real-viewport responsiveness outside the
+ * sim frames is untouched.
+ */
+.component-example-tabs__preview--sim-mobile .sm\:table-cell,
+.component-example-tabs__preview--sim-mobile .md\:table-cell,
+.component-example-tabs__preview--sim-mobile .lg\:table-cell,
+.component-example-tabs__preview--sim-mobile .xl\:table-cell,
+.component-example-tabs__preview--sim-mobile .\32xl\:table-cell {
+  display: none !important;
+}
+
+.component-example-tabs__preview--sim-tablet .lg\:table-cell,
+.component-example-tabs__preview--sim-tablet .xl\:table-cell,
+.component-example-tabs__preview--sim-tablet .\32xl\:table-cell {
+  display: none !important;
+}
+
+.component-example-tabs__preview--sim-laptop .xl\:table-cell,
+.component-example-tabs__preview--sim-laptop .\32xl\:table-cell {
+  display: none !important;
 }
 
 .component-example-tabs__panel {
