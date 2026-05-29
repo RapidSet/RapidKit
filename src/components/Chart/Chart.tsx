@@ -24,7 +24,17 @@ import {
   type ChartConfig,
 } from '@ui/chart';
 import { resolveChartAccessState } from './helpers';
-import { CHART_DEFAULT_PALETTE, ChartVariant } from './styles';
+import {
+  CHART_AXIS_TICK_MARGIN,
+  CHART_DEFAULT_BAR_RADIUS,
+  CHART_DEFAULT_CONTAINER_STYLE,
+  CHART_DEFAULT_PALETTE,
+  CHART_DEFAULT_PIE_INNER_RADIUS,
+  CHART_DEFAULT_PIE_OUTER_RADIUS,
+  CHART_DEFAULT_STACK_ID,
+  CHART_VERTICAL_Y_AXIS_WIDTH,
+  ChartVariant,
+} from './consts';
 import type {
   ChartAreaProps,
   ChartBarProps,
@@ -34,8 +44,6 @@ import type {
   ChartPieProps,
   ChartProps,
 } from './types';
-
-const DEFAULT_STYLE: CSSProperties = { width: '100%' };
 
 const isCartesianProps = (
   props: ChartProps,
@@ -99,7 +107,7 @@ const buildSeriesElements = (
     .map((entry) => {
       const color = entry.color ?? `var(--color-${entry.dataKey})`;
       const stackId = stacked
-        ? (entry.stackId ?? 'rk-chart-stack')
+        ? (entry.stackId ?? CHART_DEFAULT_STACK_ID)
         : entry.stackId;
 
       if (type === ChartVariant.Line) {
@@ -125,7 +133,7 @@ const buildSeriesElements = (
             key={entry.dataKey}
             dataKey={entry.dataKey}
             fill={color}
-            radius={barProps.barRadius ?? 4}
+            radius={barProps.barRadius ?? CHART_DEFAULT_BAR_RADIUS}
             stackId={stackId}
             isAnimationActive={false}
           />
@@ -186,7 +194,7 @@ const renderCartesianChart = (
   const xAxisProps: Record<string, unknown> = {
     tickLine: false,
     axisLine: false,
-    tickMargin: 8,
+    tickMargin: CHART_AXIS_TICK_MARGIN,
   };
   if (isVertical) {
     xAxisProps.type = 'number';
@@ -198,12 +206,12 @@ const renderCartesianChart = (
   const yAxisProps: Record<string, unknown> = {
     tickLine: false,
     axisLine: false,
-    tickMargin: 8,
+    tickMargin: CHART_AXIS_TICK_MARGIN,
   };
   if (isVertical) {
     yAxisProps.dataKey = xAxisKey;
     yAxisProps.type = 'category';
-    yAxisProps.width = 80;
+    yAxisProps.width = CHART_VERTICAL_Y_AXIS_WIDTH;
   }
   const yAxis = showYAxis ? <YAxis {...yAxisProps} /> : null;
 
@@ -264,8 +272,8 @@ const renderPieChart = (props: ChartPieProps) => {
     showTooltip = true,
     showLegend = true,
     legendPlacement = 'bottom',
-    innerRadius = 0,
-    outerRadius = 90,
+    innerRadius = CHART_DEFAULT_PIE_INNER_RADIUS,
+    outerRadius = CHART_DEFAULT_PIE_OUTER_RADIUS,
   } = props;
 
   return (
@@ -343,7 +351,11 @@ export const Chart = forwardRef<HTMLDivElement, ChartProps>((props, ref) => {
           'flex aspect-video items-center justify-center rounded-md border border-dashed border-border bg-card text-sm text-muted-foreground',
           className,
         )}
-        style={height ? { ...DEFAULT_STYLE, height } : DEFAULT_STYLE}
+        style={
+          height
+            ? { ...CHART_DEFAULT_CONTAINER_STYLE, height }
+            : CHART_DEFAULT_CONTAINER_STYLE
+        }
       >
         {emptyState ?? 'No data to display'}
       </div>
@@ -351,8 +363,8 @@ export const Chart = forwardRef<HTMLDivElement, ChartProps>((props, ref) => {
   }
 
   const containerStyle: CSSProperties = height
-    ? { ...DEFAULT_STYLE, height }
-    : DEFAULT_STYLE;
+    ? { ...CHART_DEFAULT_CONTAINER_STYLE, height }
+    : CHART_DEFAULT_CONTAINER_STYLE;
 
   // Pass the resolved (color-filled) config through to nested renderers so
   // tooltips, legends, and series resolve the same fallback colors.

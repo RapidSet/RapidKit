@@ -3,7 +3,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { RapidKitAccessProvider } from '@lib/access-provider';
 import { Chart } from './Chart';
-import { ChartVariant } from './styles';
+import { ChartVariant } from './consts';
 import type { ChartConfig } from './types';
 
 vi.mock('recharts', async (importOriginal) => {

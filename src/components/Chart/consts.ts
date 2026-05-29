@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 export enum ChartVariant {
   Line = 'line',
   Bar = 'bar',
@@ -20,3 +22,14 @@ export const CHART_DEFAULT_PALETTE: readonly string[] = [
   'hsl(var(--rk-chart-4))',
   'hsl(var(--rk-chart-5))',
 ] as const;
+
+export const CHART_DEFAULT_CONTAINER_STYLE: CSSProperties = {
+  width: '100%',
+};
+
+export const CHART_DEFAULT_PIE_INNER_RADIUS = 0;
+export const CHART_DEFAULT_PIE_OUTER_RADIUS = 90;
+export const CHART_DEFAULT_BAR_RADIUS = 4;
+export const CHART_DEFAULT_STACK_ID = 'rk-chart-stack';
+export const CHART_VERTICAL_Y_AXIS_WIDTH = 80;
+export const CHART_AXIS_TICK_MARGIN = 8;

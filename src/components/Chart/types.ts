@@ -6,7 +6,7 @@ import type {
   AccessRule,
 } from '@lib/access-types';
 import type { ChartConfig } from '@ui/chart';
-import type { ChartVariant } from './styles';
+import type { ChartVariant } from './consts';
 
 export type ChartAccessMode = 'view';
 export type ChartAccessMatch = AccessMatch;
