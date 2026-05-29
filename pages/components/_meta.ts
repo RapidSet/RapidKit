@@ -17,6 +17,9 @@ export default {
   button: {
     title: 'Button',
   },
+  chart: {
+    title: 'Chart',
+  },
   checkbox: {
     title: 'Checkbox',
   },

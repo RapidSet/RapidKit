@@ -25,6 +25,7 @@ Use the left navigation to browse individual components.
 - [BaseModal](./base-modal.md)
 - [BaseTable](./base-table.md)
 - [Button](./button.md)
+- [Chart](./chart.md)
 - [Checkbox](./checkbox.md)
 - [Chip](./chip.md)
 - [DatePicker](./date-picker.md)

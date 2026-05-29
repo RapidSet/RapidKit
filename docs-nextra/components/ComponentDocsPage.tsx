@@ -271,6 +271,64 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'If you provide access rules, Button can either stay disabled or disappear based on the experience you want for unavailable actions.',
   },
+  chart: {
+    title: 'Chart',
+    summary:
+      'Chart wraps Recharts with a config-driven API so line, bar, area, and pie variants render with theme-aware colors, predictable tooltips, and an opt-in empty state.',
+    highlights: [
+      'Line, bar, area, and pie variants',
+      'Config-driven colors and labels',
+      'Tooltip, legend, and empty state controls',
+    ],
+    importCode:
+      "import { Chart, ChartVariant } from '@rapidset/rapidkit';\nimport type { ChartConfig } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'type',
+        description:
+          'Selects the chart variant: line, bar, area, or pie via ChartVariant.',
+      },
+      {
+        name: 'data',
+        description:
+          'Array of row objects keyed by the x-axis field and each series dataKey.',
+      },
+      {
+        name: 'config',
+        description:
+          'Maps each data key to its display label and color so tooltip and legend stay in sync.',
+      },
+      {
+        name: 'series',
+        description:
+          'For line, bar, and area variants: which data keys to plot and how they stack.',
+      },
+      {
+        name: 'xAxisKey',
+        description:
+          'For cartesian variants: the row field used along the categorical axis.',
+      },
+      {
+        name: 'dataKey and nameKey',
+        description:
+          'For the pie variant: the numeric slice value and the slice label fields.',
+      },
+      {
+        name: 'showTooltip, showLegend, showGrid',
+        description:
+          'Toggle the standard chart chrome without dropping into Recharts directly.',
+      },
+      {
+        name: 'emptyState',
+        description:
+          'Renders custom content when the data array is empty so the layout stays stable.',
+      },
+    ],
+    accessibility:
+      'The chart surface is exposed with role="img" and an aria-label derived from the variant, so assistive tech can announce its purpose alongside any companion table.',
+    accessBehavior:
+      'If you provide access rules, Chart can stay hidden when view access is denied so it never reveals data the viewer should not see.',
+  },
   checkbox: {
     title: 'Checkbox',
     summary:

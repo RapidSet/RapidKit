@@ -217,6 +217,18 @@
         "labelAndHelperText",
         "errorState"
       ]
+    },
+    {
+      "name": "Chart",
+      "contractPath": "ai/contracts/components/chart.contract.json",
+      "sourcePath": "src/components/Chart",
+      "capabilities": [
+        "accessControl",
+        "chartVariants",
+        "configurableSeries",
+        "emptyStateRendering",
+        "tooltipAndLegendToggles"
+      ]
     }
   ],
   "themes": [

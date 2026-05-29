@@ -12,6 +12,7 @@ export * from './components/Logo';
 export * from './components/NavMenu';
 export * from './components/Chip';
 export * from './components/Button';
+export * from './components/Chart';
 export * from './components/Page';
 export * from './components/Search';
 export * from './components/SideBar';

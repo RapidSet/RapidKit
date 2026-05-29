@@ -4,6 +4,8 @@ import { Avatar } from '../../src/components/Avatar';
 import { BaseModal } from '../../src/components/BaseModal';
 import { BaseTable } from '../../src/components/BaseTable';
 import { Button, ButtonVariant } from '../../src/components/Button';
+import { Chart, ChartVariant } from '../../src/components/Chart';
+import type { ChartConfig } from '../../src/components/Chart';
 import { Checkbox } from '../../src/components/Checkbox';
 import { Chip } from '../../src/components/Chip';
 import { DatePicker } from '../../src/components/DatePicker';
@@ -47,6 +49,7 @@ export type ComponentExampleId =
   | 'base-modal'
   | 'base-table'
   | 'button'
+  | 'chart'
   | 'checkbox'
   | 'chip'
   | 'date-picker'
@@ -926,6 +929,105 @@ function CheckboxPreview(): JSX.Element {
   );
 }
 
+const CHART_DEMO_DATA = [
+  { month: 'Jan', revenue: 12_400, cost: 8_100 },
+  { month: 'Feb', revenue: 18_900, cost: 10_700 },
+  { month: 'Mar', revenue: 22_300, cost: 13_400 },
+  { month: 'Apr', revenue: 20_100, cost: 12_900 },
+  { month: 'May', revenue: 26_500, cost: 15_200 },
+  { month: 'Jun', revenue: 31_200, cost: 17_800 },
+];
+
+const CHART_DEMO_CONFIG: ChartConfig = {
+  revenue: { label: 'Revenue', color: 'hsl(var(--rk-chart-1))' },
+  cost: { label: 'Cost', color: 'hsl(var(--rk-chart-2))' },
+};
+
+const CHART_PIE_DATA = [
+  { segment: 'Web', value: 540 },
+  { segment: 'Mobile', value: 320 },
+  { segment: 'API', value: 220 },
+  { segment: 'Partners', value: 120 },
+];
+
+const CHART_PIE_CONFIG: ChartConfig = {
+  Web: { label: 'Web', color: 'hsl(var(--rk-chart-1))' },
+  Mobile: { label: 'Mobile', color: 'hsl(var(--rk-chart-2))' },
+  API: { label: 'API', color: 'hsl(var(--rk-chart-3))' },
+  Partners: { label: 'Partners', color: 'hsl(var(--rk-chart-4))' },
+};
+
+const CHART_SERIES = [{ dataKey: 'revenue' }, { dataKey: 'cost' }] as const;
+
+type ChartTileProps = Readonly<{
+  title: string;
+  children: JSX.Element;
+}>;
+
+function ChartTile({ title, children }: ChartTileProps): JSX.Element {
+  return (
+    <div className="flex flex-col gap-2 rounded-md border border-border bg-card p-3">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {title}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+function ChartPreview(): JSX.Element {
+  return (
+    <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
+      <ChartTile title="Line">
+        <Chart
+          type={ChartVariant.Line}
+          data={CHART_DEMO_DATA}
+          config={CHART_DEMO_CONFIG}
+          series={CHART_SERIES}
+          xAxisKey="month"
+          smooth
+          showDots
+          height={200}
+        />
+      </ChartTile>
+      <ChartTile title="Bar">
+        <Chart
+          type={ChartVariant.Bar}
+          data={CHART_DEMO_DATA}
+          config={CHART_DEMO_CONFIG}
+          series={CHART_SERIES}
+          xAxisKey="month"
+          height={200}
+        />
+      </ChartTile>
+      <ChartTile title="Area (stacked)">
+        <Chart
+          type={ChartVariant.Area}
+          data={CHART_DEMO_DATA}
+          config={CHART_DEMO_CONFIG}
+          series={CHART_SERIES}
+          xAxisKey="month"
+          smooth
+          stacked
+          height={200}
+        />
+      </ChartTile>
+      <ChartTile title="Pie (donut)">
+        <Chart
+          type={ChartVariant.Pie}
+          data={CHART_PIE_DATA}
+          config={CHART_PIE_CONFIG}
+          dataKey="value"
+          nameKey="segment"
+          innerRadius={45}
+          outerRadius={80}
+          height={200}
+        />
+      </ChartTile>
+    </div>
+  );
+}
+
 function TogglePreview(): JSX.Element {
   const [enabled, setEnabled] = useState(true);
 
@@ -1591,6 +1693,87 @@ import { Button, ButtonVariant } from '@rapidset/rapidkit';
   <Button label="Right Icon" rightIcon={Download} variant={ButtonVariant.Outlined} onClick={() => console.log('right icon')} />
   <Button label="Delete" variant={ButtonVariant.Destructive} onClick={() => console.log('delete')} />
 </div>;`,
+  },
+  chart: {
+    render: ChartPreview,
+    code: `import { Chart, ChartVariant } from '@rapidset/rapidkit';
+import type { ChartConfig } from '@rapidset/rapidkit';
+
+const data = [
+  { month: 'Jan', revenue: 12400, cost: 8100 },
+  { month: 'Feb', revenue: 18900, cost: 10700 },
+  { month: 'Mar', revenue: 22300, cost: 13400 },
+  { month: 'Apr', revenue: 20100, cost: 12900 },
+  { month: 'May', revenue: 26500, cost: 15200 },
+  { month: 'Jun', revenue: 31200, cost: 17800 },
+];
+
+const config: ChartConfig = {
+  revenue: { label: 'Revenue', color: 'hsl(var(--rk-chart-1))' },
+  cost: { label: 'Cost', color: 'hsl(var(--rk-chart-2))' },
+};
+
+const series = [{ dataKey: 'revenue' }, { dataKey: 'cost' }];
+
+// Line
+<Chart
+  type={ChartVariant.Line}
+  data={data}
+  config={config}
+  series={series}
+  xAxisKey="month"
+  smooth
+  showDots
+  height={200}
+/>;
+
+// Bar
+<Chart
+  type={ChartVariant.Bar}
+  data={data}
+  config={config}
+  series={series}
+  xAxisKey="month"
+  height={200}
+/>;
+
+// Area (stacked)
+<Chart
+  type={ChartVariant.Area}
+  data={data}
+  config={config}
+  series={series}
+  xAxisKey="month"
+  smooth
+  stacked
+  height={200}
+/>;
+
+// Pie (donut: innerRadius > 0)
+const segments = [
+  { segment: 'Web', value: 540 },
+  { segment: 'Mobile', value: 320 },
+  { segment: 'API', value: 220 },
+  { segment: 'Partners', value: 120 },
+];
+
+const pieConfig: ChartConfig = {
+  Web: { label: 'Web', color: 'hsl(var(--rk-chart-1))' },
+  Mobile: { label: 'Mobile', color: 'hsl(var(--rk-chart-2))' },
+  API: { label: 'API', color: 'hsl(var(--rk-chart-3))' },
+  Partners: { label: 'Partners', color: 'hsl(var(--rk-chart-4))' },
+};
+
+<Chart
+  type={ChartVariant.Pie}
+  data={segments}
+  config={pieConfig}
+  dataKey="value"
+  nameKey="segment"
+  innerRadius={45}
+  outerRadius={80}
+  height={200}
+/>;`,
   },
   checkbox: {
     render: CheckboxPreview,

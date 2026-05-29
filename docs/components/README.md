@@ -19,6 +19,7 @@ This section contains consumer-facing documentation for each public component ex
 - [BaseModal](./base-modal.md)
 - [BaseTable](./base-table.md)
 - [Button](./button.md)
+- [Chart](./chart.md)
 - [Checkbox](./checkbox.md)
 - [Chip](./chip.md)
 - [DatePicker](./date-picker.md)

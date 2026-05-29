@@ -17,6 +17,7 @@ Direct links:
 - https://rapidset.github.io/RapidKit/components/base-modal
 - https://rapidset.github.io/RapidKit/components/base-table
 - https://rapidset.github.io/RapidKit/components/button
+- https://rapidset.github.io/RapidKit/components/chart
 - https://rapidset.github.io/RapidKit/components/checkbox
 - https://rapidset.github.io/RapidKit/components/chip
 - https://rapidset.github.io/RapidKit/components/date-picker

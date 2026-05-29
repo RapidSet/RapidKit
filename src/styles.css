@@ -75,6 +75,11 @@
     --sidebar-accent-foreground: var(--rk-accent-foreground);
     --sidebar-border: var(--rk-border);
     --sidebar-ring: var(--rk-ring);
+    --rk-chart-1: var(--chart-1, 221 83% 53%);
+    --rk-chart-2: var(--chart-2, 160 65% 45%);
+    --rk-chart-3: var(--chart-3, 30 90% 55%);
+    --rk-chart-4: var(--chart-4, 280 65% 60%);
+    --rk-chart-5: var(--chart-5, 340 75% 55%);
   }
 
   .dark {
@@ -102,6 +107,11 @@
     --rk-button-shadow-hover: 0 10px 18px hsl(0 0% 0% / 0.5);
     --rk-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.3);
     --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.3);
+    --rk-chart-1: var(--chart-1, 217 91% 65%);
+    --rk-chart-2: var(--chart-2, 160 70% 55%);
+    --rk-chart-3: var(--chart-3, 35 90% 65%);
+    --rk-chart-4: var(--chart-4, 280 70% 70%);
+    --rk-chart-5: var(--chart-5, 340 80% 65%);
   }
 
   * {

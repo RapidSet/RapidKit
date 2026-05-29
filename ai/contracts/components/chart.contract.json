@@ -1,0 +1,141 @@
+{
+  "component": "Chart",
+  "version": "1.0.0",
+  "source": "src/components/Chart",
+  "description": "A theme-aware chart wrapper with line, bar, area, and pie variants, config-driven series colors, optional tooltip/legend, empty-state rendering, and injectable view access control.",
+  "capabilities": {
+    "accessControl": true,
+    "chartVariants": true,
+    "configurableSeries": true,
+    "emptyStateRendering": true,
+    "tooltipAndLegendToggles": true
+  },
+  "props": {
+    "type": {
+      "type": "ChartVariant",
+      "required": true
+    },
+    "data": {
+      "type": "readonly ChartDatum[]",
+      "required": true
+    },
+    "config": {
+      "type": "ChartConfig",
+      "required": true
+    },
+    "series": {
+      "type": "readonly ChartSeries[]",
+      "required": false,
+      "default": "undefined for pie; required for line, bar, and area"
+    },
+    "xAxisKey": {
+      "type": "string",
+      "required": false,
+      "default": "undefined for pie; required for line, bar, and area"
+    },
+    "dataKey": {
+      "type": "string",
+      "required": false,
+      "default": "required for pie variant"
+    },
+    "nameKey": {
+      "type": "string",
+      "required": false,
+      "default": "required for pie variant"
+    },
+    "height": {
+      "type": "number | string",
+      "required": false
+    },
+    "showTooltip": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showLegend": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showGrid": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showXAxis": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showYAxis": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "stacked": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "layout": {
+      "type": "\"horizontal\" | \"vertical\"",
+      "required": false,
+      "default": "\"horizontal\""
+    },
+    "smooth": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showDots": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "barRadius": {
+      "type": "number",
+      "required": false,
+      "default": "4"
+    },
+    "innerRadius": {
+      "type": "number",
+      "required": false,
+      "default": "0"
+    },
+    "outerRadius": {
+      "type": "number",
+      "required": false,
+      "default": "90"
+    },
+    "emptyState": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "access": {
+      "type": "ChartAccessConfig",
+      "required": false
+    },
+    "canAccess": {
+      "type": "ChartAccessResolver",
+      "required": false
+    }
+  },
+  "states": {
+    "visibleWhenNoAccessConfig": "true",
+    "hiddenWhenViewDenied": "true",
+    "emptyStateVisibleWhenDataIsEmpty": "true",
+    "tooltipHiddenWhenShowTooltipFalse": "true",
+    "legendHiddenWhenShowLegendFalse": "true",
+    "hiddenSeriesNotRendered": "true"
+  },
+  "accessibility": {
+    "chartContainerHasRoleImg": "true",
+    "ariaLabelDerivedFromVariant": "true"
+  },
+  "interaction": {
+    "perVariantRenderingPreserved": "true",
+    "configDrivenColorsApplied": "true",
+    "fallbackPaletteUsedWhenColorUnset": "true"
+  },
+  "tests": ["src/components/Chart/Chart.test.tsx"]
+}

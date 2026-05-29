@@ -51,6 +51,7 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 - BaseModal
 - BaseTable
 - Button
+- Chart
 - Checkbox
 - Chip
 - DatePicker
