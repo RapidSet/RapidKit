@@ -33,3 +33,12 @@ export const CHART_DEFAULT_BAR_RADIUS = 4;
 export const CHART_DEFAULT_STACK_ID = 'rk-chart-stack';
 export const CHART_VERTICAL_Y_AXIS_WIDTH = 80;
 export const CHART_AXIS_TICK_MARGIN = 8;
+
+export const CHART_GRID_STROKE_DASHARRAY = '3 3';
+export const CHART_LINE_STROKE_WIDTH = 2;
+export const CHART_ACTIVE_DOT_RADIUS = 4;
+export const CHART_AREA_FILL_OPACITY = 0.25;
+export const CHART_DEFAULT_LEGEND_PLACEMENT = 'bottom';
+export const CHART_DEFAULT_LAYOUT = 'horizontal';
+export const CHART_EMPTY_STATE_TEXT = 'No data to display';
+export const CHART_EMPTY_STATE_LABEL = 'Empty chart';

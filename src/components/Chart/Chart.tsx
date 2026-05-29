@@ -21,17 +21,27 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
 } from '@ui/chart';
-import { resolveChartAccessState } from './helpers';
 import {
+  buildResolvedConfig,
+  isCartesianProps,
+  resolveChartAccessState,
+} from './helpers';
+import {
+  CHART_ACTIVE_DOT_RADIUS,
+  CHART_AREA_FILL_OPACITY,
   CHART_AXIS_TICK_MARGIN,
   CHART_DEFAULT_BAR_RADIUS,
   CHART_DEFAULT_CONTAINER_STYLE,
-  CHART_DEFAULT_PALETTE,
+  CHART_DEFAULT_LAYOUT,
+  CHART_DEFAULT_LEGEND_PLACEMENT,
   CHART_DEFAULT_PIE_INNER_RADIUS,
   CHART_DEFAULT_PIE_OUTER_RADIUS,
   CHART_DEFAULT_STACK_ID,
+  CHART_EMPTY_STATE_LABEL,
+  CHART_EMPTY_STATE_TEXT,
+  CHART_GRID_STROKE_DASHARRAY,
+  CHART_LINE_STROKE_WIDTH,
   CHART_VERTICAL_Y_AXIS_WIDTH,
   ChartVariant,
 } from './consts';
@@ -44,58 +54,6 @@ import type {
   ChartPieProps,
   ChartProps,
 } from './types';
-
-const isCartesianProps = (
-  props: ChartProps,
-): props is ChartLineProps | ChartBarProps | ChartAreaProps =>
-  props.type === ChartVariant.Line ||
-  props.type === ChartVariant.Bar ||
-  props.type === ChartVariant.Area;
-
-const hasConfigColor = (config: ChartConfig, key: string): boolean => {
-  const entry = config[key];
-  if (!entry) {
-    return false;
-  }
-  if ('color' in entry && entry.color) {
-    return true;
-  }
-  return 'theme' in entry && Boolean(entry.theme);
-};
-
-const resolveFallbackColor = (index: number): string =>
-  CHART_DEFAULT_PALETTE[index % CHART_DEFAULT_PALETTE.length] ?? '';
-
-/**
- * Build a config that guarantees a `color` for every key the chart will
- * render. Shadcn's `ChartStyle` emits `--color-<key>` only for entries that
- * have a `color` or `theme` set, and chart SVG paint attributes can only
- * resolve `var(--color-<key>)` (not nested `hsl(var(--*))` chains). So we
- * fill in fallback palette colors for any series/slice without one before
- * handing the config to `ChartContainer`.
- */
-const buildResolvedConfig = (
-  config: ChartConfig,
-  keys: readonly string[],
-): ChartConfig => {
-  const next: ChartConfig = { ...config };
-  let fallbackIndex = 0;
-  keys.forEach((key) => {
-    if (hasConfigColor(next, key)) {
-      return;
-    }
-    const existing = next[key];
-    // hasConfigColor returned false, so existing has no color and no theme;
-    // the `color`-branch of the discriminated union is the safe target.
-    next[key] = {
-      label: existing?.label,
-      icon: existing?.icon,
-      color: resolveFallbackColor(fallbackIndex),
-    } as ChartConfig[string];
-    fallbackIndex += 1;
-  });
-  return next;
-};
 
 const buildSeriesElements = (
   props: ChartLineProps | ChartBarProps | ChartAreaProps,
@@ -118,9 +76,9 @@ const buildSeriesElements = (
             type={lineProps.smooth ? 'monotone' : 'linear'}
             dataKey={entry.dataKey}
             stroke={color}
-            strokeWidth={2}
+            strokeWidth={CHART_LINE_STROKE_WIDTH}
             dot={lineProps.showDots ?? false}
-            activeDot={{ r: 4 }}
+            activeDot={{ r: CHART_ACTIVE_DOT_RADIUS }}
             isAnimationActive={false}
           />
         );
@@ -148,7 +106,7 @@ const buildSeriesElements = (
           dataKey={entry.dataKey}
           stroke={color}
           fill={color}
-          fillOpacity={0.25}
+          fillOpacity={CHART_AREA_FILL_OPACITY}
           stackId={stackId}
           isAnimationActive={false}
         />
@@ -167,8 +125,8 @@ const renderCartesianChart = (
     showYAxis = true,
     showTooltip = true,
     showLegend = true,
-    legendPlacement = 'bottom',
-    layout = 'horizontal',
+    legendPlacement = CHART_DEFAULT_LEGEND_PLACEMENT,
+    layout = CHART_DEFAULT_LAYOUT,
     type,
   } = props as ChartCartesianProps & { type: ChartVariant };
 
@@ -188,7 +146,10 @@ const renderCartesianChart = (
   const isVertical = layout === 'vertical';
 
   const grid = showGrid ? (
-    <CartesianGrid strokeDasharray="3 3" vertical={isVertical} />
+    <CartesianGrid
+      strokeDasharray={CHART_GRID_STROKE_DASHARRAY}
+      vertical={isVertical}
+    />
   ) : null;
 
   const xAxisProps: Record<string, unknown> = {
@@ -271,7 +232,7 @@ const renderPieChart = (props: ChartPieProps) => {
     nameKey,
     showTooltip = true,
     showLegend = true,
-    legendPlacement = 'bottom',
+    legendPlacement = CHART_DEFAULT_LEGEND_PLACEMENT,
     innerRadius = CHART_DEFAULT_PIE_INNER_RADIUS,
     outerRadius = CHART_DEFAULT_PIE_OUTER_RADIUS,
   } = props;
@@ -346,7 +307,7 @@ export const Chart = forwardRef<HTMLDivElement, ChartProps>((props, ref) => {
       <div
         ref={ref}
         role="img"
-        aria-label="Empty chart"
+        aria-label={CHART_EMPTY_STATE_LABEL}
         className={cn(
           'flex aspect-video items-center justify-center rounded-md border border-dashed border-border bg-card text-sm text-muted-foreground',
           className,
@@ -357,7 +318,7 @@ export const Chart = forwardRef<HTMLDivElement, ChartProps>((props, ref) => {
             : CHART_DEFAULT_CONTAINER_STYLE
         }
       >
-        {emptyState ?? 'No data to display'}
+        {emptyState ?? CHART_EMPTY_STATE_TEXT}
       </div>
     );
   }
