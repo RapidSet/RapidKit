@@ -22,7 +22,7 @@ It is built on top of proven technologies including shadcn/ui, Radix UI, Zod, RT
 
 ## Installation
 
-Choose your package manager:
+Install RapidKit alongside its required peers:
 
 ```bash
 pnpm add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-table react-redux react-hook-form zod tailwindcss
@@ -35,6 +35,21 @@ npm install @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-
 ```bash
 yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-table react-redux react-hook-form zod tailwindcss
 ```
+
+### Optional peers (only install if you use the matching components)
+
+| Component    | Install when using          |
+| ------------ | --------------------------- |
+| `Chart`      | `recharts`                  |
+| `DatePicker` | `react-day-picker date-fns` |
+| `Toast`      | `sonner`                    |
+
+```bash
+# Example: app that uses DatePicker and Toast but not Chart
+pnpm add react-day-picker date-fns sonner
+```
+
+These are declared as optional peer dependencies so package managers won't auto-install them — apps that don't render the matching components carry no extra install or bundle cost.
 
 ## Compatibility
 
