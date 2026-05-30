@@ -283,6 +283,11 @@
       "cssPath": "src/themes/midnight.css"
     },
     {
+      "id": "monday",
+      "contractPath": "ai/contracts/themes/monday-theme.contract.json",
+      "cssPath": "src/themes/monday.css"
+    },
+    {
       "id": "ocean",
       "contractPath": "ai/contracts/themes/ocean-theme.contract.json",
       "cssPath": "src/themes/ocean.css"

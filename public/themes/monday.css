@@ -1,0 +1,69 @@
+:root {
+  --rk-background: 0 0% 100%;
+  --rk-foreground: 228 6% 21%;
+  --rk-card: 0 0% 100%;
+  --rk-card-foreground: 228 6% 21%;
+  --rk-popover: 0 0% 100%;
+  --rk-popover-foreground: 228 6% 21%;
+  --rk-primary: 212 100% 46%;
+  --rk-primary-foreground: 0 0% 100%;
+  --rk-secondary: 228 33% 97%;
+  --rk-secondary-foreground: 228 6% 21%;
+  --rk-muted: 228 33% 97%;
+  --rk-muted-foreground: 230 8% 44%;
+  --rk-accent: 276 60% 61%;
+  --rk-accent-foreground: 0 0% 100%;
+  --rk-destructive: 351 71% 58%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 229 16% 87%;
+  --rk-input: 229 16% 87%;
+  --rk-ring: 212 100% 46%;
+  --rk-radius: 0.5rem;
+  --rk-font-sans:
+    'Figtree', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --rk-font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
+  --rk-button-height: 2.5rem;
+  --rk-button-padding-x: 1rem;
+  --rk-button-padding-y: 0.5rem;
+  --rk-button-font-size: 0.875rem;
+  --rk-button-font-weight: 600;
+  --rk-button-letter-spacing: 0.005em;
+  --rk-button-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.08);
+  --rk-button-shadow-hover: 0 6px 14px hsl(212 100% 46% / 0.22);
+  --rk-control-height: 2.5rem;
+  --rk-control-padding-x: 0.75rem;
+  --rk-control-padding-y: 0.5rem;
+  --rk-control-font-size: 0.875rem;
+  --rk-control-border: 229 16% 80%;
+  --rk-control-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.05);
+  --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.24);
+  --rk-checkbox-size: 1rem;
+  --rk-checkbox-radius: 0.25rem;
+}
+
+.dark {
+  --rk-background: 232 35% 12%;
+  --rk-foreground: 228 33% 97%;
+  --rk-card: 232 30% 15%;
+  --rk-card-foreground: 228 33% 97%;
+  --rk-popover: 232 30% 15%;
+  --rk-popover-foreground: 228 33% 97%;
+  --rk-primary: 212 100% 65%;
+  --rk-primary-foreground: 232 35% 12%;
+  --rk-secondary: 232 22% 22%;
+  --rk-secondary-foreground: 228 33% 97%;
+  --rk-muted: 232 22% 22%;
+  --rk-muted-foreground: 228 14% 70%;
+  --rk-accent: 276 70% 72%;
+  --rk-accent-foreground: 232 35% 12%;
+  --rk-destructive: 351 65% 55%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 232 18% 26%;
+  --rk-input: 232 18% 26%;
+  --rk-ring: 212 100% 65%;
+  --rk-control-border: 232 18% 32%;
+  --rk-button-shadow: 0 1px 2px hsl(0 0% 0% / 0.4);
+  --rk-button-shadow-hover: 0 8px 18px hsl(212 100% 46% / 0.42);
+  --rk-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.32);
+  --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.32);
+}

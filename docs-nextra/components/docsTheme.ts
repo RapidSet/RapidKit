@@ -4,6 +4,7 @@ export type BuiltInThemeId =
   | 'default'
   | 'forest'
   | 'midnight'
+  | 'monday'
   | 'ocean'
   | 'polaris'
   | 'sand'
@@ -100,6 +101,21 @@ export const THEME_OPTIONS: ThemeOption[] = [
       primary: 'hsl(246 86% 70%)',
       accent: 'hsl(278 67% 63%)',
       surface: 'hsl(232 35% 8%)',
+    },
+  },
+  {
+    id: 'monday',
+    label: 'Monday',
+    note: 'monday.com-inspired vibrancy',
+    light: {
+      primary: 'hsl(212 100% 46%)',
+      accent: 'hsl(276 60% 61%)',
+      surface: 'hsl(228 33% 97%)',
+    },
+    dark: {
+      primary: 'hsl(212 100% 65%)',
+      accent: 'hsl(276 70% 72%)',
+      surface: 'hsl(232 35% 12%)',
     },
   },
   {
