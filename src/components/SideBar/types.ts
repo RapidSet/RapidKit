@@ -104,6 +104,12 @@ export interface SideBarProps extends Omit<
   headerClassName?: string;
   contentClassName?: string;
   footerClassName?: string;
+  /**
+   * Optional main content rendered as a sibling of the sidebar inside the
+   * underlying SidebarProvider. Use this when SideBar is the app shell and
+   * should sit next to a page rather than being rendered standalone.
+   */
+  mainContent?: ReactNode;
   providerProps?: Omit<ComponentProps<typeof SidebarProvider>, 'children'>;
   access?: SideBarAccessConfig;
   canAccess?: SideBarAccessResolver;

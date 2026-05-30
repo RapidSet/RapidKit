@@ -30,6 +30,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
     headerClassName,
     contentClassName,
     footerClassName,
+    mainContent,
     providerProps,
     access,
     canAccess,
@@ -89,6 +90,7 @@ export function SideBar(props: Readonly<SideBarProps>) {
         >
           {composedBody}
         </Sidebar>
+        {mainContent}
       </SidebarProvider>
     </SideBarAccessProvider>
   );

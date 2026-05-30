@@ -7,6 +7,8 @@
     "layoutComposition": true,
     "sidebarContainer": true,
     "slotBasedStructure": true,
+    "mainContentSlot": true,
+    "collapseTrigger": true,
     "providerConfiguration": true,
     "accessControl": true
   },
@@ -39,6 +41,10 @@
       "type": "SideBarUserAction[]",
       "required": false
     },
+    "mainContent": {
+      "type": "ReactNode",
+      "required": false
+    },
     "access": {
       "type": "SideBarAccessConfig",
       "required": false
@@ -52,6 +58,7 @@
     "hiddenWhenViewDenied": "true",
     "childrenOverrideStructuredSlots": "true",
     "railHiddenWhenShowRailFalse": "true",
+    "mainContentRendersAlongsideSidebar": "true",
     "menuAndActionsReadOnlyWhenEditDenied": "true"
   },
   "accessibility": {

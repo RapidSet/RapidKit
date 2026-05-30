@@ -23,10 +23,29 @@ import { SideBar } from '@rapidset/rapidkit';
 - userActions?: SideBarUserAction[]
 - showHeaderSeparator?: boolean
 - showRail?: boolean
+- mainContent?: ReactNode — main content rendered as a sibling of the sidebar inside the underlying SidebarProvider; use for app-shell composition
 - providerProps?: Omit<React.ComponentProps<typeof SidebarProvider>, 'children'>
 - access?: SideBarAccessConfig
 - canAccess?: SideBarAccessResolver
 - Any supported shadcn Sidebar props such as side, variant, collapsible, and className
+
+## SideBarTrigger
+
+Use `SideBarTrigger` inside `mainContent` (or any descendant of the SideBar provider) to render an accessible collapse/expand button. It toggles the sidebar between the expanded and collapsed (icon-only) state used by `collapsible="icon"`.
+
+```tsx
+import { SideBar, SideBarTrigger } from '@rapidset/rapidkit';
+
+<SideBar
+  menuItems={[]}
+  mainContent={
+    <main>
+      <SideBarTrigger />
+      {/* page contents */}
+    </main>
+  }
+/>;
+```
 
 ## Access Control
 

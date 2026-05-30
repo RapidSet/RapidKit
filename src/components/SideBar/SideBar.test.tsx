@@ -78,6 +78,20 @@ describe('SideBar', () => {
     expect(screen.queryByText('Home')).toBeNull();
   });
 
+  it('renders mainContent alongside the sidebar', () => {
+    render(
+      <SideBar
+        menuItems={[{ key: 'home', label: 'Home' }]}
+        mainContent={<main data-testid="shell-main">Workspace overview</main>}
+      />,
+    );
+
+    expect(screen.getByTestId('shell-main').textContent).toBe(
+      'Workspace overview',
+    );
+    expect(screen.getByText('Home')).toBeTruthy();
+  });
+
   it('prefers explicit canAccess prop over provider value', () => {
     render(
       <SideBarAccessProvider canAccess={() => false}>
