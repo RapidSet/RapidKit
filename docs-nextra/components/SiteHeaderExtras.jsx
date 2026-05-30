@@ -5,6 +5,7 @@ import { DropDown } from '../../src/components/DropDown';
 import { Icon } from '../../src/components/Icon';
 import {
   applyRuntimeThemeStylesheet,
+  broadcastModeToPreviewIframes,
   MODE_STORAGE_KEY,
   resolveStoredThemeId,
   THEME_OPTIONS,
@@ -83,6 +84,7 @@ export function SiteHeaderExtras() {
     setTheme(nextMode);
     applyDocumentMode(nextMode);
     setFallbackMode(nextMode);
+    broadcastModeToPreviewIframes(nextMode);
   }, [isDarkMode, setTheme]);
 
   return (

@@ -44,7 +44,7 @@ export default function FlowPreviewRoute({
       }
 
       const data = event.data as
-        | { type?: unknown; themeId?: unknown }
+        | { type?: unknown; themeId?: unknown; mode?: unknown }
         | undefined;
 
       if (!data || data.type !== SET_THEME_MESSAGE) {
@@ -53,6 +53,13 @@ export default function FlowPreviewRoute({
 
       if (typeof data.themeId === 'string') {
         applyRuntimeThemeStylesheet(data.themeId);
+      }
+
+      if (data.mode === 'dark' || data.mode === 'light') {
+        const root = document.documentElement;
+        root.classList.toggle('dark', data.mode === 'dark');
+        root.dataset.theme = data.mode;
+        root.dataset.colorMode = data.mode;
       }
     };
 

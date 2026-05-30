@@ -43,7 +43,7 @@ export const resolveStoredThemeId = () => {
 export const PREVIEW_MESSAGE_SET_THEME = 'rapidkit:set-theme';
 export const PREVIEW_MESSAGE_READY = 'rapidkit:preview-ready';
 
-const broadcastThemeToPreviewIframes = (themeId) => {
+const broadcastToPreviewIframes = (payload) => {
   if (typeof document === 'undefined' || typeof window === 'undefined') {
     return;
   }
@@ -53,13 +53,17 @@ const broadcastThemeToPreviewIframes = (themeId) => {
   iframes.forEach((iframe) => {
     try {
       iframe.contentWindow?.postMessage(
-        { type: PREVIEW_MESSAGE_SET_THEME, themeId },
+        { type: PREVIEW_MESSAGE_SET_THEME, ...payload },
         window.location.origin,
       );
     } catch {
       // Cross-origin or detached frames are not addressable; ignore.
     }
   });
+};
+
+export const broadcastModeToPreviewIframes = (mode) => {
+  broadcastToPreviewIframes({ mode });
 };
 
 export const applyRuntimeThemeStylesheet = (themeId) => {
@@ -87,5 +91,5 @@ export const applyRuntimeThemeStylesheet = (themeId) => {
     );
   }
 
-  broadcastThemeToPreviewIframes(resolvedTheme);
+  broadcastToPreviewIframes({ themeId: resolvedTheme });
 };
