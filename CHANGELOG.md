@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.12.0
+
+### Minor Changes
+
+- 182e544: add monday theme
+
 ## 0.11.0
 
 ### Minor Changes
