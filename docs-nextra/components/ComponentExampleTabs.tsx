@@ -22,6 +22,7 @@ import { SideBar } from '../../src/components/SideBar';
 import { StatCard } from '../../src/components/StatCard';
 import { Text } from '../../src/components/Text';
 import { TextArea } from '../../src/components/TextArea';
+import { Toaster, toast } from '../../src/components/Toast';
 import { Toggle } from '../../src/components/Toggle';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
@@ -68,6 +69,7 @@ export type ComponentExampleId =
   | 'stat-card'
   | 'text'
   | 'text-area'
+  | 'toast'
   | 'toggle';
 
 type ExampleConfig = {
@@ -1023,6 +1025,73 @@ function TogglePreview(): JSX.Element {
       checked={enabled}
       onToggleChange={(next) => setEnabled(next)}
     />
+  );
+}
+
+function ToastPreview(): JSX.Element {
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap gap-2">
+        <Button
+          label="Default"
+          variant={ButtonVariant.Outlined}
+          onClick={() => toast('Project synced')}
+        />
+        <Button
+          label="Success"
+          variant={ButtonVariant.Outlined}
+          onClick={() =>
+            toast.success('Saved', { description: 'Your changes are live.' })
+          }
+        />
+        <Button
+          label="Error"
+          variant={ButtonVariant.Outlined}
+          onClick={() =>
+            toast.error('Could not save', {
+              description: 'Check your connection and retry.',
+            })
+          }
+        />
+        <Button
+          label="Warning"
+          variant={ButtonVariant.Outlined}
+          onClick={() => toast.warning('Heads up: write quota is at 80%')}
+        />
+        <Button
+          label="Info"
+          variant={ButtonVariant.Outlined}
+          onClick={() => toast.info('A new release is available')}
+        />
+        <Button
+          label="Loading"
+          variant={ButtonVariant.Outlined}
+          onClick={() => toast.loading('Provisioning environment...')}
+        />
+        <Button
+          label="Promise"
+          variant={ButtonVariant.Outlined}
+          onClick={() =>
+            toast.promise(
+              new Promise<{ id: string }>((resolve) => {
+                setTimeout(() => resolve({ id: 'ABC123' }), 1200);
+              }),
+              {
+                loading: 'Deploying...',
+                success: (data) => `Deployed ${data.id}`,
+                error: 'Deployment failed',
+              },
+            )
+          }
+        />
+        <Button
+          label="Dismiss All"
+          variant={ButtonVariant.Text}
+          onClick={() => toast.dismiss()}
+        />
+      </div>
+      <Toaster />
+    </div>
   );
 }
 
@@ -2193,6 +2262,31 @@ export function KpiRow() {
   placeholder="Write implementation notes"
   helperText="Keep this concise and actionable."
 />`,
+  },
+  toast: {
+    render: ToastPreview,
+    code: `import { Toaster, toast } from '@rapidset/rapidkit';
+
+export function App() {
+  return (
+    <>
+      <button onClick={() => toast.success('Saved')}>Save</button>
+      <button onClick={() => toast.error('Could not save')}>Retry</button>
+      <button
+        onClick={() =>
+          toast.promise(deploy(), {
+            loading: 'Deploying...',
+            success: (data) => \`Deployed \${data.id}\`,
+            error: 'Deployment failed',
+          })
+        }
+      >
+        Deploy
+      </button>
+      <Toaster />
+    </>
+  );
+}`,
   },
   toggle: {
     render: TogglePreview,

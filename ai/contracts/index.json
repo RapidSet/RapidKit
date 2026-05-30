@@ -243,6 +243,17 @@
         "emptyStateRendering",
         "tooltipAndLegendToggles"
       ]
+    },
+    {
+      "name": "Toast",
+      "contractPath": "ai/contracts/components/toast.contract.json",
+      "sourcePath": "src/components/Toast",
+      "capabilities": [
+        "iconRendering",
+        "propForwarding",
+        "toastDispatch",
+        "variantStyling"
+      ]
     }
   ],
   "themes": [

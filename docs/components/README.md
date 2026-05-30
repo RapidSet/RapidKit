@@ -36,6 +36,7 @@ This section contains consumer-facing documentation for each public component ex
 - [StatCard](./stat-card.md)
 - [Text](./text.md)
 - [TextArea](./text-area.md)
+- [Toast](./toast.md)
 - [Toggle](./toggle.md)
 
 ## Canonical Imports (AI-Friendly)

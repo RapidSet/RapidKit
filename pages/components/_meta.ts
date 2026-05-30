@@ -69,6 +69,9 @@ export default {
   'text-area': {
     title: 'TextArea',
   },
+  toast: {
+    title: 'Toast',
+  },
   toggle: {
     title: 'Toggle',
   },

@@ -68,6 +68,7 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 - StatCard
 - Text
 - TextArea
+- Toast
 - Toggle
 
 ## Included Hooks

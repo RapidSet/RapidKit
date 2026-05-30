@@ -992,6 +992,53 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'Optional access rules let TextArea stay hidden when view is denied or visible-but-disabled when edit is denied, with no host-app coupling.',
   },
+  toast: {
+    title: 'Toast',
+    summary:
+      'Toast delivers ephemeral feedback through a single Toaster mount and a toast() dispatcher with success, error, warning, info, loading, and promise variants.',
+    highlights: [
+      'Variant methods for success, error, warning, info, and loading',
+      'Promise lifecycle helper for async operations',
+      'Theme-aware defaults with semantic token styling',
+    ],
+    importCode: "import { Toaster, toast } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'position',
+        description:
+          'Places the toaster in one of the six standard corners; defaults to bottom-right.',
+      },
+      {
+        name: 'theme',
+        description:
+          'Switches between light, dark, and system rendering without pulling in next-themes.',
+      },
+      {
+        name: 'richColors',
+        description:
+          'Opts into sonner rich color backgrounds when the default neutral surface is not desired.',
+      },
+      {
+        name: 'closeButton',
+        description:
+          'Toggles the per-toast close button; kept on by default for accessibility.',
+      },
+      {
+        name: 'toastOptions',
+        description:
+          'Forwards consumer overrides for class names, duration, and per-toast defaults; merges over package styles.',
+      },
+      {
+        name: 'toast()',
+        description:
+          'Dispatcher with .success, .error, .warning, .info, .loading, .message, .promise, and .dismiss methods exported alongside Toaster.',
+      },
+    ],
+    accessibility:
+      'The Toaster mounts a region landmark with a polite live region, and each toast renders a focusable close button when the closeButton prop is enabled.',
+    guidance:
+      'Mount a single Toaster at the app root and call toast() from anywhere. Use toast.promise to drive multi-state feedback for async work.',
+  },
   toggle: {
     title: 'Toggle',
     summary:
