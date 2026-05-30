@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.11.0
+
+### Minor Changes
+
+- 48dfd8c: add toast
+
 ## 0.10.0
 
 ### Minor Changes
