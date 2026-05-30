@@ -33,6 +33,18 @@ function withBasePath(path: string): string {
 }
 
 const FLOW_DOCS: Record<FlowExampleId, FlowDoc> = {
+  dashboard: {
+    title: 'Dashboard',
+    summary:
+      'An analytics workspace shell that composes a side navigation rail, KPI tiles, area and pie charts, and a recent-activity table into a single overview screen.',
+    tags: ['Analytics', 'Overview', 'Workspace Shell'],
+    highlights: [
+      'Sidebar + main-content layout with KPI tiles, charts, and a data table',
+      'Composes Page, Chart (Area + Pie), BaseTable, Chip, Text, and Button',
+      'Ready to wire to live data, date-range filters, and per-section access rules',
+    ],
+    docsHref: '/flows/dashboard',
+  },
   login: {
     title: 'Login',
     summary:

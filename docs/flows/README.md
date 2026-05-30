@@ -4,6 +4,7 @@ This section documents repeatable page-level flows built by composing RapidKit c
 
 ## Available Flows
 
+- [Dashboard](./dashboard.md)
 - [Login](./login.md)
 
 ## What Flows Are For
