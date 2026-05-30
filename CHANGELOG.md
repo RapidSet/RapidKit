@@ -1,5 +1,16 @@
 # @rapidset/rapidkit
 
+## 0.10.0
+
+### Minor Changes
+
+- dd4753a: add showFrom column option to BaseTable for priority-based responsive visibility
+- c0d115f: add Chart with line, bar, area, and pie variants
+
+### Patch Changes
+
+- 73c01b2: fix flows preview structure
+
 ## 0.9.0
 
 ### Minor Changes
