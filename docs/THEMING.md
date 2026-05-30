@@ -105,6 +105,11 @@ import '@rapidset/rapidkit/themes/midnight.css';
 
 ```tsx
 import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/monday.css';
+```
+
+```tsx
+import '@rapidset/rapidkit/styles.css';
 import '@rapidset/rapidkit/themes/sand.css';
 ```
 

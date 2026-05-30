@@ -13,6 +13,7 @@ export const THEME_IDS = [
   'corporate',
   'forest',
   'midnight',
+  'monday',
   'ocean',
   'polaris',
   'sand',
