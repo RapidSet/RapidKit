@@ -22,6 +22,7 @@ export * from './components/DetailsCard';
 export * from './components/DatePicker';
 export * from './components/TextArea';
 export * from './components/Text';
+export * from './components/Toast';
 export * from './components/Toggle';
 export * from './hooks/useDebounce';
 export * from './hooks/useFormHandlers';

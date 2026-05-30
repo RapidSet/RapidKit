@@ -1,0 +1,62 @@
+{
+  "component": "Toast",
+  "version": "1.0.0",
+  "source": "src/components/Toast",
+  "description": "A theme-aware toast notification system built on sonner. Exposes a Toaster mount component and a toast() dispatcher with success, error, warning, info, loading, and promise variants.",
+  "capabilities": {
+    "iconRendering": true,
+    "propForwarding": true,
+    "toastDispatch": true,
+    "variantStyling": true
+  },
+  "props": {
+    "position": {
+      "type": "ToasterProps['position']",
+      "required": false,
+      "default": "\"bottom-right\""
+    },
+    "theme": {
+      "type": "\"light\" | \"dark\" | \"system\"",
+      "required": false,
+      "default": "\"system\""
+    },
+    "richColors": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "closeButton": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "toastOptions": {
+      "type": "ToasterProps['toastOptions']",
+      "required": false
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "states": {
+    "toasterMountsRegionLandmark": "true",
+    "successVariantStyledWhenDispatched": "true",
+    "errorVariantStyledWhenDispatched": "true",
+    "warningVariantStyledWhenDispatched": "true",
+    "infoVariantStyledWhenDispatched": "true",
+    "loadingVariantStyledWhenDispatched": "true",
+    "promiseLifecycleResolvesToSuccessOrError": "true"
+  },
+  "accessibility": {
+    "regionLandmark": "true",
+    "ariaLiveAnnouncement": "true",
+    "dismissibleViaCloseButton": "true"
+  },
+  "interaction": {
+    "toastDispatchByMethod": "true",
+    "dismissByIdOrAll": "true",
+    "consumerClassNamesMergeOverDefaults": "true"
+  },
+  "tests": ["src/components/Toast/Toast.test.tsx"]
+}
