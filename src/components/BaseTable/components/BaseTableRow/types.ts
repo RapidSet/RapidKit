@@ -5,6 +5,8 @@ import { CellType } from './components/BaseTableCell';
 import { CellContext } from '@tanstack/react-table';
 import type { IconVariant } from '@components/Icon/types';
 
+export { CellType };
+
 export type BaseTableColumnAccessConfig = AccessConfig<'view' | 'edit'>;
 
 export type ColumnBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
