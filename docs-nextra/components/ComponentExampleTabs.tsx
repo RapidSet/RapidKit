@@ -25,6 +25,7 @@ import { TextArea } from '../../src/components/TextArea';
 import { Toggle } from '../../src/components/Toggle';
 import { CellType } from '../../src/components/BaseTable/components/BaseTableRow/components/BaseTableCell';
 import type { Column } from '../../src/components/BaseTable/components/BaseTableRow';
+import { withBasePath } from './withBasePath';
 import {
   Archive,
   BarChart3,
@@ -77,25 +78,6 @@ type ExampleConfig = {
 type ExampleTabsProps = Readonly<{
   component: ComponentExampleId;
 }>;
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-
-function withBasePath(path: string): string {
-  if (!path) {
-    return basePath || '/';
-  }
-
-  if (!basePath) {
-    return path;
-  }
-
-  if (path.startsWith(basePath)) {
-    return path;
-  }
-
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${basePath}${normalizedPath}`;
-}
 
 const rapidKitLogoSrc = withBasePath('/rapidkit.svg');
 

@@ -30,7 +30,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/copy-theme-assets.mjs",
+    "gen:example-code": "node scripts/generate-example-code-manifest.mjs",
+    "predocs:dev": "pnpm gen:example-code",
     "docs:dev": "rm -rf .next && next dev",
+    "predocs:build": "pnpm gen:example-code",
     "docs:build": "NEXT_OUTPUT_EXPORT=true next build",
     "docs:preview": "pnpm dlx serve out",
     "validate:contracts": "node scripts/validate-contracts.mjs",

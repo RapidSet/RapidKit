@@ -7,7 +7,15 @@
     "resolveJsonModule": true,
     "incremental": true,
     "rootDir": ".",
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["src/lib/*"],
+      "@ui/*": ["src/components/ui/*"],
+      "@rapidset/rapidkit": ["src/index.ts"],
+      "@rapidset/rapidkit/styles.css": ["src/styles.css"]
+    }
   },
   "include": [
     "next-env.d.ts",

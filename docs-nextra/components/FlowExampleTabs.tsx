@@ -1,4 +1,5 @@
-import { useEffect, useId, useMemo, useState, type JSX } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
+import { ExampleTabs } from './ExampleTabs';
 import {
   Activity,
   ArrowRight,
@@ -2153,92 +2154,20 @@ export function FlowPreviewSurface({
   return <Preview />;
 }
 
-function resolveInitialFlowTab(initialTab?: FlowTab): FlowTab {
-  if (initialTab) {
-    return initialTab;
-  }
-
-  if (globalThis.window === undefined) {
-    return 'preview';
-  }
-
-  const tab = new URLSearchParams(globalThis.window.location.search).get('tab');
-  return tab === 'code' ? 'code' : 'preview';
-}
-
 export function FlowExampleTabs({
   flow,
   initialTab,
   previewSrc,
 }: FlowExampleTabsProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState<FlowTab>(() =>
-    resolveInitialFlowTab(initialTab),
-  );
-  const idPrefix = useId();
-  const previewTabId = `${idPrefix}-preview-tab`;
-  const codeTabId = `${idPrefix}-code-tab`;
-  const previewPanelId = `${idPrefix}-preview-panel`;
-  const codePanelId = `${idPrefix}-code-panel`;
   const resolvedExample = FLOW_EXAMPLES[flow];
 
   return (
-    <div className="component-example-tabs">
-      <div className="component-example-tabs__controls">
-        <div
-          role="tablist"
-          aria-label="Flow example tabs"
-          className="flex items-center gap-1"
-        >
-          <button
-            id={previewTabId}
-            type="button"
-            role="tab"
-            aria-controls={previewPanelId}
-            aria-selected={activeTab === 'preview'}
-            className={`component-example-tabs__button ${
-              activeTab === 'preview' ? 'is-active' : ''
-            }`}
-            onClick={() => setActiveTab('preview')}
-          >
-            Preview
-          </button>
-          <button
-            id={codeTabId}
-            type="button"
-            role="tab"
-            aria-controls={codePanelId}
-            aria-selected={activeTab === 'code'}
-            className={`component-example-tabs__button ${
-              activeTab === 'code' ? 'is-active' : ''
-            }`}
-            onClick={() => setActiveTab('code')}
-          >
-            Code
-          </button>
-        </div>
-      </div>
-
-      <div
-        id={previewPanelId}
-        role="tabpanel"
-        aria-labelledby={previewTabId}
-        hidden={activeTab !== 'preview'}
-        className="component-example-tabs__panel component-example-tabs__panel--flow"
-      >
-        <FlowPreviewFrame flow={flow} previewSrc={previewSrc} />
-      </div>
-
-      <div
-        id={codePanelId}
-        role="tabpanel"
-        aria-labelledby={codeTabId}
-        hidden={activeTab !== 'code'}
-        className="component-example-tabs__panel"
-      >
-        {activeTab === 'code' ? (
-          <DocsCodePreview code={resolvedExample.code} language="tsx" />
-        ) : null}
-      </div>
-    </div>
+    <ExampleTabs
+      ariaLabel="Flow example tabs"
+      initialTab={initialTab}
+      previewPanelClassName="component-example-tabs__panel--flow"
+      previewSlot={<FlowPreviewFrame flow={flow} previewSrc={previewSrc} />}
+      codeSlot={<DocsCodePreview code={resolvedExample.code} language="tsx" />}
+    />
   );
 }

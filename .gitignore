@@ -32,3 +32,6 @@ playwright/.cache
 # Environment
 .env
 .env.local
+
+# Auto-generated docs example-code manifest
+docs-nextra/registry/generated/

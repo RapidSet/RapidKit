@@ -1,3 +1,5 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import nextra from 'nextra';
 
 const withNextra = nextra({
@@ -5,6 +7,7 @@ const withNextra = nextra({
   themeConfig: './theme.config.tsx',
 });
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'RapidKit';
 const basePath = process.env.GITHUB_ACTIONS ? `/${repoName}` : '';
 const shouldExport =
@@ -28,4 +31,15 @@ export default withNextra({
     tsconfigPath: './tsconfig.docs.json',
   },
   trailingSlash: true,
+  webpack(config) {
+    config.resolve.alias = {
+      ...(config.resolve.alias ?? {}),
+      '@rapidset/rapidkit/styles.css': path.resolve(
+        __dirname,
+        'src/styles.css',
+      ),
+      '@rapidset/rapidkit': path.resolve(__dirname, 'src/index.ts'),
+    };
+    return config;
+  },
 });

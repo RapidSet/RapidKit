@@ -1,5 +1,6 @@
 import { type JSX } from 'react';
 import { FlowExampleTabs, type FlowExampleId } from './FlowExampleTabs';
+import { withBasePath } from './withBasePath';
 
 type FlowDoc = Readonly<{
   title: string;
@@ -12,25 +13,6 @@ type FlowDoc = Readonly<{
 type FlowDocsPageProps = Readonly<{
   flow: FlowExampleId;
 }>;
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-
-function withBasePath(path: string): string {
-  if (!path) {
-    return basePath || '/';
-  }
-
-  if (!basePath) {
-    return path;
-  }
-
-  if (path.startsWith(basePath)) {
-    return path;
-  }
-
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${basePath}${normalizedPath}`;
-}
 
 const FLOW_DOCS: Record<FlowExampleId, FlowDoc> = {
   dashboard: {
