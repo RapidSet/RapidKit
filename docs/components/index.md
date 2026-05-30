@@ -39,6 +39,7 @@ Use the left navigation to browse individual components.
 - [Page](./page.md)
 - [Search](./search.md)
 - [SideBar](./side-bar.md)
+- [StatCard](./stat-card.md)
 - [Text](./text.md)
 - [TextArea](./text-area.md)
 - [Toggle](./toggle.md)

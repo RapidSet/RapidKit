@@ -19,6 +19,7 @@ import { NavMenu } from '../../src/components/NavMenu';
 import { Page } from '../../src/components/Page';
 import { Search } from '../../src/components/Search';
 import { SideBar } from '../../src/components/SideBar';
+import { StatCard } from '../../src/components/StatCard';
 import { Text } from '../../src/components/Text';
 import { TextArea } from '../../src/components/TextArea';
 import { Toggle } from '../../src/components/Toggle';
@@ -63,6 +64,7 @@ export type ComponentExampleId =
   | 'page'
   | 'search'
   | 'side-bar'
+  | 'stat-card'
   | 'text'
   | 'text-area'
   | 'toggle';
@@ -1556,6 +1558,34 @@ function TextPreview(): JSX.Element {
   );
 }
 
+function StatCardPreview(): JSX.Element {
+  const [clicked, setClicked] = useState(0);
+
+  return (
+    <div className="grid w-full max-w-xl gap-3 sm:grid-cols-2">
+      <StatCard
+        label="Active users"
+        value="24,318"
+        icon={Users}
+        delta="+12.4%"
+        trend="up"
+        description="vs prior week"
+        onClick={() => setClicked((count) => count + 1)}
+      />
+      <StatCard
+        label="Conversion rate"
+        value="3.42%"
+        icon={BarChart3}
+        delta="-0.6%"
+        trend="down"
+        description={
+          clicked > 0 ? `Drilled in ${clicked}x` : 'Click the other tile'
+        }
+      />
+    </div>
+  );
+}
+
 const EXAMPLES: Record<ComponentExampleId, ExampleConfig> = {
   autocomplete: {
     render: AutocompletePreview,
@@ -2128,6 +2158,38 @@ import { Avatar, SideBar } from '@rapidset/rapidkit';
   collapsible="icon"
   showRail={false}
 />;`,
+  },
+  'stat-card': {
+    render: StatCardPreview,
+    code: `import { useState } from 'react';
+import { BarChart3, Users } from 'lucide-react';
+import { StatCard } from '@rapidset/rapidkit';
+
+export function KpiRow() {
+  const [clicked, setClicked] = useState(0);
+
+  return (
+    <div className="grid w-full max-w-xl gap-3 sm:grid-cols-2">
+      <StatCard
+        label="Active users"
+        value="24,318"
+        icon={Users}
+        delta="+12.4%"
+        trend="up"
+        description="vs prior week"
+        onClick={() => setClicked((count) => count + 1)}
+      />
+      <StatCard
+        label="Conversion rate"
+        value="3.42%"
+        icon={BarChart3}
+        delta="-0.6%"
+        trend="down"
+        description={clicked > 0 ? \`Drilled in \${clicked}x\` : 'Click the other tile'}
+      />
+    </div>
+  );
+}`,
   },
   text: {
     render: TextPreview,

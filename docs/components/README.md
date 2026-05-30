@@ -33,6 +33,7 @@ This section contains consumer-facing documentation for each public component ex
 - [Page](./page.md)
 - [Search](./search.md)
 - [SideBar](./side-bar.md)
+- [StatCard](./stat-card.md)
 - [Text](./text.md)
 - [TextArea](./text-area.md)
 - [Toggle](./toggle.md)

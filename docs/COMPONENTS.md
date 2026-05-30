@@ -31,6 +31,7 @@ Direct links:
 - https://rapidset.github.io/RapidKit/components/page
 - https://rapidset.github.io/RapidKit/components/search
 - https://rapidset.github.io/RapidKit/components/side-bar
+- https://rapidset.github.io/RapidKit/components/stat-card
 - https://rapidset.github.io/RapidKit/components/text
 - https://rapidset.github.io/RapidKit/components/text-area
 - https://rapidset.github.io/RapidKit/components/toggle

@@ -21,7 +21,21 @@
         "layoutComposition",
         "sidebarContainer",
         "slotBasedStructure",
+        "mainContentSlot",
+        "collapseTrigger",
         "providerConfiguration",
+        "accessControl"
+      ]
+    },
+    {
+      "name": "StatCard",
+      "contractPath": "ai/contracts/components/stat-card.contract.json",
+      "sourcePath": "src/components/StatCard",
+      "capabilities": [
+        "statRendering",
+        "trendIndicator",
+        "interactiveDrillDown",
+        "iconRendering",
         "accessControl"
       ]
     },

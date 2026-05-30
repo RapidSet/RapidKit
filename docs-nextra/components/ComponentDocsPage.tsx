@@ -862,6 +862,52 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'When view access is denied the sidebar returns null. When view is allowed but edit is denied, interactive menu and user actions are rendered as read-only.',
   },
+  'stat-card': {
+    title: 'StatCard',
+    summary:
+      'StatCard renders a KPI tile with label, value, optional icon, trend chip, and supporting description, and can act as an interactive drill-down button.',
+    highlights: [
+      'Label, value, and optional icon',
+      'Trend chip with up, down, or neutral styling',
+      'Interactive when onClick is provided',
+      'Access-aware visibility and interactivity',
+    ],
+    importCode: "import { StatCard } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'label',
+        description: 'Short metric label rendered above the value.',
+      },
+      {
+        name: 'value',
+        description: 'Primary metric value rendered prominently in the tile.',
+      },
+      {
+        name: 'icon',
+        description: 'Optional lucide icon rendered next to the label.',
+      },
+      {
+        name: 'delta',
+        description: 'Change indicator text rendered inside a trend chip.',
+      },
+      {
+        name: 'trend',
+        description:
+          'Selects the trend chip icon and color tokens between up, down, and neutral.',
+      },
+      {
+        name: 'onClick',
+        description:
+          'When provided the tile renders as a focusable button for drill-down navigation.',
+      },
+    ],
+    accessibility:
+      'The interactive form renders as a native button, exposes an accessible name from ariaLabel or label, and supports keyboard focus styling.',
+    guidance:
+      'Use StatCard for top-level KPIs at the head of a page. Compose multiple tiles in a responsive grid and lift drill-down behavior into your routing layer through onClick.',
+    accessBehavior:
+      'When view access is denied the tile returns null. When view is allowed but edit is denied, the tile downgrades to a non-interactive presentation.',
+  },
   text: {
     title: 'Text',
     summary:

@@ -65,6 +65,7 @@ yarn add @rapidset/rapidkit react react-dom @reduxjs/toolkit @tanstack/react-tab
 - Page
 - Search
 - SideBar
+- StatCard
 - Text
 - TextArea
 - Toggle

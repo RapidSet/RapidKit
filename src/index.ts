@@ -16,6 +16,7 @@ export * from './components/Chart';
 export * from './components/Page';
 export * from './components/Search';
 export * from './components/SideBar';
+export * from './components/StatCard';
 export * from './components/DropDown';
 export * from './components/DetailsCard';
 export * from './components/DatePicker';

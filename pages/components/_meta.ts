@@ -60,6 +60,9 @@ export default {
   'side-bar': {
     title: 'SideBar',
   },
+  'stat-card': {
+    title: 'StatCard',
+  },
   text: {
     title: 'Text',
   },

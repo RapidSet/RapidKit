@@ -1,0 +1,83 @@
+{
+  "component": "StatCard",
+  "version": "1.0.0",
+  "source": "src/components/StatCard",
+  "description": "A presentational KPI tile composed of a label, value, optional icon, optional trend chip, and optional description, with interactive and access-aware behavior.",
+  "capabilities": {
+    "statRendering": true,
+    "trendIndicator": true,
+    "interactiveDrillDown": true,
+    "iconRendering": true,
+    "accessControl": true
+  },
+  "props": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "ReactNode",
+      "required": true
+    },
+    "icon": {
+      "type": "LucideIcon",
+      "required": false
+    },
+    "delta": {
+      "type": "string",
+      "required": false
+    },
+    "trend": {
+      "type": "\"up\" | \"down\" | \"neutral\"",
+      "required": false,
+      "default": "\"neutral\""
+    },
+    "description": {
+      "type": "ReactNode",
+      "required": false
+    },
+    "onClick": {
+      "type": "() => void",
+      "required": false
+    },
+    "ariaLabel": {
+      "type": "string",
+      "required": false
+    },
+    "className": {
+      "type": "string",
+      "required": false
+    },
+    "valueClassName": {
+      "type": "string",
+      "required": false
+    },
+    "access": {
+      "type": "StatCardAccessConfig",
+      "required": false
+    },
+    "canAccess": {
+      "type": "StatCardAccessResolver",
+      "required": false
+    }
+  },
+  "states": {
+    "rendersLabelAndValue": "true",
+    "rendersIconWhenProvided": "true",
+    "rendersDeltaChipWhenDeltaProvided": "true",
+    "appliesUpTrendStylingWhenTrendUp": "true",
+    "appliesDownTrendStylingWhenTrendDown": "true",
+    "rendersAsButtonWhenOnClickProvided": "true",
+    "rendersAsDivWhenOnClickOmitted": "true",
+    "hiddenWhenReadDenied": "true",
+    "nonInteractiveWhenEditDenied": "true"
+  },
+  "accessibility": {
+    "interactiveCardHasAccessibleName": "true",
+    "ariaLabelOverridesLabel": "true"
+  },
+  "interaction": {
+    "onClickInvokedWhenInteractive": "true"
+  },
+  "tests": ["src/components/StatCard/StatCard.test.tsx"]
+}
