@@ -1,4 +1,5 @@
 import { type JSX } from 'react';
+import Link from 'next/link';
 import { FlowExampleTabs, type FlowExampleId } from './FlowExampleTabs';
 import { withBasePath } from './withBasePath';
 
@@ -108,35 +109,60 @@ export function FlowDocsIndexPage(): JSX.Element {
   );
 }
 
+const FLOW_ORDER: readonly FlowExampleId[] = ['dashboard', 'login'];
+
 export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
   const doc = FLOW_DOCS[flow];
   const previewSrc = withBasePath(`/preview/flows/${flow}/`);
 
   return (
-    <article className="mx-auto flex min-h-[calc(100vh-9.5rem)] max-w-6xl flex-col gap-5">
-      <header className="space-y-3">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          Flow
-        </p>
-        <h1 className="text-4xl font-semibold tracking-tight text-foreground">
-          {doc.title}
-        </h1>
-        <p className="max-w-3xl text-sm text-muted-foreground">{doc.summary}</p>
+    <article className="rk-flow-page">
+      <nav className="rk-flow-page__nav" aria-label="Flows">
+        <Link href={withBasePath('/flows/')} className="rk-flow-page__nav-home">
+          ← All flows
+        </Link>
+        <ul className="rk-flow-page__nav-list">
+          {FLOW_ORDER.map((id) => {
+            const isActive = id === flow;
+            return (
+              <li key={id}>
+                <Link
+                  href={withBasePath(`/flows/${id}/`)}
+                  className={`rk-flow-page__nav-pill${isActive ? ' is-active' : ''}`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {FLOW_DOCS[id].title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <header className="rk-flow-page__topline">
+        <p className="rk-flow-page__eyebrow">Flow</p>
+        <h1 className="rk-flow-page__title">{doc.title}</h1>
+        <p className="rk-flow-page__summary">{doc.summary}</p>
+        <ul className="rk-flow-page__chips" aria-label="Tags">
+          {doc.tags.map((tag) => (
+            <li key={tag} className="rk-flow-page__chip">
+              {tag}
+            </li>
+          ))}
+        </ul>
       </header>
 
-      <section className="grid gap-3 md:grid-cols-3">
-        {doc.highlights.map((item) => (
-          <div
-            key={item}
-            className="rounded-sm border border-border bg-card p-3 text-xs text-muted-foreground"
-          >
-            {item}
-          </div>
-        ))}
-      </section>
-
-      <section className="component-example-tabs-host flex-1 min-h-[calc(100vh-23rem)]">
+      <div className="rk-flow-page__block component-example-tabs-host">
         <FlowExampleTabs flow={flow} previewSrc={previewSrc} />
+      </div>
+
+      <section className="rk-flow-page__about" aria-label="About this flow">
+        <h2 className="rk-flow-page__about-title">About this flow</h2>
+        <ul className="rk-flow-page__about-list">
+          {doc.highlights.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </section>
     </article>
   );

@@ -1,5 +1,25 @@
 # @rapidset/rapidkit
 
+## 0.14.0
+
+### Minor Changes
+
+- 69fcfe2: expand theme token surface with v2 families: elevation scale, border-width, density multiplier, semantic states (success/warning/info), chart palette (chart-1..6), motion tokens, and accent variants (accent-2/3/4). Dialog and Sheet primitives now consume tokenized shadow + motion.
+- 69fcfe2: populate the existing 11 themes with multi-accent palettes (accent-2/3/4, success/warning/info, chart-1..6, shadow-color tint) so each theme reads as a multi-hue product instead of a single-primary palette swap.
+- 69fcfe2: add atmospheric, brutalist, and dense showcase themes that exercise the v2 token surface (radii, density, shadows, motion, palette).
+
+## 0.13.0
+
+### Minor Changes
+
+- e2eb9f3: slim the published package and stop bloating consumer bundles:
+  - Vite library build now externalizes every peer and runtime dependency (previously only `react` / `react-dom`), so consumers no longer get duplicated copies of Radix, Recharts, Zod, RHF, RTK, etc. bundled inside `dist/index.js`.
+  - Output uses `preserveModules: true`, so each component ships as its own file under `dist/components/...`. Consumers that import a single component no longer pull the entire library through their bundler.
+  - `publicDir` is disabled for the library build, so the docs site's marketing assets (favicon, brand SVGs, tech icons) no longer leak into the published tarball.
+  - `vite-plugin-dts` now excludes `*.test.*`, so test type-declarations stop shipping in `dist/`.
+  - `recharts`, `react-day-picker`, `date-fns`, and `sonner` are moved from `dependencies` to **optional `peerDependencies`**. Apps that don't use `Chart`, `DatePicker`, or `Toast` no longer install those packages. Apps that do use those components must add the matching peer to their own dependencies (see README).
+  - `recharts` peer range is unpinned (was `2.15.4` exact) to avoid conflicting with consumer pins.
+
 ## 0.12.0
 
 ### Minor Changes

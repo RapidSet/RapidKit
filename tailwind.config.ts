@@ -39,6 +39,12 @@ export default {
         accent: {
           DEFAULT: 'hsl(var(--rk-accent))',
           foreground: 'hsl(var(--rk-accent-foreground))',
+          2: 'hsl(var(--rk-accent-2))',
+          '2-foreground': 'hsl(var(--rk-accent-2-foreground))',
+          3: 'hsl(var(--rk-accent-3))',
+          '3-foreground': 'hsl(var(--rk-accent-3-foreground))',
+          4: 'hsl(var(--rk-accent-4))',
+          '4-foreground': 'hsl(var(--rk-accent-4-foreground))',
         },
         popover: {
           DEFAULT: 'hsl(var(--rk-popover))',
@@ -47,6 +53,26 @@ export default {
         card: {
           DEFAULT: 'hsl(var(--rk-card))',
           foreground: 'hsl(var(--rk-card-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--rk-success))',
+          foreground: 'hsl(var(--rk-success-foreground))',
+        },
+        warning: {
+          DEFAULT: 'hsl(var(--rk-warning))',
+          foreground: 'hsl(var(--rk-warning-foreground))',
+        },
+        info: {
+          DEFAULT: 'hsl(var(--rk-info))',
+          foreground: 'hsl(var(--rk-info-foreground))',
+        },
+        chart: {
+          1: 'hsl(var(--rk-chart-1))',
+          2: 'hsl(var(--rk-chart-2))',
+          3: 'hsl(var(--rk-chart-3))',
+          4: 'hsl(var(--rk-chart-4))',
+          5: 'hsl(var(--rk-chart-5))',
+          6: 'hsl(var(--rk-chart-6))',
         },
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar-background))',
@@ -63,6 +89,26 @@ export default {
         lg: 'var(--rk-radius)',
         md: 'calc(var(--rk-radius) - 2px)',
         sm: 'calc(var(--rk-radius) - 4px)',
+      },
+      borderWidth: {
+        DEFAULT: 'var(--rk-border-width)',
+      },
+      boxShadow: {
+        xs: 'var(--rk-shadow-xs)',
+        sm: 'var(--rk-shadow-sm)',
+        DEFAULT: 'var(--rk-shadow-sm)',
+        md: 'var(--rk-shadow-md)',
+        lg: 'var(--rk-shadow-lg)',
+        xl: 'var(--rk-shadow-xl)',
+      },
+      transitionDuration: {
+        fast: 'var(--rk-motion-fast)',
+        base: 'var(--rk-motion-base)',
+        slow: 'var(--rk-motion-slow)',
+      },
+      transitionTimingFunction: {
+        standard: 'var(--rk-ease-standard)',
+        emphasized: 'var(--rk-ease-emphasized)',
       },
     },
   },

@@ -40,6 +40,29 @@
   --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.24);
   --rk-checkbox-size: 1.05rem;
   --rk-checkbox-radius: 0.1875rem;
+
+  --rk-accent-2: 32 50% 50%;
+  --rk-accent-2-foreground: 0 0% 100%;
+  --rk-accent-3: 195 42% 45%;
+  --rk-accent-3-foreground: 0 0% 100%;
+  --rk-accent-4: 350 55% 55%;
+  --rk-accent-4-foreground: 0 0% 100%;
+
+  --rk-shadow-color: 148 50% 18%;
+
+  --rk-success: 130 55% 38%;
+  --rk-success-foreground: 0 0% 100%;
+  --rk-warning: 38 85% 50%;
+  --rk-warning-foreground: 146 24% 18%;
+  --rk-info: 195 50% 45%;
+  --rk-info-foreground: 0 0% 100%;
+
+  --rk-chart-1: 148 37% 34%;
+  --rk-chart-2: 32 50% 50%;
+  --rk-chart-3: 195 42% 45%;
+  --rk-chart-4: 350 55% 55%;
+  --rk-chart-5: 50 80% 50%;
+  --rk-chart-6: 270 35% 50%;
 }
 
 .dark {
@@ -67,4 +90,27 @@
   --rk-button-shadow-hover: 0 10px 18px hsl(0 0% 0% / 0.56);
   --rk-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.34);
   --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.3);
+
+  --rk-accent-2: 32 65% 60%;
+  --rk-accent-2-foreground: 145 20% 11%;
+  --rk-accent-3: 195 55% 60%;
+  --rk-accent-3-foreground: 145 20% 11%;
+  --rk-accent-4: 350 65% 65%;
+  --rk-accent-4-foreground: 145 20% 11%;
+
+  --rk-shadow-color: 148 50% 30%;
+
+  --rk-success: 130 55% 55%;
+  --rk-success-foreground: 145 20% 11%;
+  --rk-warning: 38 90% 60%;
+  --rk-warning-foreground: 145 20% 11%;
+  --rk-info: 195 65% 60%;
+  --rk-info-foreground: 145 20% 11%;
+
+  --rk-chart-1: 148 44% 63%;
+  --rk-chart-2: 32 65% 60%;
+  --rk-chart-3: 195 55% 60%;
+  --rk-chart-4: 350 65% 65%;
+  --rk-chart-5: 50 85% 60%;
+  --rk-chart-6: 270 50% 65%;
 }

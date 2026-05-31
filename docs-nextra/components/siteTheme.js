@@ -6,19 +6,7 @@ import {
   applyDocsTheme,
 } from './docsTheme';
 
-export const THEME_IDS = [
-  'default',
-  'slate',
-  'carbon',
-  'corporate',
-  'forest',
-  'midnight',
-  'monday',
-  'ocean',
-  'polaris',
-  'sand',
-  'sunset',
-];
+export const THEME_IDS = DOCS_THEME_OPTIONS.map(({ id }) => id);
 
 export const THEME_OPTIONS = DOCS_THEME_OPTIONS.map(({ id, label }) => ({
   value: id,
