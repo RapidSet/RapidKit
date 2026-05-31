@@ -1,199 +1,36 @@
-export type BuiltInThemeId =
-  | 'carbon'
-  | 'corporate'
-  | 'default'
-  | 'forest'
-  | 'midnight'
-  | 'monday'
-  | 'ocean'
-  | 'polaris'
-  | 'sand'
-  | 'slate'
-  | 'sunset';
+import themesData from '../themes-data.json';
+
+type TokenMap = Record<string, string>;
+
+type ThemeDataEntry = {
+  id: string;
+  displayName: string;
+  note: string;
+  light: TokenMap;
+  dark: TokenMap;
+};
+
+export type BuiltInThemeId = string;
 
 export type ThemeOption = {
   id: BuiltInThemeId;
   label: string;
   note: string;
-  light: {
-    primary: string;
-    accent: string;
-    surface: string;
-  };
-  dark: {
-    primary: string;
-    accent: string;
-    surface: string;
-  };
+  light: TokenMap;
+  dark: TokenMap;
 };
 
-export const THEME_OPTIONS: ThemeOption[] = [
-  {
-    id: 'carbon',
-    label: 'Carbon',
-    note: 'ibm-style precision',
-    light: {
-      primary: 'hsl(214 100% 40%)',
-      accent: 'hsl(205 92% 36%)',
-      surface: 'hsl(210 20% 98%)',
-    },
-    dark: {
-      primary: 'hsl(214 96% 68%)',
-      accent: 'hsl(201 76% 58%)',
-      surface: 'hsl(215 28% 9%)',
-    },
-  },
-  {
-    id: 'default',
-    label: 'Default',
-    note: 'shadcn baseline',
-    light: {
-      primary: 'hsl(221.2 83.2% 53.3%)',
-      accent: 'hsl(210 40% 96.1%)',
-      surface: 'hsl(0 0% 100%)',
-    },
-    dark: {
-      primary: 'hsl(217.2 91.2% 59.8%)',
-      accent: 'hsl(217.2 32.6% 17.5%)',
-      surface: 'hsl(222.2 84% 4.9%)',
-    },
-  },
-  {
-    id: 'corporate',
-    label: 'Corporate',
-    note: 'enterprise tone',
-    light: {
-      primary: 'hsl(221 65% 35%)',
-      accent: 'hsl(199 72% 45%)',
-      surface: 'hsl(210 33% 98%)',
-    },
-    dark: {
-      primary: 'hsl(210 92% 73%)',
-      accent: 'hsl(198 70% 52%)',
-      surface: 'hsl(222 39% 11%)',
-    },
-  },
-  {
-    id: 'forest',
-    label: 'Forest',
-    note: 'organic contrast',
-    light: {
-      primary: 'hsl(142 58% 33%)',
-      accent: 'hsl(88 45% 48%)',
-      surface: 'hsl(114 38% 97%)',
-    },
-    dark: {
-      primary: 'hsl(141 50% 58%)',
-      accent: 'hsl(88 38% 45%)',
-      surface: 'hsl(128 30% 9%)',
-    },
-  },
-  {
-    id: 'midnight',
-    label: 'Midnight',
-    note: 'high contrast cool',
-    light: {
-      primary: 'hsl(245 75% 58%)',
-      accent: 'hsl(278 68% 58%)',
-      surface: 'hsl(228 34% 96%)',
-    },
-    dark: {
-      primary: 'hsl(246 86% 70%)',
-      accent: 'hsl(278 67% 63%)',
-      surface: 'hsl(232 35% 8%)',
-    },
-  },
-  {
-    id: 'monday',
-    label: 'Monday',
-    note: 'monday.com-inspired vibrancy',
-    light: {
-      primary: 'hsl(212 100% 46%)',
-      accent: 'hsl(276 60% 61%)',
-      surface: 'hsl(228 33% 97%)',
-    },
-    dark: {
-      primary: 'hsl(212 100% 65%)',
-      accent: 'hsl(276 70% 72%)',
-      surface: 'hsl(232 35% 12%)',
-    },
-  },
-  {
-    id: 'ocean',
-    label: 'Ocean',
-    note: 'clean and vibrant',
-    light: {
-      primary: 'hsl(200 88% 42%)',
-      accent: 'hsl(174 54% 47%)',
-      surface: 'hsl(196 55% 97%)',
-    },
-    dark: {
-      primary: 'hsl(197 88% 60%)',
-      accent: 'hsl(173 48% 39%)',
-      surface: 'hsl(208 53% 9%)',
-    },
-  },
-  {
-    id: 'polaris',
-    label: 'Polaris',
-    note: 'shopify-inspired clarity',
-    light: {
-      primary: 'hsl(217 72% 47%)',
-      accent: 'hsl(169 46% 40%)',
-      surface: 'hsl(210 24% 99%)',
-    },
-    dark: {
-      primary: 'hsl(214 88% 70%)',
-      accent: 'hsl(169 40% 52%)',
-      surface: 'hsl(222 26% 12%)',
-    },
-  },
-  {
-    id: 'sand',
-    label: 'Sand',
-    note: 'warm palette',
-    light: {
-      primary: 'hsl(28 74% 46%)',
-      accent: 'hsl(16 66% 56%)',
-      surface: 'hsl(42 56% 97%)',
-    },
-    dark: {
-      primary: 'hsl(30 82% 63%)',
-      accent: 'hsl(16 66% 58%)',
-      surface: 'hsl(30 25% 10%)',
-    },
-  },
-  {
-    id: 'slate',
-    label: 'Slate',
-    note: 'neutral utility',
-    light: {
-      primary: 'hsl(215 27.9% 16.9%)',
-      accent: 'hsl(214 32% 91%)',
-      surface: 'hsl(210 40% 98%)',
-    },
-    dark: {
-      primary: 'hsl(210 40% 98%)',
-      accent: 'hsl(217.2 32.6% 20%)',
-      surface: 'hsl(222.2 47.4% 8.5%)',
-    },
-  },
-  {
-    id: 'sunset',
-    label: 'Sunset',
-    note: 'expressive blend',
-    light: {
-      primary: 'hsl(17 84% 54%)',
-      accent: 'hsl(335 74% 58%)',
-      surface: 'hsl(28 70% 97%)',
-    },
-    dark: {
-      primary: 'hsl(20 90% 63%)',
-      accent: 'hsl(336 64% 60%)',
-      surface: 'hsl(14 30% 10%)',
-    },
-  },
-];
+export const THEME_OPTIONS: ThemeOption[] = (
+  themesData as ThemeDataEntry[]
+).map((entry) => ({
+  id: entry.id,
+  label: entry.displayName,
+  note: entry.note,
+  light: entry.light,
+  dark: entry.dark,
+}));
+
+const THEME_ID_SET = new Set(THEME_OPTIONS.map((option) => option.id));
 
 export const THEME_STORAGE_KEY = 'rapidkit-docs-theme';
 export const THEME_CHANGE_EVENT = 'rapidkit-docs-theme-change';
@@ -203,7 +40,7 @@ const LEGACY_PREVIEW_THEME_STYLESHEET_ID =
   'rapidkit-docs-component-preview-theme';
 
 function isBuiltInThemeId(value: string | null): value is BuiltInThemeId {
-  return THEME_OPTIONS.some((option) => option.id === value);
+  return value !== null && THEME_ID_SET.has(value);
 }
 
 export function getThemeStylesheetHref(theme: BuiltInThemeId): string {

@@ -28,15 +28,50 @@ import {
   setDocsTheme,
 } from './docsTheme';
 
-const TOKEN_SWATCHES: Array<{ label: string; token: string }> = [
-  { label: 'Background', token: '--rk-background' },
-  { label: 'Foreground', token: '--rk-foreground' },
-  { label: 'Primary', token: '--rk-primary' },
-  { label: 'Secondary', token: '--rk-secondary' },
-  { label: 'Muted', token: '--rk-muted' },
-  { label: 'Accent', token: '--rk-accent' },
-  { label: 'Destructive', token: '--rk-destructive' },
-  { label: 'Border', token: '--rk-border' },
+const TOKEN_GROUPS: Array<{
+  group: string;
+  tokens: Array<{ label: string; token: string }>;
+}> = [
+  {
+    group: 'Core',
+    tokens: [
+      { label: 'Background', token: '--rk-background' },
+      { label: 'Foreground', token: '--rk-foreground' },
+      { label: 'Primary', token: '--rk-primary' },
+      { label: 'Secondary', token: '--rk-secondary' },
+      { label: 'Muted', token: '--rk-muted' },
+      { label: 'Accent', token: '--rk-accent' },
+      { label: 'Destructive', token: '--rk-destructive' },
+      { label: 'Border', token: '--rk-border' },
+    ],
+  },
+  {
+    group: 'Accent variants',
+    tokens: [
+      { label: 'Accent 2', token: '--rk-accent-2' },
+      { label: 'Accent 3', token: '--rk-accent-3' },
+      { label: 'Accent 4', token: '--rk-accent-4' },
+    ],
+  },
+  {
+    group: 'Semantic states',
+    tokens: [
+      { label: 'Success', token: '--rk-success' },
+      { label: 'Warning', token: '--rk-warning' },
+      { label: 'Info', token: '--rk-info' },
+    ],
+  },
+  {
+    group: 'Chart palette',
+    tokens: [
+      { label: 'Chart 1', token: '--rk-chart-1' },
+      { label: 'Chart 2', token: '--rk-chart-2' },
+      { label: 'Chart 3', token: '--rk-chart-3' },
+      { label: 'Chart 4', token: '--rk-chart-4' },
+      { label: 'Chart 5', token: '--rk-chart-5' },
+      { label: 'Chart 6', token: '--rk-chart-6' },
+    ],
+  },
 ];
 
 type PreviewAssignee = {
@@ -713,19 +748,32 @@ function PreviewCard(props: PreviewCardProps) {
               <h5 className="rk-preview-card__section-title">Tokens</h5>
             </div>
 
-            <div
-              className="rk-preview-card__token-grid"
-              aria-label="Token swatches"
-            >
-              {TOKEN_SWATCHES.map((swatch) => (
-                <span key={swatch.token} className="rk-token-item">
-                  <span
-                    className="rk-token-item__dot"
-                    style={{ backgroundColor: `hsl(var(${swatch.token}))` }}
-                    aria-hidden="true"
-                  />
-                  <span className="rk-token-item__label">{swatch.label}</span>
-                </span>
+            <div className="rk-preview-card__token-groups">
+              {TOKEN_GROUPS.map((group) => (
+                <div key={group.group} className="rk-preview-card__token-group">
+                  <div className="rk-preview-card__token-group-label">
+                    {group.group}
+                  </div>
+                  <div
+                    className="rk-preview-card__token-grid"
+                    aria-label={`${group.group} token swatches`}
+                  >
+                    {group.tokens.map((swatch) => (
+                      <span key={swatch.token} className="rk-token-item">
+                        <span
+                          className="rk-token-item__dot"
+                          style={{
+                            backgroundColor: `hsl(var(${swatch.token}))`,
+                          }}
+                          aria-hidden="true"
+                        />
+                        <span className="rk-token-item__label">
+                          {swatch.label}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
@@ -737,6 +785,7 @@ function PreviewCard(props: PreviewCardProps) {
 
 export function ThemePlayground() {
   const [theme, setTheme] = useState<BuiltInThemeId>('default');
+  const [previewDark, setPreviewDark] = useState(false);
   const [email, setEmail] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [pageSearchValue, setPageSearchValue] = useState('Theme');
@@ -769,7 +818,11 @@ export function ThemePlayground() {
   }, []);
 
   return (
-    <section className="rk-theme-playground" aria-label="Theme playground">
+    <section
+      id="theme-playground"
+      className={`rk-theme-playground${previewDark ? ' dark' : ''}`}
+      aria-label="Theme playground"
+    >
       <header className="rk-theme-playground__header">
         <div className="rk-theme-playground__selector-row">
           <div className="rk-theme-control">
@@ -796,6 +849,15 @@ export function ThemePlayground() {
               )}
             />
           </div>
+          <button
+            type="button"
+            className="rk-theme-playground__mode-toggle"
+            onClick={() => setPreviewDark((prev) => !prev)}
+            aria-pressed={previewDark}
+            aria-label="Toggle preview dark mode"
+          >
+            {previewDark ? 'Preview: Dark' : 'Preview: Light'}
+          </button>
         </div>
       </header>
 
