@@ -43,6 +43,25 @@
     "control-shadow",
     "control-shadow-focus",
     "checkbox-size",
-    "checkbox-radius"
+    "checkbox-radius",
+    "accent-2",
+    "accent-2-foreground",
+    "accent-3",
+    "accent-3-foreground",
+    "accent-4",
+    "accent-4-foreground",
+    "success",
+    "success-foreground",
+    "warning",
+    "warning-foreground",
+    "info",
+    "info-foreground",
+    "chart-1",
+    "chart-2",
+    "chart-3",
+    "chart-4",
+    "chart-5",
+    "chart-6",
+    "shadow-color"
   ]
 }
