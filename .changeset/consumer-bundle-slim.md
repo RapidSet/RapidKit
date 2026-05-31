@@ -1,5 +1,5 @@
 ---
-'@rapidset/rapidkit': major
+'@rapidset/rapidkit': minor
 ---
 
 slim the published package and stop bloating consumer bundles:
