@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.15.0
+
+### Minor Changes
+
+- 685198e: theme and docs restructure, performance improvements
+
 ## 0.14.0
 
 ### Minor Changes
