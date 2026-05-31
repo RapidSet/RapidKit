@@ -1,0 +1,99 @@
+/* Brutalist — sharp corners, heavy borders, hard offset shadows, snappy motion. */
+:root {
+  --rk-background: 48 33% 95%;
+  --rk-foreground: 0 0% 7%;
+  --rk-card: 0 0% 100%;
+  --rk-card-foreground: 0 0% 7%;
+  --rk-popover: 0 0% 100%;
+  --rk-popover-foreground: 0 0% 7%;
+  --rk-primary: 0 0% 7%;
+  --rk-primary-foreground: 48 100% 60%;
+  --rk-secondary: 48 100% 60%;
+  --rk-secondary-foreground: 0 0% 7%;
+  --rk-muted: 48 20% 88%;
+  --rk-muted-foreground: 0 0% 25%;
+  --rk-accent: 14 100% 55%;
+  --rk-accent-foreground: 0 0% 100%;
+  --rk-accent-2: 130 70% 40%;
+  --rk-accent-2-foreground: 0 0% 100%;
+  --rk-accent-3: 220 90% 50%;
+  --rk-accent-3-foreground: 0 0% 100%;
+  --rk-accent-4: 280 70% 55%;
+  --rk-accent-4-foreground: 0 0% 100%;
+  --rk-destructive: 0 90% 50%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 0 0% 7%;
+  --rk-input: 0 0% 7%;
+  --rk-ring: 0 0% 7%;
+  --rk-radius: 0;
+  --rk-font-sans:
+    'Space Grotesk', 'Inter Tight', 'IBM Plex Sans', system-ui, sans-serif;
+  --rk-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --rk-border-width: 2px;
+  --rk-density: 1;
+
+  --rk-shadow-color: 0 0% 0%;
+  --rk-shadow-xs: 2px 2px 0 0 hsl(var(--rk-shadow-color));
+  --rk-shadow-sm: 3px 3px 0 0 hsl(var(--rk-shadow-color));
+  --rk-shadow-md: 4px 4px 0 0 hsl(var(--rk-shadow-color));
+  --rk-shadow-lg: 6px 6px 0 0 hsl(var(--rk-shadow-color));
+  --rk-shadow-xl: 8px 8px 0 0 hsl(var(--rk-shadow-color));
+
+  --rk-success: 130 70% 35%;
+  --rk-success-foreground: 0 0% 100%;
+  --rk-warning: 38 100% 50%;
+  --rk-warning-foreground: 0 0% 7%;
+  --rk-info: 220 90% 50%;
+  --rk-info-foreground: 0 0% 100%;
+
+  --rk-chart-1: 14 100% 55%;
+  --rk-chart-2: 48 100% 60%;
+  --rk-chart-3: 220 90% 50%;
+  --rk-chart-4: 130 70% 40%;
+  --rk-chart-5: 280 70% 55%;
+  --rk-chart-6: 0 0% 7%;
+
+  --rk-motion-fast: 80ms;
+  --rk-motion-base: 120ms;
+  --rk-motion-slow: 180ms;
+  --rk-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --rk-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+
+  --rk-button-shadow: 3px 3px 0 0 hsl(var(--rk-shadow-color));
+  --rk-button-shadow-hover: 5px 5px 0 0 hsl(var(--rk-shadow-color));
+  --rk-button-font-weight: 700;
+  --rk-button-letter-spacing: 0.02em;
+  --rk-control-shadow: 2px 2px 0 0 hsl(var(--rk-shadow-color));
+  --rk-control-shadow-focus: 0 0 0 3px hsl(48 100% 60%);
+}
+
+.dark {
+  --rk-background: 0 0% 7%;
+  --rk-foreground: 48 33% 95%;
+  --rk-card: 0 0% 12%;
+  --rk-card-foreground: 48 33% 95%;
+  --rk-popover: 0 0% 12%;
+  --rk-popover-foreground: 48 33% 95%;
+  --rk-primary: 48 100% 60%;
+  --rk-primary-foreground: 0 0% 7%;
+  --rk-secondary: 14 100% 55%;
+  --rk-secondary-foreground: 0 0% 7%;
+  --rk-muted: 0 0% 18%;
+  --rk-muted-foreground: 0 0% 70%;
+  --rk-accent: 14 100% 55%;
+  --rk-accent-foreground: 0 0% 7%;
+  --rk-accent-2: 130 65% 55%;
+  --rk-accent-2-foreground: 0 0% 7%;
+  --rk-accent-3: 220 95% 65%;
+  --rk-accent-3-foreground: 0 0% 7%;
+  --rk-accent-4: 280 75% 70%;
+  --rk-accent-4-foreground: 0 0% 7%;
+  --rk-destructive: 0 90% 55%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 48 33% 95%;
+  --rk-input: 48 33% 95%;
+  --rk-ring: 48 100% 60%;
+
+  --rk-shadow-color: 48 100% 60%;
+}

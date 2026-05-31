@@ -7,12 +7,18 @@
   --rk-popover-foreground: 228 6% 21%;
   --rk-primary: 212 100% 46%;
   --rk-primary-foreground: 0 0% 100%;
-  --rk-secondary: 228 33% 97%;
+  --rk-secondary: 220 28% 96%;
   --rk-secondary-foreground: 228 6% 21%;
-  --rk-muted: 228 33% 97%;
+  --rk-muted: 220 28% 96%;
   --rk-muted-foreground: 230 8% 44%;
   --rk-accent: 276 60% 61%;
   --rk-accent-foreground: 0 0% 100%;
+  --rk-accent-2: 150 100% 39%;
+  --rk-accent-2-foreground: 0 0% 100%;
+  --rk-accent-3: 33 98% 62%;
+  --rk-accent-3-foreground: 0 0% 100%;
+  --rk-accent-4: 48 100% 50%;
+  --rk-accent-4-foreground: 228 6% 21%;
   --rk-destructive: 351 71% 58%;
   --rk-destructive-foreground: 0 0% 100%;
   --rk-border: 229 16% 87%;
@@ -39,6 +45,22 @@
   --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.24);
   --rk-checkbox-size: 1rem;
   --rk-checkbox-radius: 0.25rem;
+
+  --rk-shadow-color: 212 100% 30%;
+
+  --rk-success: 150 100% 35%;
+  --rk-success-foreground: 0 0% 100%;
+  --rk-warning: 33 98% 55%;
+  --rk-warning-foreground: 0 0% 100%;
+  --rk-info: 200 100% 50%;
+  --rk-info-foreground: 0 0% 100%;
+
+  --rk-chart-1: 212 100% 46%;
+  --rk-chart-2: 150 100% 39%;
+  --rk-chart-3: 33 98% 62%;
+  --rk-chart-4: 276 60% 61%;
+  --rk-chart-5: 351 71% 58%;
+  --rk-chart-6: 200 100% 50%;
 }
 
 .dark {
@@ -56,6 +78,12 @@
   --rk-muted-foreground: 228 14% 70%;
   --rk-accent: 276 70% 72%;
   --rk-accent-foreground: 232 35% 12%;
+  --rk-accent-2: 150 80% 50%;
+  --rk-accent-2-foreground: 232 35% 12%;
+  --rk-accent-3: 33 95% 65%;
+  --rk-accent-3-foreground: 232 35% 12%;
+  --rk-accent-4: 48 100% 60%;
+  --rk-accent-4-foreground: 232 35% 12%;
   --rk-destructive: 351 65% 55%;
   --rk-destructive-foreground: 0 0% 100%;
   --rk-border: 232 18% 26%;
@@ -66,4 +94,20 @@
   --rk-button-shadow-hover: 0 8px 18px hsl(212 100% 46% / 0.42);
   --rk-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.32);
   --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.32);
+
+  --rk-shadow-color: 212 100% 40%;
+
+  --rk-success: 150 75% 45%;
+  --rk-success-foreground: 232 35% 12%;
+  --rk-warning: 33 95% 60%;
+  --rk-warning-foreground: 232 35% 12%;
+  --rk-info: 200 95% 65%;
+  --rk-info-foreground: 232 35% 12%;
+
+  --rk-chart-1: 212 100% 65%;
+  --rk-chart-2: 150 80% 50%;
+  --rk-chart-3: 33 95% 65%;
+  --rk-chart-4: 276 70% 72%;
+  --rk-chart-5: 351 65% 55%;
+  --rk-chart-6: 200 95% 65%;
 }

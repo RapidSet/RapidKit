@@ -42,6 +42,32 @@
   gap: 0.55rem;
 }
 
+.rk-theme-playground__mode-toggle {
+  appearance: none;
+  background: hsl(var(--rk-muted));
+  color: hsl(var(--rk-muted-foreground));
+  border: 1px solid hsl(var(--rk-border));
+  border-radius: var(--rk-radius);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  height: 2rem;
+  padding: 0 0.7rem;
+  transition: background-color var(--rk-motion-base, 200ms) ease;
+}
+
+.rk-theme-playground__mode-toggle[aria-pressed='true'] {
+  background: hsl(var(--rk-primary));
+  color: hsl(var(--rk-primary-foreground));
+  border-color: hsl(var(--rk-primary));
+}
+
+.rk-theme-playground__mode-toggle:focus-visible {
+  outline: 2px solid hsl(var(--rk-ring));
+  outline-offset: 2px;
+}
+
 .rk-theme-playground__selector-label {
   color: var(--vp-c-text-2);
   font-size: 0.8rem;
@@ -239,10 +265,24 @@
   row-gap: 0.9rem;
 }
 
+.rk-preview-card__token-groups {
+  display: grid;
+  gap: 1rem;
+}
+
+.rk-preview-card__token-group-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 0.4rem;
+}
+
 .rk-preview-card__token-grid {
   display: grid;
-  gap: 0.62rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 }
 
 .rk-preview-card__table-wrap {

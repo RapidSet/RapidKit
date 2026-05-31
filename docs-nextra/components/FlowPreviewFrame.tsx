@@ -12,6 +12,11 @@ export function FlowPreviewFrame({
   previewSrc,
 }: FlowPreviewFrameProps): JSX.Element {
   return (
-    <PreviewFrame id={flow} previewSrc={previewSrc} titlePrefix="Preview" />
+    <PreviewFrame
+      id={flow}
+      previewSrc={previewSrc}
+      titlePrefix="Preview"
+      iframeHeight="min(88vh, 920px)"
+    />
   );
 }

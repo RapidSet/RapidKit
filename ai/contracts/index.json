@@ -258,6 +258,16 @@
   ],
   "themes": [
     {
+      "id": "atmospheric",
+      "contractPath": "ai/contracts/themes/atmospheric-theme.contract.json",
+      "cssPath": "src/themes/atmospheric.css"
+    },
+    {
+      "id": "brutalist",
+      "contractPath": "ai/contracts/themes/brutalist-theme.contract.json",
+      "cssPath": "src/themes/brutalist.css"
+    },
+    {
       "id": "carbon",
       "contractPath": "ai/contracts/themes/carbon-theme.contract.json",
       "cssPath": "src/themes/carbon.css"
@@ -271,6 +281,11 @@
       "id": "default",
       "contractPath": "ai/contracts/themes/default-theme.contract.json",
       "cssPath": "src/themes/default.css"
+    },
+    {
+      "id": "dense",
+      "contractPath": "ai/contracts/themes/dense-theme.contract.json",
+      "cssPath": "src/themes/dense.css"
     },
     {
       "id": "forest",

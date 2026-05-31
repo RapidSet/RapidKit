@@ -22,6 +22,12 @@
     --rk-muted-foreground: var(--muted-foreground, 0 0% 45.1%);
     --rk-accent: var(--accent, 0 0% 96.1%);
     --rk-accent-foreground: var(--accent-foreground, 0 0% 9%);
+    --rk-accent-2: var(--rk-accent);
+    --rk-accent-2-foreground: var(--rk-accent-foreground);
+    --rk-accent-3: var(--rk-accent);
+    --rk-accent-3-foreground: var(--rk-accent-foreground);
+    --rk-accent-4: var(--rk-accent);
+    --rk-accent-4-foreground: var(--rk-accent-foreground);
     --rk-destructive: var(--destructive, 0 84.2% 60.2%);
     --rk-destructive-foreground: var(--destructive-foreground, 0 0% 98%);
     --rk-border: var(--border, 0 0% 89.8%);
@@ -50,7 +56,8 @@
       'Courier New',
       monospace
     );
-    --rk-button-height: var(--rk-control-height);
+    --rk-density: 1;
+    --rk-button-height: calc(var(--rk-control-height) * var(--rk-density));
     --rk-button-padding-x: 1rem;
     --rk-button-padding-y: 0.625rem;
     --rk-button-font-size: 0.875rem;
@@ -58,7 +65,7 @@
     --rk-button-letter-spacing: 0.01em;
     --rk-button-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.08);
     --rk-button-shadow-hover: 0 8px 16px hsl(var(--rk-foreground) / 0.14);
-    --rk-control-height: 2.625rem;
+    --rk-control-height: calc(2.625rem * var(--rk-density));
     --rk-control-padding-x: 0.75rem;
     --rk-control-padding-y: 0.5rem;
     --rk-control-font-size: 0.875rem;
@@ -67,6 +74,32 @@
     --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.22);
     --rk-checkbox-size: 1rem;
     --rk-checkbox-radius: 0.1875rem;
+    --rk-border-width: 1px;
+    --rk-shadow-color: 0 0% 0%;
+    --rk-shadow-xs: 0 1px 2px hsl(var(--rk-shadow-color) / 0.05);
+    --rk-shadow-sm:
+      0 1px 2px hsl(var(--rk-shadow-color) / 0.06),
+      0 1px 3px hsl(var(--rk-shadow-color) / 0.08);
+    --rk-shadow-md:
+      0 2px 4px hsl(var(--rk-shadow-color) / 0.06),
+      0 4px 8px hsl(var(--rk-shadow-color) / 0.08);
+    --rk-shadow-lg:
+      0 4px 8px hsl(var(--rk-shadow-color) / 0.08),
+      0 12px 24px hsl(var(--rk-shadow-color) / 0.12);
+    --rk-shadow-xl:
+      0 8px 16px hsl(var(--rk-shadow-color) / 0.1),
+      0 24px 48px hsl(var(--rk-shadow-color) / 0.16);
+    --rk-success: 142 70% 40%;
+    --rk-success-foreground: 0 0% 100%;
+    --rk-warning: 38 92% 50%;
+    --rk-warning-foreground: 0 0% 12%;
+    --rk-info: 217 91% 55%;
+    --rk-info-foreground: 0 0% 100%;
+    --rk-motion-fast: 120ms;
+    --rk-motion-base: 200ms;
+    --rk-motion-slow: 320ms;
+    --rk-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --rk-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
     --sidebar-background: var(--rk-card);
     --sidebar-foreground: var(--rk-card-foreground);
     --sidebar-primary: var(--rk-primary);
@@ -80,6 +113,7 @@
     --rk-chart-3: var(--chart-3, 30 90% 55%);
     --rk-chart-4: var(--chart-4, 280 65% 60%);
     --rk-chart-5: var(--chart-5, 340 75% 55%);
+    --rk-chart-6: var(--chart-6, 195 80% 50%);
   }
 
   .dark {
@@ -112,6 +146,27 @@
     --rk-chart-3: var(--chart-3, 35 90% 65%);
     --rk-chart-4: var(--chart-4, 280 70% 70%);
     --rk-chart-5: var(--chart-5, 340 80% 65%);
+    --rk-chart-6: var(--chart-6, 195 80% 60%);
+    --rk-shadow-color: 0 0% 0%;
+    --rk-shadow-xs: 0 1px 2px hsl(var(--rk-shadow-color) / 0.35);
+    --rk-shadow-sm:
+      0 1px 2px hsl(var(--rk-shadow-color) / 0.4),
+      0 1px 3px hsl(var(--rk-shadow-color) / 0.5);
+    --rk-shadow-md:
+      0 2px 4px hsl(var(--rk-shadow-color) / 0.4),
+      0 4px 8px hsl(var(--rk-shadow-color) / 0.5);
+    --rk-shadow-lg:
+      0 4px 8px hsl(var(--rk-shadow-color) / 0.45),
+      0 12px 24px hsl(var(--rk-shadow-color) / 0.55);
+    --rk-shadow-xl:
+      0 8px 16px hsl(var(--rk-shadow-color) / 0.5),
+      0 24px 48px hsl(var(--rk-shadow-color) / 0.6);
+    --rk-success: 142 55% 45%;
+    --rk-success-foreground: 0 0% 100%;
+    --rk-warning: 38 80% 55%;
+    --rk-warning-foreground: 0 0% 10%;
+    --rk-info: 217 80% 60%;
+    --rk-info-foreground: 0 0% 100%;
   }
 
   * {
@@ -124,5 +179,21 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    transition:
+      background-color var(--rk-motion-base) var(--rk-ease-standard),
+      color var(--rk-motion-base) var(--rk-ease-standard);
+  }
+
+  ::selection {
+    background-color: hsl(var(--rk-primary) / 0.2);
+    color: hsl(var(--rk-foreground));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --rk-motion-fast: 0ms;
+      --rk-motion-base: 0ms;
+      --rk-motion-slow: 0ms;
+    }
   }
 }

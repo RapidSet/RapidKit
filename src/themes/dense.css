@@ -1,0 +1,111 @@
+/* Dashboard-dense — compact, data-heavy admin tools. Tight density, subtle shadows,
+   coherent categorical chart palette, instant motion. */
+:root {
+  --rk-background: 210 20% 99%;
+  --rk-foreground: 215 25% 12%;
+  --rk-card: 0 0% 100%;
+  --rk-card-foreground: 215 25% 12%;
+  --rk-popover: 0 0% 100%;
+  --rk-popover-foreground: 215 25% 12%;
+  --rk-primary: 215 70% 42%;
+  --rk-primary-foreground: 0 0% 100%;
+  --rk-secondary: 210 20% 95%;
+  --rk-secondary-foreground: 215 25% 18%;
+  --rk-muted: 210 20% 96%;
+  --rk-muted-foreground: 215 15% 45%;
+  --rk-accent: 215 70% 95%;
+  --rk-accent-foreground: 215 70% 30%;
+  --rk-accent-2: 152 60% 42%;
+  --rk-accent-2-foreground: 0 0% 100%;
+  --rk-accent-3: 38 85% 52%;
+  --rk-accent-3-foreground: 215 25% 12%;
+  --rk-accent-4: 280 55% 55%;
+  --rk-accent-4-foreground: 0 0% 100%;
+  --rk-destructive: 0 70% 48%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 215 20% 88%;
+  --rk-input: 215 20% 88%;
+  --rk-ring: 215 70% 50%;
+  --rk-radius: 0.25rem;
+  --rk-font-sans:
+    'Inter Tight', 'IBM Plex Sans', 'Segoe UI Variable', 'Segoe UI', system-ui,
+    sans-serif;
+  --rk-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --rk-border-width: 1px;
+  --rk-density: 0.875;
+
+  --rk-shadow-color: 215 30% 15%;
+  --rk-shadow-xs: 0 1px 1px hsl(var(--rk-shadow-color) / 0.04);
+  --rk-shadow-sm: 0 1px 2px hsl(var(--rk-shadow-color) / 0.05);
+  --rk-shadow-md:
+    0 1px 2px hsl(var(--rk-shadow-color) / 0.05),
+    0 2px 4px hsl(var(--rk-shadow-color) / 0.04);
+  --rk-shadow-lg:
+    0 2px 4px hsl(var(--rk-shadow-color) / 0.06),
+    0 6px 12px hsl(var(--rk-shadow-color) / 0.08);
+  --rk-shadow-xl:
+    0 4px 8px hsl(var(--rk-shadow-color) / 0.08),
+    0 16px 32px hsl(var(--rk-shadow-color) / 0.12);
+
+  --rk-success: 152 65% 38%;
+  --rk-success-foreground: 0 0% 100%;
+  --rk-warning: 38 88% 48%;
+  --rk-warning-foreground: 0 0% 10%;
+  --rk-info: 200 85% 45%;
+  --rk-info-foreground: 0 0% 100%;
+
+  --rk-chart-1: 215 70% 50%;
+  --rk-chart-2: 152 60% 42%;
+  --rk-chart-3: 38 85% 52%;
+  --rk-chart-4: 280 55% 55%;
+  --rk-chart-5: 340 70% 52%;
+  --rk-chart-6: 195 75% 48%;
+
+  --rk-motion-fast: 90ms;
+  --rk-motion-base: 150ms;
+  --rk-motion-slow: 240ms;
+  --rk-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --rk-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+
+  --rk-button-font-size: 0.8125rem;
+  --rk-button-padding-y: 0.5rem;
+  --rk-control-font-size: 0.8125rem;
+}
+
+.dark {
+  --rk-background: 215 30% 9%;
+  --rk-foreground: 210 20% 95%;
+  --rk-card: 215 28% 12%;
+  --rk-card-foreground: 210 20% 95%;
+  --rk-popover: 215 28% 13%;
+  --rk-popover-foreground: 210 20% 95%;
+  --rk-primary: 215 80% 60%;
+  --rk-primary-foreground: 215 30% 9%;
+  --rk-secondary: 215 25% 18%;
+  --rk-secondary-foreground: 210 20% 95%;
+  --rk-muted: 215 25% 16%;
+  --rk-muted-foreground: 215 15% 65%;
+  --rk-accent: 215 50% 22%;
+  --rk-accent-foreground: 210 20% 95%;
+  --rk-accent-2: 152 65% 55%;
+  --rk-accent-2-foreground: 215 30% 9%;
+  --rk-accent-3: 38 90% 60%;
+  --rk-accent-3-foreground: 215 30% 9%;
+  --rk-accent-4: 280 65% 70%;
+  --rk-accent-4-foreground: 215 30% 9%;
+  --rk-destructive: 0 65% 52%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 215 22% 22%;
+  --rk-input: 215 22% 22%;
+  --rk-ring: 215 80% 60%;
+
+  --rk-shadow-color: 0 0% 0%;
+
+  --rk-chart-1: 215 85% 65%;
+  --rk-chart-2: 152 65% 55%;
+  --rk-chart-3: 38 90% 60%;
+  --rk-chart-4: 280 65% 70%;
+  --rk-chart-5: 340 75% 65%;
+  --rk-chart-6: 195 80% 60%;
+}
