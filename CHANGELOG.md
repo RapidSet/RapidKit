@@ -1,5 +1,13 @@
 # @rapidset/rapidkit
 
+## 0.14.0
+
+### Minor Changes
+
+- 69fcfe2: expand theme token surface with v2 families: elevation scale, border-width, density multiplier, semantic states (success/warning/info), chart palette (chart-1..6), motion tokens, and accent variants (accent-2/3/4). Dialog and Sheet primitives now consume tokenized shadow + motion.
+- 69fcfe2: populate the existing 11 themes with multi-accent palettes (accent-2/3/4, success/warning/info, chart-1..6, shadow-color tint) so each theme reads as a multi-hue product instead of a single-primary palette swap.
+- 69fcfe2: add atmospheric, brutalist, and dense showcase themes that exercise the v2 token surface (radii, density, shadows, motion, palette).
+
 ## 0.13.0
 
 ### Minor Changes
