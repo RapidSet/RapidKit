@@ -1,0 +1,107 @@
+/* Atmospheric — airy surfaces, tinted diffuse shadows, roomy density, soft motion. */
+:root {
+  --rk-background: 250 30% 99%;
+  --rk-foreground: 250 30% 12%;
+  --rk-card: 0 0% 100%;
+  --rk-card-foreground: 250 30% 12%;
+  --rk-popover: 0 0% 100%;
+  --rk-popover-foreground: 250 30% 12%;
+  --rk-primary: 258 75% 58%;
+  --rk-primary-foreground: 0 0% 100%;
+  --rk-secondary: 250 30% 96%;
+  --rk-secondary-foreground: 250 30% 20%;
+  --rk-muted: 250 25% 96%;
+  --rk-muted-foreground: 250 15% 50%;
+  --rk-accent: 258 75% 96%;
+  --rk-accent-foreground: 258 75% 35%;
+  --rk-accent-2: 200 80% 55%;
+  --rk-accent-2-foreground: 0 0% 100%;
+  --rk-accent-3: 158 65% 45%;
+  --rk-accent-3-foreground: 0 0% 100%;
+  --rk-accent-4: 32 90% 60%;
+  --rk-accent-4-foreground: 250 30% 12%;
+  --rk-destructive: 0 80% 60%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 250 25% 92%;
+  --rk-input: 250 25% 92%;
+  --rk-ring: 258 75% 58%;
+  --rk-radius: 0.75rem;
+  --rk-font-sans:
+    'Geist', 'Inter Tight', 'Segoe UI Variable', system-ui, sans-serif;
+  --rk-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --rk-border-width: 1px;
+  --rk-density: 1.05;
+
+  --rk-shadow-color: 258 75% 30%;
+  --rk-shadow-xs: 0 1px 2px hsl(var(--rk-shadow-color) / 0.06);
+  --rk-shadow-sm:
+    0 2px 4px hsl(var(--rk-shadow-color) / 0.06),
+    0 4px 12px hsl(var(--rk-shadow-color) / 0.08);
+  --rk-shadow-md:
+    0 4px 8px hsl(var(--rk-shadow-color) / 0.08),
+    0 12px 24px hsl(var(--rk-shadow-color) / 0.12);
+  --rk-shadow-lg:
+    0 8px 16px hsl(var(--rk-shadow-color) / 0.1),
+    0 24px 48px hsl(var(--rk-shadow-color) / 0.16);
+  --rk-shadow-xl:
+    0 16px 32px hsl(var(--rk-shadow-color) / 0.12),
+    0 40px 80px hsl(var(--rk-shadow-color) / 0.2);
+
+  --rk-success: 158 65% 42%;
+  --rk-success-foreground: 0 0% 100%;
+  --rk-warning: 32 90% 55%;
+  --rk-warning-foreground: 0 0% 10%;
+  --rk-info: 210 90% 55%;
+  --rk-info-foreground: 0 0% 100%;
+
+  --rk-chart-1: 258 75% 58%;
+  --rk-chart-2: 200 80% 55%;
+  --rk-chart-3: 158 65% 45%;
+  --rk-chart-4: 32 90% 60%;
+  --rk-chart-5: 330 75% 60%;
+  --rk-chart-6: 50 90% 55%;
+
+  --rk-motion-fast: 160ms;
+  --rk-motion-base: 240ms;
+  --rk-motion-slow: 360ms;
+  --rk-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --rk-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark {
+  --rk-background: 250 30% 7%;
+  --rk-foreground: 250 30% 96%;
+  --rk-card: 250 28% 11%;
+  --rk-card-foreground: 250 30% 96%;
+  --rk-popover: 250 28% 12%;
+  --rk-popover-foreground: 250 30% 96%;
+  --rk-primary: 258 80% 70%;
+  --rk-primary-foreground: 250 30% 10%;
+  --rk-secondary: 250 25% 18%;
+  --rk-secondary-foreground: 250 30% 96%;
+  --rk-muted: 250 25% 16%;
+  --rk-muted-foreground: 250 15% 65%;
+  --rk-accent: 258 50% 22%;
+  --rk-accent-foreground: 250 30% 96%;
+  --rk-accent-2: 200 85% 65%;
+  --rk-accent-2-foreground: 250 30% 7%;
+  --rk-accent-3: 158 70% 55%;
+  --rk-accent-3-foreground: 250 30% 7%;
+  --rk-accent-4: 32 95% 65%;
+  --rk-accent-4-foreground: 250 30% 7%;
+  --rk-destructive: 0 70% 60%;
+  --rk-destructive-foreground: 0 0% 100%;
+  --rk-border: 250 22% 20%;
+  --rk-input: 250 22% 20%;
+  --rk-ring: 258 80% 70%;
+
+  --rk-shadow-color: 258 80% 40%;
+
+  --rk-chart-1: 258 80% 70%;
+  --rk-chart-2: 200 85% 65%;
+  --rk-chart-3: 158 70% 55%;
+  --rk-chart-4: 32 95% 65%;
+  --rk-chart-5: 330 80% 70%;
+  --rk-chart-6: 50 95% 65%;
+}
