@@ -131,7 +131,7 @@ export function LoginFlowPreview() {
   return (
     <Page
       enableSearch={false}
-      className='min-h-[42rem] w-full rounded-none bg-[radial-gradient(circle_at_top,_hsl(var(--muted))_0%,_transparent_42%),linear-gradient(180deg,_hsl(var(--background))_0%,_hsl(var(--muted)/0.18)_100%)] px-6 py-12 md:px-10 md:py-16'
+      className='min-h-screen w-full rounded-none bg-[radial-gradient(circle_at_top,_hsl(var(--muted))_0%,_transparent_42%),linear-gradient(180deg,_hsl(var(--background))_0%,_hsl(var(--muted)/0.18)_100%)] px-6 py-8 md:px-10 md:py-12'
     >
       <div className='h-full w-full overflow-y-auto py-4'>
         <div className='mx-auto flex w-full max-w-md flex-col justify-center'>
@@ -267,7 +267,7 @@ function LoginFlowPreview(): JSX.Element {
   return (
     <Page
       enableSearch={false}
-      className="min-h-[42rem] w-full rounded-none bg-[radial-gradient(circle_at_top,_hsl(var(--muted))_0%,_transparent_42%),linear-gradient(180deg,_hsl(var(--background))_0%,_hsl(var(--muted)/0.18)_100%)] px-6 py-12 md:px-10 md:py-16"
+      className="min-h-screen w-full rounded-none bg-[radial-gradient(circle_at_top,_hsl(var(--muted))_0%,_transparent_42%),linear-gradient(180deg,_hsl(var(--background))_0%,_hsl(var(--muted)/0.18)_100%)] px-6 py-8 md:px-10 md:py-12"
     >
       <div className="h-full w-full overflow-y-auto py-4">
         <div className="mx-auto flex w-full max-w-md flex-col justify-center">

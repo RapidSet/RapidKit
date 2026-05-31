@@ -212,6 +212,18 @@ body,
   display: none !important;
 }
 
+/* Hide Nextra's built-in "Change theme" switcher in the page footer.
+   Our SiteHeader (navbar) already exposes a custom theme + mode picker,
+   so the Nextra one is a duplicate. Preserves the "RapidKit" footer text. */
+footer > div:has(> button[title='Change theme']),
+footer > div:has(> button[title='Change theme']) + hr {
+  display: none !important;
+}
+
+footer button[title='Change theme'] {
+  display: none !important;
+}
+
 .nextra-toc {
   font-family: 'Geist', 'Avenir Next', 'Segoe UI', sans-serif;
 }
