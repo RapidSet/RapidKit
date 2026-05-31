@@ -62,6 +62,75 @@ Optional style tokens used by core components (recommended):
 - `--rk-checkbox-size`
 - `--rk-checkbox-radius`
 
+### Extended Token Families (v2)
+
+These optional token families let a theme change feel — not just hue. Safe defaults live in `src/styles.css` so existing themes work unchanged; opt in by overriding any of these in your theme `:root`.
+
+**Elevation scale** — shadcn primitives (`Card`, `Popover`, `Dialog`, `DropdownMenu`, `Sheet`) read shadow utilities through these tokens:
+
+- `--rk-shadow-color` (HSL triplet — tint shadows with the primary hue, or use `0 0% 0%` for neutral)
+- `--rk-shadow-xs`, `--rk-shadow-sm`, `--rk-shadow-md`, `--rk-shadow-lg`, `--rk-shadow-xl`
+
+**Border presence**
+
+- `--rk-border-width` — default `1px`. Set to `2px` for slabby/brutalist themes, `0` to drop borders entirely.
+
+**Density**
+
+- `--rk-density` — unitless multiplier (default `1`). Multiplies button/control heights. `0.875` = compact admin, `1.05` = spacious editorial.
+
+**Semantic states**
+
+- `--rk-success` + `--rk-success-foreground`
+- `--rk-warning` + `--rk-warning-foreground`
+- `--rk-info` + `--rk-info-foreground`
+
+Available as Tailwind utilities: `bg-success`, `text-success-foreground`, etc.
+
+**Chart palette** (categorical, 6 colors)
+
+- `--rk-chart-1` through `--rk-chart-6` — exposed as `bg-chart-1` … `bg-chart-6` and via `chart.tsx`.
+
+**Motion**
+
+- `--rk-motion-fast` (~120ms), `--rk-motion-base` (~200ms), `--rk-motion-slow` (~320ms)
+- `--rk-ease-standard`, `--rk-ease-emphasized`
+
+Tailwind utilities: `duration-fast` / `duration-base` / `duration-slow`, `ease-standard` / `ease-emphasized`. `prefers-reduced-motion: reduce` neutralizes all three durations automatically.
+
+**Accent variants**
+
+- `--rk-accent-2` + `--rk-accent-2-foreground`
+- `--rk-accent-3` + `--rk-accent-3-foreground`
+- `--rk-accent-4` + `--rk-accent-4-foreground`
+
+Tailwind utilities: `bg-accent-2`, `text-accent-2-foreground`, `bg-accent-3`, etc. Useful for status pills, kanban group colors, multi-tag badges, or anywhere a single `accent` slot isn't expressive enough.
+
+Defaults fall back to `--rk-accent` / `--rk-accent-foreground`, so themes that don't override them render harmlessly. Core primitives don't consume these — consumers opt in via the utility classes. The Monday theme overrides all three with brand greens/oranges/yellows to show what this looks like in practice.
+
+### Personality Presets
+
+Three themes that exercise the extended token surface to show how different a theme can feel:
+
+```tsx
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/brutalist.css';
+```
+
+```tsx
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/dense.css';
+```
+
+```tsx
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/atmospheric.css';
+```
+
+- **brutalist** — `--rk-radius: 0`, `--rk-border-width: 2px`, hard offset shadows, snappy motion.
+- **dense** — `--rk-density: 0.875`, subtle shadows, tuned categorical chart palette, fast motion.
+- **atmospheric** — large radii, tinted diffuse shadows, roomier density, soft easing.
+
 ## Using Built-In Themes
 
 ```tsx
