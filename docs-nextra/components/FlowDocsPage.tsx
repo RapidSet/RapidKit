@@ -118,7 +118,7 @@ export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
   return (
     <article className="rk-flow-page">
       <nav className="rk-flow-page__nav" aria-label="Flows">
-        <Link href={withBasePath('/flows/')} className="rk-flow-page__nav-home">
+        <Link href="/flows/" className="rk-flow-page__nav-home">
           ← All flows
         </Link>
         <ul className="rk-flow-page__nav-list">
@@ -127,7 +127,7 @@ export function FlowDocsPage({ flow }: FlowDocsPageProps): JSX.Element {
             return (
               <li key={id}>
                 <Link
-                  href={withBasePath(`/flows/${id}/`)}
+                  href={`/flows/${id}/`}
                   className={`rk-flow-page__nav-pill${isActive ? ' is-active' : ''}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
