@@ -7,7 +7,7 @@ export default defineConfig({
   },
   test: {
     environment: 'happy-dom',
-    include: ['src/**/*.test.{ts,tsx}'],
+    include: ['src/**/*.test.{ts,tsx}', 'docs-nextra/**/*.test.{ts,tsx}'],
     exclude: ['tests/ct/**', 'playwright/**'],
   },
 });

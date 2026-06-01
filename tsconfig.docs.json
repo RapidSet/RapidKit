@@ -13,14 +13,16 @@
       "@components/*": ["src/components/*"],
       "@lib/*": ["src/lib/*"],
       "@ui/*": ["src/components/ui/*"],
-      "@rapidset/rapidkit": ["src/index.ts"],
-      "@rapidset/rapidkit/styles.css": ["src/styles.css"]
+      "@rapidset/rapidkit": ["docs-nextra/registry/rapidkit-entry.ts"],
+      "@rapidset/rapidkit/styles.css": ["src/styles.css"],
+      "@rapidset/rapidkit/themes/*": ["src/themes/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "pages/**/*",
     "docs-nextra/**/*",
+    "src/global.d.ts",
     "theme.config.tsx"
   ],
   "exclude": ["node_modules"]

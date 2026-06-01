@@ -850,3 +850,241 @@
 .rk-flow-page__about-list li + li {
   margin-top: 0.25rem;
 }
+
+/* ============================================================
+   Multi-file code preview (shadcn /blocks "Code" tab vibe).
+   Two-pane layout: collapsible file tree (left) + sticky path
+   header and Shiki-rendered code (right).
+   ============================================================ */
+
+.multi-file-code {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: var(--rk-flow-code-height, 540px);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.5rem;
+  background: var(--vp-c-bg);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.multi-file-code__tree {
+  flex: 0 0 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  padding: 0.5rem 0.35rem;
+  border-right: 1px solid var(--vp-c-divider);
+  background: var(--vp-code-block-bg);
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.multi-file-code__tree-root-label {
+  padding: 0.2rem 0.55rem 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.multi-file-code__tree-root,
+.multi-file-code__tree-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.multi-file-code__tree-children {
+  padding-inline-start: 0.75rem;
+}
+
+.multi-file-code__tree-node {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 0.28rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 400;
+  font-family: inherit;
+  color: var(--vp-c-text-1);
+  user-select: none;
+  outline: none;
+  transition:
+    background 0.1s ease,
+    color 0.1s ease;
+}
+
+.multi-file-code__tree-node:hover {
+  background: color-mix(in srgb, var(--vp-c-text-1) 6%, transparent);
+}
+
+.multi-file-code__tree-node:focus-visible {
+  background: color-mix(in srgb, var(--vp-c-text-1) 6%, transparent);
+  box-shadow: 0 0 0 1px var(--vp-c-brand-1);
+}
+
+.multi-file-code__tree-node--folder {
+  font-weight: 400;
+  color: var(--vp-c-text-1);
+}
+
+.multi-file-code__tree-node--active {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
+  color: var(--vp-c-brand-1);
+}
+
+.multi-file-code__tree-node--active:hover {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent);
+}
+
+.multi-file-code__tree-chevron {
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  color: color-mix(in srgb, var(--vp-c-text-2) 70%, transparent);
+}
+
+.multi-file-code__tree-chevron--spacer {
+  display: inline-block;
+}
+
+.multi-file-code__tree-icon {
+  flex: 0 0 14px;
+  color: var(--vp-c-text-2);
+}
+
+/* Folder icons stay neutral so the chevron + folder shape carries
+   the hierarchy cue; only file icons receive type-specific color. */
+.multi-file-code__tree-node--folder .multi-file-code__tree-icon {
+  color: var(--vp-c-text-2);
+}
+
+/* File-type icon colors — VS Code Material Icons palette,
+   readable on both light and dark docs themes. */
+.multi-file-code__tree-icon--tsx,
+.multi-file-code__tree-icon--ts {
+  color: hsl(212 56% 52%);
+}
+
+.multi-file-code__tree-icon--jsx,
+.multi-file-code__tree-icon--js {
+  color: hsl(50 92% 52%);
+}
+
+.multi-file-code__tree-icon--css {
+  color: hsl(310 60% 58%);
+}
+
+.multi-file-code__tree-icon--json {
+  color: hsl(38 92% 56%);
+}
+
+.multi-file-code__tree-icon--md {
+  color: hsl(220 8% 58%);
+}
+
+.multi-file-code__tree-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.multi-file-code__pane {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--vp-code-block-bg);
+}
+
+.multi-file-code__path {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  font-family: var(
+    --rk-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace
+  );
+  font-size: 0.8rem;
+  color: var(--vp-c-text-1);
+}
+
+.multi-file-code__path-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.multi-file-code__copy {
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 92%, transparent);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
+  color: var(--vp-c-text-2);
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.28rem 0.45rem;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.multi-file-code__copy:hover:not(:disabled) {
+  color: var(--vp-c-text-1);
+  border-color: var(--vp-c-divider);
+  background: color-mix(in srgb, var(--vp-c-bg) 96%, transparent);
+}
+
+.multi-file-code__copy:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.multi-file-code__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  background: var(--vp-code-block-bg);
+}
+
+@media (max-width: 720px) {
+  .multi-file-code {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .multi-file-code__tree {
+    flex: 0 0 auto;
+    max-height: 200px;
+    overflow-y: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--vp-c-divider);
+  }
+
+  .multi-file-code__pane {
+    min-height: 340px;
+  }
+}

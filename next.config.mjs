@@ -38,7 +38,11 @@ export default withNextra({
         __dirname,
         'src/styles.css',
       ),
-      '@rapidset/rapidkit': path.resolve(__dirname, 'src/index.ts'),
+      '@rapidset/rapidkit/themes': path.resolve(__dirname, 'src/themes'),
+      '@rapidset/rapidkit': path.resolve(
+        __dirname,
+        'docs-nextra/registry/rapidkit-entry.ts',
+      ),
     };
     return config;
   },

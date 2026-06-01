@@ -38,11 +38,7 @@ export default [
         {
           patterns: [
             {
-              group: [
-                '@rapidset/rapidkit/*',
-                '!@rapidset/rapidkit/styles.css',
-                '!@rapidset/rapidkit/themes/*',
-              ],
+              regex: '^@rapidset/rapidkit/(?!styles\\.css$|themes/).+',
               message:
                 'Import components from @rapidset/rapidkit root only. Allowed subpaths: @rapidset/rapidkit/styles.css and @rapidset/rapidkit/themes/*.',
             },

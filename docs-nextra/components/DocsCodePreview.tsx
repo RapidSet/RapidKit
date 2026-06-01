@@ -1,4 +1,5 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useState, type JSX } from 'react';
+import { useShikiHtml } from './useShikiHtml';
 
 type DocsCodePreviewProps = Readonly<{
   code: string;
@@ -24,38 +25,7 @@ export function DocsCodePreview({
   language = 'tsx',
 }: DocsCodePreviewProps): JSX.Element {
   const [copyState, setCopyState] = useState<CopyState>('idle');
-  const [highlightedCodeHtml, setHighlightedCodeHtml] = useState('');
-
-  useEffect(() => {
-    let isCancelled = false;
-
-    async function highlightCode(): Promise<void> {
-      try {
-        const { codeToHtml } = await import('shiki');
-        const html = await codeToHtml(code, {
-          lang: language,
-          themes: {
-            light: 'github-light',
-            dark: 'github-dark',
-          },
-        });
-
-        if (!isCancelled) {
-          setHighlightedCodeHtml(html);
-        }
-      } catch {
-        if (!isCancelled) {
-          setHighlightedCodeHtml('');
-        }
-      }
-    }
-
-    void highlightCode();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [code, language]);
+  const highlightedCodeHtml = useShikiHtml(code, language);
 
   async function copyCode(): Promise<void> {
     try {
@@ -96,3 +66,5 @@ export function DocsCodePreview({
     </div>
   );
 }
+
+export { useShikiHtml };

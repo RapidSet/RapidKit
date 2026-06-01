@@ -1,8 +1,2 @@
-import type { RegistryEntry } from '../types';
-
-export const FLOW_EXAMPLES = {} as const satisfies Record<
-  string,
-  RegistryEntry
->;
-
-export type FlowExampleId = keyof typeof FLOW_EXAMPLES;
+export { FLOW_EXAMPLE_FILES } from '../generated/flowFiles';
+export type { FlowExampleFile } from '../generated/flowFiles';
