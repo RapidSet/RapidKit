@@ -1,11 +1,18 @@
 import { useMemo, useState, type JSX } from 'react';
 import { FileTree, type FileTreeNode } from './FileTree';
-import { useShikiHtml } from './useShikiHtml';
 
 export type MultiFileCodePreviewFile = Readonly<{
   path: string;
   content: string;
   language?: 'tsx' | 'ts' | 'css' | 'json' | 'jsx' | 'js' | 'md';
+  /**
+   * Pre-rendered Shiki HTML (dual github-light / github-dark themes).
+   * Produced at build time by `scripts/generate-example-code-manifest.mjs`
+   * so the Code tab paints already-highlighted source in the first frame.
+   * Optional so callers (e.g. tests) can pass minimal fixtures and fall
+   * back to a plain <pre><code> render.
+   */
+  html?: string;
 }>;
 
 type MultiFileCodePreviewProps = Readonly<{
@@ -15,18 +22,6 @@ type MultiFileCodePreviewProps = Readonly<{
 }>;
 
 type CopyState = 'idle' | 'done' | 'error';
-
-const EXTENSION_LANGUAGE_MAP: Readonly<
-  Record<string, MultiFileCodePreviewFile['language']>
-> = {
-  tsx: 'tsx',
-  ts: 'ts',
-  jsx: 'jsx',
-  js: 'js',
-  css: 'css',
-  json: 'json',
-  md: 'md',
-};
 
 function getCopyLabel(copyState: CopyState): string {
   if (copyState === 'done') {
@@ -38,27 +33,6 @@ function getCopyLabel(copyState: CopyState): string {
   }
 
   return 'Copy';
-}
-
-function inferLanguage(
-  file: MultiFileCodePreviewFile,
-): NonNullable<MultiFileCodePreviewFile['language']> {
-  if (file.language) {
-    return file.language;
-  }
-
-  const dotIndex = file.path.lastIndexOf('.');
-
-  if (dotIndex !== -1 && dotIndex < file.path.length - 1) {
-    const ext = file.path.slice(dotIndex + 1).toLowerCase();
-    const language = EXTENSION_LANGUAGE_MAP[ext];
-
-    if (language) {
-      return language;
-    }
-  }
-
-  return 'tsx';
 }
 
 export function MultiFileCodePreview({
@@ -103,9 +77,8 @@ export function MultiFileCodePreview({
     [files, clampedActivePath],
   );
 
-  const activeLanguage = activeFile ? inferLanguage(activeFile) : 'tsx';
   const activeContent = activeFile?.content ?? '';
-  const highlightedCodeHtml = useShikiHtml(activeContent, activeLanguage);
+  const highlightedCodeHtml = activeFile?.html ?? '';
 
   const [copyState, setCopyState] = useState<CopyState>('idle');
 

@@ -2,6 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHighlighter } from 'shiki';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
@@ -20,6 +21,9 @@ const FLAT_SURFACES = [
 ];
 
 const FLOW_FILE_PATTERN = /\.(tsx?|css|json)$/;
+
+const SHIKI_LANGS = ['tsx', 'ts', 'jsx', 'js', 'css', 'json', 'md'];
+const SHIKI_THEMES = { light: 'github-light', dark: 'github-dark' };
 
 async function safeReaddir(dir) {
   try {
@@ -95,7 +99,22 @@ function compareFlowPaths(a, b) {
   return a.localeCompare(b);
 }
 
-async function collectFlowFiles() {
+function highlight(highlighter, content, language) {
+  try {
+    return highlighter.codeToHtml(content, {
+      lang: language,
+      themes: SHIKI_THEMES,
+    });
+  } catch (error) {
+    console.warn(
+      `[gen:example-code] shiki failed to highlight (${language}):`,
+      error?.message ?? error,
+    );
+    return '';
+  }
+}
+
+async function collectFlowFiles(highlighter) {
   const flowsRoot = path.join(registryRoot, 'flows');
   const dirs = await safeReaddir(flowsRoot);
   const result = {};
@@ -116,7 +135,9 @@ async function collectFlowFiles() {
           .split(path.sep)
           .join('/');
         const content = await fs.readFile(absPath, 'utf8');
-        return { path: relPath, content, language: detectLanguage(absPath) };
+        const language = detectLanguage(absPath);
+        const html = highlight(highlighter, content, language);
+        return { path: relPath, content, language, html };
       }),
     );
     files.sort((a, b) => compareFlowPaths(a.path, b.path));
@@ -150,6 +171,7 @@ function serializeFlowFiles(flows) {
     '  path: string;',
     '  content: string;',
     "  language: 'tsx' | 'ts' | 'jsx' | 'js' | 'css' | 'json' | 'md';",
+    '  html: string;',
     '}>;',
     '',
     'export const FLOW_EXAMPLE_FILES: Record<string, readonly FlowExampleFile[]> = {',
@@ -160,7 +182,7 @@ function serializeFlowFiles(flows) {
     lines.push(`  ${JSON.stringify(flowId)}: [`);
     for (const file of flows[flowId]) {
       lines.push(
-        `    { path: ${JSON.stringify(file.path)}, language: ${JSON.stringify(file.language)}, content: ${JSON.stringify(file.content)} },`,
+        `    { path: ${JSON.stringify(file.path)}, language: ${JSON.stringify(file.language)}, content: ${JSON.stringify(file.content)}, html: ${JSON.stringify(file.html)} },`,
       );
     }
     lines.push('  ],');
@@ -185,7 +207,12 @@ async function main() {
     `[gen:example-code] wrote ${entries.length} example${entries.length === 1 ? '' : 's'} → ${path.relative(repoRoot, exampleCodeFile)}`,
   );
 
-  const flows = await collectFlowFiles();
+  const highlighter = await createHighlighter({
+    themes: Object.values(SHIKI_THEMES),
+    langs: SHIKI_LANGS,
+  });
+
+  const flows = await collectFlowFiles(highlighter);
   const flowCount = Object.keys(flows).length;
   const totalFlowFiles = Object.values(flows).reduce(
     (sum, files) => sum + files.length,
@@ -193,8 +220,10 @@ async function main() {
   );
   await fs.writeFile(flowFilesFile, serializeFlowFiles(flows), 'utf8');
   console.log(
-    `[gen:example-code] wrote ${flowCount} flow${flowCount === 1 ? '' : 's'} (${totalFlowFiles} file${totalFlowFiles === 1 ? '' : 's'}) → ${path.relative(repoRoot, flowFilesFile)}`,
+    `[gen:example-code] wrote ${flowCount} flow${flowCount === 1 ? '' : 's'} (${totalFlowFiles} file${totalFlowFiles === 1 ? '' : 's'}, pre-highlighted) → ${path.relative(repoRoot, flowFilesFile)}`,
   );
+
+  highlighter.dispose?.();
 }
 
 main().catch((error) => {

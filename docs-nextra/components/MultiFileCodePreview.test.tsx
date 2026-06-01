@@ -5,10 +5,6 @@ import {
   type MultiFileCodePreviewFile,
 } from './MultiFileCodePreview';
 
-vi.mock('./useShikiHtml', () => ({
-  useShikiHtml: () => '',
-}));
-
 const FILES: readonly MultiFileCodePreviewFile[] = [
   { path: 'LoginPage.tsx', content: 'export const LoginPage = () => null;\n' },
   { path: 'LoginForm.tsx', content: 'export const LoginForm = () => null;\n' },
