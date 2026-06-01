@@ -861,7 +861,10 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: var(--rk-flow-code-height, 540px);
+  /* Match the FlowPreviewFrame iframe height (min(88vh, 920px)) so the
+     Code tab feels the same size as the Preview tab instead of being
+     truncated to a short panel. */
+  height: var(--rk-flow-code-height, min(88vh, 920px));
   border: 1px solid var(--vp-c-divider);
   border-radius: 0.5rem;
   background: var(--vp-c-bg);
