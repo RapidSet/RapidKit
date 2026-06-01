@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.15.1
+
+### Patch Changes
+
+- 4f82ae7: Fix flow doc page nav generating doubled basePath URLs (`/RapidKit/RapidKit/flows/...`) on the GitHub Pages docs site, which caused 404s when clicking between flows. Removed redundant `withBasePath()` wrapping on `next/link` hrefs in `FlowDocsPage` — Next.js already applies `basePath` to `<Link>` automatically.
+
 ## 0.15.0
 
 ### Minor Changes
