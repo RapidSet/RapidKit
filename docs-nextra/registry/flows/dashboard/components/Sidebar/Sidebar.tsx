@@ -43,7 +43,7 @@ export function Sidebar({ activeNav, onSelectNav, mainContent }: SidebarProps) {
           subtitle="Workspace"
           logo={
             <Image
-              src="/rapidkit.svg"
+              src="https://raw.githubusercontent.com/RapidSet/RapidKit/main/public/rapidkit.svg"
               alt="RapidKit"
               size="sm"
               className="h-7 w-7"
