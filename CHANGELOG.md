@@ -1,5 +1,15 @@
 # @rapidset/rapidkit
 
+## 0.16.0
+
+### Minor Changes
+
+- c132013: Docs: redesign the flow code preview into a shadcn-style multi-file viewer. The Code tab on `/flows/login` and `/flows/dashboard` now shows a left-rail file tree and a per-file pane with full path, per-file copy, and Shiki highlighting. Each flow's source lives in `docs-nextra/registry/flows/<flow>/` as real `.tsx`/`.ts` modules; the preview iframe imports the same modules, so displayed code and rendered preview can't drift.
+
+### Patch Changes
+
+- c132013: Docs: reorganize each flow's registry into production-style folders (`components/`, `consts/`, `schemas/`, `types/`) so the file tree on `/flows/login` and `/flows/dashboard` reads like a real consumer codebase. Refresh the file-tree styling toward a Zed-editor aesthetic — compact rows, lighter chrome, accent-tint active state, no indent guides — and color file icons by extension (TS blue, JS yellow, CSS purple, JSON orange, MD gray) for VS Code-style scannability.
+
 ## 0.15.1
 
 ### Patch Changes
