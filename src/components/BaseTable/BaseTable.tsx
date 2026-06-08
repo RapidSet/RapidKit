@@ -26,7 +26,6 @@ import { isRowInactive } from './components/BaseTableRow/helper';
 import TablePlaceholder from './components/BaseTablePlaceHolder/BaseTablePlaceHolder';
 import { DataTablePagination } from './components/Pagination/Pagination';
 import {
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -317,9 +316,9 @@ export const BaseTable = <T extends object>({
         className,
       )}
     >
-      {/* Sticky columns anchor against the shadcn <Table> primitive's overflow-auto wrapper; keep these ancestors free of overflow-hidden. */}
-      <div className="flex-1 min-h-0 border border-[hsl(var(--rk-control-border))] border-b-0">
-        <Table className="w-full min-w-full border-separate border-spacing-0 text-sm">
+      {/* Sticky thead/columns anchor against this scroll container; keep ancestor overflow chains free of overflow-hidden. */}
+      <div className="flex-1 min-h-0 overflow-auto border border-[hsl(var(--rk-control-border))] border-b-0">
+        <table className="w-full min-w-full caption-bottom border-separate border-spacing-0 text-sm">
           <TableHeader className="sticky top-0 z-10 bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent">
@@ -521,7 +520,7 @@ export const BaseTable = <T extends object>({
               </TableRow>
             )}
           </TableBody>
-        </Table>
+        </table>
       </div>
       {rows.length === 0 ? (
         <TablePlaceholder isLoading={isLoading} placeholder={placeholder} />

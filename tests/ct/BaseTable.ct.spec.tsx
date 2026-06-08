@@ -62,6 +62,67 @@ test.describe('BaseTable (Component Test)', () => {
     await expect.poll(() => latestSort?.sortOrder ?? null).toBe('asc');
   });
 
+  test('scrolls table body in place and keeps header and footer pinned when parent bounds height', async ({
+    mount,
+  }) => {
+    const manyRows: TableRowModel[] = Array.from(
+      { length: 60 },
+      (_, index) => ({
+        id: index + 1,
+        name: `Row ${index + 1}`,
+        createdAt: `2026-01-${String((index % 28) + 1).padStart(2, '0')}`,
+      }),
+    );
+
+    const component = await mount(
+      <div
+        style={{
+          height: 280,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+        }}
+      >
+        <BaseTable<TableRowModel>
+          data={manyRows}
+          columns={columns}
+          totalItems={manyRows.length}
+          totalPages={Math.ceil(manyRows.length / 10)}
+          queryParams={{ query: '', page: 1, size: 10 }}
+        />
+      </div>,
+    );
+
+    const footer = component.getByRole('button', { name: 'Go to next page' });
+    const head = component.locator('thead').first();
+    const scrollArea = component
+      .locator('thead')
+      .locator('xpath=ancestor::div[1]');
+
+    await expect(footer).toBeInViewport();
+
+    const wrapperBoxBefore = await component.boundingBox();
+    const footerBoxBefore = await footer.boundingBox();
+    const headBoxBefore = await head.boundingBox();
+    expect(wrapperBoxBefore).not.toBeNull();
+    expect(footerBoxBefore).not.toBeNull();
+    expect(headBoxBefore).not.toBeNull();
+
+    await scrollArea.evaluate((el) => {
+      (el as HTMLElement).scrollTop = 200;
+    });
+
+    await expect(footer).toBeInViewport();
+    const footerBoxAfter = await footer.boundingBox();
+    const headBoxAfter = await head.boundingBox();
+    expect(footerBoxAfter).not.toBeNull();
+    expect(headBoxAfter).not.toBeNull();
+
+    expect(Math.abs(footerBoxAfter!.y - footerBoxBefore!.y)).toBeLessThan(2);
+    expect(Math.abs(headBoxAfter!.y - headBoxBefore!.y)).toBeLessThan(2);
+    expect(headBoxAfter!.y).toBeLessThan(footerBoxAfter!.y);
+  });
+
   test('handles row selection callback', async ({ mount }) => {
     let selectedItems: TableRowModel[] = [];
 

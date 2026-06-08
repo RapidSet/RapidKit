@@ -40,7 +40,11 @@ import { BaseTable } from '@rapidset/rapidkit';
 
 ## Responsive Behavior
 
-`BaseTable` is responsive by default. When the table is wider than its container, it scrolls horizontally inside the shadcn `<Table>` wrapper, while one anchor column stays pinned on the left and the last `CellType.ACTIONS` column stays pinned on the right. On wide viewports the behavior is invisible — nothing scrolls, nothing visibly pins.
+`BaseTable` is responsive by default. When the table is wider than its container, it scrolls horizontally inside BaseTable's own scroll container, while one anchor column stays pinned on the left and the last `CellType.ACTIONS` column stays pinned on the right. On wide viewports the behavior is invisible — nothing scrolls, nothing visibly pins.
+
+### Vertical overflow
+
+When the parent bounds BaseTable's height (typical app-shell layouts using `h-screen` / `h-full` plus `min-h-0` on flex ancestors), the table scrolls vertically in place: the header row stays pinned via `sticky top-0`, and the pagination footer stays visible at the bottom of the allotted box. When the parent does not bound height, BaseTable simply grows to fit its rows and nothing scrolls.
 
 ### Default inference
 
@@ -49,7 +53,7 @@ import { BaseTable } from '@rapidset/rapidkit';
 
 ### Opt out
 
-Pass `responsive={false}` to disable all sticky behavior. The table still scrolls horizontally on overflow (provided by the underlying primitive); no columns pin.
+Pass `responsive={false}` to disable all sticky behavior. The table still scrolls horizontally on overflow (provided by BaseTable's scroll container); no columns pin.
 
 ```tsx
 <BaseTable data={rows} columns={columns} responsive={false} />
@@ -102,7 +106,7 @@ Interaction with sticky inference:
 
 ### Known constraint
 
-Sticky positioning resolves against the nearest scrolling ancestor — the shadcn `<Table>` primitive's `overflow-auto` wrapper. If any ancestor in the consuming app sets `overflow: hidden`, sticky cells silently revert to normal scrolling. Keep the wrapper chain free of `overflow-hidden`.
+Sticky positioning resolves against the nearest scrolling ancestor — BaseTable's `flex-1 … overflow-auto` scroll container. If any ancestor in the consuming app sets `overflow: hidden`, sticky cells silently revert to normal scrolling. Keep the wrapper chain free of `overflow-hidden`.
 
 ### Action Menu Highlighting
 

@@ -78,7 +78,8 @@
     "stickyActionsByDefault": "true",
     "responsiveDisabledWhenResponsiveFalse": "true",
     "stickyOverrideRespectsColumnSticky": "true",
-    "showFromSkippedInStickyInference": "true"
+    "showFromSkippedInStickyInference": "true",
+    "verticalScrollInPlaceWhenBounded": "true"
   },
   "accessibility": {
     "headerSelectionCheckboxHasLabel": "true",
