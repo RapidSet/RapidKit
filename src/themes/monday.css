@@ -1,3 +1,11 @@
+/*
+ * Monday theme — aligned to monday.com visual identity per ModayStyle.md.
+ * Surface palette: white canvas, neutral cool-gray sidebar (#f5f6f8),
+ * brand blue (#0073ea). Tight 4px/8px radii, 32px control height, 75ms
+ * snap motion. Yellow (not orange) warnings. Optional --rk-monday-app-strip*
+ * tokens expose the 48px dark launcher chrome described in the spec.
+ */
+
 :root {
   --rk-background: 0 0% 100%;
   --rk-foreground: 228 6% 21%;
@@ -5,109 +13,146 @@
   --rk-card-foreground: 228 6% 21%;
   --rk-popover: 0 0% 100%;
   --rk-popover-foreground: 228 6% 21%;
-  --rk-primary: 212 100% 46%;
+  --rk-primary: 210 100% 46%;
   --rk-primary-foreground: 0 0% 100%;
-  --rk-secondary: 220 28% 96%;
+  --rk-secondary: 220 14% 97%;
   --rk-secondary-foreground: 228 6% 21%;
-  --rk-muted: 220 28% 96%;
+  --rk-muted: 220 14% 97%;
   --rk-muted-foreground: 230 8% 44%;
-  --rk-accent: 276 60% 61%;
-  --rk-accent-foreground: 0 0% 100%;
-  --rk-accent-2: 150 100% 39%;
+  --rk-accent: 220 14% 92%;
+  --rk-accent-foreground: 228 6% 21%;
+  --rk-accent-2: 153 100% 40%;
   --rk-accent-2-foreground: 0 0% 100%;
-  --rk-accent-3: 33 98% 62%;
+  --rk-accent-3: 25 100% 58%;
   --rk-accent-3-foreground: 0 0% 100%;
   --rk-accent-4: 48 100% 50%;
   --rk-accent-4-foreground: 228 6% 21%;
-  --rk-destructive: 351 71% 58%;
+  --rk-destructive: 352 73% 53%;
   --rk-destructive-foreground: 0 0% 100%;
-  --rk-border: 229 16% 87%;
-  --rk-input: 229 16% 87%;
-  --rk-ring: 212 100% 46%;
+  --rk-border: 220 7% 90%;
+  --rk-input: 220 7% 90%;
+  --rk-ring: 210 100% 46%;
   --rk-radius: 0.5rem;
   --rk-font-sans:
-    'Figtree', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    'Figtree', 'Segoe UI', 'Roboto', 'Ubuntu', 'Helvetica Neue', Arial,
+    sans-serif;
   --rk-font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
-  --rk-button-height: 2.5rem;
-  --rk-button-padding-x: 1rem;
-  --rk-button-padding-y: 0.5rem;
-  --rk-button-font-size: 0.875rem;
-  --rk-button-font-weight: 600;
-  --rk-button-letter-spacing: 0.005em;
-  --rk-button-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.08);
-  --rk-button-shadow-hover: 0 6px 14px hsl(212 100% 46% / 0.22);
-  --rk-control-height: 2.5rem;
-  --rk-control-padding-x: 0.75rem;
-  --rk-control-padding-y: 0.5rem;
-  --rk-control-font-size: 0.875rem;
-  --rk-control-border: 229 16% 80%;
-  --rk-control-shadow: 0 1px 2px hsl(var(--rk-foreground) / 0.05);
-  --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.24);
+
+  --rk-button-height: 2rem;
+  --rk-button-padding-x: 0.875rem;
+  --rk-button-padding-y: 0.375rem;
+  --rk-button-font-size: 0.8125rem;
+  --rk-button-font-weight: 500;
+  --rk-button-letter-spacing: 0;
+  --rk-button-shadow: none;
+  --rk-button-shadow-hover: none;
+
+  --rk-control-height: 2rem;
+  --rk-control-padding-x: 0.625rem;
+  --rk-control-padding-y: 0.375rem;
+  --rk-control-font-size: 0.8125rem;
+  --rk-control-border: 220 7% 78%;
+  --rk-control-shadow: none;
+  --rk-control-shadow-focus: 0 0 0 2px hsl(var(--rk-ring) / 0.35);
+
   --rk-checkbox-size: 1rem;
-  --rk-checkbox-radius: 0.25rem;
+  --rk-checkbox-radius: 0.1875rem;
 
-  --rk-shadow-color: 212 100% 30%;
+  --rk-shadow-color: 220 13% 40%;
 
-  --rk-success: 150 100% 35%;
+  --rk-motion-fast: 0ms;
+  --rk-motion-base: 75ms;
+  --rk-motion-slow: 120ms;
+  --rk-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --rk-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+
+  --rk-sidebar-background: 220 14% 97%;
+  --rk-sidebar-foreground: 228 6% 21%;
+  --rk-sidebar-primary: 210 100% 46%;
+  --rk-sidebar-primary-foreground: 0 0% 100%;
+  --rk-sidebar-accent: 220 13% 88%;
+  --rk-sidebar-accent-foreground: 228 6% 21%;
+  --rk-sidebar-border: 220 7% 90%;
+  --rk-sidebar-ring: 210 100% 46%;
+
+  --rk-monday-app-strip: 230 9% 13%;
+  --rk-monday-app-strip-foreground: 0 0% 100%;
+  --rk-monday-app-strip-hover: 230 9% 20%;
+
+  --rk-success: 153 100% 40%;
   --rk-success-foreground: 0 0% 100%;
-  --rk-warning: 33 98% 55%;
-  --rk-warning-foreground: 0 0% 100%;
-  --rk-info: 200 100% 50%;
+  --rk-warning: 48 100% 50%;
+  --rk-warning-foreground: 228 6% 21%;
+  --rk-info: 210 100% 46%;
   --rk-info-foreground: 0 0% 100%;
 
-  --rk-chart-1: 212 100% 46%;
-  --rk-chart-2: 150 100% 39%;
-  --rk-chart-3: 33 98% 62%;
-  --rk-chart-4: 276 60% 61%;
-  --rk-chart-5: 351 71% 58%;
-  --rk-chart-6: 200 100% 50%;
+  --rk-chart-1: 210 100% 46%;
+  --rk-chart-2: 153 100% 40%;
+  --rk-chart-3: 25 100% 58%;
+  --rk-chart-4: 268 65% 60%;
+  --rk-chart-5: 352 73% 53%;
+  --rk-chart-6: 195 80% 50%;
 }
 
 .dark {
-  --rk-background: 232 35% 12%;
-  --rk-foreground: 228 33% 97%;
-  --rk-card: 232 30% 15%;
-  --rk-card-foreground: 228 33% 97%;
-  --rk-popover: 232 30% 15%;
-  --rk-popover-foreground: 228 33% 97%;
-  --rk-primary: 212 100% 65%;
-  --rk-primary-foreground: 232 35% 12%;
-  --rk-secondary: 232 22% 22%;
-  --rk-secondary-foreground: 228 33% 97%;
-  --rk-muted: 232 22% 22%;
-  --rk-muted-foreground: 228 14% 70%;
-  --rk-accent: 276 70% 72%;
-  --rk-accent-foreground: 232 35% 12%;
-  --rk-accent-2: 150 80% 50%;
-  --rk-accent-2-foreground: 232 35% 12%;
-  --rk-accent-3: 33 95% 65%;
-  --rk-accent-3-foreground: 232 35% 12%;
-  --rk-accent-4: 48 100% 60%;
-  --rk-accent-4-foreground: 232 35% 12%;
-  --rk-destructive: 351 65% 55%;
+  --rk-background: 225 9% 11%;
+  --rk-foreground: 220 14% 97%;
+  --rk-card: 225 8% 14%;
+  --rk-card-foreground: 220 14% 97%;
+  --rk-popover: 225 8% 14%;
+  --rk-popover-foreground: 220 14% 97%;
+  --rk-primary: 210 100% 60%;
+  --rk-primary-foreground: 0 0% 100%;
+  --rk-secondary: 225 8% 18%;
+  --rk-secondary-foreground: 220 14% 97%;
+  --rk-muted: 225 8% 18%;
+  --rk-muted-foreground: 225 7% 65%;
+  --rk-accent: 225 8% 22%;
+  --rk-accent-foreground: 220 14% 97%;
+  --rk-accent-2: 153 80% 45%;
+  --rk-accent-2-foreground: 225 9% 11%;
+  --rk-accent-3: 25 95% 60%;
+  --rk-accent-3-foreground: 225 9% 11%;
+  --rk-accent-4: 48 95% 60%;
+  --rk-accent-4-foreground: 225 9% 11%;
+  --rk-destructive: 352 70% 58%;
   --rk-destructive-foreground: 0 0% 100%;
-  --rk-border: 232 18% 26%;
-  --rk-input: 232 18% 26%;
-  --rk-ring: 212 100% 65%;
-  --rk-control-border: 232 18% 32%;
-  --rk-button-shadow: 0 1px 2px hsl(0 0% 0% / 0.4);
-  --rk-button-shadow-hover: 0 8px 18px hsl(212 100% 46% / 0.42);
-  --rk-control-shadow: 0 1px 2px hsl(0 0% 0% / 0.32);
-  --rk-control-shadow-focus: 0 0 0 3px hsl(var(--rk-ring) / 0.32);
+  --rk-border: 225 8% 22%;
+  --rk-input: 225 8% 22%;
+  --rk-ring: 210 100% 60%;
 
-  --rk-shadow-color: 212 100% 40%;
+  --rk-control-border: 225 8% 28%;
+  --rk-control-shadow: none;
+  --rk-control-shadow-focus: 0 0 0 2px hsl(var(--rk-ring) / 0.45);
+  --rk-button-shadow: none;
+  --rk-button-shadow-hover: none;
 
-  --rk-success: 150 75% 45%;
-  --rk-success-foreground: 232 35% 12%;
-  --rk-warning: 33 95% 60%;
-  --rk-warning-foreground: 232 35% 12%;
-  --rk-info: 200 95% 65%;
-  --rk-info-foreground: 232 35% 12%;
+  --rk-shadow-color: 0 0% 0%;
 
-  --rk-chart-1: 212 100% 65%;
-  --rk-chart-2: 150 80% 50%;
-  --rk-chart-3: 33 95% 65%;
-  --rk-chart-4: 276 70% 72%;
-  --rk-chart-5: 351 65% 55%;
-  --rk-chart-6: 200 95% 65%;
+  --rk-sidebar-background: 225 8% 14%;
+  --rk-sidebar-foreground: 220 14% 97%;
+  --rk-sidebar-primary: 210 100% 60%;
+  --rk-sidebar-primary-foreground: 0 0% 100%;
+  --rk-sidebar-accent: 225 8% 22%;
+  --rk-sidebar-accent-foreground: 220 14% 97%;
+  --rk-sidebar-border: 225 8% 20%;
+  --rk-sidebar-ring: 210 100% 60%;
+
+  --rk-monday-app-strip: 0 0% 0%;
+  --rk-monday-app-strip-foreground: 0 0% 100%;
+  --rk-monday-app-strip-hover: 225 8% 14%;
+
+  --rk-success: 153 70% 45%;
+  --rk-success-foreground: 0 0% 100%;
+  --rk-warning: 48 95% 55%;
+  --rk-warning-foreground: 225 9% 11%;
+  --rk-info: 210 100% 60%;
+  --rk-info-foreground: 0 0% 100%;
+
+  --rk-chart-1: 210 100% 60%;
+  --rk-chart-2: 153 70% 50%;
+  --rk-chart-3: 25 95% 60%;
+  --rk-chart-4: 268 65% 70%;
+  --rk-chart-5: 352 70% 58%;
+  --rk-chart-6: 195 80% 60%;
 }

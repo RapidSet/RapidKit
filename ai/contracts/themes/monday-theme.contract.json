@@ -1,7 +1,7 @@
 {
   "id": "monday",
   "displayName": "Monday",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "cssPath": "src/themes/monday.css",
   "modes": ["light", "dark"],
   "tokenPrefix": "--rk-",
@@ -62,6 +62,19 @@
     "chart-4",
     "chart-5",
     "chart-6",
-    "shadow-color"
+    "shadow-color",
+    "sidebar-background",
+    "sidebar-foreground",
+    "sidebar-primary",
+    "sidebar-primary-foreground",
+    "sidebar-accent",
+    "sidebar-accent-foreground",
+    "sidebar-border",
+    "sidebar-ring",
+    "motion-fast",
+    "motion-base",
+    "motion-slow",
+    "ease-standard",
+    "ease-emphasized"
   ]
 }
