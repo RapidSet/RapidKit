@@ -1272,16 +1272,23 @@ function FormPreview(): JSX.Element {
         isSubmitting={isSubmitting}
         successMessage={successMessage}
       >
-        <FormField name="email" label="Email" required>
-          <Input type="email" placeholder="name@company.com" />
-        </FormField>
-        <FormField name="password" label="Password" required>
-          <Input type="password" placeholder="••••••••" />
-        </FormField>
-        <FormField name="remember">
-          <Checkbox title="Remember me on this device" />
-        </FormField>
-        <FormSubmit label={isSubmitting ? 'Signing in…' : 'Sign in'} />
+        <div className="space-y-4">
+          <FormField name="email" label="Email" required>
+            <Input type="email" placeholder="name@company.com" />
+          </FormField>
+          <FormField name="password" label="Password" required>
+            <Input type="password" placeholder="••••••••" />
+          </FormField>
+          <FormField name="remember">
+            <Checkbox title="Remember me on this device" />
+          </FormField>
+        </div>
+        <div className="mt-6">
+          <FormSubmit
+            label={isSubmitting ? 'Signing in…' : 'Sign in'}
+            className="w-full justify-center"
+          />
+        </div>
       </Form>
     </div>
   );
@@ -1346,36 +1353,38 @@ function FormFieldPreview(): JSX.Element {
         </p>
       </header>
       <Form form={form}>
-        <section style={formFieldPreviewSectionStyle}>
-          <span style={formFieldPreviewBadgeStyle}>Element child</span>
-          <FormField name="email" label="Email" required>
-            <Input type="email" placeholder="name@company.com" />
-          </FormField>
-        </section>
-        <div style={formFieldPreviewDividerStyle} />
-        <section style={formFieldPreviewSectionStyle}>
-          <span style={formFieldPreviewBadgeStyle}>Render-prop child</span>
-          <FormField
-            name="bio"
-            label="Bio"
-            helperText="The render-prop receives the full field args object."
-          >
-            {(field) => (
-              <textarea
-                id={field.id}
-                name={field.name}
-                value={String(field.value ?? '')}
-                onChange={(event) =>
-                  form.setFieldValue('bio', event.target.value)
-                }
-                onBlur={field.onBlur}
-                placeholder="Tell us a little about yourself"
-                rows={3}
-                style={renderPropEditorStyle}
-              />
-            )}
-          </FormField>
-        </section>
+        <div className="space-y-5">
+          <section style={formFieldPreviewSectionStyle}>
+            <span style={formFieldPreviewBadgeStyle}>Element child</span>
+            <FormField name="email" label="Email" required>
+              <Input type="email" placeholder="name@company.com" />
+            </FormField>
+          </section>
+          <div style={formFieldPreviewDividerStyle} />
+          <section style={formFieldPreviewSectionStyle}>
+            <span style={formFieldPreviewBadgeStyle}>Render-prop child</span>
+            <FormField
+              name="bio"
+              label="Bio"
+              helperText="The render-prop receives the full field args object."
+            >
+              {(field) => (
+                <textarea
+                  id={field.id}
+                  name={field.name}
+                  value={String(field.value ?? '')}
+                  onChange={(event) =>
+                    form.setFieldValue('bio', event.target.value)
+                  }
+                  onBlur={field.onBlur}
+                  placeholder="Tell us a little about yourself"
+                  rows={3}
+                  style={renderPropEditorStyle}
+                />
+              )}
+            </FormField>
+          </section>
+        </div>
       </Form>
     </div>
   );
@@ -1447,10 +1456,14 @@ function FormSubmitPreview(): JSX.Element {
         </span>
       </label>
       <Form form={form} isSubmitting={simulateSubmitting}>
-        <FormField name="email" label="Email" required>
-          <Input type="email" placeholder="name@company.com" />
-        </FormField>
-        <FormSubmit label="Sign in" />
+        <div className="space-y-4">
+          <FormField name="email" label="Email" required>
+            <Input type="email" placeholder="name@company.com" />
+          </FormField>
+        </div>
+        <div className="mt-6">
+          <FormSubmit label="Sign in" className="w-full justify-center" />
+        </div>
       </Form>
     </div>
   );
@@ -2244,16 +2257,20 @@ function LoginForm() {
       isSubmitting={isSubmitting}
       successMessage={successMessage}
     >
-      <FormField name="email" label="Email" required>
-        <Input type="email" placeholder="name@company.com" />
-      </FormField>
-      <FormField name="password" label="Password" required>
-        <Input type="password" />
-      </FormField>
-      <FormField name="remember">
-        <Checkbox title="Remember me" />
-      </FormField>
-      <FormSubmit label="Sign in" />
+      <div className="space-y-4">
+        <FormField name="email" label="Email" required>
+          <Input type="email" placeholder="name@company.com" />
+        </FormField>
+        <FormField name="password" label="Password" required>
+          <Input type="password" />
+        </FormField>
+        <FormField name="remember">
+          <Checkbox title="Remember me" />
+        </FormField>
+      </div>
+      <div className="mt-6">
+        <FormSubmit label="Sign in" className="w-full justify-center" />
+      </div>
     </Form>
   );
 }`,
@@ -2276,25 +2293,27 @@ function ProfileForm() {
 
   return (
     <Form form={form}>
-      {/* Element child: cloneElement injects bindings */}
-      <FormField name="email" label="Email" required>
-        <Input type="email" placeholder="name@company.com" />
-      </FormField>
+      <div className="space-y-5">
+        {/* Element child: cloneElement injects bindings */}
+        <FormField name="email" label="Email" required>
+          <Input type="email" placeholder="name@company.com" />
+        </FormField>
 
-      {/* Render-prop child: full field args for custom editors */}
-      <FormField name="bio" label="Bio" helperText="Markdown supported">
-        {(field) => (
-          <textarea
-            id={field.id}
-            name={field.name}
-            value={String(field.value ?? '')}
-            onChange={(event) =>
-              form.setFieldValue('bio', event.target.value)
-            }
-            onBlur={field.onBlur}
-          />
-        )}
-      </FormField>
+        {/* Render-prop child: full field args for custom editors */}
+        <FormField name="bio" label="Bio" helperText="Markdown supported">
+          {(field) => (
+            <textarea
+              id={field.id}
+              name={field.name}
+              value={String(field.value ?? '')}
+              onChange={(event) =>
+                form.setFieldValue('bio', event.target.value)
+              }
+              onBlur={field.onBlur}
+            />
+          )}
+        </FormField>
+      </div>
     </Form>
   );
 }`,
@@ -2316,10 +2335,14 @@ function SubmitDemo() {
 
   return (
     <Form form={form} isSubmitting={isSubmitting}>
-      <FormField name="email" label="Email" required>
-        <Input type="email" />
-      </FormField>
-      <FormSubmit label="Sign in" />
+      <div className="space-y-4">
+        <FormField name="email" label="Email" required>
+          <Input type="email" />
+        </FormField>
+      </div>
+      <div className="mt-6">
+        <FormSubmit label="Sign in" className="w-full justify-center" />
+      </div>
     </Form>
   );
 }`,
