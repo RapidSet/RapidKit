@@ -1200,6 +1200,42 @@ function DropDownPreview(): JSX.Element {
   );
 }
 
+const formPreviewCardStyle = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  gap: 20,
+  maxWidth: 440,
+  margin: '0 auto',
+  padding: '28px 28px 32px',
+  borderRadius: 12,
+  border: '1px solid var(--rk-border)',
+  background: 'var(--rk-card)',
+  color: 'var(--rk-card-foreground)',
+  boxShadow:
+    '0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.08)',
+};
+
+const formPreviewHeaderStyle = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  gap: 4,
+};
+
+const formPreviewTitleStyle = {
+  fontSize: 16,
+  fontWeight: 600,
+  lineHeight: 1.3,
+  letterSpacing: '-0.01em',
+  margin: 0,
+};
+
+const formPreviewSubtitleStyle = {
+  fontSize: 13,
+  lineHeight: 1.45,
+  color: 'var(--rk-muted-foreground)',
+  margin: 0,
+};
+
 type FormPreviewValues = {
   email: string;
   password: string;
@@ -1217,14 +1253,20 @@ function FormPreview(): JSX.Element {
     onSubmit: async (values) => {
       setSuccessMessage(undefined);
       setIsSubmitting(true);
-      await new Promise((resolve) => setTimeout(resolve, 600));
+      await new Promise((resolve) => setTimeout(resolve, 700));
       setIsSubmitting(false);
-      setSuccessMessage(`Signed in as ${values.email}`);
+      setSuccessMessage(`Signed in as ${values.email || 'demo@rapidkit.dev'}`);
     },
   });
 
   return (
-    <div style={{ maxWidth: 360 }}>
+    <div style={formPreviewCardStyle}>
+      <header style={formPreviewHeaderStyle}>
+        <h3 style={formPreviewTitleStyle}>Sign in to RapidKit</h3>
+        <p style={formPreviewSubtitleStyle}>
+          Welcome back. Use your work email to continue.
+        </p>
+      </header>
       <Form
         form={form}
         isSubmitting={isSubmitting}
@@ -1237,13 +1279,52 @@ function FormPreview(): JSX.Element {
           <Input type="password" placeholder="••••••••" />
         </FormField>
         <FormField name="remember">
-          <Checkbox title="Remember me" />
+          <Checkbox title="Remember me on this device" />
         </FormField>
         <FormSubmit label={isSubmitting ? 'Signing in…' : 'Sign in'} />
       </Form>
     </div>
   );
 }
+
+const formFieldPreviewSectionStyle = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  gap: 8,
+};
+
+const formFieldPreviewBadgeStyle = {
+  alignSelf: 'flex-start' as const,
+  fontSize: 11,
+  fontWeight: 600,
+  letterSpacing: '0.04em',
+  textTransform: 'uppercase' as const,
+  color: 'var(--rk-muted-foreground)',
+  background: 'var(--rk-muted)',
+  padding: '3px 8px',
+  borderRadius: 999,
+};
+
+const formFieldPreviewDividerStyle = {
+  height: 1,
+  background: 'var(--rk-border)',
+  margin: '4px 0',
+};
+
+const renderPropEditorStyle = {
+  width: '100%',
+  resize: 'vertical' as const,
+  borderRadius: 8,
+  border: '1px solid var(--rk-border)',
+  background: 'var(--rk-background)',
+  color: 'var(--rk-foreground)',
+  padding: '10px 12px',
+  fontFamily: 'inherit',
+  fontSize: 13,
+  lineHeight: 1.5,
+  outline: 'none',
+  minHeight: 84,
+};
 
 type FormFieldPreviewValues = {
   email: string;
@@ -1256,46 +1337,76 @@ function FormFieldPreview(): JSX.Element {
   });
 
   return (
-    <div style={{ maxWidth: 360 }}>
+    <div style={formPreviewCardStyle}>
+      <header style={formPreviewHeaderStyle}>
+        <h3 style={formPreviewTitleStyle}>Two ways to bind a field</h3>
+        <p style={formPreviewSubtitleStyle}>
+          Pass an element child for primitives, or a render-prop for custom
+          editors.
+        </p>
+      </header>
       <Form form={form}>
-        <FormField name="email" label="Email" required>
-          <Input type="email" placeholder="name@company.com" />
-        </FormField>
-        <FormField
-          name="bio"
-          label="Bio"
-          helperText="Render-prop child receives the full field args."
-        >
-          {(field) => (
-            <textarea
-              id={field.id}
-              name={field.name}
-              value={String(field.value ?? '')}
-              onChange={(event) =>
-                form.setFieldValue('bio', event.target.value)
-              }
-              onBlur={field.onBlur}
-              placeholder="Tell us about yourself"
-              rows={3}
-              style={{
-                width: '100%',
-                resize: 'vertical',
-                borderRadius: 6,
-                border: '1px solid var(--rk-border)',
-                background: 'var(--rk-background)',
-                color: 'var(--rk-foreground)',
-                padding: '8px 10px',
-                fontFamily: 'inherit',
-                fontSize: 13,
-                outline: 'none',
-              }}
-            />
-          )}
-        </FormField>
+        <section style={formFieldPreviewSectionStyle}>
+          <span style={formFieldPreviewBadgeStyle}>Element child</span>
+          <FormField name="email" label="Email" required>
+            <Input type="email" placeholder="name@company.com" />
+          </FormField>
+        </section>
+        <div style={formFieldPreviewDividerStyle} />
+        <section style={formFieldPreviewSectionStyle}>
+          <span style={formFieldPreviewBadgeStyle}>Render-prop child</span>
+          <FormField
+            name="bio"
+            label="Bio"
+            helperText="The render-prop receives the full field args object."
+          >
+            {(field) => (
+              <textarea
+                id={field.id}
+                name={field.name}
+                value={String(field.value ?? '')}
+                onChange={(event) =>
+                  form.setFieldValue('bio', event.target.value)
+                }
+                onBlur={field.onBlur}
+                placeholder="Tell us a little about yourself"
+                rows={3}
+                style={renderPropEditorStyle}
+              />
+            )}
+          </FormField>
+        </section>
       </Form>
     </div>
   );
 }
+
+const formSubmitToggleRowStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 12,
+  padding: '10px 12px',
+  borderRadius: 8,
+  border: '1px solid var(--rk-border)',
+  background: 'var(--rk-muted)',
+};
+
+const formSubmitToggleLabelStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+  fontSize: 13,
+  fontWeight: 500,
+  color: 'var(--rk-foreground)',
+  cursor: 'pointer' as const,
+  margin: 0,
+};
+
+const formSubmitToggleHintStyle = {
+  fontSize: 12,
+  color: 'var(--rk-muted-foreground)',
+};
 
 type FormSubmitPreviewValues = {
   email: string;
@@ -1309,29 +1420,31 @@ function FormSubmitPreview(): JSX.Element {
   });
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        maxWidth: 360,
-      }}
-    >
+    <div style={formPreviewCardStyle}>
+      <header style={formPreviewHeaderStyle}>
+        <h3 style={formPreviewTitleStyle}>Submit button with context state</h3>
+        <p style={formPreviewSubtitleStyle}>
+          FormSubmit reads <code>isSubmitting</code> from{' '}
+          <code>&lt;Form&gt;</code> and toggles loading + disabled
+          automatically.
+        </p>
+      </header>
       <label
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          fontSize: 13,
-          color: 'var(--rk-muted-foreground)',
-        }}
+        style={formSubmitToggleRowStyle}
+        htmlFor="form-submit-preview-toggle"
       >
-        <input
-          type="checkbox"
-          checked={simulateSubmitting}
-          onChange={(event) => setSimulateSubmitting(event.target.checked)}
-        />
-        Simulate submitting state
+        <span style={formSubmitToggleLabelStyle}>
+          <input
+            id="form-submit-preview-toggle"
+            type="checkbox"
+            checked={simulateSubmitting}
+            onChange={(event) => setSimulateSubmitting(event.target.checked)}
+          />
+          Simulate submitting state
+        </span>
+        <span style={formSubmitToggleHintStyle}>
+          {simulateSubmitting ? 'on' : 'off'}
+        </span>
       </label>
       <Form form={form} isSubmitting={simulateSubmitting}>
         <FormField name="email" label="Email" required>
