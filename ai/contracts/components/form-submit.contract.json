@@ -1,0 +1,47 @@
+{
+  "component": "FormSubmit",
+  "version": "1.0.0",
+  "source": "src/components/Form",
+  "description": "Button wrapper bound to FormContext. Defaults to type=submit, reads isSubmitting from context, and applies loading/disabled automatically. All other Button props pass through.",
+  "capabilities": {
+    "contextSubmittingAwareness": true,
+    "loadingStateForwarding": true,
+    "disabledStateForwarding": true,
+    "buttonPropPassthrough": true,
+    "iconRendering": true,
+    "accessControl": true
+  },
+  "props": {
+    "type": {
+      "type": "'submit' | 'button'",
+      "required": false,
+      "default": "'submit'"
+    },
+    "disabled": { "type": "boolean", "required": false },
+    "loadingWhenSubmitting": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "disableWhenSubmitting": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "label": { "type": "string", "required": false },
+    "leftIcon": { "type": "LucideIcon", "required": false },
+    "rightIcon": { "type": "LucideIcon", "required": false },
+    "variant": { "type": "ButtonVariant", "required": false },
+    "className": { "type": "string", "required": false },
+    "access": { "type": "ButtonAccessConfig", "required": false },
+    "canAccess": { "type": "ButtonAccessResolver", "required": false }
+  },
+  "states": {
+    "throwsWhenUsedOutsideForm": "true",
+    "loadingWhenContextIsSubmitting": "true",
+    "disabledWhenContextIsSubmitting": "true",
+    "disabledPropOverridesEnabledState": "true",
+    "loadingFlagSuppressedWhenLoadingWhenSubmittingFalse": "true"
+  },
+  "tests": ["src/components/Form/Form.test.tsx"]
+}

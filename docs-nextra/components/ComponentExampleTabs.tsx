@@ -11,6 +11,8 @@ import { Chip } from '../../src/components/Chip';
 import { DatePicker } from '../../src/components/DatePicker';
 import { DetailsCard } from '../../src/components/DetailsCard';
 import { DropDown } from '../../src/components/DropDown';
+import { Form, FormField, FormSubmit } from '../../src/components/Form';
+import { useFormHandlers } from '../../src/hooks/useFormHandlers';
 import { Icon } from '../../src/components/Icon';
 import { Image } from '../../src/components/Image';
 import { Input } from '../../src/components/Input';
@@ -58,6 +60,9 @@ export type ComponentExampleId =
   | 'date-picker'
   | 'details-card'
   | 'drop-down'
+  | 'form'
+  | 'form-field'
+  | 'form-submit'
   | 'icon'
   | 'image'
   | 'logo'
@@ -1195,6 +1200,149 @@ function DropDownPreview(): JSX.Element {
   );
 }
 
+type FormPreviewValues = {
+  email: string;
+  password: string;
+  remember: boolean;
+};
+
+function FormPreview(): JSX.Element {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | undefined>(
+    undefined,
+  );
+
+  const form = useFormHandlers<FormPreviewValues>({
+    initialValues: { email: '', password: '', remember: false },
+    onSubmit: async (values) => {
+      setSuccessMessage(undefined);
+      setIsSubmitting(true);
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      setIsSubmitting(false);
+      setSuccessMessage(`Signed in as ${values.email}`);
+    },
+  });
+
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Form
+        form={form}
+        isSubmitting={isSubmitting}
+        successMessage={successMessage}
+      >
+        <FormField name="email" label="Email" required>
+          <Input type="email" placeholder="name@company.com" />
+        </FormField>
+        <FormField name="password" label="Password" required>
+          <Input type="password" placeholder="••••••••" />
+        </FormField>
+        <FormField name="remember">
+          <Checkbox title="Remember me" />
+        </FormField>
+        <FormSubmit label={isSubmitting ? 'Signing in…' : 'Sign in'} />
+      </Form>
+    </div>
+  );
+}
+
+type FormFieldPreviewValues = {
+  email: string;
+  bio: string;
+};
+
+function FormFieldPreview(): JSX.Element {
+  const form = useFormHandlers<FormFieldPreviewValues>({
+    initialValues: { email: '', bio: '' },
+  });
+
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Form form={form}>
+        <FormField name="email" label="Email" required>
+          <Input type="email" placeholder="name@company.com" />
+        </FormField>
+        <FormField
+          name="bio"
+          label="Bio"
+          helperText="Render-prop child receives the full field args."
+        >
+          {(field) => (
+            <textarea
+              id={field.id}
+              name={field.name}
+              value={String(field.value ?? '')}
+              onChange={(event) =>
+                form.setFieldValue('bio', event.target.value)
+              }
+              onBlur={field.onBlur}
+              placeholder="Tell us about yourself"
+              rows={3}
+              style={{
+                width: '100%',
+                resize: 'vertical',
+                borderRadius: 6,
+                border: '1px solid var(--rk-border)',
+                background: 'var(--rk-background)',
+                color: 'var(--rk-foreground)',
+                padding: '8px 10px',
+                fontFamily: 'inherit',
+                fontSize: 13,
+                outline: 'none',
+              }}
+            />
+          )}
+        </FormField>
+      </Form>
+    </div>
+  );
+}
+
+type FormSubmitPreviewValues = {
+  email: string;
+};
+
+function FormSubmitPreview(): JSX.Element {
+  const [simulateSubmitting, setSimulateSubmitting] = useState(false);
+
+  const form = useFormHandlers<FormSubmitPreviewValues>({
+    initialValues: { email: '' },
+  });
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        maxWidth: 360,
+      }}
+    >
+      <label
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          fontSize: 13,
+          color: 'var(--rk-muted-foreground)',
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={simulateSubmitting}
+          onChange={(event) => setSimulateSubmitting(event.target.checked)}
+        />
+        Simulate submitting state
+      </label>
+      <Form form={form} isSubmitting={simulateSubmitting}>
+        <FormField name="email" label="Email" required>
+          <Input type="email" placeholder="name@company.com" />
+        </FormField>
+        <FormSubmit label="Sign in" />
+      </Form>
+    </div>
+  );
+}
+
 function IconPreview(): JSX.Element {
   return (
     <Icon
@@ -1944,6 +2092,124 @@ interface UserDetails {
   ]}
   onChange={(next) => console.log(next)}
 />;`,
+  },
+  form: {
+    render: FormPreview,
+    code: `import { useState } from 'react';
+import {
+  Form,
+  FormField,
+  FormSubmit,
+  Input,
+  Checkbox,
+  useFormHandlers,
+} from '@rapidset/rapidkit';
+
+type LoginValues = {
+  email: string;
+  password: string;
+  remember: boolean;
+};
+
+function LoginForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string>();
+
+  const form = useFormHandlers<LoginValues>({
+    initialValues: { email: '', password: '', remember: false },
+    onSubmit: async (values) => {
+      setIsSubmitting(true);
+      await api.login(values);
+      setIsSubmitting(false);
+      setSuccessMessage(\`Signed in as \${values.email}\`);
+    },
+  });
+
+  return (
+    <Form
+      form={form}
+      isSubmitting={isSubmitting}
+      successMessage={successMessage}
+    >
+      <FormField name="email" label="Email" required>
+        <Input type="email" placeholder="name@company.com" />
+      </FormField>
+      <FormField name="password" label="Password" required>
+        <Input type="password" />
+      </FormField>
+      <FormField name="remember">
+        <Checkbox title="Remember me" />
+      </FormField>
+      <FormSubmit label="Sign in" />
+    </Form>
+  );
+}`,
+  },
+  'form-field': {
+    render: FormFieldPreview,
+    code: `import {
+  Form,
+  FormField,
+  Input,
+  useFormHandlers,
+} from '@rapidset/rapidkit';
+
+type ProfileValues = { email: string; bio: string };
+
+function ProfileForm() {
+  const form = useFormHandlers<ProfileValues>({
+    initialValues: { email: '', bio: '' },
+  });
+
+  return (
+    <Form form={form}>
+      {/* Element child: cloneElement injects bindings */}
+      <FormField name="email" label="Email" required>
+        <Input type="email" placeholder="name@company.com" />
+      </FormField>
+
+      {/* Render-prop child: full field args for custom editors */}
+      <FormField name="bio" label="Bio" helperText="Markdown supported">
+        {(field) => (
+          <textarea
+            id={field.id}
+            name={field.name}
+            value={String(field.value ?? '')}
+            onChange={(event) =>
+              form.setFieldValue('bio', event.target.value)
+            }
+            onBlur={field.onBlur}
+          />
+        )}
+      </FormField>
+    </Form>
+  );
+}`,
+  },
+  'form-submit': {
+    render: FormSubmitPreview,
+    code: `import { useState } from 'react';
+import {
+  Form,
+  FormField,
+  FormSubmit,
+  Input,
+  useFormHandlers,
+} from '@rapidset/rapidkit';
+
+function SubmitDemo() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const form = useFormHandlers({ initialValues: { email: '' } });
+
+  return (
+    <Form form={form} isSubmitting={isSubmitting}>
+      <FormField name="email" label="Email" required>
+        <Input type="email" />
+      </FormField>
+      <FormSubmit label="Sign in" />
+    </Form>
+  );
+}`,
   },
   icon: {
     render: IconPreview,

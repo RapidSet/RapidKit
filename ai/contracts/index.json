@@ -187,6 +187,51 @@
       ]
     },
     {
+      "name": "Form",
+      "contractPath": "ai/contracts/components/form.contract.json",
+      "sourcePath": "src/components/Form",
+      "capabilities": [
+        "formStateBridging",
+        "submitLifecycle",
+        "submittingStateInjection",
+        "fieldsetDisableWhileSubmitting",
+        "resetOnSuccess",
+        "serverErrorBanner",
+        "successBanner",
+        "contextProvider"
+      ]
+    },
+    {
+      "name": "FormField",
+      "contractPath": "ai/contracts/components/form-field.contract.json",
+      "sourcePath": "src/components/Form",
+      "capabilities": [
+        "contextBasedBinding",
+        "automaticTextOrCheckboxDetection",
+        "explicitFieldKindOverride",
+        "cloneElementBindingInjection",
+        "renderPropChildren",
+        "labelHelperErrorChromeDelegation",
+        "descriptionSlot",
+        "requiredAsteriskForwarding",
+        "deterministicFieldId",
+        "showUntouchedErrorOverride"
+      ]
+    },
+    {
+      "name": "FormSubmit",
+      "contractPath": "ai/contracts/components/form-submit.contract.json",
+      "sourcePath": "src/components/Form",
+      "capabilities": [
+        "contextSubmittingAwareness",
+        "loadingStateForwarding",
+        "disabledStateForwarding",
+        "buttonPropPassthrough",
+        "iconRendering",
+        "accessControl"
+      ]
+    },
+    {
       "name": "TextArea",
       "contractPath": "ai/contracts/components/text-area.contract.json",
       "sourcePath": "src/components/TextArea",
@@ -357,6 +402,24 @@
         "customValidation",
         "submitLifecycle",
         "resetLifecycle"
+      ]
+    },
+    {
+      "name": "useFormMutation",
+      "contractPath": "ai/contracts/hooks/use-form-mutation.contract.json",
+      "sourcePath": "src/hooks/useFormMutation",
+      "capabilities": [
+        "formStateComposition",
+        "rtkMutationBridging",
+        "structuralMutationTyping",
+        "requestTransformation",
+        "fieldErrorMapping",
+        "formErrorMapping",
+        "submittingStateExposure",
+        "successCallback",
+        "errorCallback",
+        "resetOnSuccess",
+        "defaultErrorExtraction"
       ]
     },
     {

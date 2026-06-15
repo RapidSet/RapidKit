@@ -1,0 +1,54 @@
+{
+  "component": "FormField",
+  "version": "1.0.0",
+  "source": "src/components/Form",
+  "description": "Field wrapper that pulls bindings from FormContext by name, auto-detects text vs checkbox shape from value type, and injects bindings + chrome props into a single React element child or invokes a render-prop with a full field-args object.",
+  "capabilities": {
+    "contextBasedBinding": true,
+    "automaticTextOrCheckboxDetection": true,
+    "explicitFieldKindOverride": true,
+    "cloneElementBindingInjection": true,
+    "renderPropChildren": true,
+    "labelHelperErrorChromeDelegation": true,
+    "descriptionSlot": true,
+    "requiredAsteriskForwarding": true,
+    "deterministicFieldId": true,
+    "showUntouchedErrorOverride": true
+  },
+  "props": {
+    "name": { "type": "string", "required": true },
+    "label": { "type": "string", "required": false },
+    "helperText": { "type": "string", "required": false },
+    "description": { "type": "string", "required": false },
+    "infoText": { "type": "string", "required": false },
+    "required": { "type": "boolean", "required": false },
+    "error": { "type": "string", "required": false },
+    "className": { "type": "string", "required": false },
+    "as": {
+      "type": "'text' | 'checkbox' | 'auto'",
+      "required": false,
+      "default": "'auto'"
+    },
+    "showUntouchedError": { "type": "boolean", "required": false },
+    "children": {
+      "type": "ReactNode | (field: FormFieldRenderArgs) => ReactNode",
+      "required": true
+    }
+  },
+  "states": {
+    "throwsWhenUsedOutsideForm": "true",
+    "autoDetectsCheckboxBindingWhenValueIsBoolean": "true",
+    "respectsExplicitAsOverride": "true",
+    "renderPropBranchSkipsCloneElement": "true",
+    "bindingOverridesUserProvidedValueOrChecked": "true",
+    "userChildPropsOverrideChromeDefaults": "true",
+    "errorOverrideTakesPrecedenceOverContextError": "true",
+    "descriptionRenderedAboveChild": "true"
+  },
+  "interaction": {
+    "fieldIdComposedFromFormIdAndName": "true",
+    "showUntouchedErrorFlagsAllErrorsVisibleRegardlessOfTouched": "true",
+    "boundChildReceivesNameValueOnChangeOnBlurErrorOrCheckedOnCheckChange": "true"
+  },
+  "tests": ["src/components/Form/Form.test.tsx"]
+}

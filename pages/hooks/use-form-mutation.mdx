@@ -1,0 +1,80 @@
+# useFormMutation
+
+`useFormMutation` composes [`useFormHandlers`](./use-form-handlers.mdx) with an RTK Query mutation hook. It triggers the mutation on submit, maps server failures back into field or form errors, exposes `isSubmitting`, and surfaces the last response.
+
+The mutation is structurally typed: `useFormMutation` does **not** import `@reduxjs/toolkit/query` at runtime, so the package stays type-only-aware of RTK Query.
+
+## Basic Usage
+
+```tsx
+import {
+  Form,
+  FormField,
+  FormSubmit,
+  Input,
+  useFormMutation,
+} from '@rapidset/rapidkit';
+import { z } from 'zod';
+import { useLoginMutation } from '@/api/auth';
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type LoginValues = z.infer<typeof loginSchema>;
+
+export function LoginPage() {
+  const form = useFormMutation<LoginValues, LoginValues, { token: string }>({
+    initialValues: { email: '', password: '' },
+    schema: loginSchema,
+    mutation: useLoginMutation,
+    mapError: (err) => {
+      const candidate = err as { data?: { fieldErrors?: Record<string, string> } };
+      return { fieldErrors: candidate.data?.fieldErrors };
+    },
+    onSuccess: () => {
+      // navigate, toast, etc.
+    },
+  });
+
+  return (
+    <Form
+      form={form}
+      isSubmitting={form.isSubmitting}
+      serverError={form.serverError}
+    >
+      <FormField name="email" label="Email" required>
+        <Input type="email" />
+      </FormField>
+      <FormField name="password" label="Password" required>
+        <Input type="password" />
+      </FormField>
+      <FormSubmit label="Sign In" />
+    </Form>
+  );
+}
+```
+
+## Options
+
+- All `useFormHandlers` options except `onSubmit` (which the hook owns).
+- `mutation` — pass the RTK Query mutation hook itself (e.g. `useLoginMutation`).
+- `toRequest?: (values) => TArg` — transform values into the mutation argument.
+- `mapError?: (err) => MappedError | string | undefined` — convert server errors to field/form errors.
+- `onSuccess?`, `onError?`, `resetOnSuccess?`.
+
+## Return
+
+Everything `useFormHandlers` returns, plus `isSubmitting`, `serverError`, and `lastResponse`.
+
+## Error Mapping Shapes
+
+```ts
+mapError: (err) => string                                  // → serverError
+mapError: (err) => ({ formError: '...' })                  // → serverError
+mapError: (err) => ({ fieldErrors: { email: 'taken' } })   // → form.errors + touched
+mapError: (err) => undefined                               // → default extractor (err.data.message → err.message → fallback)
+```
+
+See [Form](../components/form.mdx), [FormField](../components/form-field.mdx), [FormSubmit](../components/form-submit.mdx), and [useFormHandlers](./use-form-handlers.mdx).

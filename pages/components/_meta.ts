@@ -35,6 +35,15 @@ export default {
   'drop-down': {
     title: 'DropDown',
   },
+  form: {
+    title: 'Form',
+  },
+  'form-field': {
+    title: 'FormField',
+  },
+  'form-submit': {
+    title: 'FormSubmit',
+  },
   icon: {
     title: 'Icon',
   },

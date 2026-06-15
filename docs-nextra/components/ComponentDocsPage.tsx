@@ -541,6 +541,152 @@ const COMPONENT_DOCS: Record<ComponentExampleId, ComponentDoc> = {
     accessBehavior:
       'Optional access rules let the control stay hidden or visible-but-disabled based on what the current user is allowed to do.',
   },
+  form: {
+    title: 'Form',
+    summary:
+      'Form is a presentational shell that binds a useFormHandlers or useFormMutation result to a native <form>, provides field-binding context to descendant FormField components, and exposes submitting / server error / success slots.',
+    highlights: [
+      'Form-state bridging',
+      'Submit lifecycle and fieldset disable',
+      'Server error and success banners',
+    ],
+    importCode:
+      "import { Form, FormField, FormSubmit } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'form',
+        description:
+          'Accepts the useFormHandlers or useFormMutation result that drives values, errors, and submission.',
+      },
+      {
+        name: 'isSubmitting',
+        description:
+          'Drives the disabled fieldset and submit loading state during async work.',
+      },
+      {
+        name: 'serverError',
+        description:
+          'Renders a form-level error banner when the server returns a non-field error.',
+      },
+      {
+        name: 'successMessage',
+        description:
+          'Renders a form-level success banner after a successful submit.',
+      },
+      {
+        name: 'disableOnSubmit',
+        description:
+          'Wraps children in a disabled fieldset while submitting; defaults to true.',
+      },
+      {
+        name: 'resetOnSuccess',
+        description:
+          'Calls form.resetForm() after a successful submit so the form returns to its initial state.',
+      },
+      {
+        name: 'errorBanner and successBanner',
+        description:
+          'Override the default banner rendering with custom nodes or render functions.',
+      },
+    ],
+    accessibility:
+      'Form renders a native <form> element and ties the submitting state to a real fieldset, so disabled fields stay focusable for screen readers and submit triggers ride the native submit lifecycle.',
+    guidance:
+      'Keep your data fetching outside the form by passing in a useFormHandlers result for local submission or a useFormMutation result for RTK Query integration.',
+  },
+  'form-field': {
+    title: 'FormField',
+    summary:
+      'FormField is a context-aware field wrapper. It reads form state from the enclosing Form, auto-detects text vs checkbox binding from the value type, and either clones a single React element child with bindings + chrome props or invokes a render-prop with a full field-args object.',
+    highlights: [
+      'Context-based binding',
+      'Auto checkbox or text detection',
+      'Element child and render-prop modes',
+    ],
+    importCode: "import { FormField } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'name',
+        description:
+          'Selects which form value, error, and touched state this field reads and writes.',
+      },
+      {
+        name: 'label',
+        description: 'Forwards a visible label to the wrapped input primitive.',
+      },
+      {
+        name: 'required',
+        description:
+          'Forwards the required asterisk and required attribute to the wrapped input.',
+      },
+      {
+        name: 'description',
+        description:
+          'Renders a small descriptive line above the wrapped field.',
+      },
+      {
+        name: 'as',
+        description:
+          'Overrides binding detection; defaults to auto, which selects checkbox for boolean values and text otherwise.',
+      },
+      {
+        name: 'showUntouchedError',
+        description:
+          'Surfaces validation errors before the field has been touched.',
+      },
+      {
+        name: 'children',
+        description:
+          'Accepts either a single React element (clone-injected with bindings) or a render-prop that receives the full field args.',
+      },
+    ],
+    accessibility:
+      'FormField defers all chrome to the wrapped input primitive, so labels, error text, required markers, and helper text stay attached to the underlying control via its existing aria wiring.',
+    guidance:
+      'For text and checkbox inputs use the element-child API; for custom editors (rich text, dropdown libraries) use the render-prop API to bind value / onChange / onBlur / error manually.',
+  },
+  'form-submit': {
+    title: 'FormSubmit',
+    summary:
+      'FormSubmit is a Button wrapper bound to Form context. It defaults to type=submit, reads isSubmitting from context, and applies loading + disabled automatically. Every other Button prop passes through unchanged.',
+    highlights: [
+      'Context-aware submit button',
+      'Automatic loading and disabled forwarding',
+      'Full Button prop passthrough',
+    ],
+    importCode: "import { FormSubmit } from '@rapidset/rapidkit';",
+    keyProps: [
+      {
+        name: 'label',
+        description:
+          'Sets the button text; same as the underlying Button label prop.',
+      },
+      {
+        name: 'loadingWhenSubmitting',
+        description:
+          'Suppresses the built-in spinner when set to false; useful if you render your own.',
+      },
+      {
+        name: 'disableWhenSubmitting',
+        description:
+          'Keeps the button clickable while submitting when set to false.',
+      },
+      {
+        name: 'variant',
+        description:
+          'Forwards the Button variant (Default, Outline, Ghost, etc.) to control visual treatment.',
+      },
+      {
+        name: 'leftIcon and rightIcon',
+        description:
+          'Forwards icon slots to the underlying Button so the submit button can carry leading or trailing icons.',
+      },
+    ],
+    accessibility:
+      'FormSubmit renders a native button with type=submit and forwards aria-disabled / aria-busy state from the Button primitive so screen readers announce the submitting state correctly.',
+    accessBehavior:
+      'Optional access rules from the host application can hide the submit button or keep it visible-but-disabled depending on the resolved policy.',
+  },
   icon: {
     title: 'Icon',
     summary:

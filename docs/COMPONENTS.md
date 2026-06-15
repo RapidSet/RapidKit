@@ -23,6 +23,9 @@ Direct links:
 - https://rapidset.github.io/RapidKit/components/date-picker
 - https://rapidset.github.io/RapidKit/components/details-card
 - https://rapidset.github.io/RapidKit/components/drop-down
+- https://rapidset.github.io/RapidKit/components/form
+- https://rapidset.github.io/RapidKit/components/form-field
+- https://rapidset.github.io/RapidKit/components/form-submit
 - https://rapidset.github.io/RapidKit/components/icon
 - https://rapidset.github.io/RapidKit/components/image
 - https://rapidset.github.io/RapidKit/components/logo

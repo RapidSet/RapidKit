@@ -3,6 +3,9 @@ import {
   Button,
   ButtonVariant,
   Checkbox,
+  Form,
+  FormField,
+  FormSubmit,
   Input,
   Text,
 } from '@rapidset/rapidkit';
@@ -11,11 +14,15 @@ import type { LoginFormProps } from './types';
 
 export function LoginForm({ form, submitMessage }: LoginFormProps) {
   return (
-    <form
+    <Form
+      form={form}
+      successMessage={submitMessage ?? undefined}
+      successBanner={(text) => (
+        <Text as="p" tone="success" className="text-center text-sm">
+          {text}
+        </Text>
+      )}
       className="rounded-xl border border-border bg-card p-6 shadow-sm"
-      onSubmit={(event) => {
-        void form.handleSubmit(event);
-      }}
     >
       <div className="flex items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background">
@@ -56,47 +63,34 @@ export function LoginForm({ form, submitMessage }: LoginFormProps) {
       </div>
 
       <div className="space-y-4">
-        <Input
-          {...form.getTextFieldProps('email')}
-          type="email"
-          label="Work Email"
-          placeholder="name@company.com"
-        />
-        <Input
-          {...form.getTextFieldProps('password')}
-          type="password"
-          label="Password"
-          placeholder="Enter your password"
-        />
+        <FormField name="email" label="Work Email">
+          <Input type="email" placeholder="name@company.com" />
+        </FormField>
+        <FormField name="password" label="Password">
+          <Input type="password" placeholder="Enter your password" />
+        </FormField>
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-3">
-        <Checkbox
-          {...form.getCheckboxFieldProps('remember')}
-          title="Remember me"
-        />
+        <FormField name="remember">
+          <Checkbox title="Remember me" />
+        </FormField>
         <button type="button" className="text-sm font-medium text-primary">
           Forgot password?
         </button>
       </div>
 
       <div className="mt-6 space-y-3">
-        <Button
-          type="submit"
+        <FormSubmit
           variant={ButtonVariant.Primary}
           rightIcon={ArrowRight}
           label="Sign In"
           className="w-full justify-center"
         />
-        {submitMessage ? (
-          <Text as="p" tone="success" className="text-center text-sm">
-            {submitMessage}
-          </Text>
-        ) : null}
         <Text as="p" tone="muted" className="text-center text-sm">
           Need an account? Request an invitation from your workspace admin.
         </Text>
       </div>
-    </form>
+    </Form>
   );
 }

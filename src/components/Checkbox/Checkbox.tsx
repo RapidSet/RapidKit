@@ -25,8 +25,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckBoxProps>(
       canAccess,
       disabled,
       onChange,
+      id,
       ...params
     } = props;
+    const resolvedId = id ?? name;
     const resolvedCanAccess = useAccessResolver(canAccess);
 
     const { canView, canEdit } = resolveCheckboxAccessState(
@@ -41,14 +43,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckBoxProps>(
     const resolvedDisabled = disabled || !canEdit;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      onCheckChange?.(event.target.checked, name);
+      onCheckChange?.(event.target.checked, name ?? '');
       onChange?.(event);
     };
 
     return (
       <div className="space-y-2">
         {label && (
-          <Label className="text-xs text-muted-foreground" htmlFor={name}>
+          <Label className="text-xs text-muted-foreground" htmlFor={resolvedId}>
             {label}
             {required && <span className="text-destructive">*</span>}
           </Label>
@@ -57,7 +59,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckBoxProps>(
           <span className="relative inline-flex items-center justify-center">
             <input
               type="checkbox"
-              id={name}
+              id={resolvedId}
               name={name}
               ref={ref}
               aria-invalid={error ? 'true' : undefined}

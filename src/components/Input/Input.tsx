@@ -27,12 +27,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     canAccess,
     disabled,
     onKeyDown,
+    id,
     ...rest
   } = props;
+  const resolvedId = id ?? name;
   const resolvedCanAccess = useAccessResolver(canAccess);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
+    onChange?.(e);
   };
 
   const { hasViewPermission, hasEditPermission } = resolveInputAccess(
@@ -49,7 +51,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <div className="space-y-2">
       {label && (
-        <Label className="text-xs text-muted-foreground" htmlFor={name}>
+        <Label className="text-xs text-muted-foreground" htmlFor={resolvedId}>
           {label}
           {required && <span className="text-destructive">*</span>}
         </Label>
@@ -57,7 +59,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       <div className="relative">
         <ShadcnInput
           {...rest}
-          id={name}
+          id={resolvedId}
           name={name}
           required={required}
           type={rest.type ?? 'text'}

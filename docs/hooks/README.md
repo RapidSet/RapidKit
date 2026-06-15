@@ -10,6 +10,7 @@ This section contains consumer-facing documentation for public hooks exported fr
 
 - [useDebounce](./use-debounce.md)
 - [useFormHandlers](./use-form-handlers.md)
+- [useFormMutation](./use-form-mutation.md)
 - [useSearchPagination](./use-search-pagination.md)
 
 ## Canonical Imports (AI-Friendly)

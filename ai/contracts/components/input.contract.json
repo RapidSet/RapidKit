@@ -10,7 +10,7 @@
     "keyboardPropagationControl": true
   },
   "props": {
-    "name": { "type": "string", "required": true },
+    "name": { "type": "string", "required": false },
     "value": {
       "type": "string | number",
       "required": false,
@@ -18,8 +18,9 @@
     },
     "onChange": {
       "type": "(e: ChangeEvent<HTMLInputElement>) => void",
-      "required": true
+      "required": false
     },
+    "id": { "type": "string", "required": false },
     "label": { "type": "string", "required": false },
     "required": { "type": "boolean", "required": false },
     "error": { "type": "string", "required": false },

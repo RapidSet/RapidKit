@@ -1,0 +1,74 @@
+{
+  "hook": "useFormMutation",
+  "version": "1.0.0",
+  "source": "src/hooks/useFormMutation",
+  "description": "Composes useFormHandlers with a structurally-typed RTK Query mutation hook. On submit, triggers the mutation, routes server failures into field errors or a form-level serverError, and exposes isSubmitting plus the last response. Does not import concrete @reduxjs/toolkit types at runtime.",
+  "capabilities": {
+    "formStateComposition": true,
+    "rtkMutationBridging": true,
+    "structuralMutationTyping": true,
+    "requestTransformation": true,
+    "fieldErrorMapping": true,
+    "formErrorMapping": true,
+    "submittingStateExposure": true,
+    "successCallback": true,
+    "errorCallback": true,
+    "resetOnSuccess": true,
+    "defaultErrorExtraction": true
+  },
+  "options": {
+    "mutation": {
+      "type": "() => readonly [(arg: TArg) => { unwrap: () => Promise<TResponse> }, { isLoading?: boolean; isError?: boolean; isSuccess?: boolean; error?: unknown; reset?: () => void }]",
+      "required": true
+    },
+    "initialValues": { "type": "TValues", "required": true },
+    "initialErrors": {
+      "type": "Partial<Record<keyof TValues, string>>",
+      "required": false
+    },
+    "initialTouched": {
+      "type": "Partial<Record<keyof TValues, boolean>>",
+      "required": false
+    },
+    "schema": {
+      "type": "FormValidationSchema",
+      "required": false
+    },
+    "validate": {
+      "type": "(values: TValues) => Partial<Record<keyof TValues, string>>",
+      "required": false
+    },
+    "toRequest": {
+      "type": "(values: TValues) => TArg",
+      "required": false
+    },
+    "mapError": {
+      "type": "(error: unknown) => { fieldErrors?: Partial<Record<keyof TValues, string>>; formError?: string } | string | undefined",
+      "required": false
+    },
+    "onSuccess": {
+      "type": "(data: TResponse, values: TValues) => void | Promise<void>",
+      "required": false
+    },
+    "onError": {
+      "type": "(error: unknown) => void",
+      "required": false
+    },
+    "resetOnSuccess": { "type": "boolean", "required": false }
+  },
+  "states": {
+    "isSubmittingMirrorsMutationResultIsLoading": "true",
+    "serverErrorResetAtStartOfSubmit": "true",
+    "schemaFailureSkipsMutation": "true",
+    "fieldErrorsFromMapErrorTouchedFlipped": "true",
+    "stringMapErrorReturnRoutesToServerError": "true",
+    "missingMapErrorFallsBackToDefaultExtractor": "true"
+  },
+  "interaction": {
+    "triggerInvokedWithToRequestResultOrRawValues": "true",
+    "onSuccessReceivesDataAndValues": "true",
+    "resetFormCalledBeforeOnSuccessWhenResetOnSuccess": "true",
+    "defaultExtractorPrefersErrDataMessageThenErrMessageThenGenericString": "true"
+  },
+  "tests": ["src/hooks/useFormMutation/useFormMutation.test.tsx"]
+}

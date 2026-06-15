@@ -1,0 +1,64 @@
+{
+  "component": "Form",
+  "version": "1.0.0",
+  "source": "src/components/Form",
+  "description": "Declarative form shell that wires useFormHandlers state to a native form, provides field-binding context, and exposes submission state, server error, and success message slots.",
+  "capabilities": {
+    "formStateBridging": true,
+    "submitLifecycle": true,
+    "submittingStateInjection": true,
+    "fieldsetDisableWhileSubmitting": true,
+    "resetOnSuccess": true,
+    "serverErrorBanner": true,
+    "successBanner": true,
+    "contextProvider": true
+  },
+  "props": {
+    "form": {
+      "type": "UseFormHandlersReturn<TValues>",
+      "required": true
+    },
+    "children": { "type": "ReactNode", "required": true },
+    "onSubmit": {
+      "type": "(event: FormEvent<HTMLFormElement>) => void | Promise<void>",
+      "required": false
+    },
+    "className": { "type": "string", "required": false },
+    "id": { "type": "string", "required": false },
+    "noValidate": { "type": "boolean", "required": false, "default": "true" },
+    "isSubmitting": { "type": "boolean", "required": false },
+    "disableOnSubmit": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "resetOnSuccess": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "serverError": { "type": "string", "required": false },
+    "successMessage": { "type": "string", "required": false },
+    "errorBanner": {
+      "type": "ReactNode | ((text: string) => ReactNode)",
+      "required": false
+    },
+    "successBanner": {
+      "type": "ReactNode | ((text: string) => ReactNode)",
+      "required": false
+    }
+  },
+  "states": {
+    "fieldsetDisabledWhenIsSubmittingAndDisableOnSubmit": "true",
+    "resetCalledOnlyWhenHandleSubmitReturnsTrue": "true",
+    "defaultErrorBannerRenderedWhenServerErrorProvided": "true",
+    "defaultSuccessBannerRenderedWhenSuccessMessageProvided": "true",
+    "submitDelegatesToUseFormHandlersHandleSubmit": "true"
+  },
+  "interaction": {
+    "submitPreventsDefaultViaUseFormHandlers": "true",
+    "customOnSubmitOverridesDefault": "true",
+    "contextExposesFormStateToFieldDescendants": "true"
+  },
+  "tests": ["src/components/Form/Form.test.tsx"]
+}

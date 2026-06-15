@@ -10,7 +10,8 @@
     "checkedState": true
   },
   "props": {
-    "name": { "type": "string", "required": true },
+    "name": { "type": "string", "required": false },
+    "id": { "type": "string", "required": false },
     "onCheckChange": {
       "type": "(checked: boolean, name: string) => void",
       "required": false

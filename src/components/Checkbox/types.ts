@@ -27,7 +27,7 @@ export interface CheckBoxProps extends Omit<
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   title?: string;
-  name: string;
+  name?: string;
   error?: string;
   helperText?: string;
   required?: boolean;
