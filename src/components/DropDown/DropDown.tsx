@@ -131,7 +131,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
               onChange('');
             }}
             aria-label="Clear selection"
-            className="absolute right-3 top-1/2 inline-flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--rk-control-shadow-focus)]"
+            className="absolute inset-y-0 right-3 my-auto flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--rk-control-shadow-focus)]"
           >
             <X className="h-3.5 w-3.5" />
           </button>

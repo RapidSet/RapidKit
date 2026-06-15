@@ -25,7 +25,7 @@ export function Search(props: Readonly<SearchProps>) {
     <div className={cn('relative w-72', className)}>
       <SearchIcon
         aria-hidden="true"
-        className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+        className="pointer-events-none absolute inset-y-0 left-3 my-auto block h-4 w-4 text-muted-foreground"
       />
       <Input
         type="search"

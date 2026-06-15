@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/experimental-ct-react';
 import type { CSSProperties } from 'react';
 import { Input } from '../../src/components/Input';
 import { DropDown } from '../../src/components/DropDown';
+import { Search } from '../../src/components/Search';
 
 const LIGHT_SURFACE_STYLE = {
   '--rk-background': '0 0% 99%',
@@ -113,6 +114,68 @@ test.describe('Control Border Visibility', () => {
     );
 
     expect(focusedBorder).not.toBe(restingBorder);
+  });
+
+  test('Search icon is vertically centered inside its input', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div style={LIGHT_SURFACE_STYLE}>
+        <Search value="" onChange={() => undefined} placeholder="Search" />
+      </div>,
+    );
+
+    const icon = component.locator('svg').first();
+
+    const offsets = await icon.evaluate((iconNode, inputSelector) => {
+      const inputNode = document.querySelector(inputSelector) as HTMLElement;
+      const i = iconNode.getBoundingClientRect();
+      const f = inputNode.getBoundingClientRect();
+      return {
+        iconCenter: i.top + i.height / 2,
+        fieldCenter: f.top + f.height / 2,
+      };
+    }, 'input');
+
+    expect(Math.abs(offsets.iconCenter - offsets.fieldCenter)).toBeLessThan(1);
+  });
+
+  test('DropDown clear icon is vertically centered inside the trigger', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div style={LIGHT_SURFACE_STYLE}>
+        <div style={{ maxWidth: 320 }}>
+          <DropDown
+            label="Country"
+            value="US"
+            options={[
+              { label: 'United States', value: 'US' },
+              { label: 'Canada', value: 'CA' },
+            ]}
+            onChange={() => undefined}
+          />
+        </div>
+      </div>,
+    );
+
+    const clearButton = component.locator(
+      'button[aria-label="Clear selection"]',
+    );
+
+    const offsets = await clearButton.evaluate((btn, triggerSelector) => {
+      const t = document.querySelector(triggerSelector) as HTMLElement;
+      const b = btn.getBoundingClientRect();
+      const r = t.getBoundingClientRect();
+      return {
+        buttonCenter: b.top + b.height / 2,
+        triggerCenter: r.top + r.height / 2,
+      };
+    }, '[data-slot="select-trigger"]');
+
+    expect(Math.abs(offsets.buttonCenter - offsets.triggerCenter)).toBeLessThan(
+      1,
+    );
   });
 
   test('DropDown trigger border shifts to ring color on focus', async ({
