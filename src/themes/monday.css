@@ -38,7 +38,7 @@
     sans-serif;
   --rk-font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
 
-  --rk-button-height: 2rem;
+  --rk-button-height: 2.5rem;
   --rk-button-padding-x: 0.875rem;
   --rk-button-padding-y: 0.375rem;
   --rk-button-font-size: 0.8125rem;
@@ -47,7 +47,7 @@
   --rk-button-shadow: none;
   --rk-button-shadow-hover: none;
 
-  --rk-control-height: 2rem;
+  --rk-control-height: 2.5rem;
   --rk-control-padding-x: 0.625rem;
   --rk-control-padding-y: 0.375rem;
   --rk-control-font-size: 0.8125rem;
