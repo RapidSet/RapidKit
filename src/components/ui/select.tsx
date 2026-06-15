@@ -41,7 +41,7 @@ function SelectTrigger({
         'ring-1 ring-inset ring-[hsl(var(--rk-control-border))]',
         'px-[var(--rk-control-padding-x)] py-[var(--rk-control-padding-y)] text-[length:var(--rk-control-font-size)]',
         'shadow-[var(--rk-control-shadow)] transition-[background-color,color,border-color,box-shadow] duration-200',
-        'focus:outline-none focus:shadow-[var(--rk-control-shadow-focus)]',
+        'focus:outline-none focus:border-[hsl(var(--rk-ring))] focus:shadow-[var(--rk-control-shadow-focus)]',
         'disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
         className,
       )}

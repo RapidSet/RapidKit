@@ -8,6 +8,7 @@ const LIGHT_SURFACE_STYLE = {
   '--rk-card': '0 0% 99%',
   '--rk-foreground': '220 20% 16%',
   '--rk-control-border': '220 20% 16% / 0.4',
+  '--rk-ring': '210 100% 46%',
 } as CSSProperties;
 
 test.describe('Control Border Visibility', () => {
@@ -80,5 +81,72 @@ test.describe('Control Border Visibility', () => {
     expect(style.borderTopWidth).toBe('1px');
     expect(style.borderTopColor).not.toBe(style.backgroundColor);
     expect(style.boxShadow).not.toBe('none');
+  });
+
+  test('Input border shifts to ring color on focus-visible', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div style={LIGHT_SURFACE_STYLE}>
+        <div style={{ maxWidth: 360 }}>
+          <Input
+            name="email"
+            label="Email"
+            value=""
+            onChange={() => undefined}
+            placeholder="name@company.com"
+          />
+        </div>
+      </div>,
+    );
+
+    const input = component.locator('input[name="email"]');
+
+    const restingBorder = await input.evaluate(
+      (node) => getComputedStyle(node as HTMLInputElement).borderTopColor,
+    );
+
+    await input.focus();
+
+    const focusedBorder = await input.evaluate(
+      (node) => getComputedStyle(node as HTMLInputElement).borderTopColor,
+    );
+
+    expect(focusedBorder).not.toBe(restingBorder);
+  });
+
+  test('DropDown trigger border shifts to ring color on focus', async ({
+    mount,
+  }) => {
+    const component = await mount(
+      <div style={LIGHT_SURFACE_STYLE}>
+        <div style={{ maxWidth: 320 }}>
+          <DropDown
+            label="Country"
+            value=""
+            placeholder="Select country"
+            options={[
+              { label: 'United States', value: 'US' },
+              { label: 'Canada', value: 'CA' },
+            ]}
+            onChange={() => undefined}
+          />
+        </div>
+      </div>,
+    );
+
+    const trigger = component.locator('[data-slot="select-trigger"]');
+
+    const restingBorder = await trigger.evaluate(
+      (node) => getComputedStyle(node as HTMLElement).borderTopColor,
+    );
+
+    await trigger.focus();
+
+    const focusedBorder = await trigger.evaluate(
+      (node) => getComputedStyle(node as HTMLElement).borderTopColor,
+    );
+
+    expect(focusedBorder).not.toBe(restingBorder);
   });
 });

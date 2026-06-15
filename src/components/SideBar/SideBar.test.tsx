@@ -1,4 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Settings } from 'lucide-react';
 import { SideBarAccessProvider } from './access-context';
@@ -26,6 +27,25 @@ describe('SideBar', () => {
 
     expect(screen.getByText('Settings')).toBeTruthy();
     expect(screen.getByText('Alex Doe')).toBeTruthy();
+  });
+
+  it('omits SidebarFooter when no footer or user is provided', () => {
+    const { container }: RenderResult = render(
+      <SideBar menuItems={[{ key: 'home', label: 'Home' }]} />,
+    );
+
+    expect(container.querySelector('[data-sidebar="footer"]')).toBeNull();
+  });
+
+  it('renders SidebarFooter when user is provided', () => {
+    const { container }: RenderResult = render(
+      <SideBar
+        menuItems={[{ key: 'home', label: 'Home' }]}
+        user={{ name: 'Alex Doe', email: 'alex@example.com' }}
+      />,
+    );
+
+    expect(container.querySelector('[data-sidebar="footer"]')).not.toBeNull();
   });
 
   it('returns null when view access is denied', () => {

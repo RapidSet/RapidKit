@@ -6,6 +6,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Defensive: rapidkit's compiled bundle ships its Tailwind v3 preflight as
+ * unlayered rules. In a Tailwind v4 consumer those rules outrank any
+ * @layer utilities, so `mt-*`, `pl-*`, etc. silently no-op against the
+ * preflight's `margin: 0` on headings/paragraphs/lists. These rules live
+ * outside @layer base on purpose — `revert-layer` from inside a layer
+ * cannot escape its own layer. With higher specificity (`:root <tag>`)
+ * than the bare-tag preflight, they win in the unlayered cascade and ask
+ * the engine to fall back to layered rules (consumer utilities, or
+ * Tailwind v4's own layered preflight when no utility is set). */
+:root h1,
+:root h2,
+:root h3,
+:root h4,
+:root h5,
+:root h6,
+:root p,
+:root blockquote,
+:root dl,
+:root dd,
+:root hr,
+:root figure,
+:root pre {
+  margin: revert-layer;
+}
+
+:root ul,
+:root ol,
+:root menu {
+  margin: revert-layer;
+  padding: revert-layer;
+}
+
 @layer base {
   :root {
     --rk-background: var(--background, 0 0% 100%);

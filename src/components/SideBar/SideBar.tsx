@@ -55,6 +55,17 @@ export function SideBar(props: Readonly<SideBarProps>) {
     return null;
   }
 
+  const footerNode =
+    footer ??
+    (user ? (
+      <SideBarUserMenu
+        user={user}
+        actions={userActions}
+        readOnly={!canEdit}
+        canAccess={canAccess}
+      />
+    ) : null);
+
   const composedBody = children ?? (
     <>
       <SidebarHeader className={headerClassName}>
@@ -88,17 +99,9 @@ export function SideBar(props: Readonly<SideBarProps>) {
           </>
         )}
       </SidebarContent>
-      <SidebarFooter className={footerClassName}>
-        {footer ??
-          (user ? (
-            <SideBarUserMenu
-              user={user}
-              actions={userActions}
-              readOnly={!canEdit}
-              canAccess={canAccess}
-            />
-          ) : null)}
-      </SidebarFooter>
+      {footerNode ? (
+        <SidebarFooter className={footerClassName}>{footerNode}</SidebarFooter>
+      ) : null}
       {showRail ? <SidebarRail /> : null}
     </>
   );
