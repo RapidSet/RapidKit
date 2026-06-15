@@ -86,6 +86,7 @@ test.describe('Control Border Visibility', () => {
 
   test('Input border shifts to ring color on focus-visible', async ({
     mount,
+    page,
   }) => {
     const component = await mount(
       <div style={LIGHT_SURFACE_STYLE}>
@@ -107,7 +108,9 @@ test.describe('Control Border Visibility', () => {
       (node) => getComputedStyle(node as HTMLInputElement).borderTopColor,
     );
 
-    await input.focus();
+    // Tab-focus to trigger :focus-visible — programmatic .focus() sets
+    // :focus but NOT :focus-visible in spec-compliant Chromium headless.
+    await page.keyboard.press('Tab');
 
     const focusedBorder = await input.evaluate(
       (node) => getComputedStyle(node as HTMLInputElement).borderTopColor,
@@ -180,6 +183,7 @@ test.describe('Control Border Visibility', () => {
 
   test('DropDown trigger border shifts to ring color on focus', async ({
     mount,
+    page,
   }) => {
     const component = await mount(
       <div style={LIGHT_SURFACE_STYLE}>
@@ -204,7 +208,10 @@ test.describe('Control Border Visibility', () => {
       (node) => getComputedStyle(node as HTMLElement).borderTopColor,
     );
 
-    await trigger.focus();
+    // Tab-focus to trigger :focus — programmatic .focus() in headless
+    // Chromium occasionally misses the focus-style cascade; keyboard
+    // navigation makes it deterministic.
+    await page.keyboard.press('Tab');
 
     const focusedBorder = await trigger.evaluate(
       (node) => getComputedStyle(node as HTMLElement).borderTopColor,
