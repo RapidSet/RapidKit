@@ -28,9 +28,37 @@ import {
 import { useSideBarAccessResolver } from '@components/SideBar/access-hook';
 import type { SideBarNavMenuProps } from '@components/SideBar/types';
 
+const MINIMAL_SUB_CLASSES =
+  'cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent';
+const PILL_SUB_CLASSES =
+  'cursor-pointer rounded-md bg-transparent text-sidebar-foreground/85 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground hover:[&>svg]:stroke-[2.35] active:bg-sidebar-accent/60 data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-semibold hover:data-[active=true]:bg-sidebar-accent';
+
+const MINIMAL_ITEM_CLASSES =
+  'h-9 cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent data-[state=open]:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent';
+const PILL_ITEM_CLASSES =
+  'h-9 cursor-pointer rounded-md bg-transparent text-sidebar-foreground hover:bg-sidebar-accent/55 hover:text-sidebar-accent-foreground hover:[&>svg]:stroke-[2.35] active:bg-sidebar-accent/70 data-[state=open]:bg-sidebar-accent/55 data-[state=open]:hover:bg-sidebar-accent/55 data-[state=open]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-semibold hover:data-[active=true]:bg-sidebar-accent';
+
+const MINIMAL_COLLAPSED_ITEM_CLASSES =
+  'h-9 cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent';
+const PILL_COLLAPSED_ITEM_CLASSES =
+  'h-9 cursor-pointer rounded-md bg-transparent text-sidebar-foreground hover:bg-sidebar-accent/55 hover:text-sidebar-accent-foreground hover:[&>svg]:stroke-[2.35] active:bg-sidebar-accent/70 data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-semibold hover:data-[active=true]:bg-sidebar-accent';
+
 export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
-  const { className, items, access, canAccess, readOnly = false } = props;
+  const {
+    className,
+    items,
+    itemVariant = 'minimal',
+    access,
+    canAccess,
+    readOnly = false,
+  } = props;
   const resolvedCanAccess = useSideBarAccessResolver(canAccess);
+  const isPill = itemVariant === 'pill';
+  const subItemClasses = isPill ? PILL_SUB_CLASSES : MINIMAL_SUB_CLASSES;
+  const itemClasses = isPill ? PILL_ITEM_CLASSES : MINIMAL_ITEM_CLASSES;
+  const collapsedItemClasses = isPill
+    ? PILL_COLLAPSED_ITEM_CLASSES
+    : MINIMAL_COLLAPSED_ITEM_CLASSES;
   const { open } = useSidebar();
   const { canView } = resolveNodeAccessState(access, resolvedCanAccess);
   const defaultExpandedItems = useMemo(() => {
@@ -94,10 +122,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
         <SidebarMenuSubButton
           asChild
           isActive={subItem.isActive}
-          className={cn(
-            'cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent',
-            subItemDisabled && 'opacity-70',
-          )}
+          className={cn(subItemClasses, subItemDisabled && 'opacity-70')}
         >
           <a
             href={subItem.href ?? '#'}
@@ -188,10 +213,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
                 className:
                   'border border-sidebar-border bg-white text-sidebar-foreground shadow-md dark:bg-sidebar dark:text-sidebar-foreground',
               }}
-              className={cn(
-                'h-9 cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent',
-                itemDisabled && 'opacity-70',
-              )}
+              className={cn(collapsedItemClasses, itemDisabled && 'opacity-70')}
             >
               <button
                 type="button"
@@ -234,10 +256,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
             className:
               'border border-sidebar-border bg-white text-sidebar-foreground shadow-md dark:bg-sidebar dark:text-sidebar-foreground',
           }}
-          className={cn(
-            'h-9 cursor-pointer bg-transparent hover:bg-transparent hover:text-sidebar-primary hover:font-medium hover:[&>svg]:stroke-[2.35] active:bg-transparent active:text-sidebar-primary data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent data-[state=open]:text-sidebar-primary data-[active=true]:bg-transparent data-[active=true]:text-sidebar-primary hover:data-[active=true]:bg-transparent',
-            itemDisabled && 'opacity-70',
-          )}
+          className={cn(itemClasses, itemDisabled && 'opacity-70')}
         >
           <a
             href={item.href ?? '#'}

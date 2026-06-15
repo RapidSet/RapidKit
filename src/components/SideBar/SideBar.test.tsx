@@ -105,4 +105,51 @@ describe('SideBar', () => {
 
     expect(screen.getByText('Home')).toBeTruthy();
   });
+
+  it('renders workspace switcher row when workspace prop is provided', () => {
+    render(
+      <SideBar
+        workspace={{ name: 'Acme Inc', subtitle: 'Workspace' }}
+        menuItems={[{ key: 'home', label: 'Home' }]}
+      />,
+    );
+
+    expect(screen.getByText('Acme Inc')).toBeTruthy();
+    expect(screen.getByText('Workspace')).toBeTruthy();
+  });
+
+  it('renders favorites section above main nav when favorites prop is provided', () => {
+    render(
+      <SideBar
+        favorites={{
+          items: [{ key: 'fav-1', label: 'Pinned dashboard', href: '/d/1' }],
+        }}
+        menuItems={[{ key: 'home', label: 'Home' }]}
+      />,
+    );
+
+    expect(screen.getByText('Pinned dashboard')).toBeTruthy();
+    expect(screen.getByText('Favorites')).toBeTruthy();
+  });
+
+  it('omits favorites section when no items are visible', () => {
+    render(
+      <SideBar
+        favorites={{
+          items: [
+            {
+              key: 'gated',
+              label: 'Gated',
+              access: { rules: [{ action: 'read', subject: 'gated' }] },
+            },
+          ],
+        }}
+        canAccess={() => false}
+        menuItems={[{ key: 'home', label: 'Home' }]}
+      />,
+    );
+
+    expect(screen.queryByText('Favorites')).toBeNull();
+    expect(screen.queryByText('Gated')).toBeNull();
+  });
 });

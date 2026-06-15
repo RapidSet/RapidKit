@@ -108,6 +108,16 @@ Tailwind utilities: `bg-accent-2`, `text-accent-2-foreground`, `bg-accent-3`, et
 
 Defaults fall back to `--rk-accent` / `--rk-accent-foreground`, so themes that don't override them render harmlessly. Core primitives don't consume these — consumers opt in via the utility classes. The Monday theme overrides all three with brand greens/oranges/yellows to show what this looks like in practice.
 
+**Sidebar surface**
+
+- `--rk-sidebar-background` + `--rk-sidebar-foreground`
+- `--rk-sidebar-primary` + `--rk-sidebar-primary-foreground`
+- `--rk-sidebar-accent` + `--rk-sidebar-accent-foreground` — hover / selected item background and text
+- `--rk-sidebar-border`
+- `--rk-sidebar-ring`
+
+Set these in a theme to tint the sidebar independently of `--rk-card`. The internal `--sidebar-*` slots that `<SideBar>` renders through read from the `--rk-sidebar-*` family, which themselves default to the equivalent `--rk-card` / `--rk-accent` / `--rk-border` / `--rk-ring` values — themes that don't override the family inherit the card chrome unchanged. The Monday theme uses a mint tint here so the navigation lane reads distinct from the white workspace canvas.
+
 ### Personality Presets
 
 Three themes that exercise the extended token surface to show how different a theme can feel:

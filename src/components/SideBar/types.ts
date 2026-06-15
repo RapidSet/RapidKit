@@ -60,6 +60,35 @@ export interface SideBarUserAction {
   onSelect?: () => void;
 }
 
+export type SideBarItemVariant = 'minimal' | 'pill';
+
+export interface SideBarWorkspaceAction {
+  key: string;
+  label: string;
+  icon?: LucideIcon;
+  disabled?: boolean;
+  access?: SideBarAccessConfig;
+  onSelect?: () => void;
+}
+
+export interface SideBarWorkspace {
+  name: string;
+  subtitle?: string;
+  avatar?: ReactNode;
+  initials?: string;
+  href?: string;
+  onSelect?: () => void;
+  actions?: SideBarWorkspaceAction[];
+  access?: SideBarAccessConfig;
+}
+
+export interface SideBarFavorites {
+  label?: string;
+  items: SideBarMenuItem[];
+  defaultOpen?: boolean;
+  access?: SideBarAccessConfig;
+}
+
 export interface SideBarBrandProps {
   className?: string;
   title?: string;
@@ -71,9 +100,27 @@ export interface SideBarBrandProps {
   readOnly?: boolean;
 }
 
+export interface SideBarWorkspaceSwitchProps {
+  className?: string;
+  workspace: SideBarWorkspace;
+  access?: SideBarAccessConfig;
+  canAccess?: SideBarAccessResolver;
+  readOnly?: boolean;
+}
+
+export interface SideBarFavoritesSectionProps {
+  className?: string;
+  favorites: SideBarFavorites;
+  itemVariant?: SideBarItemVariant;
+  access?: SideBarAccessConfig;
+  canAccess?: SideBarAccessResolver;
+  readOnly?: boolean;
+}
+
 export interface SideBarNavMenuProps {
   className?: string;
   items: SideBarMenuItem[];
+  itemVariant?: SideBarItemVariant;
   access?: SideBarAccessConfig;
   canAccess?: SideBarAccessResolver;
   readOnly?: boolean;
@@ -97,6 +144,9 @@ export interface SideBarProps extends Omit<
   navigation?: ReactNode;
   footer?: ReactNode;
   menuItems?: SideBarMenuItem[];
+  workspace?: SideBarWorkspace;
+  favorites?: SideBarFavorites;
+  itemVariant?: SideBarItemVariant;
   user?: SideBarUserInfo;
   userActions?: SideBarUserAction[];
   showHeaderSeparator?: boolean;
