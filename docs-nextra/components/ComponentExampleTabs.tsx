@@ -1395,16 +1395,14 @@ const formSubmitToggleRowStyle = {
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: 12,
-  padding: '10px 12px',
-  borderRadius: 8,
-  border: '1px solid var(--rk-border)',
-  background: 'var(--rk-muted)',
+  paddingBottom: 16,
+  borderBottom: '1px solid var(--rk-border)',
 };
 
 const formSubmitToggleLabelStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: 8,
+  gap: 10,
   fontSize: 13,
   fontWeight: 500,
   color: 'var(--rk-foreground)',
@@ -1413,7 +1411,10 @@ const formSubmitToggleLabelStyle = {
 };
 
 const formSubmitToggleHintStyle = {
-  fontSize: 12,
+  fontSize: 11,
+  fontWeight: 600,
+  letterSpacing: '0.06em',
+  textTransform: 'uppercase' as const,
   color: 'var(--rk-muted-foreground)',
 };
 
