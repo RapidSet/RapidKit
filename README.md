@@ -57,6 +57,7 @@ These are declared as optional peer dependencies so package managers won't auto-
 - React DOM: 19
 - Tailwind CSS: 4
 - Zod: 4
+- Recharts: 3 (optional, only when using `Chart`)
 - TypeScript declarations included in package output
 
 ## Included Components

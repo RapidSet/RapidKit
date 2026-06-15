@@ -136,12 +136,10 @@ const renderCartesianChart = (
       ? U[]
       : never;
 
-  // Children must be passed as inline JSX siblings (not a single array
-  // expression). Recharts uses React.Children.forEach to discover XAxis,
-  // YAxis, CartesianGrid, Area, etc. and reads positional metadata from
-  // each child; passing an array literal as a single child breaks that
-  // discovery for some children (CartesianGrid + YAxis silently drop out
-  // while Area + XAxis survive).
+  // accessibilityLayer is disabled on each chart root because recharts v3
+  // enables it by default, making the svg focusable with role="application"
+  // inside our role="img" container — invalid ARIA nesting that breaks the
+  // documented accessibility contract.
 
   const isVertical = layout === 'vertical';
 
@@ -189,7 +187,7 @@ const renderCartesianChart = (
 
   if (type === ChartVariant.Line) {
     return (
-      <LineChart data={mutableData} layout={layout}>
+      <LineChart data={mutableData} layout={layout} accessibilityLayer={false}>
         {grid}
         {xAxis}
         {yAxis}
@@ -202,7 +200,7 @@ const renderCartesianChart = (
 
   if (type === ChartVariant.Bar) {
     return (
-      <BarChart data={mutableData} layout={layout}>
+      <BarChart data={mutableData} layout={layout} accessibilityLayer={false}>
         {grid}
         {xAxis}
         {yAxis}
@@ -214,7 +212,7 @@ const renderCartesianChart = (
   }
 
   return (
-    <AreaChart data={mutableData} layout={layout}>
+    <AreaChart data={mutableData} layout={layout} accessibilityLayer={false}>
       {grid}
       {xAxis}
       {yAxis}
@@ -238,7 +236,7 @@ const renderPieChart = (props: ChartPieProps) => {
   } = props;
 
   return (
-    <PieChart>
+    <PieChart accessibilityLayer={false}>
       {showTooltip ? (
         <ChartTooltip
           cursor={false}
