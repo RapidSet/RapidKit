@@ -120,7 +120,7 @@ Set these in a theme to tint the sidebar independently of `--rk-card`. The inter
 
 ### Personality Presets
 
-Three themes that exercise the extended token surface to show how different a theme can feel:
+Four themes that exercise the extended token surface to show how different a theme can feel:
 
 ```tsx
 import '@rapidset/rapidkit/styles.css';
@@ -137,9 +137,15 @@ import '@rapidset/rapidkit/styles.css';
 import '@rapidset/rapidkit/themes/atmospheric.css';
 ```
 
+```tsx
+import '@rapidset/rapidkit/styles.css';
+import '@rapidset/rapidkit/themes/monday.css';
+```
+
 - **brutalist** — `--rk-radius: 0`, `--rk-border-width: 2px`, hard offset shadows, snappy motion.
 - **dense** — `--rk-density: 0.875`, subtle shadows, tuned categorical chart palette, fast motion.
 - **atmospheric** — large radii, tinted diffuse shadows, roomier density, soft easing.
+- **monday** — monday.com Vibe-inspired: brand blue `#0073EA` on a cool-gray `#F6F7FB` canvas, Figtree/Poppins/Inter webfonts auto-loaded, saturated status pills wired into `--rk-accent-2/3/4` (Done green, Working orange, Stuck red), 32 px control rhythm, 100–150 ms motion, soft navy-tinted shadows. Ships an authentic Vibe "Night" mode that swaps the canvas to `#181B34` and keeps brand blue at full saturation.
 
 ## Using Built-In Themes
 

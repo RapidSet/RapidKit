@@ -1,127 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 /*
- * Monday theme — aligned to monday.com visual identity per ModayStyle.md.
- * Surface palette: white canvas, neutral cool-gray sidebar (#f5f6f8),
- * brand blue (#0073ea). Tight 4px/8px radii, 32px control height, 75ms
- * snap motion. Yellow (not orange) warnings. Optional --rk-monday-app-strip*
- * tokens expose the 48px dark launcher chrome described in the spec.
+ * Monday theme — keyed to the monday.com "Vibe" design system. The
+ * Livescreen design-system bundle is the source of truth for token
+ * values: Figtree/Poppins/Inter typography, brand blue #0073EA on a
+ * cool-gray #F6F7FB canvas, bold saturated status pills wired through
+ * --rk-accent-2/3/4 (Done green, Working orange, Stuck red), 32px
+ * control rhythm, 100–150ms motion, navy-tinted soft shadows. Ships
+ * authentic Vibe "Night" mode that swaps canvas to #181B34 surfaces
+ * to #30324E and keeps brand blue at full saturation.
+ *
+ * The optional --rk-monday-app-strip* tokens expose the near-black
+ * 48px launcher chrome on the left side of the monday console.
  */
 
 :root {
-  --rk-background: 0 0% 100%;
-  --rk-foreground: 228 6% 21%;
+  /* surfaces */
+  --rk-background: 230 24% 97%;
+  --rk-foreground: 228 7% 21%;
   --rk-card: 0 0% 100%;
-  --rk-card-foreground: 228 6% 21%;
+  --rk-card-foreground: 228 7% 21%;
   --rk-popover: 0 0% 100%;
-  --rk-popover-foreground: 228 6% 21%;
+  --rk-popover-foreground: 228 7% 21%;
+
+  /* brand */
   --rk-primary: 210 100% 46%;
   --rk-primary-foreground: 0 0% 100%;
-  --rk-secondary: 220 14% 97%;
-  --rk-secondary-foreground: 228 6% 21%;
-  --rk-muted: 220 14% 97%;
+
+  /* secondary / muted / accent neutrals */
+  --rk-secondary: 230 24% 97%;
+  --rk-secondary-foreground: 228 7% 21%;
+  --rk-muted: 230 24% 97%;
   --rk-muted-foreground: 230 8% 44%;
-  --rk-accent: 220 14% 92%;
-  --rk-accent-foreground: 228 6% 21%;
-  --rk-accent-2: 153 100% 40%;
+  --rk-accent: 225 19% 91%;
+  --rk-accent-foreground: 228 7% 21%;
+
+  /* signature status pills */
+  --rk-accent-2: 153 100% 39%;
   --rk-accent-2-foreground: 0 0% 100%;
-  --rk-accent-3: 25 100% 58%;
+  --rk-accent-3: 30 98% 62%;
   --rk-accent-3-foreground: 0 0% 100%;
-  --rk-accent-4: 48 100% 50%;
-  --rk-accent-4-foreground: 228 6% 21%;
-  --rk-destructive: 352 73% 53%;
+  --rk-accent-4: 351 71% 58%;
+  --rk-accent-4-foreground: 0 0% 100%;
+
+  --rk-destructive: 351 71% 58%;
   --rk-destructive-foreground: 0 0% 100%;
-  --rk-border: 220 7% 90%;
-  --rk-input: 220 7% 90%;
+
+  /* borders */
+  --rk-border: 225 24% 85%;
+  --rk-input: 225 24% 85%;
   --rk-ring: 210 100% 46%;
   --rk-radius: 0.5rem;
-  --rk-font-sans:
-    'Figtree', 'Segoe UI', 'Roboto', 'Ubuntu', 'Helvetica Neue', Arial,
-    sans-serif;
-  --rk-font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
 
-  --rk-button-height: 2.5rem;
-  --rk-button-padding-x: 0.875rem;
+  /* typography — Vibe stack */
+  --rk-font-sans:
+    'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --rk-font-mono: 'Inter', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* button shape */
+  --rk-button-height: 2rem;
+  --rk-button-padding-x: 1rem;
   --rk-button-padding-y: 0.375rem;
-  --rk-button-font-size: 0.8125rem;
+  --rk-button-font-size: 0.875rem;
   --rk-button-font-weight: 500;
   --rk-button-letter-spacing: 0;
   --rk-button-shadow: none;
   --rk-button-shadow-hover: none;
 
-  --rk-control-height: 2.5rem;
+  /* control shape */
+  --rk-control-height: 2rem;
   --rk-control-padding-x: 0.625rem;
   --rk-control-padding-y: 0.375rem;
-  --rk-control-font-size: 0.8125rem;
-  --rk-control-border: 220 7% 78%;
+  --rk-control-font-size: 0.875rem;
+  --rk-control-border: 230 13% 80%;
   --rk-control-shadow: none;
   --rk-control-shadow-focus: 0 0 0 2px hsl(var(--rk-ring) / 0.35);
 
   --rk-checkbox-size: 1rem;
   --rk-checkbox-radius: 0.1875rem;
 
-  --rk-shadow-color: 220 13% 12%;
+  /* elevation — navy-tinted, per Vibe */
+  --rk-shadow-color: 225 24% 17%;
 
-  --rk-motion-fast: 0ms;
-  --rk-motion-base: 75ms;
-  --rk-motion-slow: 120ms;
+  /* motion — Vibe's quick & functional 100–150ms range */
+  --rk-motion-fast: 100ms;
+  --rk-motion-base: 150ms;
+  --rk-motion-slow: 200ms;
   --rk-ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --rk-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
 
-  --rk-sidebar-background: 220 14% 97%;
-  --rk-sidebar-foreground: 228 6% 21%;
+  /* sidebar — neutral cool-gray nav lane (Vibe #F5F6F8); brand tint lives in --rk-sidebar-accent */
+  --rk-sidebar-background: 225 18% 97%;
+  --rk-sidebar-foreground: 228 7% 21%;
   --rk-sidebar-primary: 210 100% 46%;
   --rk-sidebar-primary-foreground: 0 0% 100%;
-  --rk-sidebar-accent: 220 13% 88%;
-  --rk-sidebar-accent-foreground: 228 6% 21%;
-  --rk-sidebar-border: 220 7% 90%;
+  --rk-sidebar-accent: 210 100% 92%;
+  --rk-sidebar-accent-foreground: 210 100% 35%;
+  --rk-sidebar-border: 225 24% 85%;
   --rk-sidebar-ring: 210 100% 46%;
 
-  --rk-monday-app-strip: 230 9% 13%;
+  /* monday-only: launcher chrome */
+  --rk-monday-app-strip: 230 14% 13%;
   --rk-monday-app-strip-foreground: 0 0% 100%;
-  --rk-monday-app-strip-hover: 230 9% 20%;
+  --rk-monday-app-strip-hover: 230 14% 20%;
 
-  --rk-success: 153 100% 40%;
+  /* semantic */
+  --rk-success: 153 100% 39%;
   --rk-success-foreground: 0 0% 100%;
-  --rk-warning: 48 100% 50%;
-  --rk-warning-foreground: 228 6% 21%;
+  --rk-warning: 30 98% 62%;
+  --rk-warning-foreground: 228 7% 21%;
   --rk-info: 210 100% 46%;
   --rk-info-foreground: 0 0% 100%;
 
+  /* chart — Vibe content palette: brand, grass, purple, orange, pink, teal */
   --rk-chart-1: 210 100% 46%;
-  --rk-chart-2: 153 100% 40%;
-  --rk-chart-3: 25 100% 58%;
-  --rk-chart-4: 268 65% 60%;
-  --rk-chart-5: 352 73% 53%;
-  --rk-chart-6: 195 80% 50%;
+  --rk-chart-2: 153 100% 39%;
+  --rk-chart-3: 261 56% 56%;
+  --rk-chart-4: 30 98% 62%;
+  --rk-chart-5: 316 100% 68%;
+  --rk-chart-6: 199 100% 70%;
 }
 
 .dark {
-  --rk-background: 225 9% 11%;
-  --rk-foreground: 220 14% 97%;
-  --rk-card: 225 8% 14%;
-  --rk-card-foreground: 220 14% 97%;
-  --rk-popover: 225 8% 14%;
-  --rk-popover-foreground: 220 14% 97%;
-  --rk-primary: 210 100% 60%;
-  --rk-primary-foreground: 0 0% 100%;
-  --rk-secondary: 225 8% 18%;
-  --rk-secondary-foreground: 220 14% 97%;
-  --rk-muted: 225 8% 18%;
-  --rk-muted-foreground: 225 7% 65%;
-  --rk-accent: 225 8% 22%;
-  --rk-accent-foreground: 220 14% 97%;
-  --rk-accent-2: 153 80% 45%;
-  --rk-accent-2-foreground: 225 9% 11%;
-  --rk-accent-3: 25 95% 60%;
-  --rk-accent-3-foreground: 225 9% 11%;
-  --rk-accent-4: 48 95% 60%;
-  --rk-accent-4-foreground: 225 9% 11%;
-  --rk-destructive: 352 70% 58%;
-  --rk-destructive-foreground: 0 0% 100%;
-  --rk-border: 225 8% 22%;
-  --rk-input: 225 8% 22%;
-  --rk-ring: 210 100% 60%;
+  /* surfaces — authentic Vibe "Night" navy */
+  --rk-background: 231 33% 15%;
+  --rk-foreground: 225 14% 85%;
+  --rk-card: 233 22% 25%;
+  --rk-card-foreground: 225 14% 85%;
+  --rk-popover: 233 22% 25%;
+  --rk-popover-foreground: 225 14% 85%;
 
-  --rk-control-border: 225 8% 28%;
+  /* brand stays at full saturation on dark */
+  --rk-primary: 210 100% 46%;
+  --rk-primary-foreground: 0 0% 100%;
+
+  --rk-secondary: 233 16% 31%;
+  --rk-secondary-foreground: 225 14% 85%;
+  --rk-muted: 233 16% 31%;
+  --rk-muted-foreground: 225 10% 62%;
+  --rk-accent: 234 16% 35%;
+  --rk-accent-foreground: 225 14% 85%;
+
+  /* status pills pop harder on dark — full saturation */
+  --rk-accent-2: 153 100% 39%;
+  --rk-accent-2-foreground: 0 0% 100%;
+  --rk-accent-3: 30 98% 62%;
+  --rk-accent-3-foreground: 228 7% 21%;
+  --rk-accent-4: 351 71% 58%;
+  --rk-accent-4-foreground: 0 0% 100%;
+
+  --rk-destructive: 351 71% 58%;
+  --rk-destructive-foreground: 0 0% 100%;
+
+  --rk-border: 234 16% 35%;
+  --rk-input: 234 16% 35%;
+  --rk-ring: 210 100% 46%;
+
+  --rk-control-border: 230 9% 53%;
   --rk-control-shadow: none;
   --rk-control-shadow-focus: 0 0 0 2px hsl(var(--rk-ring) / 0.45);
   --rk-button-shadow: none;
@@ -129,30 +165,31 @@
 
   --rk-shadow-color: 0 0% 0%;
 
-  --rk-sidebar-background: 225 8% 14%;
-  --rk-sidebar-foreground: 220 14% 97%;
-  --rk-sidebar-primary: 210 100% 60%;
+  /* sidebar — slightly lifted from canvas, matches Vibe */
+  --rk-sidebar-background: 232 28% 19%;
+  --rk-sidebar-foreground: 225 14% 85%;
+  --rk-sidebar-primary: 210 100% 46%;
   --rk-sidebar-primary-foreground: 0 0% 100%;
-  --rk-sidebar-accent: 225 8% 22%;
-  --rk-sidebar-accent-foreground: 220 14% 97%;
-  --rk-sidebar-border: 225 8% 20%;
-  --rk-sidebar-ring: 210 100% 60%;
+  --rk-sidebar-accent: 233 22% 30%;
+  --rk-sidebar-accent-foreground: 210 100% 80%;
+  --rk-sidebar-border: 234 16% 28%;
+  --rk-sidebar-ring: 210 100% 46%;
 
   --rk-monday-app-strip: 0 0% 0%;
   --rk-monday-app-strip-foreground: 0 0% 100%;
-  --rk-monday-app-strip-hover: 225 8% 14%;
+  --rk-monday-app-strip-hover: 233 22% 14%;
 
-  --rk-success: 153 70% 45%;
+  --rk-success: 153 100% 39%;
   --rk-success-foreground: 0 0% 100%;
-  --rk-warning: 48 95% 55%;
-  --rk-warning-foreground: 225 9% 11%;
-  --rk-info: 210 100% 60%;
+  --rk-warning: 30 98% 62%;
+  --rk-warning-foreground: 228 7% 21%;
+  --rk-info: 210 100% 46%;
   --rk-info-foreground: 0 0% 100%;
 
   --rk-chart-1: 210 100% 60%;
-  --rk-chart-2: 153 70% 50%;
-  --rk-chart-3: 25 95% 60%;
-  --rk-chart-4: 268 65% 70%;
-  --rk-chart-5: 352 70% 58%;
-  --rk-chart-6: 195 80% 60%;
+  --rk-chart-2: 153 100% 50%;
+  --rk-chart-3: 261 65% 70%;
+  --rk-chart-4: 30 98% 62%;
+  --rk-chart-5: 316 100% 75%;
+  --rk-chart-6: 199 100% 75%;
 }

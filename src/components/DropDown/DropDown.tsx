@@ -124,17 +124,19 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
           </SelectContent>
         </Select>
         {canClear && (
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              onChange('');
-            }}
-            aria-label="Clear selection"
-            className="absolute inset-y-0 right-3 my-auto flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--rk-control-shadow-focus)]"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                onChange('');
+              }}
+              aria-label="Clear selection"
+              className="pointer-events-auto flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--rk-control-shadow-focus)]"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </span>
         )}
       </div>
       {(error || helperText) && (

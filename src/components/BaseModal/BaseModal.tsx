@@ -159,7 +159,7 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
         className={cn('flex max-h-[90vh] w-full flex-col', maxWidth, className)}
       >
         <DialogHeader className="flex-shrink-0">
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               {title && <DialogTitle>{title}</DialogTitle>}
               {description && (
@@ -176,7 +176,7 @@ export function BaseModal(props: Readonly<BaseModalProps>) {
           </div>
         </DialogHeader>
 
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden py-4">
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4">
           {children}
         </div>
 
