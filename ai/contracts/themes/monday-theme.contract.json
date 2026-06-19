@@ -1,7 +1,7 @@
 {
   "id": "monday",
   "displayName": "Monday",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "cssPath": "src/themes/monday.css",
   "modes": ["light", "dark"],
   "tokenPrefix": "--rk-",
