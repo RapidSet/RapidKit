@@ -11,6 +11,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -156,6 +157,7 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
       canViewSubItem(subItem, resolvedCanAccess),
     );
     const hasSubItems = visibleSubItems.length > 0;
+    const action = item.action;
     const isExpanded =
       expandedItems[item.key] ?? defaultExpandedItems[item.key] ?? false;
 
@@ -301,6 +303,29 @@ export function SideBarNavMenu(props: Readonly<SideBarNavMenuProps>) {
             ) : null}
           </a>
         </SidebarMenuButton>
+        {action ? (
+          <SidebarMenuAction
+            showOnHover={(action.showOnHover ?? true) && !action.active}
+            aria-label={action.label}
+            aria-pressed={action.active ?? undefined}
+            title={action.label}
+            disabled={readOnly || action.disabled}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              action.onSelect();
+            }}
+            className={cn(
+              action.active &&
+                'text-sidebar-primary opacity-100 hover:text-sidebar-primary',
+            )}
+          >
+            <action.icon
+              aria-hidden="true"
+              className={cn(action.active && 'fill-current')}
+            />
+          </SidebarMenuAction>
+        ) : null}
         {hasSubItems && open ? (
           <div
             aria-hidden={!isExpanded}

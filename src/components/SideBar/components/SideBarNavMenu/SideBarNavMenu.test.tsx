@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { Star } from 'lucide-react';
 import { Sidebar, SidebarProvider } from '@ui/sidebar';
 import { SideBarNavMenu } from './SideBarNavMenu';
 
@@ -118,6 +119,92 @@ describe('SideBarNavMenu', () => {
 
     const trigger = screen.getByRole('button', { name: 'Settings' });
     expect(trigger.getAttribute('disabled')).not.toBeNull();
+  });
+
+  it('fires a hover action without navigating the row', () => {
+    const onSelect = vi.fn();
+    const onAction = vi.fn();
+
+    renderWithSidebarContext(
+      <SideBarNavMenu
+        items={[
+          {
+            key: 'requests',
+            label: 'Requests',
+            href: '/app/requests',
+            onSelect,
+            action: {
+              key: 'favorite',
+              label: 'Add Requests to favorites',
+              icon: Star,
+              onSelect: onAction,
+            },
+          },
+        ]}
+      />,
+    );
+
+    const actionButton = screen.getByRole('button', {
+      name: 'Add Requests to favorites',
+    });
+    fireEvent.click(actionButton);
+
+    expect(onAction).toHaveBeenCalledTimes(1);
+    expect(onSelect).not.toHaveBeenCalled();
+  });
+
+  it('marks an active action as pressed', () => {
+    renderWithSidebarContext(
+      <SideBarNavMenu
+        items={[
+          {
+            key: 'requests',
+            label: 'Requests',
+            href: '/app/requests',
+            action: {
+              key: 'favorite',
+              label: 'Remove Requests from favorites',
+              icon: Star,
+              active: true,
+              onSelect: vi.fn(),
+            },
+          },
+        ]}
+      />,
+    );
+
+    const actionButton = screen.getByRole('button', {
+      name: 'Remove Requests from favorites',
+    });
+    expect(actionButton.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('disables the action when the row is read only', () => {
+    const onAction = vi.fn();
+
+    renderWithSidebarContext(
+      <SideBarNavMenu
+        readOnly
+        items={[
+          {
+            key: 'requests',
+            label: 'Requests',
+            href: '/app/requests',
+            action: {
+              key: 'favorite',
+              label: 'Add Requests to favorites',
+              icon: Star,
+              onSelect: onAction,
+            },
+          },
+        ]}
+      />,
+    );
+
+    const actionButton = screen.getByRole('button', {
+      name: 'Add Requests to favorites',
+    });
+    expect(actionButton.getAttribute('disabled')).not.toBeNull();
   });
 
   it('allows collapsed submenu item click when access permits', () => {
