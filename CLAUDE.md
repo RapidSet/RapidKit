@@ -116,6 +116,8 @@
 - Use **Playwright CT** only as a targeted browser-confidence layer for interactions that are meaningfully browser-dependent (table selection/sorting, focus management, overlays, portals, layout-sensitive integration). Lives in `tests/ct/*.ct.spec.tsx`.
 - Do not add Playwright CT for simple render checks, prop forwarding, className assertions, or behavior already well-covered by Vitest unless there is demonstrated browser-only regression risk.
 - Avoid matcher assumptions that require additional setup unless that setup is committed (e.g., prefer plain assertions when `jest-dom` is not configured).
+- **CI runs more than `prepublishOnly`.** The `prepublishOnly` gate (`validate:contracts → validate:component-docs → lint → tsc → test → build`) does NOT include `pnpm test:ct`, but `changesets.yml` runs the Playwright CT suite as a separate required job. Before pushing any change that touches a component, run `pnpm test:ct` locally (after `pnpm playwright:install`) so a browser-only regression is caught before CI, not after.
+- The focus-ring assertions in `tests/ct/ControlBorders.ct.spec.tsx` (Input/DropDown border shifts to ring color on focus) are timing- and focus-sensitive and flake intermittently in headless CI. A CT failure on a PR that changed no source (e.g. the auto `chore: version packages` PR) is almost always this flake: re-run the failed job rather than treating it as a regression.
 
 ## Packaging Rules
 
@@ -140,6 +142,9 @@
 - Follow semantic versioning: major = breaking API/behavior; minor = backward-compatible features; patch = backward-compatible fixes.
 - Keep `CHANGELOG.md` up to date for all user-visible changes (Changesets handles this automatically).
 - `.github/workflows/changesets.yml` opens the release PR from `main` and publishes to npm with provenance on merge.
+- **A feature branch carries code + the changeset `.md` only.** Run `pnpm changeset` to author it and commit it with your change. Do NOT bump the version yourself: never run `pnpm version-packages` / `changeset version`, never hand-edit the `version` in `package.json`, and never write the `CHANGELOG.md` entry manually. Those are the automation's job, and pre-doing them means the release PR is never opened and the normal review step is skipped.
+- The flow after merge to `main`: `changesets/action@v1` opens (or updates) a `chore: version packages` PR on the `changeset-release/main` branch that consumes pending changesets, bumps the version, and writes the changelog. Merging THAT PR runs `pnpm release` (`changeset publish`) and publishes to npm. `pnpm version-packages` and `pnpm release` are CI-only commands; do not run them locally.
+- The version bump aggregates every pending changeset, so the published version may be higher than your single changeset implies (e.g. another merged change already queued a bump). Read the `chore: version packages` PR to learn the actual version that will publish.
 
 ## AI-First Contract Workflow
 
