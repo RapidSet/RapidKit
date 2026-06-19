@@ -31,6 +31,25 @@ export interface SideBarMenuSubItem {
   onSelect?: () => void;
 }
 
+export interface SideBarItemAction {
+  key: string;
+  /** Accessible label for the icon-only action (also used as its tooltip). */
+  label: string;
+  icon: LucideIcon;
+  /**
+   * Visually emphasizes the action (e.g. a filled favorite star). Active
+   * actions stay visible at rest; inactive ones reveal on hover/focus.
+   */
+  active?: boolean;
+  disabled?: boolean;
+  /**
+   * Reveal the action only on row hover/focus. Defaults to `true`, except an
+   * `active` action is always shown so its on-state reads at a glance.
+   */
+  showOnHover?: boolean;
+  onSelect: () => void;
+}
+
 export interface SideBarMenuItem {
   key: string;
   label: string;
@@ -43,6 +62,8 @@ export interface SideBarMenuItem {
   access?: SideBarAccessConfig;
   onSelect?: () => void;
   items?: SideBarMenuSubItem[];
+  /** Trailing icon-button revealed on hover (e.g. favorite / unfavorite). */
+  action?: SideBarItemAction;
 }
 
 export interface SideBarUserInfo {
