@@ -246,6 +246,24 @@ describe('DropDown', () => {
     ).toBeNull();
   });
 
+  it('does not show clear control when clearable is false', () => {
+    render(
+      <DropDown
+        value="all"
+        clearable={false}
+        onChange={vi.fn()}
+        options={[
+          { value: 'all', label: 'All tenants' },
+          { value: 'acme', label: 'Acme' },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.queryByRole('button', { name: 'Clear selection' }),
+    ).toBeNull();
+  });
+
   it('inherits canAccess from RapidKitAccessProvider when prop is omitted', () => {
     render(
       <RapidKitAccessProvider canAccess={() => false}>

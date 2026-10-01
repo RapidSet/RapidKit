@@ -27,6 +27,7 @@ import { DropDown } from '@rapidset/rapidkit';
 - `disabled?: boolean`
 - `helperText?: string`
 - `error?: string`
+- `clearable?: boolean` (default `true`) — shows an inline clear (×) button once a value is selected; clearing calls `onChange('')`. Pass `false` when your options already include an explicit empty choice such as `All`.
 - `onOpenChange?: (open: boolean) => void`
 - `access?: DropDownAccessConfig`
 - `canAccess?: DropDownAccessResolver`

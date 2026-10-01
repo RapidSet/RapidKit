@@ -25,6 +25,12 @@ export interface DropDownProps {
   required?: boolean;
   helperText?: string;
   error?: string;
+  /**
+   * Show the inline clear (×) button when a value is selected. Clearing
+   * emits `onChange('')`. Set to `false` when the option list already
+   * models "no selection" as an explicit option (e.g. `All`). Defaults to `true`.
+   */
+  clearable?: boolean;
   onOpenChange?: (open: boolean) => void;
   access?: DropDownAccessConfig;
   canAccess?: DropDownAccessResolver;
