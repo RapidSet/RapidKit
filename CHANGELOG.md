@@ -1,5 +1,11 @@
 # @rapidset/rapidkit
 
+## 0.23.0
+
+### Minor Changes
+
+- 85217ac: DropDown: add an optional `clearable` prop (default `true`) so consumers can hide the inline clear (×) button when their option list already includes an explicit empty choice such as `All`.
+
 ## 0.22.0
 
 ### Minor Changes
