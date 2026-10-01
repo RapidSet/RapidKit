@@ -39,6 +39,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
     access,
     canAccess,
     className,
+    clearable = true,
   } = props;
 
   const resolvedCanAccess = useAccessResolver(canAccess);
@@ -54,7 +55,7 @@ export const DropDown = (props: Readonly<DropDownProps>) => {
 
   const selectedOption = options.find((option) => option.value === value);
   const resolvedDisabled = disabled || !canEdit;
-  const canClear = Boolean(value) && !resolvedDisabled;
+  const canClear = clearable && Boolean(value) && !resolvedDisabled;
 
   return (
     <div className={cn('space-y-2', className)}>

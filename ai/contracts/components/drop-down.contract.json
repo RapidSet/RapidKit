@@ -51,6 +51,11 @@
       "type": "string",
       "required": false
     },
+    "clearable": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
     "onOpenChange": {
       "type": "(open: boolean) => void",
       "required": false
@@ -78,6 +83,9 @@
   "interaction": {
     "onChangeReceivesSelectedValue": "true",
     "onOpenChangeReceivesOpenState": "true",
+    "clearButtonVisibleWhenValueSelectedAndClearable": "true",
+    "clearButtonEmitsEmptyString": "true",
+    "clearButtonHiddenWhenClearableFalse": "true",
     "renderOptionUsedForSelectedAndListItems": "true"
   },
   "tests": ["src/components/DropDown/DropDown.test.tsx"]
